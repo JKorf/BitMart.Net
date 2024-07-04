@@ -1,0 +1,878 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BitMart.Net</name>
+    </assembly>
+    <members>
+        <member name="T:BitMart.Net.BitMartEnvironment">
+            <summary>
+            BitMart environments
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.BitMartEnvironment.RestClientAddress">
+            <summary>
+            Rest API address
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.BitMartEnvironment.SocketClientAddress">
+            <summary>
+            Socket API address
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.BitMartEnvironment.Live">
+            <summary>
+            Live environment
+            </summary>
+        </member>
+        <member name="M:BitMart.Net.BitMartEnvironment.CreateCustom(System.String,System.String,System.String)">
+            <summary>
+            Create a custom environment
+            </summary>
+            <param name="name"></param>
+            <param name="spotRestAddress"></param>
+            <param name="spotSocketStreamsAddress"></param>
+            <returns></returns>
+        </member>
+        <member name="T:BitMart.Net.BitMartExchange">
+            <summary>
+            BitMart exchange information and configuration
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.BitMartExchange.ExchangeName">
+            <summary>
+            Exchange name
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.BitMartExchange.Url">
+            <summary>
+            Url to the main website
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.BitMartExchange.ApiDocsUrl">
+            <summary>
+            Urls to the API documentation
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.BitMartExchange.RateLimiter">
+            <summary>
+            Rate limiter configuration for the BitMart API
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.BitMartRateLimiters">
+            <summary>
+            Rate limiter configuration for the BitMart API
+            </summary>
+        </member>
+        <member name="E:BitMart.Net.BitMartRateLimiters.RateLimitTriggered">
+            <summary>
+            Event for when a rate limit is triggered
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Clients.BitMartRestClient">
+            <inheritdoc cref="T:BitMart.Net.Interfaces.Clients.IBitMartRestClient" />
+        </member>
+        <member name="P:BitMart.Net.Clients.BitMartRestClient.UsdFuturesApi">
+            <inheritdoc />
+        </member>
+        <member name="P:BitMart.Net.Clients.BitMartRestClient.SpotApi">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.BitMartRestClient.#ctor(System.Action{BitMart.Net.Objects.Options.BitMartRestOptions})">
+            <summary>
+            Create a new instance of the BitMartRestClient using provided options
+            </summary>
+            <param name="optionsDelegate">Option configuration delegate</param>
+        </member>
+        <member name="M:BitMart.Net.Clients.BitMartRestClient.#ctor(System.Net.Http.HttpClient,Microsoft.Extensions.Logging.ILoggerFactory,System.Action{BitMart.Net.Objects.Options.BitMartRestOptions})">
+            <summary>
+            Create a new instance of the BitMartRestClient using provided options
+            </summary>
+            <param name="optionsDelegate">Option configuration delegate</param>
+            <param name="loggerFactory">The logger factory</param>
+            <param name="httpClient">Http client for this client</param>
+        </member>
+        <member name="M:BitMart.Net.Clients.BitMartRestClient.SetDefaultOptions(System.Action{BitMart.Net.Objects.Options.BitMartRestOptions})">
+            <summary>
+            Set the default options to be used when creating new clients
+            </summary>
+            <param name="optionsDelegate">Option configuration delegate</param>
+        </member>
+        <member name="M:BitMart.Net.Clients.BitMartRestClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <inheritdoc />
+        </member>
+        <member name="T:BitMart.Net.Clients.BitMartSocketClient">
+            <inheritdoc cref="T:BitMart.Net.Interfaces.Clients.IBitMartSocketClient" />
+        </member>
+        <member name="P:BitMart.Net.Clients.BitMartSocketClient.UsdFuturesApi">
+            <inheritdoc />
+        </member>
+        <member name="P:BitMart.Net.Clients.BitMartSocketClient.SpotApi">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.BitMartSocketClient.#ctor(Microsoft.Extensions.Logging.ILoggerFactory)">
+            <summary>
+            Create a new instance of BitMartSocketClient
+            </summary>
+            <param name="loggerFactory">The logger factory</param>
+        </member>
+        <member name="M:BitMart.Net.Clients.BitMartSocketClient.#ctor(System.Action{BitMart.Net.Objects.Options.BitMartSocketOptions})">
+            <summary>
+            Create a new instance of BitMartSocketClient
+            </summary>
+            <param name="optionsDelegate">Option configuration delegate</param>
+        </member>
+        <member name="M:BitMart.Net.Clients.BitMartSocketClient.#ctor(System.Action{BitMart.Net.Objects.Options.BitMartSocketOptions},Microsoft.Extensions.Logging.ILoggerFactory)">
+            <summary>
+            Create a new instance of BitMartSocketClient
+            </summary>
+            <param name="loggerFactory">The logger factory</param>
+            <param name="optionsDelegate">Option configuration delegate</param>
+        </member>
+        <member name="M:BitMart.Net.Clients.BitMartSocketClient.SetDefaultOptions(System.Action{BitMart.Net.Objects.Options.BitMartSocketOptions})">
+            <summary>
+            Set the default options to be used when creating new clients
+            </summary>
+            <param name="optionsDelegate">Option configuration delegate</param>
+        </member>
+        <member name="M:BitMart.Net.Clients.BitMartSocketClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <inheritdoc />
+        </member>
+        <member name="T:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi">
+            <inheritdoc cref="T:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApi" />
+        </member>
+        <member name="P:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.Account">
+            <inheritdoc />
+        </member>
+        <member name="P:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.ExchangeData">
+            <inheritdoc />
+        </member>
+        <member name="P:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.Trading">
+            <inheritdoc />
+        </member>
+        <member name="P:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.ExchangeName">
+            <inheritdoc />
+        </member>
+        <member name="E:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.OnOrderPlaced">
+            <summary>
+            Event triggered when an order is placed via this client. Only available for Spot orders
+            </summary>
+        </member>
+        <member name="E:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.OnOrderCanceled">
+            <summary>
+            Event triggered when an order is canceled via this client. Note that this does not trigger when using CancelAllOrdersAsync. Only available for Spot orders
+            </summary>
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.CreateAccessor">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.CreateSerializer">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.GetServerTimestampAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.GetTimeSyncInfo">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.GetTimeOffset">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.FormatSymbol(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="P:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.CommonSpotClient">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.GetSymbolName(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount">
+            <inheritdoc />
+        </member>
+        <member name="T:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetServerTimeAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetAssetsAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetSymbolsAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiTrading">
+            <inheritdoc />
+        </member>
+        <member name="T:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi">
+            <summary>
+            Client providing access to the BitMart Spot websocket Api
+            </summary>
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.#ctor(Microsoft.Extensions.Logging.ILogger,BitMart.Net.Objects.Options.BitMartSocketOptions)">
+            <summary>
+            ctor
+            </summary>
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToXXXUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartModel}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.GetAuthenticationRequest(CryptoExchange.Net.Sockets.SocketConnection)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.FormatSymbol(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi">
+            <inheritdoc cref="T:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApi" />
+        </member>
+        <member name="P:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.Account">
+            <inheritdoc />
+        </member>
+        <member name="P:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.ExchangeData">
+            <inheritdoc />
+        </member>
+        <member name="P:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.Trading">
+            <inheritdoc />
+        </member>
+        <member name="P:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.ExchangeName">
+            <inheritdoc />
+        </member>
+        <member name="E:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.OnOrderPlaced">
+            <summary>
+            Event triggered when an order is placed via this client. Only available for Spot orders
+            </summary>
+        </member>
+        <member name="E:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.OnOrderCanceled">
+            <summary>
+            Event triggered when an order is canceled via this client. Note that this does not trigger when using CancelAllOrdersAsync. Only available for Spot orders
+            </summary>
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.GetServerTimestampAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.GetTimeSyncInfo">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.GetTimeOffset">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.FormatSymbol(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="P:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.CommonSpotClient">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.GetSymbolName(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiAccount">
+            <inheritdoc />
+        </member>
+        <member name="T:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiExchangeData">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiExchangeData.GetServerTimeAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading">
+            <inheritdoc />
+        </member>
+        <member name="T:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi">
+            <summary>
+            Client providing access to the BitMart UsdFutures websocket Api
+            </summary>
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.#ctor(Microsoft.Extensions.Logging.ILogger,BitMart.Net.Objects.Options.BitMartSocketOptions)">
+            <summary>
+            ctor
+            </summary>
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToXXXUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartModel}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.GetAuthenticationRequest(CryptoExchange.Net.Sockets.SocketConnection)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.FormatSymbol(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:BitMart.Net.Enums.BitMartEnum">
+            <summary>
+            XXX
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.BitMartEnum.XXX">
+            <summary>
+            XXX
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.ExtensionMethods.BitMartExtensionMethods">
+            <summary>
+            Extension methods specific to using the BitMart API
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Interfaces.Clients.IBitMartRestClient">
+            <summary>
+            Client for accessing the BitMart Rest API. 
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Interfaces.Clients.IBitMartRestClient.UsdFuturesApi">
+            <summary>
+            UsdFutures API endpoints
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Interfaces.Clients.IBitMartRestClient.SpotApi">
+            <summary>
+            Spot API endpoints
+            </summary>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.IBitMartRestClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <summary>
+            Set the API credentials for this client. All Api clients in this client will use the new credentials, regardless of earlier set options.
+            </summary>
+            <param name="credentials">The credentials to set</param>
+        </member>
+        <member name="T:BitMart.Net.Interfaces.Clients.IBitMartSocketClient">
+            <summary>
+            Client for accessing the BitMart websocket API
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Interfaces.Clients.IBitMartSocketClient.UsdFuturesApi">
+            <summary>
+            UsdFutures API endpoints
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Interfaces.Clients.IBitMartSocketClient.SpotApi">
+            <summary>
+            Spot API endpoints
+            </summary>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.IBitMartSocketClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <summary>
+            Set the API credentials for this client. All Api clients in this client will use the new credentials, regardless of earlier set options.
+            </summary>
+            <param name="credentials">The credentials to set</param>
+        </member>
+        <member name="T:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApi">
+            <summary>
+            BitMart Spot API endpoints
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApi.Account">
+            <summary>
+            Endpoints related to account settings, info or actions
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApi.ExchangeData">
+            <summary>
+            Endpoints related to retrieving market and system data
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApi.Trading">
+            <summary>
+            Endpoints related to orders and trades
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApi.CommonSpotClient">
+            <summary>
+            Get the ISpotClient for this client. This is a common interface which allows for some basic operations without knowing any details of the exchange.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiAccount">
+            <summary>
+            BitMart Spot account endpoints. Account endpoints include balance info, withdraw/deposit info and requesting and account settings
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiExchangeData">
+            <summary>
+            BitMart Spot exchange data endpoints. Exchange data includes market data (tickers, order books, etc) and system status.
+            </summary>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiExchangeData.GetServerTimeAsync(System.Threading.CancellationToken)">
+            <summary>
+            
+            <para><a href="XXX" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiExchangeData.GetAssetsAsync(System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
+        <member name="T:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiTrading">
+            <summary>
+            BitMart Spot trading endpoints, placing and managing orders.
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartSocketClientSpotApi">
+            <summary>
+            BitMart Spot streams
+            </summary>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartSocketClientSpotApi.SubscribeToXXXUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartModel}},System.Threading.CancellationToken)">
+            <summary>
+            
+            <para><a href="XXX" /></para>
+            </summary>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="T:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApi">
+            <summary>
+            BitMart UsdFutures API endpoints
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApi.Account">
+            <summary>
+            Endpoints related to account settings, info or actions
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApi.ExchangeData">
+            <summary>
+            Endpoints related to retrieving market and system data
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApi.Trading">
+            <summary>
+            Endpoints related to orders and trades
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApi.CommonSpotClient">
+            <summary>
+            Get the ISpotClient for this client. This is a common interface which allows for some basic operations without knowing any details of the exchange.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiAccount">
+            <summary>
+            BitMart UsdFutures account endpoints. Account endpoints include balance info, withdraw/deposit info and requesting and account settings
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiExchangeData">
+            <summary>
+            BitMart UsdFutures exchange data endpoints. Exchange data includes market data (tickers, order books, etc) and system status.
+            </summary>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiExchangeData.GetServerTimeAsync(System.Threading.CancellationToken)">
+            <summary>
+            
+            <para><a href="XXX" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="T:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading">
+            <summary>
+            BitMart UsdFutures trading endpoints, placing and managing orders.
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi">
+            <summary>
+            BitMart UsdFutures streams
+            </summary>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToXXXUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartModel}},System.Threading.CancellationToken)">
+            <summary>
+            
+            <para><a href="XXX" /></para>
+            </summary>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="T:BitMart.Net.Interfaces.IBitMartOrderBookFactory">
+            <summary>
+            BitMart local order book factory
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Interfaces.IBitMartOrderBookFactory.UsdFutures">
+            <summary>
+            UsdFutures order book factory methods
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Interfaces.IBitMartOrderBookFactory.Spot">
+            <summary>
+            Spot order book factory methods
+            </summary>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.IBitMartOrderBookFactory.CreateUsdFutures(System.String,System.Action{BitMart.Net.Objects.Options.BitMartOrderBookOptions})">
+            <summary>
+            Create a new UsdFutures local order book instance
+            </summary>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.IBitMartOrderBookFactory.CreateSpot(System.String,System.Action{BitMart.Net.Objects.Options.BitMartOrderBookOptions})">
+            <summary>
+            Create a new Spot local order book instance
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Objects.BitMartApiAddresses">
+            <summary>
+            Api addresses
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.BitMartApiAddresses.RestClientAddress">
+            <summary>
+            The address used by the BitMartRestClient for the API
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.BitMartApiAddresses.SocketClientAddress">
+            <summary>
+            The address used by the BitMartSocketClient for the websocket API
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Objects.BitMartApiAddresses.Default">
+            <summary>
+            The default addresses to connect to the BitMart API
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Objects.Models.BitMartAssetWrapper">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartAssetWrapper.Currencies">
+            <summary>
+            Currencies
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Objects.Models.BitMartAsset">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartAsset.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartAsset.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartAsset.WithdrawEnabled">
+            <summary>
+            Withdraw enabled
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartAsset.DepositEnabled">
+            <summary>
+            Deposit enabled
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Objects.Models.BitMartSymbolWrapper">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartSymbolWrapper.Symbols">
+            <summary>
+            Symbols
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Objects.Models.BitMartSymbol">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartSymbol.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartSymbol.SymbolId">
+            <summary>
+            Symbol id
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartSymbol.BaseAsset">
+            <summary>
+            Base asset
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartSymbol.QuoteAsset">
+            <summary>
+            Quote asset
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartSymbol.QuoteIncrement">
+            <summary>
+            Quote increment
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartSymbol.BaseMinQuantity">
+            <summary>
+            Base min quantity
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartSymbol.PriceMinPrecision">
+            <summary>
+            Price min precision
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartSymbol.PriceMaxPrecision">
+            <summary>
+            Price max precision
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartSymbol.Expiration">
+            <summary>
+            Expiration
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartSymbol.MinBuyQuantity">
+            <summary>
+            Min buy quantity
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartSymbol.MinSellQuantity">
+            <summary>
+            Min sell quantity
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartSymbol.TradeStatus">
+            <summary>
+            Trade status
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Objects.Options.BitMartOrderBookOptions">
+            <summary>
+            Options for the BitMart SymbolOrderBook
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Options.BitMartOrderBookOptions.Default">
+            <summary>
+            Default options for new clients
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Options.BitMartOrderBookOptions.Limit">
+            <summary>
+            The top amount of results to keep in sync. If for example limit=10 is used, the order book will contain the 10 best bids and 10 best asks. Leaving this null will sync the full order book
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Options.BitMartOrderBookOptions.InitialDataTimeout">
+            <summary>
+            After how much time we should consider the connection dropped if no data is received for this time after the initial subscriptions
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Objects.Options.BitMartRestOptions">
+            <summary>
+            Options for the BitMartRestClient
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Options.BitMartRestOptions.Default">
+            <summary>
+            Default options for new clients
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Options.BitMartRestOptions.UsdFuturesOptions">
+            <summary>
+            UsdFutures API options
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Options.BitMartRestOptions.SpotOptions">
+            <summary>
+            Spot API options
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Objects.Options.BitMartSocketOptions">
+            <summary>
+            Options for the BitMartSocketClient
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Options.BitMartSocketOptions.Default">
+            <summary>
+            Default options for new clients
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Options.BitMartSocketOptions.UsdFuturesOptions">
+            <summary>
+            UsdFutures API options
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Options.BitMartSocketOptions.SpotOptions">
+            <summary>
+            Spot API options
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Objects.Sockets.Subscriptions.BitMartSubscription`1">
+            <inheritdoc />
+        </member>
+        <member name="P:BitMart.Net.Objects.Sockets.Subscriptions.BitMartSubscription`1.ListenerIdentifiers">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartSubscription`1.GetMessageType(CryptoExchange.Net.Interfaces.IMessageAccessor)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,System.String[],System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}},System.Boolean)">
+            <summary>
+            ctor
+            </summary>
+            <param name="logger"></param>
+            <param name="topics"></param>
+            <param name="handler"></param>
+            <param name="auth"></param>
+        </member>
+        <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartSubscription`1.GetUnsubQuery">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{System.Object})">
+            <inheritdoc />
+        </member>
+        <member name="T:BitMart.Net.SymbolOrderBooks.BitMartOrderBookFactory">
+            <summary>
+            BitMart order book factory
+            </summary>
+        </member>
+        <member name="M:BitMart.Net.SymbolOrderBooks.BitMartOrderBookFactory.#ctor(System.IServiceProvider)">
+            <summary>
+            ctor
+            </summary>
+            <param name="serviceProvider">Service provider for resolving logging and clients</param>
+        </member>
+        <member name="P:BitMart.Net.SymbolOrderBooks.BitMartOrderBookFactory.UsdFutures">
+            <inheritdoc />
+        </member>
+        <member name="P:BitMart.Net.SymbolOrderBooks.BitMartOrderBookFactory.Spot">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.SymbolOrderBooks.BitMartOrderBookFactory.CreateUsdFutures(System.String,System.Action{BitMart.Net.Objects.Options.BitMartOrderBookOptions})">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.SymbolOrderBooks.BitMartOrderBookFactory.CreateSpot(System.String,System.Action{BitMart.Net.Objects.Options.BitMartOrderBookOptions})">
+            <inheritdoc />
+        </member>
+        <member name="T:BitMart.Net.SymbolOrderBooks.BitMartSpotSymbolOrderBook">
+            <summary>
+            Implementation for a synchronized order book. After calling Start the order book will sync itself and keep up to date with new data. It will automatically try to reconnect and resync in case of a lost/interrupted connection.
+            Make sure to check the State property to see if the order book is synced.
+            </summary>
+        </member>
+        <member name="M:BitMart.Net.SymbolOrderBooks.BitMartSpotSymbolOrderBook.#ctor(System.String,System.Action{BitMart.Net.Objects.Options.BitMartOrderBookOptions})">
+            <summary>
+            Create a new order book instance
+            </summary>
+            <param name="symbol">The symbol the order book is for</param>
+            <param name="optionsDelegate">Option configuration delegate</param>
+        </member>
+        <member name="M:BitMart.Net.SymbolOrderBooks.BitMartSpotSymbolOrderBook.#ctor(System.String,System.Action{BitMart.Net.Objects.Options.BitMartOrderBookOptions},Microsoft.Extensions.Logging.ILoggerFactory,BitMart.Net.Interfaces.Clients.IBitMartRestClient,BitMart.Net.Interfaces.Clients.IBitMartSocketClient)">
+            <summary>
+            Create a new order book instance
+            </summary>
+            <param name="symbol">The symbol the order book is for</param>
+            <param name="optionsDelegate">Option configuration delegate</param>
+            <param name="logger">Logger</param>
+            <param name="restClient">Rest client instance</param>
+            <param name="socketClient">Socket client instance</param>
+        </member>
+        <member name="M:BitMart.Net.SymbolOrderBooks.BitMartSpotSymbolOrderBook.DoStartAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.SymbolOrderBooks.BitMartSpotSymbolOrderBook.DoReset">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.SymbolOrderBooks.BitMartSpotSymbolOrderBook.DoResyncAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.SymbolOrderBooks.BitMartSpotSymbolOrderBook.Dispose(System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="T:BitMart.Net.SymbolOrderBooks.BitMartUsdFuturesSymbolOrderBook">
+            <summary>
+            Implementation for a synchronized order book. After calling Start the order book will sync itself and keep up to date with new data. It will automatically try to reconnect and resync in case of a lost/interrupted connection.
+            Make sure to check the State property to see if the order book is synced.
+            </summary>
+        </member>
+        <member name="M:BitMart.Net.SymbolOrderBooks.BitMartUsdFuturesSymbolOrderBook.#ctor(System.String,System.Action{BitMart.Net.Objects.Options.BitMartOrderBookOptions})">
+            <summary>
+            Create a new order book instance
+            </summary>
+            <param name="symbol">The symbol the order book is for</param>
+            <param name="optionsDelegate">Option configuration delegate</param>
+        </member>
+        <member name="M:BitMart.Net.SymbolOrderBooks.BitMartUsdFuturesSymbolOrderBook.#ctor(System.String,System.Action{BitMart.Net.Objects.Options.BitMartOrderBookOptions},Microsoft.Extensions.Logging.ILoggerFactory,BitMart.Net.Interfaces.Clients.IBitMartRestClient,BitMart.Net.Interfaces.Clients.IBitMartSocketClient)">
+            <summary>
+            Create a new order book instance
+            </summary>
+            <param name="symbol">The symbol the order book is for</param>
+            <param name="optionsDelegate">Option configuration delegate</param>
+            <param name="logger">Logger</param>
+            <param name="restClient">Rest client instance</param>
+            <param name="socketClient">Socket client instance</param>
+        </member>
+        <member name="M:BitMart.Net.SymbolOrderBooks.BitMartUsdFuturesSymbolOrderBook.DoStartAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.SymbolOrderBooks.BitMartUsdFuturesSymbolOrderBook.DoReset">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.SymbolOrderBooks.BitMartUsdFuturesSymbolOrderBook.DoResyncAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.SymbolOrderBooks.BitMartUsdFuturesSymbolOrderBook.Dispose(System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="T:CryptoExchange.Net.ExtensionMethods.CryptoClientExtensions">
+            <summary>
+            Extensions for the ICryptoRestClient and ICryptoSocketClient interfaces
+            </summary>
+        </member>
+        <member name="M:CryptoExchange.Net.ExtensionMethods.CryptoClientExtensions.BitMart(CryptoExchange.Net.Interfaces.ICryptoRestClient)">
+            <summary>
+            Get the BitMart REST Api client
+            </summary>
+            <param name="baseClient"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CryptoExchange.Net.ExtensionMethods.CryptoClientExtensions.BitMart(CryptoExchange.Net.Interfaces.ICryptoSocketClient)">
+            <summary>
+            Get the BitMart Websocket Api client
+            </summary>
+            <param name="baseClient"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions">
+            <summary>
+            Extensions for DI
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddBitMart(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{BitMart.Net.Objects.Options.BitMartRestOptions},System.Action{BitMart.Net.Objects.Options.BitMartSocketOptions},System.Nullable{Microsoft.Extensions.DependencyInjection.ServiceLifetime})">
+            <summary>
+            Add the IBitMartRestClient and IBitMartSocketClient to the sevice collection so they can be injected
+            </summary>
+            <param name="services">The service collection</param>
+            <param name="defaultRestOptionsDelegate">Set default options for the rest client</param>
+            <param name="defaultSocketOptionsDelegate">Set default options for the socket client</param>
+            <param name="socketClientLifeTime">The lifetime of the IBitMartSocketClient for the service collection. Defaults to Singleton.</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
