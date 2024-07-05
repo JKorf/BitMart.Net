@@ -222,6 +222,9 @@
         <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetSymbolsAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetSymbolNamesAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetTickerAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -232,6 +235,18 @@
             <inheritdoc />
         </member>
         <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetServerStatusAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetKlinesAsync(System.String,BitMart.Net.Enums.KlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetKlineHistoryAsync(System.String,BitMart.Net.Enums.KlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetTradesAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetOrderBookAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="T:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiTrading">
@@ -344,6 +359,91 @@
         </member>
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.FormatSymbol(System.String,System.String)">
             <inheritdoc />
+        </member>
+        <member name="T:BitMart.Net.Enums.KlineInterval">
+            <summary>
+            Kline interval
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.KlineInterval.OneMinute">
+            <summary>
+            One minute
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.KlineInterval.OneMinutes">
+            <summary>
+            Three minutes
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.KlineInterval.FiveMinutes">
+            <summary>
+            Five minutes
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.KlineInterval.FifteenMinutes">
+            <summary>
+            Fifteen minutes
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.KlineInterval.ThirtyMinutes">
+            <summary>
+            Thirty minutes
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.KlineInterval.FourtyFiveMinutes">
+            <summary>
+            Fourty five minutes
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.KlineInterval.OneHour">
+            <summary>
+            One hour
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.KlineInterval.TwoHours">
+            <summary>
+            Two hours
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.KlineInterval.ThreeHours">
+            <summary>
+            Three hours
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.KlineInterval.FourHours">
+            <summary>
+            Four hours
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.KlineInterval.OneDay">
+            <summary>
+            One day
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.KlineInterval.OneWeek">
+            <summary>
+            One week
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.KlineInterval.OneMonth">
+            <summary>
+            One month
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Enums.OrderSide">
+            <summary>
+            Order side
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.OrderSide.Buy">
+            <summary>
+            Buy
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.OrderSide.Sell">
+            <summary>
+            Sell
+            </summary>
         </member>
         <member name="T:BitMart.Net.Enums.ServiceType">
             <summary>
@@ -544,6 +644,14 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiExchangeData.GetSymbolNamesAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get a list of supported symbol names
+            <para><a href="https://openapi-doc.bitmart.com/en/spot/#get-trading-pairs-list-v1" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiExchangeData.GetTickerAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get price ticker for a symbol
@@ -565,6 +673,49 @@
             Get deposit and withdrawal info for assets
             <para><a href="https://developer-pro.bitmart.com/en/spot/#get-currencies" /></para>
             </summary>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiExchangeData.GetKlinesAsync(System.String,BitMart.Net.Enums.KlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get kline/candlesticks
+            <para><a href="https://openapi-doc.bitmart.com/en/spot/#get-latest-k-line-v3" /></para>
+            </summary>
+            <param name="symbol">The symbol</param>
+            <param name="klineInterval">The interval</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="limit">Max number of results</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiExchangeData.GetKlineHistoryAsync(System.String,BitMart.Net.Enums.KlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get historical klines
+            <para><a href="https://openapi-doc.bitmart.com/en/spot/#get-history-k-line-v3" /></para>
+            </summary>
+            <param name="symbol">The symbol</param>
+            <param name="klineInterval">Kline interval</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="limit">Max number of results</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiExchangeData.GetTradesAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get recent trades
+            <para><a href="https://openapi-doc.bitmart.com/en/spot/#get-recent-trades-v3" /></para>
+            </summary>
+            <param name="symbol">The symbol</param>
+            <param name="limit">Max number of results</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiExchangeData.GetOrderBookAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get the current order book
+            <para><a href="https://openapi-doc.bitmart.com/en/spot/#get-depth-v3" /></para>
+            </summary>
+            <param name="symbol">The symbol</param>
+            <param name="limit">Max number of rows in the book</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
         </member>
         <member name="T:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiTrading">
             <summary>
@@ -925,6 +1076,86 @@
             Address memo
             </summary>
         </member>
+        <member name="T:BitMart.Net.Objects.Models.BitMartKline">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartKline.OpenTime">
+            <summary>
+            Open time
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartKline.OpenPrice">
+            <summary>
+            Open price
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartKline.HighPrice">
+            <summary>
+            High price
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartKline.LowPrice">
+            <summary>
+            Low price
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartKline.ClosePrice">
+            <summary>
+            close price
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartKline.Volume">
+            <summary>
+            Volume in base asset
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartKline.QuoteVolume">
+            <summary>
+            Volume in quote asset
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Objects.Models.BitMartOrderBook">
+            <summary>
+            Order book
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartOrderBook.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartOrderBook.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartOrderBook.Asks">
+            <summary>
+            Asks
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartOrderBook.Bids">
+            <summary>
+            Bids
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Objects.Models.BitMartOrderBookEntry">
+            <summary>
+            Order book entry
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartOrderBookEntry.Price">
+            <summary>
+            Price
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartOrderBookEntry.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
         <member name="P:BitMart.Net.Objects.Models.BitMartSpotBalanceWrapper.Wallet">
             <summary>
             Wallet
@@ -1128,6 +1359,36 @@
         <member name="P:BitMart.Net.Objects.Models.BitMartTicker.Timestamp">
             <summary>
             Timestamp
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Objects.Models.BitMartTrade">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartTrade.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartTrade.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartTrade.Price">
+            <summary>
+            Price
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartTrade.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartTrade.Side">
+            <summary>
+            Side
             </summary>
         </member>
         <member name="T:BitMart.Net.Objects.Models.BitMartWithdrawalQuota">

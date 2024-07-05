@@ -8,6 +8,7 @@ using CryptoExchange.Net.Objects;
 using Microsoft.Extensions.Logging;
 using BitMart.Net.Interfaces.Clients.SpotApi;
 using BitMart.Net.Objects.Models;
+using BitMart.Net.Enums;
 
 namespace BitMart.Net.Clients.SpotApi
 {
@@ -44,8 +45,6 @@ namespace BitMart.Net.Clients.SpotApi
             return result.As<IEnumerable<BitMartAsset>>(result.Data?.Currencies);
         }
 
-
-
         /// <inheritdoc />
         public async Task<WebCallResult<IEnumerable<BitMartSymbol>>> GetSymbolsAsync(CancellationToken ct = default)
         {
@@ -54,6 +53,16 @@ namespace BitMart.Net.Clients.SpotApi
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/v1/symbols/details", BitMartExchange.RateLimiter.BitMart, 1);
             var result = await _baseClient.SendAsync<BitMartSymbolWrapper>(request, parameters, ct).ConfigureAwait(false);
             return result.As<IEnumerable<BitMartSymbol>>(result.Data?.Symbols);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<string>>> GetSymbolNamesAsync(CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/v1/symbols", BitMartExchange.RateLimiter.BitMart, 1);
+            var result = await _baseClient.SendAsync<BitMartSymbolNamesWrapper>(request, parameters, ct).ConfigureAwait(false);
+            return result.As<IEnumerable<string>>(result.Data?.Symbols);
         }
 
         /// <inheritdoc />
@@ -93,5 +102,54 @@ namespace BitMart.Net.Clients.SpotApi
             return result.As<IEnumerable<BitMartStatus>>(result.Data?.Service);
         }
 
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<BitMartKline>>> GetKlinesAsync(string symbol, KlineInterval klineInterval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptionalMillisecondsString("after", startTime);
+            parameters.AddOptionalMillisecondsString("before", endTime);
+            parameters.AddOptional("limit", limit);
+            parameters.Add("symbol", symbol);
+            parameters.AddEnum("step", klineInterval);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/quotation/v3/lite-klines", BitMartExchange.RateLimiter.BitMart, 1, false);
+            var result = await _baseClient.SendAsync<IEnumerable<BitMartKline>>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<BitMartKline>>> GetKlineHistoryAsync(string symbol, KlineInterval klineInterval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptionalMillisecondsString("after", startTime);
+            parameters.AddOptionalMillisecondsString("before", endTime);
+            parameters.AddOptional("limit", limit);
+            parameters.Add("symbol", symbol);
+            parameters.AddEnum("step", klineInterval);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/quotation/v3/klines", BitMartExchange.RateLimiter.BitMart, 1, false);
+            var result = await _baseClient.SendAsync<IEnumerable<BitMartKline>>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<BitMartTrade>>> GetTradesAsync(string symbol, int? limit = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptional("limit", limit);
+            parameters.Add("symbol", symbol);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/quotation/v3/trades", BitMartExchange.RateLimiter.BitMart, 1, false);
+            var result = await _baseClient.SendAsync<IEnumerable<BitMartTrade>>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<BitMartOrderBook>> GetOrderBookAsync(string symbol, int? limit = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptional("limit", limit);
+            parameters.Add("symbol", symbol);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/quotation/v3/books", BitMartExchange.RateLimiter.BitMart, 1, false);
+            var result = await _baseClient.SendAsync<BitMartOrderBook>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
     }
 }

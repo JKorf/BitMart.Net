@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using BitMart.Net.Clients;
 using BitMart.Net.Objects;
 using System.Linq;
+using BitMart.Net.Enums;
 
 namespace BitMart.Net.UnitTests
 {
@@ -41,6 +42,10 @@ namespace BitMart.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetTickerAsync("123"), "GetTicker", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetAssetDepositWithdrawInfoAsync(), "GetAssetDepositWithdrawInfo", nestedJsonProperty: "data.currencies");
             await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetServerStatusAsync(), "GetServerStatus", nestedJsonProperty: "data.service");
+            await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetKlinesAsync("123", KlineInterval.OneDay), "GetKlines", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetKlineHistoryAsync("123", KlineInterval.OneDay), "GetKlineHistory", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetTradesAsync("123"), "GetTrades", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetOrderBookAsync("123", 5), "GetOrderBook", nestedJsonProperty: "data");
         }
 
         private bool IsAuthenticated(WebCallResult result)

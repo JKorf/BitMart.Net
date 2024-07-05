@@ -1,0 +1,17 @@
+GET
+/spot/quotation/v3/trades
+false
+{
+  "code": 1000,
+  "trace":"886fb6ae-456b-4654-b4e0-1231",
+  "message": "success",
+  "data": [
+    [
+      "BMX_ETH", 
+      "1691743270994", 
+      "1.00000000", 
+      "1.0", 
+      "sell" 
+    ]
+  ]
+}
