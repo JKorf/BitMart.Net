@@ -1,0 +1,18 @@
+GET
+/spot/v1/wallet
+true
+{
+  "code": 1000,
+  "trace":"886fb6ae-456b-4654-b4e0-d681ac05cea1",
+  "message": "OK",
+  "data": {
+    "wallet": [
+         {
+              "id": "BTC",
+              "available": "10.000000",
+              "name": "Bitcoin",
+              "frozen": "10.000000"
+          }
+    ]
+  }
+}

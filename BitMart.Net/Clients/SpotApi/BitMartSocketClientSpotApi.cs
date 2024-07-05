@@ -13,6 +13,7 @@ using BitMart.Net.Interfaces.Clients.SpotApi;
 using BitMart.Net.Objects.Models;
 using BitMart.Net.Objects.Options;
 using BitMart.Net.Objects.Sockets.Subscriptions;
+using BitMart.Net.Objects;
 
 namespace BitMart.Net.Clients.SpotApi
 {
@@ -38,7 +39,7 @@ namespace BitMart.Net.Clients.SpotApi
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
-            => new BitMartAuthenticationProvider(credentials);
+            => new BitMartAuthenticationProvider((BitMartApiCredentials)credentials);
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToXXXUpdatesAsync(Action<DataEvent<BitMartModel>> onMessage, CancellationToken ct = default)

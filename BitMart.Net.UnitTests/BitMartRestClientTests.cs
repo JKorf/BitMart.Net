@@ -5,6 +5,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using System.Net.Http;
 using BitMart.Net.Clients;
+using BitMart.Net.Objects;
 
 namespace BitMart.Net.UnitTests
 {
@@ -14,7 +15,7 @@ namespace BitMart.Net.UnitTests
         [Test]
         public void CheckSignatureExample1()
         {
-            var authProvider = new BitMartAuthenticationProvider(new ApiCredentials("XXX", "XXX"));
+            var authProvider = new BitMartAuthenticationProvider(new BitMartApiCredentials("XXX", "XXX"));
             var client = (RestApiClient)new BitMartRestClient().SpotApi;
 
             CryptoExchange.Net.Testing.TestHelpers.CheckSignature(

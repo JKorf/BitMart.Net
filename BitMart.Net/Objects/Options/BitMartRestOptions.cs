@@ -5,7 +5,7 @@ namespace BitMart.Net.Objects.Options
     /// <summary>
     /// Options for the BitMartRestClient
     /// </summary>
-    public class BitMartRestOptions : RestExchangeOptions<BitMartEnvironment>
+    public class BitMartRestOptions : RestExchangeOptions<BitMartEnvironment, BitMartApiCredentials>
     {
         /// <summary>
         /// Default options for new clients
@@ -30,12 +30,9 @@ namespace BitMart.Net.Objects.Options
 
         internal BitMartRestOptions Copy()
         {
-            var options = Copy<BitMartRestOptions>();
-            
+            var options = Copy<BitMartRestOptions>();            
             options.UsdFuturesOptions = UsdFuturesOptions.Copy<RestApiOptions>();
-
             options.SpotOptions = SpotOptions.Copy<RestApiOptions>();
-
             return options;
         }
     }

@@ -1,0 +1,14 @@
+GET
+/account/v1/deposit/address
+true
+{
+    "message":"OK",
+    "code":1000,
+    "trace":"0e6edd79-f77f-4251-abe5-83ba75d06c1a",
+    "data":{
+        "currency":"USDT-TRC20",
+        "chain":"USDT-TRC20",
+        "address":"TGR3ghy2b5VLbyAYrmiE15jasR6aPHTvC5",
+        "address_memo":""
+    }
+}

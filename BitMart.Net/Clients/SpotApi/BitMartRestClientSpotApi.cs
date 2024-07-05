@@ -15,6 +15,8 @@ using CryptoExchange.Net.Clients;
 using BitMart.Net.Objects.Internal;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Interfaces;
+using BitMart.Net.Objects;
+using CryptoExchange.Net.Converters.MessageParsing;
 
 namespace BitMart.Net.Clients.SpotApi
 {
@@ -62,7 +64,7 @@ namespace BitMart.Net.Clients.SpotApi
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
-            => new BitMartAuthenticationProvider(credentials);
+            => new BitMartAuthenticationProvider((BitMartApiCredentials)credentials);
 
         internal Task<WebCallResult> SendAsync(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)
             => SendToAddressAsync(BaseAddress, definition, parameters, cancellationToken, weight);
@@ -107,7 +109,24 @@ namespace BitMart.Net.Clients.SpotApi
             => _timeSyncState.TimeOffset;
 
         /// <inheritdoc />
-        public override string FormatSymbol(string baseAsset, string quoteAsset) => throw new NotImplementedException();
+        public override string FormatSymbol(string baseAsset, string quoteAsset) => baseAsset + "_" + quoteAsset;
+
+        /// <inheritdoc />
+        protected override Error ParseErrorResponse(int httpStatusCode, IEnumerable<KeyValuePair<string, IEnumerable<string>>> responseHeaders, IMessageAccessor accessor)
+        {
+            if (!accessor.IsJson)
+                return new ServerError(accessor.GetOriginalString());
+
+            var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));
+            var msg = accessor.GetValue<string>(MessagePath.Get().Property("message"));
+            if (msg == null)
+                return new ServerError(accessor.GetOriginalString());
+
+            if (code == null)
+                return new ServerError(msg);
+
+            return new ServerError(code.Value, msg);
+        }
 
         /// <inheritdoc />
         public ISpotClient CommonSpotClient => this;

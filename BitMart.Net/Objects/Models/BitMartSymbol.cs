@@ -5,20 +5,17 @@ using System.Text.Json.Serialization;
 
 namespace BitMart.Net.Objects.Models
 {
-    /// <summary>
-    /// 
-    /// </summary>
     internal record BitMartSymbolWrapper
     {
         /// <summary>
         /// Symbols
         /// </summary>
         [JsonPropertyName("symbols")]
-        public IEnumerable<BitMartSymbol> Symbols { get; set; }
+        public IEnumerable<BitMartSymbol> Symbols { get; set; } = Array.Empty<BitMartSymbol>();
     }
 
     /// <summary>
-    /// 
+    /// Symbol info
     /// </summary>
     public record BitMartSymbol
     {

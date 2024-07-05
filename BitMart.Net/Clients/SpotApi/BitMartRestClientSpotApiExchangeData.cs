@@ -27,9 +27,9 @@ namespace BitMart.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<WebCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "XXX", BitMartExchange.RateLimiter.BitMart, 1, true);
-            var result = await _baseClient.SendAsync<BitMartModel>(request, null, ct).ConfigureAwait(false);
-            throw new NotImplementedException();
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "system/time", BitMartExchange.RateLimiter.BitMart, 1, false, preventCaching: true);
+            var result = await _baseClient.SendAsync<BitMartTime>(request, null, ct).ConfigureAwait(false);
+            return result.As(result.Data?.Timestamp ?? default);
         }
 
         #endregion
@@ -39,7 +39,7 @@ namespace BitMart.Net.Clients.SpotApi
         {
             var parameters = new ParameterCollection();
 
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "spot/v1/currencies", , 1);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "spot/v1/currencies", BitMartExchange.RateLimiter.BitMart, 1);
             var result = await _baseClient.SendAsync<BitMartAssetWrapper>(request, parameters, ct).ConfigureAwait(false);
             return result.As<IEnumerable<BitMartAsset>>(result.Data?.Currencies);
         }
@@ -51,12 +51,47 @@ namespace BitMart.Net.Clients.SpotApi
         {
             var parameters = new ParameterCollection();
 
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/v1/symbols/details", null, 0);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/v1/symbols/details", BitMartExchange.RateLimiter.BitMart, 1);
             var result = await _baseClient.SendAsync<BitMartSymbolWrapper>(request, parameters, ct).ConfigureAwait(false);
             return result.As<IEnumerable<BitMartSymbol>>(result.Data?.Symbols);
         }
 
+        /// <inheritdoc />
+        public async Task<WebCallResult<BitMartTicker>> GetTickerAsync(string symbol, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("symbol", symbol);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/quotation/v3/ticker", BitMartExchange.RateLimiter.BitMart, 1, false);
+            var result = await _baseClient.SendAsync<BitMartTicker>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
 
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<BitMartArrayTicker>>> GetTickersAsync(CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/quotation/v3/tickers", BitMartExchange.RateLimiter.BitMart, 1, false);
+            var result = await _baseClient.SendAsync<IEnumerable<BitMartArrayTicker>>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<BitMartAssetDepositWithdrawInfo>>> GetAssetDepositWithdrawInfoAsync(CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/account/v1/currencies", BitMartExchange.RateLimiter.BitMart, 1, false);
+            var result = await _baseClient.SendAsync<BitMartAssetDepositWithdrawInfoWrapper>(request, parameters, ct).ConfigureAwait(false);
+            return result.As<IEnumerable<BitMartAssetDepositWithdrawInfo>>(result.Data?.Currencies);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<BitMartStatus>>> GetServerStatusAsync(CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/system/service", BitMartExchange.RateLimiter.BitMart, 1, false);
+            var result = await _baseClient.SendAsync<BitMartStatusWrapper>(request, parameters, ct).ConfigureAwait(false);
+            return result.As<IEnumerable<BitMartStatus>>(result.Data?.Service);
+        }
 
     }
 }

@@ -12,6 +12,7 @@ using CryptoExchange.Net.Interfaces.CommonClients;
 using BitMart.Net.Interfaces.Clients.UsdFuturesApi;
 using BitMart.Net.Objects.Options;
 using CryptoExchange.Net.Clients;
+using BitMart.Net.Objects;
 
 namespace BitMart.Net.Clients.UsdFuturesApi
 {
@@ -54,7 +55,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
-            => new BitMartAuthenticationProvider(credentials);
+            => new BitMartAuthenticationProvider((BitMartApiCredentials)credentials);
 
         internal Task<WebCallResult> SendAsync(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)
             => SendToAddressAsync(BaseAddress, definition, parameters, cancellationToken, weight);

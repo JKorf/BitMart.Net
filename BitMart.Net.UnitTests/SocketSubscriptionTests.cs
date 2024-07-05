@@ -3,6 +3,7 @@ using NUnit.Framework;
 using System.Threading.Tasks;
 using BitMart.Net.Clients;
 using BitMart.Net.Objects.Models;
+using BitMart.Net.Objects;
 
 namespace BitMart.Net.UnitTests
 {
@@ -14,7 +15,7 @@ namespace BitMart.Net.UnitTests
         {
             var client = new BitMartSocketClient(opts =>
             {
-                opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
+                opts.ApiCredentials = new BitMartApiCredentials("123", "456");
             });
             var tester = new SocketSubscriptionValidator<BitMartSocketClient>(client, "Subscriptions/Spot/ExchangeData", "XXX", "data", stjCompare: false);
             //await tester.ValidateAsync<BitMartModel>((client, handler) => client.SpotApi.SubscribeToXXXUpdatesAsync(handler), "XXX");

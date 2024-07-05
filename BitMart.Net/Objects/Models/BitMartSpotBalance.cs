@@ -5,22 +5,19 @@ using System.Text.Json.Serialization;
 
 namespace BitMart.Net.Objects.Models
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    internal record BitMartAssetWrapper
+    internal record BitMartSpotBalanceWrapper
     {
         /// <summary>
-        /// Currencies
+        /// Wallet
         /// </summary>
-        [JsonPropertyName("currencies")]
-        public IEnumerable<BitMartAsset> Currencies { get; set; } = Array.Empty<BitMartAsset>();
+        [JsonPropertyName("wallet")]
+        public IEnumerable<BitMartSpotBalance> Wallet { get; set; } = Array.Empty<BitMartSpotBalance>();
     }
 
     /// <summary>
-    /// Asset information
+    /// 
     /// </summary>
-    public record BitMartAsset
+    public record BitMartSpotBalance
     {
         /// <summary>
         /// Id
@@ -28,20 +25,20 @@ namespace BitMart.Net.Objects.Models
         [JsonPropertyName("id")]
         public string Id { get; set; } = string.Empty;
         /// <summary>
+        /// Available
+        /// </summary>
+        [JsonPropertyName("available")]
+        public decimal Available { get; set; }
+        /// <summary>
         /// Name
         /// </summary>
         [JsonPropertyName("name")]
         public string Name { get; set; } = string.Empty;
         /// <summary>
-        /// Withdraw enabled
+        /// Frozen
         /// </summary>
-        [JsonPropertyName("withdraw_enabled")]
-        public bool WithdrawEnabled { get; set; }
-        /// <summary>
-        /// Deposit enabled
-        /// </summary>
-        [JsonPropertyName("deposit_enabled")]
-        public bool DepositEnabled { get; set; }
+        [JsonPropertyName("frozen")]
+        public decimal Frozen { get; set; }
     }
 
 
