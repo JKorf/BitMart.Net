@@ -20,7 +20,7 @@ namespace BitMart.Net.Clients.SpotApi
     /// <summary>
     /// Client providing access to the BitMart Spot websocket Api
     /// </summary>
-    public class BitMartSocketClientSpotApi : SocketApiClient, IBitMartSocketClientSpotApi
+    internal class BitMartSocketClientSpotApi : SocketApiClient, IBitMartSocketClientSpotApi
     {
         #region fields
         private static readonly MessagePath _idPath = MessagePath.Get().Property("id");

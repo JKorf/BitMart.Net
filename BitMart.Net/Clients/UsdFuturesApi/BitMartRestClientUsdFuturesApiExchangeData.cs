@@ -12,7 +12,7 @@ using BitMart.Net.Objects.Models;
 namespace BitMart.Net.Clients.UsdFuturesApi
 {
     /// <inheritdoc />
-    public class BitMartRestClientUsdFuturesApiExchangeData : IBitMartRestClientUsdFuturesApiExchangeData
+    internal class BitMartRestClientUsdFuturesApiExchangeData : IBitMartRestClientUsdFuturesApiExchangeData
     {
         private readonly BitMartRestClientUsdFuturesApi _baseClient;
         private static readonly RequestDefinitionCache _definitions = new RequestDefinitionCache();

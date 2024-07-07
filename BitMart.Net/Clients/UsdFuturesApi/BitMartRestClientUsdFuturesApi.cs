@@ -17,7 +17,7 @@ using BitMart.Net.Objects;
 namespace BitMart.Net.Clients.UsdFuturesApi
 {
     /// <inheritdoc cref="IBitMartRestClientUsdFuturesApi" />
-    public class BitMartRestClientUsdFuturesApi : RestApiClient, IBitMartRestClientUsdFuturesApi, ISpotClient
+    internal class BitMartRestClientUsdFuturesApi : RestApiClient, IBitMartRestClientUsdFuturesApi, ISpotClient
     {
         #region fields 
         internal static TimeSyncState _timeSyncState = new TimeSyncState("UsdFutures Api");

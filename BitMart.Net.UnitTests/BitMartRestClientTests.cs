@@ -25,9 +25,9 @@ namespace BitMart.Net.UnitTests
                 "/api/v3/order",
                 (uriParams, bodyParams, headers) =>
                 {
-                    return bodyParams["signature"].ToString();
+                    return headers["X-BM-SIGN"].ToString();
                 },
-                "c8db56825ae71d6d79447849e617115f4a920fa2acdcab2b053c4b2838bd6b71",
+                "2C75A72F6582D24AECD79F313BBF2F4D8690FAA7BF628230BD31D3DE9C48A23D",
                 new Dictionary<string, object>
                 {
                     { "symbol", "LTCBTC" },

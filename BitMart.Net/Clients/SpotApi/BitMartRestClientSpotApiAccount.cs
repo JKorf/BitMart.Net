@@ -10,7 +10,7 @@ using System.Net.Http;
 namespace BitMart.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    public class BitMartRestClientSpotApiAccount : IBitMartRestClientSpotApiAccount
+    internal class BitMartRestClientSpotApiAccount : IBitMartRestClientSpotApiAccount
     {
         private static readonly RequestDefinitionCache _definitions = new RequestDefinitionCache();
         private readonly BitMartRestClientSpotApi _baseClient;

@@ -20,7 +20,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
     /// <summary>
     /// Client providing access to the BitMart UsdFutures websocket Api
     /// </summary>
-    public class BitMartSocketClientUsdFuturesApi : SocketApiClient, IBitMartSocketClientUsdFuturesApi
+    internal class BitMartSocketClientUsdFuturesApi : SocketApiClient, IBitMartSocketClientUsdFuturesApi
     {
         #region fields
         private static readonly MessagePath _idPath = MessagePath.Get().Property("id");

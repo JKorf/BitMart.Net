@@ -21,7 +21,7 @@ using CryptoExchange.Net.Converters.MessageParsing;
 namespace BitMart.Net.Clients.SpotApi
 {
     /// <inheritdoc cref="IBitMartRestClientSpotApi" />
-    public class BitMartRestClientSpotApi : RestApiClient, IBitMartRestClientSpotApi, ISpotClient
+    internal class BitMartRestClientSpotApi : RestApiClient, IBitMartRestClientSpotApi, ISpotClient
     {
         #region fields 
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Spot Api");

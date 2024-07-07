@@ -13,7 +13,7 @@ using BitMart.Net.Enums;
 namespace BitMart.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    public class BitMartRestClientSpotApiExchangeData : IBitMartRestClientSpotApiExchangeData
+    internal class BitMartRestClientSpotApiExchangeData : IBitMartRestClientSpotApiExchangeData
     {
         private readonly BitMartRestClientSpotApi _baseClient;
         private static readonly RequestDefinitionCache _definitions = new RequestDefinitionCache();

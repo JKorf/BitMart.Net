@@ -5,7 +5,7 @@ using BitMart.Net.Interfaces.Clients.SpotApi;
 namespace BitMart.Net.Clients.SpotApi
 {
     /// <inheritdoc />
-    public class BitMartRestClientSpotApiTrading : IBitMartRestClientSpotApiTrading
+    internal class BitMartRestClientSpotApiTrading : IBitMartRestClientSpotApiTrading
     {
         private static readonly RequestDefinitionCache _definitions = new RequestDefinitionCache();
         private readonly BitMartRestClientSpotApi _baseClient;

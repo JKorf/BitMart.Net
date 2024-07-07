@@ -5,7 +5,7 @@ using BitMart.Net.Interfaces.Clients.UsdFuturesApi;
 namespace BitMart.Net.Clients.UsdFuturesApi
 {
     /// <inheritdoc />
-    public class BitMartRestClientUsdFuturesApiTrading : IBitMartRestClientUsdFuturesApiTrading
+    internal class BitMartRestClientUsdFuturesApiTrading : IBitMartRestClientUsdFuturesApiTrading
     {
         private static readonly RequestDefinitionCache _definitions = new RequestDefinitionCache();
         private readonly BitMartRestClientUsdFuturesApi _baseClient;
