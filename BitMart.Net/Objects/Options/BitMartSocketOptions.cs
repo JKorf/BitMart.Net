@@ -13,7 +13,8 @@ namespace BitMart.Net.Objects.Options
         public static BitMartSocketOptions Default { get; set; } = new BitMartSocketOptions()
         {
             Environment = BitMartEnvironment.Live,
-            SocketSubscriptionsCombineTarget = 10
+            SocketSubscriptionsCombineTarget = 10,
+            MaxSocketConnections = 20
         };
 
          /// <summary>

@@ -3,6 +3,8 @@ using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
 using System.Collections.Generic;
 using BitMart.Net.Objects.Models;
+using BitMart.Net.Objects.Internal;
+using System.Linq;
 
 namespace BitMart.Net.Objects.Sockets
 {
@@ -10,9 +12,13 @@ namespace BitMart.Net.Objects.Sockets
     {
         public override HashSet<string> ListenerIdentifiers { get; set; }
 
-        public BitMartQuery(BitMartModel request, bool authenticated, int weight = 1) : base(request, authenticated, weight)
+        public BitMartQuery(string operation, IEnumerable<string> parameters, bool authenticated, int weight = 1) : base(new BitMartSocketOperation
         {
-            ListenerIdentifiers = new HashSet<string> { };
+            Operation = operation,
+            Parameters = parameters,
+        }, authenticated, weight)
+        {
+            ListenerIdentifiers = new HashSet<string>(parameters.Select(p => operation + "-" + p));
         }
 
         public override CallResult<T> HandleMessage(SocketConnection connection, DataEvent<T> message)

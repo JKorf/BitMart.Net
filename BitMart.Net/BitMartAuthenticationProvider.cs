@@ -30,7 +30,7 @@ namespace BitMart.Net
             var signStr = $"{timestamp}#{_credentials.Memo?.GetString()}#{paramStr}";
 
             headers.Add("X-BM-KEY", GetApiKey());
-            headers.Add("X-BM-SIGN", SignHMACSHA256(signStr, SignOutputType.Hex));
+            headers.Add("X-BM-SIGN", SignHMACSHA256(signStr, SignOutputType.Hex).ToLowerInvariant());
             headers.Add("X-BM-TIMESTAMP", timestamp);
         }
     }

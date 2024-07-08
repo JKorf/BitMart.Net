@@ -1,0 +1,11 @@
+POST
+/spot/v2/submit_order
+true
+{
+  "code": 1000,
+  "trace":"886fb6ae-456b-4654-b4e0-d681ac05cea1",
+  "message": "OK",
+  "data": {
+    "order_id":"1223181"
+  }
+}

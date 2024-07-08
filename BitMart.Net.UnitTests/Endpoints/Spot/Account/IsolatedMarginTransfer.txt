@@ -1,0 +1,11 @@
+GET
+/spot/v1/margin/isolated/transfer
+true
+{
+    "message":"OK",
+    "code":1000,
+    "trace":"f7f74924-14da-42a6-b7f2-d3799dd9a612",
+    "data":{
+      "transfer_id":"124532"
+    }
+}

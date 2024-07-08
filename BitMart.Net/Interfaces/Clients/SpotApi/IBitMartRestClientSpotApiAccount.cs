@@ -1,3 +1,4 @@
+using BitMart.Net.Enums;
 using BitMart.Net.Objects.Models;
 using CryptoExchange.Net.Objects;
 using System.Collections.Generic;
@@ -56,6 +57,49 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// <param name="areaCode">Area phone code</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BitMartWithdrawId>> WithdrawAsync(string asset, decimal quantity, string? targetAddress = null, string? memo = null, string? remark = null, string? accountDestType = null, string? targetAccount = null, string? areaCode = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get a specific withdrawal or deposit
+        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-a-deposit-or-withdraw-detail-keyed" /></para>
+        /// </summary>
+        /// <param name="id">The deposit or withdrawal id</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<BitMartDepositWithdrawal>> GetDepositWithdrawalAsync(string id, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get isolated margin account info
+        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-margin-account-details-isolated-keyed" /></para>
+        /// </summary>
+        /// <param name="symbol">Filter by symbol</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<IEnumerable<BitMartIsolatedMarginAccount>>> GetIsolatedMarginAccountsAsync(string? symbol = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Transfer asset between Spot and Isolated Margin account
+        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#margin-asset-transfer-signed" /></para>
+        /// </summary>
+        /// <param name="symbol">The symbol</param>
+        /// <param name="asset">The asset</param>
+        /// <param name="quantity">Quantity to transfer</param>
+        /// <param name="direction">Direction</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<BitMartTransferId>> IsolatedMarginTransferAsync(string symbol, string asset, decimal quantity, TransferDirection direction, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get base trading fees
+        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-basic-fee-rate-keyed" /></para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<BitMartFeeRate>> GetBaseTradeFeesAsync(CancellationToken ct = default);
+
+        /// <summary>
+        /// Get trading fees for a specific symbol
+        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-actual-trade-fee-rate-keyed" /></para>
+        /// </summary>
+        /// <param name="symbol">The symbol</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<BitMartSymbolTradeFee>> GetSymbolTradeFeeAsync(string symbol, CancellationToken ct = default);
+
 
     }
 }

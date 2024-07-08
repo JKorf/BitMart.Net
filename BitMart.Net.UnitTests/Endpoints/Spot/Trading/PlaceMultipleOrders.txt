@@ -1,0 +1,17 @@
+POST
+/spot/v4/batch_orders
+true
+{
+  "message": "OK",
+  "code": 1000,
+  "trace": "5fc697fb817a4b5396284786a9b2609a.263.17022620476480263",
+  "data": {
+    "code": 0,
+    "msg": "success",
+    "data": {
+      "orderIds": [
+        "212751308355553320"
+      ]
+    }
+  }
+}

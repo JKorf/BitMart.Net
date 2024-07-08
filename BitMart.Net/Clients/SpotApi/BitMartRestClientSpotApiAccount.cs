@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using BitMart.Net.Objects.Models;
 using System.Threading;
 using System.Net.Http;
+using BitMart.Net.Enums;
 
 namespace BitMart.Net.Clients.SpotApi
 {
@@ -76,6 +77,57 @@ namespace BitMart.Net.Clients.SpotApi
             return result;
         }
 
+        /// <inheritdoc />
+        public async Task<WebCallResult<BitMartDepositWithdrawal>> GetDepositWithdrawalAsync(string id, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("id", id);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "account/v1/deposit-withdraw/detail", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var result = await _baseClient.SendAsync<BitMartDepositWithdrawalWrapper>(request, parameters, ct).ConfigureAwait(false);
+            return result.As<BitMartDepositWithdrawal>(result.Data?.Record);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<BitMartIsolatedMarginAccount>>> GetIsolatedMarginAccountsAsync(string? symbol = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptional("symbol", symbol);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/v1/margin/isolated/account", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var result = await _baseClient.SendAsync<BitMartIsolatedMarginAccountWrapper>(request, parameters, ct).ConfigureAwait(false);
+            return result.As<IEnumerable<BitMartIsolatedMarginAccount>>(result.Data?.Symbols);
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<BitMartTransferId>> IsolatedMarginTransferAsync(string symbol, string asset, decimal quantity, TransferDirection direction, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("symbol", symbol);
+            parameters.Add("currency", asset);
+            parameters.AddString("amount", quantity);
+            parameters.AddEnum("side", direction);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/v1/margin/isolated/transfer", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var result = await _baseClient.SendAsync<BitMartTransferId>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<BitMartFeeRate>> GetBaseTradeFeesAsync(CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/v1/user_fee", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var result = await _baseClient.SendAsync<BitMartFeeRate>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<BitMartSymbolTradeFee>> GetSymbolTradeFeeAsync(string symbol, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("symbol", symbol);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/v1/trade_fee", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var result = await _baseClient.SendAsync<BitMartSymbolTradeFee>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
 
     }
 }

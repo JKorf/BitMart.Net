@@ -1,0 +1,25 @@
+POST
+/spot/v4/query/open-orders
+true
+{
+  "code" : 1000,
+  "message" : "success",
+  "data" : [ {
+    "orderId" : "125213058731346056",
+    "clientOrderId" : "125213058731346056",
+    "symbol" : "BTC_USDT",
+    "side" : "buy",
+    "orderMode" : "spot",
+    "type" : "limit",
+    "state" : "new",
+    "price" : "800.00",
+    "priceAvg" : "0.00",
+    "size" : "0.10000",
+    "filledSize" : "0.00000",
+    "notional" : "80.00000000",
+    "filledNotional" : "0.00000000",
+    "createTime" : 1681892198608,
+    "updateTime" : 1681892198946
+  } ],
+  "trace" : "5e1c9f98d761443ea559c7af71ca57fa.60.16818922069220005"
+}

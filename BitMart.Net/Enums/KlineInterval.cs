@@ -19,7 +19,7 @@ namespace BitMart.Net.Enums
         /// Three minutes
         /// </summary>
         [Map("3")]
-        OneMinutes,
+        ThreeMinutes,
         /// <summary>
         /// Five minutes
         /// </summary>

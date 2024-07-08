@@ -151,5 +151,6 @@ namespace BitMart.Net.Clients.SpotApi
             var result = await _baseClient.SendAsync<BitMartOrderBook>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
+
     }
 }

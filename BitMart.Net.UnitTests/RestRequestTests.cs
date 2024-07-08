@@ -8,6 +8,7 @@ using BitMart.Net.Clients;
 using BitMart.Net.Objects;
 using System.Linq;
 using BitMart.Net.Enums;
+using System.Drawing;
 
 namespace BitMart.Net.UnitTests
 {
@@ -22,12 +23,17 @@ namespace BitMart.Net.UnitTests
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new BitMartApiCredentials("123", "456");
             });
-            var tester = new RestRequestValidator<BitMartRestClient>(client, "Endpoints/Spot/ACcount", "https://api-cloud.bitmart.com", IsAuthenticated, stjCompare: true);
+            var tester = new RestRequestValidator<BitMartRestClient>(client, "Endpoints/Spot/Account", "https://api-cloud.bitmart.com", IsAuthenticated, stjCompare: true);
             await tester.ValidateAsync(client => client.SpotApi.Account.GetFundingBalancesAsync("123"), "GetFundingBalances", nestedJsonProperty: "data.wallet");
             await tester.ValidateAsync(client => client.SpotApi.Account.GetSpotBalancesAsync(), "GetSpotBalances", nestedJsonProperty: "data.wallet");
             await tester.ValidateAsync(client => client.SpotApi.Account.GetDepositAddressAsync("123"), "GetDepositAddress", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.SpotApi.Account.GetWithdrawalQuotaAsync("ETH"), "GetWithdrawalQuota", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.SpotApi.Account.WithdrawAsync("123", 0.1m), "Withdraw", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.SpotApi.Account.GetDepositWithdrawalAsync("123"), "GetDepositWithdrawal", nestedJsonProperty: "data.record");
+            await tester.ValidateAsync(client => client.SpotApi.Account.GetIsolatedMarginAccountsAsync(), "GetIsolatedMarginAccount", nestedJsonProperty: "data.symbols");
+            await tester.ValidateAsync(client => client.SpotApi.Account.IsolatedMarginTransferAsync("123", "123", 0.1m, TransferDirection.TransferIn), "IsolatedMarginTransfer", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.SpotApi.Account.GetBaseTradeFeesAsync(), "GetTradeFees", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.SpotApi.Account.GetSymbolTradeFeeAsync("123"), "GetSymbolTradeFee", nestedJsonProperty: "data");
         }
 
         [Test]
@@ -46,6 +52,43 @@ namespace BitMart.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetKlineHistoryAsync("123", KlineInterval.OneDay), "GetKlineHistory", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetTradesAsync("123"), "GetTrades", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetOrderBookAsync("123", 5), "GetOrderBook", nestedJsonProperty: "data");
+        }
+
+        [Test]
+        public async Task ValidateSpotMarginDataCalls()
+        {
+            var client = new BitMartRestClient(opts =>
+            {
+                opts.AutoTimestamp = false;
+                opts.ApiCredentials = new BitMartApiCredentials("123", "456");
+            });
+            var tester = new RestRequestValidator<BitMartRestClient>(client, "Endpoints/Spot/Margin", "https://api-cloud.bitmart.com", IsAuthenticated, stjCompare: true);
+            await tester.ValidateAsync(client => client.SpotApi.Margin.BorrowAsync("123", "123", 0.1m), "Borrow", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.SpotApi.Margin.RepayAsync("123", "123", 0.1m), "Repay", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.SpotApi.Margin.GetBorrowHistoryAsync("123"), "GetBorrowHistory", nestedJsonProperty: "data.records");
+            await tester.ValidateAsync(client => client.SpotApi.Margin.GetRepayHistoryAsync("123"), "GetRepayHistory", nestedJsonProperty: "data.records");
+            await tester.ValidateAsync(client => client.SpotApi.Margin.GetBorrowInfoAsync(), "GetBorrowInfo", nestedJsonProperty: "data.symbols");
+        }
+
+        [Test]
+        public async Task ValidateSpotTradingDataCalls()
+        {
+            var client = new BitMartRestClient(opts =>
+            {
+                opts.AutoTimestamp = false;
+                opts.ApiCredentials = new BitMartApiCredentials("123", "456");
+            });
+            var tester = new RestRequestValidator<BitMartRestClient>(client, "Endpoints/Spot/Trading", "https://api-cloud.bitmart.com", IsAuthenticated, stjCompare: true);
+            await tester.ValidateAsync(client => client.SpotApi.Trading.PlaceOrderAsync("123", OrderSide.Buy, OrderType.Market), "PlaceOrder", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.SpotApi.Trading.CancelOrderAsync("123"), "CancelOrder");
+            await tester.ValidateAsync(client => client.SpotApi.Trading.PlaceMarginOrderAsync("123", OrderSide.Buy, OrderType.Market), "PlaceMarginOrder", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.SpotApi.Trading.GetOrderAsync("123"), "GetOrder", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.SpotApi.Trading.GetOrderByClientOrderIdAsync("123", OrderQueryState.Open), "GetOrderByClientOrderId", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.SpotApi.Trading.GetOpenOrdersAsync(), "GetOpenOrders", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.SpotApi.Trading.GetClosedOrdersAsync(), "GetClosedOrders", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.SpotApi.Trading.GetUserTradesAsync(), "GetUserTrades", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.SpotApi.Trading.GetOrderTradesAsync("123"), "GetOrderTrades", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.SpotApi.Trading.CancelOrdersAsync("123"), "CancelOrders", nestedJsonProperty: "data");
         }
 
         private bool IsAuthenticated(WebCallResult result)

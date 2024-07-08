@@ -1,0 +1,15 @@
+GET
+/spot/v1/trade_fee
+true
+{
+  "message": "OK",
+  "code": 1000,
+  "trace": "87614aa8-5327-4fe2-aafc-02e2ddca7210",
+  "data": {
+    "symbol": "BTC_USDT",
+    "buy_taker_fee_rate": "0.0008",
+    "sell_taker_fee_rate": "0.0008",
+    "buy_maker_fee_rate": "0.0006",
+    "sell_maker_fee_rate": "0.0006"
+  }
+}

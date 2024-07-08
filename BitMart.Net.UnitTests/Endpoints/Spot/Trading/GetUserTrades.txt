@@ -1,0 +1,25 @@
+POST
+/spot/v4/query/trades
+true
+{
+  "code" : 1000,
+  "message" : "success",
+  "data" : [ {
+    "tradeId" : "125277182593091639",
+    "orderId" : "125213058731346053",
+    "clientOrderId" : "125213058731346053",
+    "symbol" : "BTC_USDT",
+    "side" : "buy",
+    "orderMode" : "spot",
+    "type" : "limit",
+    "price" : "39999.00",
+    "size" : "0.10000",
+    "notional" : "3999.90000000",
+    "fee" : "9.99975000",
+    "feeCoinName" : "USDT",
+    "tradeRole" : "taker",
+    "createTime" : 1681891896569,
+    "updateTime" : 1681891896569
+  } ],
+  "trace" : "5e1c9f98d761443ea559c7af71ca57fa.61.16819603026240455"
+}

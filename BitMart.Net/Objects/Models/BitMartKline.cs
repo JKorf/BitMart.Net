@@ -47,7 +47,7 @@ namespace BitMart.Net.Objects.Models
         /// Volume in quote asset
         /// </summary>
         [ArrayProperty(6)]
-        public decimal QuoteVolume { get; set; }
+        public decimal? QuoteVolume { get; set; }
     }
 
 

@@ -1,0 +1,45 @@
+GET
+/spot/v1/margin/isolated/account
+true
+{
+    "message":"OK",
+    "code":1000,
+    "trace":"f7f74924-14da-42a6-b7f2-d3799dd9a612",
+    "data":{
+      "symbols":[
+        {
+          "symbol": "BTC_USDT",
+          "risk_rate": "18.77",
+          "risk_level": "1",
+          "buy_enabled": true,
+          "sell_enabled": true,
+          "liquidate_price": "-0.09408905",
+          "liquidate_rate": "1.1",
+          "base": {
+            "currency": "BTC",
+            "borrow_enabled": false,
+            "borrowed": "2.00000000",
+            "borrow_unpaid": "0.84478234",
+            "interest_unpaid": "0.01385763",
+            "available": "112.89603334",
+            "frozen": "0.00000000",
+            "net_asset": "110.89603334",
+            "net_assetBTC": "0.00000000",
+            "total_asset": "112.89603334"
+          },
+          "quote": {
+            "currency": "USDT",
+            "borrow_enabled": true,
+            "borrowed": "0.00000000",
+            "borrow_unpaid": "0.84478234",
+            "interest_unpaid": "0.01385763",
+            "available": "10.00000000",
+            "frozen": "0.00000000",
+            "net_asset": "10.00000000",
+            "net_assetBTC": "0.00000000",
+            "total_asset": "10.00000000"
+          }
+        }
+      ]
+    }
+}

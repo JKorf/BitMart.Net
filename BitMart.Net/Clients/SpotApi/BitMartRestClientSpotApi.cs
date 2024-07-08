@@ -33,6 +33,8 @@ namespace BitMart.Net.Clients.SpotApi
         /// <inheritdoc />
         public IBitMartRestClientSpotApiExchangeData ExchangeData { get; }
         /// <inheritdoc />
+        public IBitMartRestClientSpotApiMargin Margin { get; }
+        /// <inheritdoc />
         public IBitMartRestClientSpotApiTrading Trading { get; }
         /// <inheritdoc />
         public string ExchangeName => "BitMart";
@@ -52,6 +54,7 @@ namespace BitMart.Net.Clients.SpotApi
             : base(logger, httpClient, options.Environment.RestClientAddress, options, options.SpotOptions)
         {
             Account = new BitMartRestClientSpotApiAccount(this);
+            Margin = new BitMartRestClientSpotApiMargin(this);
             ExchangeData = new BitMartRestClientSpotApiExchangeData(logger, this);
             Trading = new BitMartRestClientSpotApiTrading(logger, this);
         }

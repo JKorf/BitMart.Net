@@ -20,6 +20,11 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         public IBitMartRestClientSpotApiExchangeData ExchangeData { get; }
 
         /// <summary>
+        /// Endpoints related to margin borrow and repayment
+        /// </summary>
+        public IBitMartRestClientSpotApiMargin Margin { get; }
+
+        /// <summary>
         /// Endpoints related to orders and trades
         /// </summary>
         public IBitMartRestClientSpotApiTrading Trading { get; }
