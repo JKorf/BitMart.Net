@@ -25,6 +25,11 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         public IBitMartRestClientSpotApiMargin Margin { get; }
 
         /// <summary>
+        /// Endpoints related to sub account management
+        /// </summary>
+        public IBitMartRestClientSpotApiSubAccount SubAccount { get; }
+
+        /// <summary>
         /// Endpoints related to orders and trades
         /// </summary>
         public IBitMartRestClientSpotApiTrading Trading { get; }

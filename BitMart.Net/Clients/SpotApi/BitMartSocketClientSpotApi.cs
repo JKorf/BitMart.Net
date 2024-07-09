@@ -22,6 +22,7 @@ using CryptoExchange.Net.Converters.SystemTextJson;
 using System.Linq;
 using BitMart.Net.Objects.Sockets;
 using BitMart.Net.Enums;
+using BitMart.Net.Objects.Internal;
 
 namespace BitMart.Net.Clients.SpotApi
 {
@@ -100,25 +101,32 @@ namespace BitMart.Net.Clients.SpotApi
             => SubscribeToOrderBookUpdatesAsync(new[] { symbol }, onMessage, ct);
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<IEnumerable<BitMartTradeUpdate>>> onMessage, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMartOrderBookIncrementalUpdate>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMartSubscription<IEnumerable<BitMartTradeUpdate>>(_logger, symbols.Select(s => $"spot/depth/increase100:" + s).ToArray(), 
-                update => onMessage(update.WithSymbol(update.Data.First().Symbol))
+            var subscription = new BitMartSubscription<IEnumerable<BitMartOrderBookIncrementalUpdate>>(_logger, symbols.Select(s => $"spot/depth/increase100:" + s).ToArray(), 
+                update => onMessage(update.WithSymbol(update.Data.First().Symbol).WithUpdateType(update.Data.First().Type == "snapshot"? SocketUpdateType.Snapshot: SocketUpdateType.Update).As(update.Data.First()))
                 , false);
             return await SubscribeAsync(BaseAddress.AppendPath("api?protocol=1.1"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<BitMartOrderBookIncrementalUpdate>> onMessage, CancellationToken ct = default)
+        public Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<IEnumerable<BitMartTradeUpdate>>> onMessage, CancellationToken ct = default)
             => SubscribeToTradeUpdatesAsync(new[] { symbol }, onMessage, ct);
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<IEnumerable<BitMartTradeUpdate>>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMartSubscription<IEnumerable<BitMartOrderBookIncrementalUpdate>>(_logger, symbols.Select(s => $"spot/depth/increase100:" + s).ToArray(),
-                update => onMessage(update.WithSymbol(update.Data.First().Symbol).WithUpdateType(update.Data.First().Type == "snapshot" ? SocketUpdateType.Snapshot : SocketUpdateType.Update).As(update.Data.First()))
-                , false);
+            var subscription = new BitMartSubscription<IEnumerable<BitMartTradeUpdate>>(_logger, symbols.Select(s => $"spot/trade:" + s).ToArray(),
+                update => onMessage(update.WithSymbol(update.Data.First().Symbol)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("api?protocol=1.1"), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<BitMartOrderUpdate>> onMessage, CancellationToken ct = default)
+        {
+            var subscription = new BitMartSubscription<IEnumerable<BitMartOrderUpdate>>(_logger, new[] { "spot/user/orders:ALL_SYMBOLS" },
+                update => onMessage(update.WithSymbol(update.Data.First().Symbol).As(update.Data.First())), true);
+            return await SubscribeAsync(BaseAddress.AppendPath("user?protocol=1.1"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -127,15 +135,22 @@ namespace BitMart.Net.Clients.SpotApi
             if (!message.IsJson)
                 return "pong";
 
-            var topic = message.GetValue<string>(_topicPath);
-            if (topic != null)
+            var evnt = message.GetValue<string>(_eventPath);
+            if (evnt != null)
             {
-                var evnt = message.GetValue<string>(_eventPath);
+                var topic = message.GetValue<string>(_topicPath);
+                if (topic == null)
+                    return evnt;
+
                 return evnt + "-" + topic;
             }
 
+            var table = message.GetValue<string>(_tablePath);
+            if (table == "spot/user/order")
+                return table + "ALL_SYMBOLS";
+
             var symbol = message.GetValue<string>(_symbolPath);
-            return message.GetValue<string>(_tablePath) + ":" + symbol;
+            return table + ":" + symbol;
         }
 
         public override ReadOnlyMemory<byte> PreprocessStreamMessage(WebSocketMessageType type, ReadOnlyMemory<byte> data)
@@ -147,7 +162,16 @@ namespace BitMart.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        protected override Query? GetAuthenticationRequest(SocketConnection connection) => null;
+        protected override Query? GetAuthenticationRequest(SocketConnection connection) 
+        {
+            var timestamp = DateTimeConverter.ConvertToMilliseconds(DateTime.UtcNow).ToString();
+            var authProvider = (BitMartAuthenticationProvider)AuthenticationProvider!;
+            var key = authProvider.GetApiKey();
+            var memo = authProvider.GetMemo();
+            var sign = authProvider.Sign($"{timestamp}#{memo}#bitmart.Websocket");
+
+            return new BitMartLoginQuery(key, timestamp, sign);
+        }
 
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset) => baseAsset + "_" + quoteAsset;

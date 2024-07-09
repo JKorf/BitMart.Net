@@ -40,10 +40,10 @@ namespace BitMart.Net.Objects.Sockets.Subscriptions
         }
 
         /// <inheritdoc />
-        public override Query? GetSubQuery(SocketConnection connection) => new BitMartQuery<BitMartSocketResponse>("subscribe", _topics, Authenticated);
+        public override Query? GetSubQuery(SocketConnection connection) => new BitMartQuery("subscribe", _topics, Authenticated);
 
         /// <inheritdoc />
-        public override Query? GetUnsubQuery() => new BitMartQuery<BitMartSocketResponse>("unsubscribe", _topics, Authenticated);
+        public override Query? GetUnsubQuery() => new BitMartQuery("unsubscribe", _topics, Authenticated);
 
         /// <inheritdoc />
         public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)

@@ -99,5 +99,34 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMartOrderBookIncrementalUpdate>> onMessage, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to trade updates for a symbol
+        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#public-trade-channel" /></para>
+        /// </summary>
+        /// <param name="symbol">Symbol</param>
+        /// <param name="onMessage">The event handler for the received data</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<IEnumerable<BitMartTradeUpdate>>> onMessage, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to trade updates for multiple symbols
+        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#public-trade-channel" /></para>
+        /// </summary>
+        /// <param name="symbols">Symbols</param>
+        /// <param name="onMessage">The event handler for the received data</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<IEnumerable<BitMartTradeUpdate>>> onMessage, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to user order updates
+        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#private-order-progress" /></para>
+        /// </summary>
+        /// <param name="onMessage">The event handler for the received data</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<BitMartOrderUpdate>> onMessage, CancellationToken ct = default);
     }
 }

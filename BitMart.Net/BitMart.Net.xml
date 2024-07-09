@@ -149,6 +149,9 @@
         <member name="P:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.Margin">
             <inheritdoc />
         </member>
+        <member name="P:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.SubAccount">
+            <inheritdoc />
+        </member>
         <member name="P:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.Trading">
             <inheritdoc />
         </member>
@@ -285,6 +288,33 @@
         <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiMargin.GetBorrowInfoAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="T:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiSubAccount">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiSubAccount.TransferSubToMainForMainAsync(System.String,System.String,System.Decimal,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiSubAccount.TransferSubToMainForSubAsync(System.String,System.String,System.Decimal,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiSubAccount.TransferMainToSubAccountAsync(System.String,System.String,System.Decimal,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiSubAccount.TransferSubAccountToSubAccountAsync(System.String,System.Decimal,System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiSubAccount.GetSubAccountTransferHistoryForMainAsync(System.Int32,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiSubAccount.GetSubAccountTransferHistoryAsync(System.Int32,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiSubAccount.GetSubAcccountBalanceAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiSubAccount.GetSubAccountListAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiTrading">
             <inheritdoc />
         </member>
@@ -356,6 +386,15 @@
             <inheritdoc />
         </member>
         <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartOrderBookIncrementalUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMart.Net.Objects.Models.BitMartTradeUpdate}}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMart.Net.Objects.Models.BitMartTradeUpdate}}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartOrderUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
@@ -483,6 +522,26 @@
         <member name="F:BitMart.Net.Enums.DepositWithdrawalStatus.Failed">
             <summary>
             Failed
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Enums.EntrustType">
+            <summary>
+            Entrust type
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.EntrustType.Normal">
+            <summary>
+            Normal (limit or market order)
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.EntrustType.LimitMaker">
+            <summary>
+            Limit maker
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.EntrustType.ImmediateOrCancel">
+            <summary>
+            Immediate or cancel
             </summary>
         </member>
         <member name="T:BitMart.Net.Enums.FeeRateType">
@@ -770,6 +829,26 @@
             Isolated margin
             </summary>
         </member>
+        <member name="T:BitMart.Net.Enums.SubAccountStatus">
+            <summary>
+            Sub account status
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.SubAccountStatus.Disabled">
+            <summary>
+            Disabled in background
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.SubAccountStatus.Normal">
+            <summary>
+            Normal
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.SubAccountStatus.FrozenByMainAccount">
+            <summary>
+            Frozen by main account
+            </summary>
+        </member>
         <member name="T:BitMart.Net.Enums.SystemMaintenanceStatus">
             <summary>
             System status
@@ -885,6 +964,11 @@
         <member name="P:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApi.Margin">
             <summary>
             Endpoints related to margin borrow and repayment
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApi.SubAccount">
+            <summary>
+            Endpoints related to sub account management
             </summary>
         </member>
         <member name="P:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApi.Trading">
@@ -1157,6 +1241,89 @@
             <param name="symbol">Filter by symbol</param>
             <param name="ct">Cancellation token</param>
         </member>
+        <member name="T:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiSubAccount">
+            <summary>
+            BitMart subaccount endpoints
+            </summary>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiSubAccount.TransferSubToMainForMainAsync(System.String,System.String,System.Decimal,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Transfer from sub account to main account, usable from main account
+            <para><a href="https://developer-pro.bitmart.com/en/spot/#sub-account-to-main-account-for-main-account-signed" /></para>
+            </summary>
+            <param name="clientOrderId">Unique identifier</param>
+            <param name="asset">The asset</param>
+            <param name="quantity">Quantity to transfer</param>
+            <param name="subAccount">Sub account user name</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiSubAccount.TransferSubToMainForSubAsync(System.String,System.String,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            Transfer from sub account to main account, usable from sub account
+            <para><a href="https://developer-pro.bitmart.com/en/spot/#sub-account-to-main-account-for-sub-account-signed" /></para>
+            </summary>
+            <param name="clientOrderId">Unique identifier</param>
+            <param name="asset">The asset</param>
+            <param name="quantity">Quantity to transfer</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiSubAccount.TransferMainToSubAccountAsync(System.String,System.String,System.Decimal,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Transfer from main account to a sub account
+            <para><a href="https://developer-pro.bitmart.com/en/spot/#main-account-to-sub-account-for-main-account-signed" /></para>
+            </summary>
+            <param name="clientOrderId">Unique identifier</param>
+            <param name="asset">The asset</param>
+            <param name="quantity">Quantity to transfer</param>
+            <param name="subAccount">Sub account name</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiSubAccount.TransferSubAccountToSubAccountAsync(System.String,System.Decimal,System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Transfer from sub account to another sub account
+            <para><a href="https://developer-pro.bitmart.com/en/spot/#sub-account-to-sub-account-for-main-account-signed" /></para>
+            </summary>
+            <param name="clientOrderId">Unique identifier</param>
+            <param name="quantity">Quantity to transfer</param>
+            <param name="asset">The asset</param>
+            <param name="fromAccount">Source sub account name</param>
+            <param name="toAccount">Target sub account name</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiSubAccount.GetSubAccountTransferHistoryForMainAsync(System.Int32,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get sub account transfer history for main account
+            <para><a href="https://developer-pro.bitmart.com/en/spot/#get-sub-account-transfer-history-for-main-account-keyed" /></para>
+            </summary>
+            <param name="account">Filter by account name</param>
+            <param name="limit">Max number of results</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiSubAccount.GetSubAccountTransferHistoryAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Get sub accont transfer history 
+            <para><a href="https://developer-pro.bitmart.com/en/spot/#get-account-spot-asset-transfer-history-for-main-sub-account-keyed" /></para>
+            </summary>
+            <param name="limit">Max number of results</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiSubAccount.GetSubAcccountBalanceAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get the balance of a sub account
+            <para><a href="https://developer-pro.bitmart.com/en/spot/#get-sub-account-spot-wallet-balance-for-main-account-keyed" /></para>
+            </summary>
+            <param name="subAccount">Sub account name</param>
+            <param name="asset">Filter by asset</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiSubAccount.GetSubAccountListAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get list of sub accounts
+            <para><a href="https://developer-pro.bitmart.com/en/spot/#get-sub-account-list-for-main-account-keyed" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+        </member>
         <member name="T:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiTrading">
             <summary>
             BitMart Spot trading endpoints, placing and managing orders.
@@ -1367,6 +1534,35 @@
             <para><a href="https://developer-pro.bitmart.com/en/spot/#public-depth-increase-channel" /></para>
             </summary>
             <param name="symbols">Symbols</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMart.Net.Objects.Models.BitMartTradeUpdate}}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to trade updates for a symbol
+            <para><a href="https://developer-pro.bitmart.com/en/spot/#public-trade-channel" /></para>
+            </summary>
+            <param name="symbol">Symbol</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMart.Net.Objects.Models.BitMartTradeUpdate}}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to trade updates for multiple symbols
+            <para><a href="https://developer-pro.bitmart.com/en/spot/#public-trade-channel" /></para>
+            </summary>
+            <param name="symbols">Symbols</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartSocketClientSpotApi.SubscribeToOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartOrderUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to user order updates
+            <para><a href="https://developer-pro.bitmart.com/en/spot/#private-order-progress" /></para>
+            </summary>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -2246,6 +2442,111 @@
             Quote quantity for market order
             </summary>
         </member>
+        <member name="T:BitMart.Net.Objects.Models.BitMartOrderUpdate">
+            <summary>
+            Order update
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartOrderUpdate.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartOrderUpdate.ClientOrderId">
+            <summary>
+            Client order id
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartOrderUpdate.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartOrderUpdate.Side">
+            <summary>
+            Order side
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartOrderUpdate.SpotMode">
+            <summary>
+            Spot order mode
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartOrderUpdate.OrderType">
+            <summary>
+            Order type
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartOrderUpdate.Status">
+            <summary>
+            Order status
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartOrderUpdate.Price">
+            <summary>
+            Price
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartOrderUpdate.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartOrderUpdate.QuantityFilled">
+            <summary>
+            Quantity filled
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartOrderUpdate.QuoteQuantity">
+            <summary>
+            Quote quantity
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartOrderUpdate.QuoteQuantityFilled">
+            <summary>
+            Quote quantity filled
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartOrderUpdate.CreateTime">
+            <summary>
+            Create time
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartOrderUpdate.UpdateTime">
+            <summary>
+            Update time
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartOrderUpdate.EntrustType">
+            <summary>
+            Entrust type
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartOrderUpdate.LastTradePrice">
+            <summary>
+            Price of the last trade
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartOrderUpdate.LastTradeQuantity">
+            <summary>
+            Quantity of the last trade
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartOrderUpdate.LastTradeTime">
+            <summary>
+            Timestamp of the last trade
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartOrderUpdate.LastTradeRole">
+            <summary>
+            Role of the last trade
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartOrderUpdate.LastTradeId">
+            <summary>
+            Id of the last trade
+            </summary>
+        </member>
         <member name="T:BitMart.Net.Objects.Models.BitMartRepayId">
             <summary>
             Repayment id
@@ -2319,6 +2620,56 @@
         <member name="P:BitMart.Net.Objects.Models.BitMartStatus.EndTime">
             <summary>
             End time
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartSubAccountWrapper.SubAccountList">
+            <summary>
+            Sub account list
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Objects.Models.BitMartSubAccount">
+            <summary>
+            Sub account info
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartSubAccount.AccountName">
+            <summary>
+            Account name
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartSubAccount.Status">
+            <summary>
+            Account status
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartSubAccountBalanceWrapper.Wallet">
+            <summary>
+            Wallet
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Objects.Models.BitMartSubAccountBalance">
+            <summary>
+            Sub account balance
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartSubAccountBalance.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartSubAccountBalance.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartSubAccountBalance.Available">
+            <summary>
+            Available
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartSubAccountBalance.Frozen">
+            <summary>
+            Frozen
             </summary>
         </member>
         <member name="P:BitMart.Net.Objects.Models.BitMartSymbolWrapper.Symbols">
@@ -2563,7 +2914,7 @@
         </member>
         <member name="T:BitMart.Net.Objects.Models.BitMartTrade">
             <summary>
-            
+            Trade info
             </summary>
         </member>
         <member name="P:BitMart.Net.Objects.Models.BitMartTrade.Symbol">
@@ -2587,6 +2938,36 @@
             </summary>
         </member>
         <member name="P:BitMart.Net.Objects.Models.BitMartTrade.Side">
+            <summary>
+            Side
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Objects.Models.BitMartTradeUpdate">
+            <summary>
+            Trade update
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartTradeUpdate.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartTradeUpdate.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartTradeUpdate.Price">
+            <summary>
+            Price
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartTradeUpdate.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartTradeUpdate.Side">
             <summary>
             Side
             </summary>
@@ -2884,6 +3265,61 @@
         <member name="P:BitMart.Net.Objects.Models.RepayRecord.RepaidInterest">
             <summary>
             Repaid interest
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Objects.Models.SubAccountTransferHistory">
+            <summary>
+            Transfer history
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.SubAccountTransferHistory.Total">
+            <summary>
+            Total
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.SubAccountTransferHistory.HistoryList">
+            <summary>
+            History list
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Objects.Models.SubAccountTransfer">
+            <summary>
+            Transfer info
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.SubAccountTransfer.FromAccount">
+            <summary>
+            From account
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.SubAccountTransfer.FromWalletType">
+            <summary>
+            From wallet type
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.SubAccountTransfer.ToAccount">
+            <summary>
+            To account
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.SubAccountTransfer.ToWalletType">
+            <summary>
+            To wallet type
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.SubAccountTransfer.Asset">
+            <summary>
+            Asset
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.SubAccountTransfer.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.SubAccountTransfer.Timestamp">
+            <summary>
+            Submission time
             </summary>
         </member>
         <member name="T:BitMart.Net.Objects.Options.BitMartOrderBookOptions">

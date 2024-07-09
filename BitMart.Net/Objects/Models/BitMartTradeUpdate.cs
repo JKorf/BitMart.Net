@@ -9,35 +9,34 @@ using BitMart.Net.Enums;
 namespace BitMart.Net.Objects.Models
 {
     /// <summary>
-    /// Trade info
+    /// Trade update
     /// </summary>
-    [JsonConverter(typeof(ArrayConverter))]
-    public record BitMartTrade
+    public record BitMartTradeUpdate
     {
         /// <summary>
         /// Symbol
         /// </summary>
-        [ArrayProperty(0)]
+        [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// Timestamp
         /// </summary>
-        [ArrayProperty(1), JsonConverter(typeof(DateTimeConverter))]
+        [JsonPropertyName("ms_t")]
         public DateTime Timestamp { get; set; }
         /// <summary>
         /// Price
         /// </summary>
-        [ArrayProperty(2)]
+        [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
         /// Quantity
         /// </summary>
-        [ArrayProperty(3)]
+        [JsonPropertyName("size")]
         public decimal Quantity { get; set; }
         /// <summary>
         /// Side
         /// </summary>
-        [ArrayProperty(4), JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("side")]
         public OrderSide Side { get; set; }
     }
 }

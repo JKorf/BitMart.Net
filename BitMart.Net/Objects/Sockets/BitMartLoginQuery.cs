@@ -8,17 +8,17 @@ using System.Linq;
 
 namespace BitMart.Net.Objects.Sockets
 {
-    internal class BitMartQuery : Query<BitMartSocketResponse>
+    internal class BitMartLoginQuery : Query<BitMartSocketResponse>
     {
         public override HashSet<string> ListenerIdentifiers { get; set; }
 
-        public BitMartQuery(string operation, IEnumerable<string> parameters, bool authenticated, int weight = 1) : base(new BitMartSocketOperation
+        public BitMartLoginQuery(string key, string timestamp, string sign) : base(new BitMartSocketOperation
         {
-            Operation = operation,
-            Parameters = parameters,
-        }, authenticated, weight)
+            Operation = "login",
+            Parameters = new[] { key, timestamp, sign },
+        }, false, 1)
         {
-            ListenerIdentifiers = new HashSet<string>(parameters.Select(p => operation + "-" + p));
+            ListenerIdentifiers = new HashSet<string>() { "login" };
         }
 
         public override CallResult<BitMartSocketResponse> HandleMessage(SocketConnection connection, DataEvent<BitMartSocketResponse> message)

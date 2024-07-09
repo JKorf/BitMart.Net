@@ -71,6 +71,25 @@ namespace BitMart.Net.UnitTests
         }
 
         [Test]
+        public async Task ValidateSpotSubAccountCalls()
+        {
+            var client = new BitMartRestClient(opts =>
+            {
+                opts.AutoTimestamp = false;
+                opts.ApiCredentials = new BitMartApiCredentials("123", "456");
+            });
+            var tester = new RestRequestValidator<BitMartRestClient>(client, "Endpoints/Spot/SubAccount", "https://api-cloud.bitmart.com", IsAuthenticated, stjCompare: true);
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.TransferSubToMainForMainAsync("123", "123", 0.1m, "123"), "TransferSubToMainForMain");
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.TransferSubToMainForSubAsync("123", "123", 0.1m), "TransferSubToMainForSub");
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.TransferMainToSubAccountAsync("123", "123", 0.1m, "123"), "TransferMainToSubAccount");
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.TransferSubAccountToSubAccountAsync("123", 0.1m, "123", "123", "123"), "TransferSubAccountToSubAccount");
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.GetSubAccountTransferHistoryForMainAsync(123), "GetSubAccountTransferHistoryForMain", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.GetSubAccountTransferHistoryAsync(123), "GetSubAccountTransferHistory", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.GetSubAcccountBalanceAsync("123"), "GetSubAcccountBalance", nestedJsonProperty: "data.wallet");
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.GetSubAccountListAsync(), "GetSubAccountList", nestedJsonProperty: "data.subAccountList");
+        }
+
+        [Test]
         public async Task ValidateSpotTradingDataCalls()
         {
             var client = new BitMartRestClient(opts =>
