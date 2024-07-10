@@ -1,0 +1,19 @@
+> {"op": "subscribe", "args": ["spot/depth/increase100:ETH_USDT"]}
+< {"event": "subscribe","topic": "spot/depth/increase100:ETH_USDT"}
+= 
+{
+  "data": [{
+    "asks": [
+      ["23200", "0.69959"],
+      ["28000.00", "0.20000"]
+    ],
+    "bids": [
+      ["23105", "1.80114"]
+    ],
+    "ms_t": 1698292343610,
+    "symbol": "ETH_USDT",
+    "type": "snapshot",
+    "version": 4
+  }],
+  "table": "spot/depth/increase100"
+}

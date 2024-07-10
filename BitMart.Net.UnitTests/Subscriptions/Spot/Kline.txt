@@ -1,0 +1,19 @@
+> {"op": "subscribe", "args": ["spot/kline1M:ETH_USDT"]}
+< {"event": "subscribe","topic": "spot/kline1M:ETH_USDT"}
+= 
+{
+  "data":  [
+    {
+      "candle":  [
+        1709025360,
+        "162.01",
+        "162.02",
+        "162.03",
+        "162.04",
+        "336.452694"
+      ],
+      "symbol":  "ETH_USDT"
+    }
+  ],
+  "table":  "spot/kline1M"
+}

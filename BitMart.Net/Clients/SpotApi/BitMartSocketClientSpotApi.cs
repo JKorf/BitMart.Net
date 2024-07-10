@@ -130,6 +130,14 @@ namespace BitMart.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(Action<DataEvent<BitMartBalanceUpdate>> onMessage, CancellationToken ct = default)
+        {
+            var subscription = new BitMartSubscription<IEnumerable<BitMartBalanceUpdate>>(_logger, new[] { "spot/user/balance:BALANCE_UPDATE" },
+                update => onMessage(update.As(update.Data.First())), true);
+            return await SubscribeAsync(BaseAddress.AppendPath("user?protocol=1.1"), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
         public override string? GetListenerIdentifier(IMessageAccessor message)
         {
             if (!message.IsJson)
@@ -146,8 +154,11 @@ namespace BitMart.Net.Clients.SpotApi
             }
 
             var table = message.GetValue<string>(_tablePath);
-            if (table == "spot/user/order")
-                return table + "ALL_SYMBOLS";
+            if (table == "spot/user/orders") // TODO is it `order` or `orders`?
+                return table + ":ALL_SYMBOLS";
+
+            if (string.Equals(table, "spot/user/balance", StringComparison.Ordinal))
+                return table + ":BALANCE_UPDATE";
 
             var symbol = message.GetValue<string>(_symbolPath);
             return table + ":" + symbol;

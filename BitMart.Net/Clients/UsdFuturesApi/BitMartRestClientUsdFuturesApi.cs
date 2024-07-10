@@ -13,6 +13,11 @@ using BitMart.Net.Interfaces.Clients.UsdFuturesApi;
 using BitMart.Net.Objects.Options;
 using CryptoExchange.Net.Clients;
 using BitMart.Net.Objects;
+using BitMart.Net.Interfaces.Clients;
+using BitMart.Net.Objects.Internal;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Interfaces;
+using CryptoExchange.Net.Converters.MessageParsing;
 
 namespace BitMart.Net.Clients.UsdFuturesApi
 {
@@ -21,6 +26,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
     {
         #region fields 
         internal static TimeSyncState _timeSyncState = new TimeSyncState("UsdFutures Api");
+        private readonly IBitMartRestClient _baseClient;
         #endregion
 
         #region Api clients
@@ -44,14 +50,21 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         public event Action<OrderId>? OnOrderCanceled;
 
         #region constructor/destructor
-        internal BitMartRestClientUsdFuturesApi(ILogger logger, HttpClient? httpClient, BitMartRestOptions options)
+        internal BitMartRestClientUsdFuturesApi(ILogger logger, IBitMartRestClient baseClient, HttpClient? httpClient, BitMartRestOptions options)
             : base(logger, httpClient, options.Environment.RestClientAddress, options, options.UsdFuturesOptions)
         {
             Account = new BitMartRestClientUsdFuturesApiAccount(this);
             ExchangeData = new BitMartRestClientUsdFuturesApiExchangeData(logger, this);
             Trading = new BitMartRestClientUsdFuturesApiTrading(logger, this);
+
+            _baseClient = baseClient;
         }
         #endregion
+
+        /// <inheritdoc />
+        protected override IStreamMessageAccessor CreateAccessor() => new SystemTextJsonStreamMessageAccessor();
+        /// <inheritdoc />
+        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer();
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
@@ -62,11 +75,14 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
         internal async Task<WebCallResult> SendToAddressAsync(string baseAddress, RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)
         {
-            var result = await base.SendAsync(baseAddress, definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
+            var result = await base.SendAsync<BitMartResponse>(baseAddress, definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
+            if (!result)
+                return result.AsDataless();
 
-            // Optional response checking
+            if (result.Data.Code != 1000)
+                return result.AsDatalessError(new ServerError(result.Data.Code, result.Data.Message));
 
-            return result;
+            return result.AsDataless();
         }
 
         internal Task<WebCallResult<T>> SendAsync<T>(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null) where T : class
@@ -74,16 +90,19 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
         internal async Task<WebCallResult<T>> SendToAddressAsync<T>(string baseAddress, RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null) where T : class
         {
-            var result = await base.SendAsync<T>(baseAddress, definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
+            var result = await base.SendAsync<BitMartResponse<T>>(baseAddress, definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
+            if (!result)
+                return result.As<T>(default);
 
-            // Optional response checking
+            if (result.Data.Code != 1000)
+                return result.AsError<T>(new ServerError(result.Data.Code, result.Data.Message));
 
-            return result;
+            return result.As(result.Data.Data);
         }
 
         /// <inheritdoc />
         protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
-            => ExchangeData.GetServerTimeAsync();
+            => _baseClient.SpotApi.ExchangeData.GetServerTimeAsync();
 
         /// <inheritdoc />
         public override TimeSyncInfo? GetTimeSyncInfo()
@@ -94,7 +113,24 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             => _timeSyncState.TimeOffset;
 
         /// <inheritdoc />
-        public override string FormatSymbol(string baseAsset, string quoteAsset) => throw new NotImplementedException();
+        public override string FormatSymbol(string baseAsset, string quoteAsset) => baseAsset + quoteAsset;
+
+        /// <inheritdoc />
+        protected override Error ParseErrorResponse(int httpStatusCode, IEnumerable<KeyValuePair<string, IEnumerable<string>>> responseHeaders, IMessageAccessor accessor)
+        {
+            if (!accessor.IsJson)
+                return new ServerError(accessor.GetOriginalString());
+
+            var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));
+            var msg = accessor.GetValue<string>(MessagePath.Get().Property("message"));
+            if (msg == null)
+                return new ServerError(accessor.GetOriginalString());
+
+            if (code == null)
+                return new ServerError(msg);
+
+            return new ServerError(code.Value, msg);
+        }
 
         /// <inheritdoc />
         public ISpotClient CommonSpotClient => this;

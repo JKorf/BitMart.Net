@@ -48,7 +48,7 @@ namespace BitMart.Net.Clients
                 optionsDelegate(options);
             Initialize(options);
 
-            UsdFuturesApi = AddApiClient(new BitMartRestClientUsdFuturesApi(_logger, httpClient, options));
+            UsdFuturesApi = AddApiClient(new BitMartRestClientUsdFuturesApi(_logger, this, httpClient, options));
             SpotApi = AddApiClient(new BitMartRestClientSpotApi(_logger, httpClient, options));
         }
 

@@ -8,6 +8,7 @@ using CryptoExchange.Net.Objects;
 using Microsoft.Extensions.Logging;
 using BitMart.Net.Interfaces.Clients.UsdFuturesApi;
 using BitMart.Net.Objects.Models;
+using BitMart.Net.Enums;
 
 namespace BitMart.Net.Clients.UsdFuturesApi
 {
@@ -22,16 +23,78 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             _baseClient = baseClient;
         }
 
-        #region Get Server Time
+        #region Get Contracts
 
         /// <inheritdoc />
-        public async Task<WebCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<BitMartContract>>> GetContractsAsync(string? symbol = null, CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "XXX", BitMartExchange.RateLimiter.BitMart, 1, true);
-            var result = await _baseClient.SendAsync<BitMartModel>(request, null, ct).ConfigureAwait(false);
-            throw new NotImplementedException();
+            var parameters = new ParameterCollection();
+            parameters.AddOptional("symbol", symbol);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/public/details", BitMartExchange.RateLimiter.BitMart, 1, false);
+            var result = await _baseClient.SendAsync<BitMartContractWrapper>(request, parameters, ct).ConfigureAwait(false);
+            return result.As<IEnumerable<BitMartContract>>(result.Data?.Symbols);
         }
 
         #endregion
+
+        #region Get Order Book
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<BitMartOrderBook>> GetOrderBookAsync(string symbol, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("symbol", symbol);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/public/depth", BitMartExchange.RateLimiter.BitMart, 1, false);
+            var result = await _baseClient.SendAsync<BitMartOrderBook>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Get Open Interest
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<BitMartOpenInterest>> GetOpenInterestAsync(string symbol, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("symbol", symbol);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/public/open-interest", BitMartExchange.RateLimiter.BitMart, 1, false);
+            var result = await _baseClient.SendAsync<BitMartOpenInterest>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Get Current Funding Rate
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<BitMartFundingRate>> GetCurrentFundingRateAsync(string symbol, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("symbol", symbol);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/public/funding-rate", BitMartExchange.RateLimiter.BitMart, 1, false);
+            var result = await _baseClient.SendAsync<BitMartFundingRate>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Get Klines
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<BitMartFuturesKline>>> GetKlinesAsync(string symbol, FuturesKlineInterval klineInterval, DateTime startTime, DateTime endTime, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("symbol", symbol);
+            parameters.AddEnum("step", klineInterval);
+            parameters.AddMilliseconds("start_time", startTime);
+            parameters.AddMilliseconds("end_time", endTime);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/public/kline", BitMartExchange.RateLimiter.BitMart, 1, false);
+            var result = await _baseClient.SendAsync<IEnumerable<BitMartFuturesKline>>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
     }
 }

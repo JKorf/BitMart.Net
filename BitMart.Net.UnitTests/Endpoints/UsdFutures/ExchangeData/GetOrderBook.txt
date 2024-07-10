@@ -1,0 +1,11 @@
+GET
+/contract/public/depth
+false
+{
+  "code": 1000,
+  "message": "Ok",
+  "trace": "b9bff62d-9ac8-4815-8808-8f745673c096",
+  "data": {
+    "symbol": "BTCUSDT"
+  }
+}

@@ -1,0 +1,25 @@
+GET
+/contract/public/kline
+false
+{
+  "code": 1000,
+  "trace": "0cc6f4c4-8b8c-4253-8e90-8d3195aa109c",
+  "message": "Ok",
+  "data": [{
+    "timestamp": 1662518160,
+    "open_price": "100",
+    "close_price": "120",
+    "high_price": "130",
+    "low_price": "90",
+    "volume": "941008"
+    },
+    {
+      "timestamp": 1662518161,
+      "open_price": "100",
+      "close_price": "120",
+      "high_price": "130",
+      "low_price": "90",
+      "volume": "941008"
+    }
+  ]
+}

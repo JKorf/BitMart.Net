@@ -1,0 +1,24 @@
+> {"op": "subscribe", "args": ["spot/depth5:ETH_USDT"]}
+< {"event": "subscribe","topic": "spot/depth5:ETH_USDT"}
+= 
+{
+    "table":"spot/depth5",
+    "data":[
+        {
+            "asks":[
+                [
+                    "161.96",
+                    "7.37567"
+                ]
+            ],
+            "bids":[
+                [
+                    "161.94",
+                    "4.552355"
+                ]
+            ],
+            "symbol":"ETH_USDT",
+            "ms_t": 1542337219120
+        }
+    ]
+}

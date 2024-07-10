@@ -5,6 +5,7 @@ using CryptoExchange.Net.Sockets;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BitMart.Net.Objects.Sockets
 {
@@ -20,7 +21,7 @@ namespace BitMart.Net.Objects.Sockets
 
         public override Type? GetMessageType(IMessageAccessor message) => typeof(string);
 
-        public override CallResult Handle(SocketConnection connection, DataEvent<object> message) => new CallResult(null);
+        public override Task<CallResult> Handle(SocketConnection connection, DataEvent<object> message) => Task.FromResult(new CallResult(null));
 
         public override void Timeout()
         {

@@ -8,7 +8,7 @@ namespace BitMart.Net.Enums
     /// <summary>
     /// Kline interval
     /// </summary>
-    public enum KlineInterval
+    public enum FuturesKlineInterval
     {
         /// <summary>
         /// One minute
@@ -36,11 +36,6 @@ namespace BitMart.Net.Enums
         [Map("30")]
         ThirtyMinutes,
         /// <summary>
-        /// Fourty five minutes
-        /// </summary>
-        [Map("45")]
-        FourtyFiveMinutes,
-        /// <summary>
         /// One hour
         /// </summary>
         [Map("60")]
@@ -51,29 +46,34 @@ namespace BitMart.Net.Enums
         [Map("120")]
         TwoHours,
         /// <summary>
-        /// Three hours
-        /// </summary>
-        [Map("180")]
-        ThreeHours,
-        /// <summary>
         /// Four hours
         /// </summary>
         [Map("240")]
         FourHours,
+        /// <summary>
+        /// Six hours
+        /// </summary>
+        [Map("360")]
+        SixHours,
+        /// <summary>
+        /// Twelve hours
+        /// </summary>
+        [Map("720")]
+        TwelveHours,
         /// <summary>
         /// One day
         /// </summary>
         [Map("1440")]
         OneDay,
         /// <summary>
+        /// Three days
+        /// </summary>
+        [Map("4320")]
+        ThreeDays,
+        /// <summary>
         /// One week
         /// </summary>
         [Map("10080")]
-        OneWeek,
-        /// <summary>
-        /// One month
-        /// </summary>
-        [Map("43200")]
-        OneMonth
+        OneWeek
     }
 }

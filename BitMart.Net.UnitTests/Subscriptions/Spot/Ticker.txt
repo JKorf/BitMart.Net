@@ -1,0 +1,24 @@
+> {"op": "subscribe", "args": ["spot/ticker:ETH_USDT"]}
+< {"event": "subscribe","topic": "spot/ticker:ETH_USDT"}
+= 
+{
+  "data":  [
+    {
+      "ask_px":  "36000",
+      "ask_sz":  "1.021",
+      "base_volume_24h":  "2.02000",
+      "bid_px":  "35000",
+      "bid_sz":  "11",
+      "fluctuation":  "-0.0001",
+      "high_24h":  "35003.04",
+      "last_price":  "35000.00",
+      "low_24h":  "35000.00",
+      "ms_t":  1709024652967,
+      "open_24h":  "35003.03",
+      "quote_volume_24h":  "70700.00",
+      "s_t":  1709024652,
+      "symbol":  "ETH_USDT"
+    }
+  ],
+  "table":  "spot/ticker"
+}

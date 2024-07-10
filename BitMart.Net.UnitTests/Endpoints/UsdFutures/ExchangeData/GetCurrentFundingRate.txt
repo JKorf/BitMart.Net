@@ -1,0 +1,17 @@
+GET
+/contract/public/funding-rate
+false
+{
+  "code": 1000,
+  "message": "Ok",
+  "data": {
+    "timestamp": 1662518172178,
+    "symbol": "BTCUSDT",
+    "rate_value": "0.000164",
+    "expected_rate": "0.000164",
+    "funding_time": 1709971200000,
+    "funding_upper_limit": "0.0375",
+    "funding_lower_limit": "-0.0375"
+  },
+  "trace": "13f7fda9-9543-4e11-a0ba-cbe117989988"
+}

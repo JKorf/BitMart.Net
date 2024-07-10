@@ -1,0 +1,14 @@
+> {"op": "subscribe", "args": ["spot/trade:ETH_USDT"]}
+< {"event": "subscribe","topic": "spot/trade:ETH_USDT"}
+= 
+{
+    "table": "spot/trade",
+    "data": [{
+        "symbol": "ETH_USDT",
+        "price": "162.12",
+        "side": "buy",
+        "size": "11.085",
+        "s_t": 1542337219,
+        "ms_t": 1542337219120
+    }]
+}

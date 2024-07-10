@@ -110,6 +110,35 @@ namespace BitMart.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.Trading.CancelOrdersAsync("123"), "CancelOrders", nestedJsonProperty: "data");
         }
 
+        [Test]
+        public async Task ValidateUsdFuturesAccountCalls()
+        {
+            var client = new BitMartRestClient(opts =>
+            {
+                opts.AutoTimestamp = false;
+                opts.ApiCredentials = new BitMartApiCredentials("123", "456");
+            });
+            var tester = new RestRequestValidator<BitMartRestClient>(client, "Endpoints/UsdFutures/Account", "https://api-cloud.bitmart.com", IsAuthenticated, stjCompare: true);
+            await tester.ValidateAsync(client => client.UsdFuturesApi.Account.GetBalancesAsync(), "GetBalances", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UsdFuturesApi.Account.GetTransferHistoryAsync(), "GetTransferHistory", nestedJsonProperty: "data.records");
+        }
+
+        [Test]
+        public async Task ValidateUsdFuturesExchageDataCalls()
+        {
+            var client = new BitMartRestClient(opts =>
+            {
+                opts.AutoTimestamp = false;
+                opts.ApiCredentials = new BitMartApiCredentials("123", "456");
+            });
+            var tester = new RestRequestValidator<BitMartRestClient>(client, "Endpoints/UsdFutures/ExchangeData", "https://api-cloud.bitmart.com", IsAuthenticated, stjCompare: true);
+            await tester.ValidateAsync(client => client.UsdFuturesApi.ExchangeData.GetContractsAsync(), "GetContracts", nestedJsonProperty: "data.symbols");
+            await tester.ValidateAsync(client => client.UsdFuturesApi.ExchangeData.GetOrderBookAsync("123"), "GetOrderBook", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UsdFuturesApi.ExchangeData.GetOpenInterestAsync("123"), "GetOpenInterest", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UsdFuturesApi.ExchangeData.GetCurrentFundingRateAsync("123"), "GetCurrentFundingRate", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UsdFuturesApi.ExchangeData.GetKlinesAsync("123", FuturesKlineInterval.OneDay, DateTime.UtcNow, DateTime.UtcNow), "GetKlines", nestedJsonProperty: "data");
+        }
+
         private bool IsAuthenticated(WebCallResult result)
         {
             return result.RequestHeaders.Any(x => x.Key == "X-BM-SIGN");

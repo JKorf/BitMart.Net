@@ -6,19 +6,19 @@ using System.Text;
 namespace BitMart.Net.Enums
 {
     /// <summary>
-    /// Trade role
+    /// Contract type
     /// </summary>
-    public enum TradeRole
+    public enum ContractType
     {
         /// <summary>
-        /// Maker
+        /// Perpetual contract
         /// </summary>
-        [Map("maker", "M")]
-        Maker,
+        [Map("1")]
+        Perpetual,
         /// <summary>
-        /// Taker
+        /// Futures contract
         /// </summary>
-        [Map("taker", "T")]
-        Taker
+        [Map("2")]
+        Futures
     }
 }
