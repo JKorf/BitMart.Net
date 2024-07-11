@@ -6,19 +6,19 @@ using System.Text;
 namespace BitMart.Net.Enums
 {
     /// <summary>
-    /// Trade role
+    /// Price direction
     /// </summary>
-    public enum TradeRole
+    public enum PriceDirection
     {
         /// <summary>
-        /// Maker
+        /// Long direction
         /// </summary>
-        [Map("maker", "M", "Maker")]
-        Maker,
+        [Map("price_way_long")]
+        LongDirection,
         /// <summary>
-        /// Taker
+        /// Short direction
         /// </summary>
-        [Map("taker", "T", "Taker")]
-        Taker
+        [Map("price_way_short")]
+        ShortDirection
     }
 }

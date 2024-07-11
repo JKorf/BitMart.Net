@@ -1,0 +1,19 @@
+GET
+/account/contract/sub-account/v1/transfer-history
+true
+{
+  "message": "OK",
+  "code": 1000,
+  "trace": "ba950ec2bd114fd7bc069cb812b0129f.62.16887215218140681",
+  "data": [
+    {
+      "fromAccount": "masterAccount@xxx.com",
+      "toAccount": "subAccount@xxx.com",
+      "toWalletType": "future",
+      "fromWalletType": "future",
+      "currency": "USDT",
+      "amount": "1",
+      "submissionTime": 1686207254
+    }
+  ]
+}

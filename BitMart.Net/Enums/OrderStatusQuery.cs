@@ -6,19 +6,19 @@ using System.Text;
 namespace BitMart.Net.Enums
 {
     /// <summary>
-    /// Trade role
+    /// Order status query filter
     /// </summary>
-    public enum TradeRole
+    public enum OrderStatusQuery
     {
         /// <summary>
-        /// Maker
+        /// All orders
         /// </summary>
-        [Map("maker", "M", "Maker")]
-        Maker,
+        [Map("all")]
+        All,
         /// <summary>
-        /// Taker
+        /// Partially filled
         /// </summary>
-        [Map("taker", "T", "Taker")]
-        Taker
+        [Map("partially_filled")]
+        PartiallyFilled
     }
 }

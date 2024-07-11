@@ -35,6 +35,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         /// <inheritdoc />
         public IBitMartRestClientUsdFuturesApiExchangeData ExchangeData { get; }
         /// <inheritdoc />
+        public IBitMartRestClientUsdFuturesApiSubAccount SubAccount { get; }
+        /// <inheritdoc />
         public IBitMartRestClientUsdFuturesApiTrading Trading { get; }
         /// <inheritdoc />
         public string ExchangeName => "BitMart";
@@ -54,6 +56,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             : base(logger, httpClient, options.Environment.RestClientAddress, options, options.UsdFuturesOptions)
         {
             Account = new BitMartRestClientUsdFuturesApiAccount(this);
+            SubAccount = new BitMartRestClientUsdFuturesApiSubAccount(this);
             ExchangeData = new BitMartRestClientUsdFuturesApiExchangeData(logger, this);
             Trading = new BitMartRestClientUsdFuturesApiTrading(logger, this);
 

@@ -6,19 +6,19 @@ using System.Text;
 namespace BitMart.Net.Enums
 {
     /// <summary>
-    /// Trade role
+    /// Margin type
     /// </summary>
-    public enum TradeRole
+    public enum MarginType
     {
         /// <summary>
-        /// Maker
+        /// Cross margin
         /// </summary>
-        [Map("maker", "M", "Maker")]
-        Maker,
+        [Map("cross", "Cross")]
+        CrossMargin,
         /// <summary>
-        /// Taker
+        /// Isolated margin
         /// </summary>
-        [Map("taker", "T", "Taker")]
-        Taker
+        [Map("isolated", "Isolated")]
+        IsolatedMargin
     }
 }

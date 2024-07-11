@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using BitMart.Net.Objects.Models;
 using System;
+using BitMart.Net.Enums;
 
 namespace BitMart.Net.Clients.UsdFuturesApi
 {
@@ -48,6 +49,38 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/account/v1/transfer-contract-list", BitMartExchange.RateLimiter.BitMart, 1, true);
             var result = await _baseClient.SendAsync<BitMartFuturesTransferWrapper>(request, parameters, ct).ConfigureAwait(false);
             return result.As<IEnumerable<BitMartFuturesTransfer>>(result.Data?.Records);
+        }
+
+        #endregion
+
+        #region Transfer
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<BitMartTransferResult>> TransferAsync(string asset, decimal quantity, FuturesTransferType type, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("currency", asset);
+            parameters.AddString("amount", quantity);
+            parameters.AddEnum("type", type);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/account/v1/transfer-contract", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var result = await _baseClient.SendAsync<BitMartTransferResult>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Set Leverage
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<BitMartLeverage>> SetLeverageAsync(string symbol, decimal leverage, MarginType openType, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("symbol", symbol);
+            parameters.AddString("leverage", leverage);
+            parameters.AddEnum("open_type", openType);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/contract/private/submit-leverage", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var result = await _baseClient.SendAsync<BitMartLeverage>(request, parameters, ct).ConfigureAwait(false);
+            return result;
         }
 
         #endregion

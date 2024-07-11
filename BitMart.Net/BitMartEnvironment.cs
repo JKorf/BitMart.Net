@@ -14,18 +14,25 @@ namespace BitMart.Net
         public string RestClientAddress { get; }
 
         /// <summary>
-        /// Socket API address
+        /// Socket Spot API address
         /// </summary>
-        public string SocketClientAddress { get; }
+        public string SocketClientSpotAddress { get; }
+
+        /// <summary>
+        /// Socket Perpetual Futures API address
+        /// </summary>
+        public string SocketClientPerpetualFuturesAddress { get; }
 
         internal BitMartEnvironment(
             string name,
             string restAddress,
-            string streamAddress) :
+            string streamSpotAddress,
+            string streamPerpetualFuturesAddress) :
             base(name)
         {
             RestClientAddress = restAddress;
-            SocketClientAddress = streamAddress;
+            SocketClientSpotAddress = streamSpotAddress;
+            SocketClientPerpetualFuturesAddress = streamPerpetualFuturesAddress;
         }
 
         /// <summary>
@@ -34,19 +41,22 @@ namespace BitMart.Net
         public static BitMartEnvironment Live { get; }
             = new BitMartEnvironment(TradeEnvironmentNames.Live,
                                      BitMartApiAddresses.Default.RestClientAddress,
-                                     BitMartApiAddresses.Default.SocketClientAddress);
+                                     BitMartApiAddresses.Default.SocketSpotClientAddress,
+                                     BitMartApiAddresses.Default.SocketPerpetualFuturesClientAddress);
 
         /// <summary>
         /// Create a custom environment
         /// </summary>
         /// <param name="name"></param>
-        /// <param name="spotRestAddress"></param>
+        /// <param name="restAddress"></param>
         /// <param name="spotSocketStreamsAddress"></param>
+        /// <param name="perpetualFuturesSocketStreamAddress"></param>
         /// <returns></returns>
         public static BitMartEnvironment CreateCustom(
                         string name,
-                        string spotRestAddress,
-                        string spotSocketStreamsAddress)
-            => new BitMartEnvironment(name, spotRestAddress, spotSocketStreamsAddress);
+                        string restAddress,
+                        string spotSocketStreamsAddress,
+                        string perpetualFuturesSocketStreamAddress)
+            => new BitMartEnvironment(name, restAddress, spotSocketStreamsAddress, perpetualFuturesSocketStreamAddress);
     }
 }

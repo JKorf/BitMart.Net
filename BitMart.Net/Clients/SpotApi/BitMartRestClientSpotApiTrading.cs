@@ -212,6 +212,5 @@ namespace BitMart.Net.Clients.SpotApi
 
         #endregion
 
-
     }
 }

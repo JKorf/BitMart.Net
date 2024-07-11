@@ -1,0 +1,21 @@
+GET
+/contract/private/trades
+true
+{
+  "code": 1000,
+  "message": "Ok",
+  "data": [{
+    "order_id": "220921197409432",
+    "trade_id": "1141853921",
+    "symbol": "BTCUSDT",
+    "side": 1,
+    "price": "19313.3",
+    "vol": "108",
+    "exec_type": "Maker",
+    "profit": false,
+    "realised_profit": "-0.00832",
+    "paid_fees": "0",
+    "create_time": 1663663818589
+  }],
+  "trace": "638d5048-ad21-4a4b-9365-d0756fbfc7ba"
+}

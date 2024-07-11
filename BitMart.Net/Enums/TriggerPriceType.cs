@@ -6,19 +6,19 @@ using System.Text;
 namespace BitMart.Net.Enums
 {
     /// <summary>
-    /// Trade role
+    /// Trigger price type
     /// </summary>
-    public enum TradeRole
+    public enum TriggerPriceType
     {
         /// <summary>
-        /// Maker
+        /// Last price
         /// </summary>
-        [Map("maker", "M", "Maker")]
-        Maker,
+        [Map("1")]
+        LastPrice,
         /// <summary>
-        /// Taker
+        /// Fair price
         /// </summary>
-        [Map("taker", "T", "Taker")]
-        Taker
+        [Map("2")]
+        FairPrice
     }
 }

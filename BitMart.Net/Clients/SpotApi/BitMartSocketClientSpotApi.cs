@@ -44,7 +44,7 @@ namespace BitMart.Net.Clients.SpotApi
         /// ctor
         /// </summary>
         internal BitMartSocketClientSpotApi(ILogger logger, BitMartSocketOptions options) :
-            base(logger, options.Environment.SocketClientAddress!, options, options.SpotOptions)
+            base(logger, options.Environment.SocketClientSpotAddress!, options, options.SpotOptions)
         {
             KeepAliveInterval = TimeSpan.Zero;
 
@@ -154,7 +154,7 @@ namespace BitMart.Net.Clients.SpotApi
             }
 
             var table = message.GetValue<string>(_tablePath);
-            if (table == "spot/user/orders") // TODO is it `order` or `orders`?
+            if (string.Equals(table, "spot/user/orders", StringComparison.Ordinal)) // TODO is it `order` or `orders`?
                 return table + ":ALL_SYMBOLS";
 
             if (string.Equals(table, "spot/user/balance", StringComparison.Ordinal))

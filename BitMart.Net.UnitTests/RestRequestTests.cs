@@ -121,6 +121,8 @@ namespace BitMart.Net.UnitTests
             var tester = new RestRequestValidator<BitMartRestClient>(client, "Endpoints/UsdFutures/Account", "https://api-cloud.bitmart.com", IsAuthenticated, stjCompare: true);
             await tester.ValidateAsync(client => client.UsdFuturesApi.Account.GetBalancesAsync(), "GetBalances", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UsdFuturesApi.Account.GetTransferHistoryAsync(), "GetTransferHistory", nestedJsonProperty: "data.records");
+            await tester.ValidateAsync(client => client.UsdFuturesApi.Account.TransferAsync("123", 0.1m, FuturesTransferType.ContractToSpot), "Transfer", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UsdFuturesApi.Account.SetLeverageAsync("123", 0.1m, MarginType.CrossMargin), "SetLeverage", nestedJsonProperty: "data");
         }
 
         [Test]
@@ -137,6 +139,47 @@ namespace BitMart.Net.UnitTests
             await tester.ValidateAsync(client => client.UsdFuturesApi.ExchangeData.GetOpenInterestAsync("123"), "GetOpenInterest", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UsdFuturesApi.ExchangeData.GetCurrentFundingRateAsync("123"), "GetCurrentFundingRate", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UsdFuturesApi.ExchangeData.GetKlinesAsync("123", FuturesKlineInterval.OneDay, DateTime.UtcNow, DateTime.UtcNow), "GetKlines", nestedJsonProperty: "data");
+        }
+
+
+        [Test]
+        public async Task ValidateUsdFuturesSubAccountCalls()
+        {
+            var client = new BitMartRestClient(opts =>
+            {
+                opts.AutoTimestamp = false;
+                opts.ApiCredentials = new BitMartApiCredentials("123", "456");
+            });
+            var tester = new RestRequestValidator<BitMartRestClient>(client, "Endpoints/UsdFutures/SubAccount", "https://api-cloud.bitmart.com", IsAuthenticated, stjCompare: true);
+            await tester.ValidateAsync(client => client.UsdFuturesApi.SubAccount.TransferSubToMainForMainAsync("123", 0.1m, "123", "123"), "TransferSubToMainForMain");
+            await tester.ValidateAsync(client => client.UsdFuturesApi.SubAccount.TransferMainToSubForMainAsync("123", 0.1m, "123", "123"), "TransferMainToSubForMain");
+            await tester.ValidateAsync(client => client.UsdFuturesApi.SubAccount.TransferSubToMainForSubAsync("123", 0.1m, "123"), "TransferSubToMainForSub");
+            await tester.ValidateAsync(client => client.UsdFuturesApi.SubAccount.GetSubAcccountBalanceAsync("123"), "GetSubAcccountBalance", nestedJsonProperty: "data.wallet");
+            await tester.ValidateAsync(client => client.UsdFuturesApi.SubAccount.GetSubAccountTransferHistoryForMainAsync("123", 123), "GetSubAccountTransferHistoryForMain", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UsdFuturesApi.SubAccount.GetSubAccountTransferHistoryAsync(123), "GetSubAccountTransferHistory", nestedJsonProperty: "data");
+        }
+
+        [Test]
+        public async Task ValidateUsdFuturesTradingCalls()
+        {
+            var client = new BitMartRestClient(opts =>
+            {
+                opts.AutoTimestamp = false;
+                opts.ApiCredentials = new BitMartApiCredentials("123", "456");
+            });
+            var tester = new RestRequestValidator<BitMartRestClient>(client, "Endpoints/UsdFutures/Trading", "https://api-cloud.bitmart.com", IsAuthenticated, stjCompare: true);
+            await tester.ValidateAsync(client => client.UsdFuturesApi.Trading.GetOrderAsync("123", "123"), "GetOrder", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UsdFuturesApi.Trading.GetClosedOrdersAsync("123"), "GetClosedOrders", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UsdFuturesApi.Trading.GetOpenOrdersAsync(), "GetOpenOrders", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UsdFuturesApi.Trading.GetTriggerOrdersAsync(), "GetTriggerOrders", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UsdFuturesApi.Trading.GetPositionsAsync(), "GetPositions", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UsdFuturesApi.Trading.GetPositionRiskAsync(), "GetPositionRisk", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UsdFuturesApi.Trading.GetUserTradesAsync("123"), "GetUserTrades", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UsdFuturesApi.Trading.PlaceOrderAsync("123", FuturesSide.SellCloseLong, FuturesOrderType.Market, 0.1m), "PlaceOrder", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UsdFuturesApi.Trading.CancelOrderAsync("123", "123"), "CancelOrder");
+            await tester.ValidateAsync(client => client.UsdFuturesApi.Trading.CancelOrdersAsync("123"), "CancelOrders");
+            await tester.ValidateAsync(client => client.UsdFuturesApi.Trading.PlaceTriggerOrderAsync("123", OrderType.Market, FuturesSide.BuyCloseShort, 0.1m, 0.1m, MarginType.CrossMargin, 0.1m, PriceDirection.LongDirection, TriggerPriceType.FairPrice), "PlaceTriggerOrder", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UsdFuturesApi.Trading.CancelTriggerOrderAsync("123", "123"), "CancelTriggerOrder");
         }
 
         private bool IsAuthenticated(WebCallResult result)

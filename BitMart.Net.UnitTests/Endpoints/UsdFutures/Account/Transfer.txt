@@ -1,0 +1,12 @@
+POST
+/account/v1/transfer-contract
+true
+{
+  "message":"OK",
+  "code":1000,
+  "trace":"34018ca3-fe24-446a-9e1d-f82edfb3e3",
+  "data":{
+    "currency":"USDT",
+    "amount":"10"
+  }
+}

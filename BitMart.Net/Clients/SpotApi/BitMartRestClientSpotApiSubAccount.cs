@@ -90,7 +90,7 @@ namespace BitMart.Net.Clients.SpotApi
 
         #endregion
 
-        #region Get Sub Account Transfer History
+        #region Get Sub Account Transfer History For Main
 
         /// <inheritdoc />
         public async Task<WebCallResult<SubAccountTransferHistory>> GetSubAccountTransferHistoryForMainAsync(int limit, string? account = null, CancellationToken ct = default)

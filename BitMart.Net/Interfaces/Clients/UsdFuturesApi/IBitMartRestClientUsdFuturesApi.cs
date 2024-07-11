@@ -15,6 +15,11 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         public IBitMartRestClientUsdFuturesApiAccount Account { get; }
 
         /// <summary>
+        /// Endpoints related to sub account management
+        /// </summary>
+        public IBitMartRestClientUsdFuturesApiSubAccount SubAccount { get; }
+
+        /// <summary>
         /// Endpoints related to retrieving market and system data
         /// </summary>
         public IBitMartRestClientUsdFuturesApiExchangeData ExchangeData { get; }
