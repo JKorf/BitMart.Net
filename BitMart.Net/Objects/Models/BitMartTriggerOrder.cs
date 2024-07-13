@@ -85,7 +85,7 @@ namespace BitMart.Net.Objects.Models
         /// Open type
         /// </summary>
         [JsonPropertyName("open_type")]
-        public MarginType OpenType { get; set; }
+        public MarginType MarginType { get; set; }
         /// <summary>
         /// Create time
         /// </summary>

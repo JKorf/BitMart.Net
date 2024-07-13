@@ -154,7 +154,7 @@ namespace BitMart.Net.Clients.SpotApi
             }
 
             var table = message.GetValue<string>(_tablePath);
-            if (string.Equals(table, "spot/user/orders", StringComparison.Ordinal)) // TODO is it `order` or `orders`?
+            if (string.Equals(table, "spot/user/orders", StringComparison.Ordinal))
                 return table + ":ALL_SYMBOLS";
 
             if (string.Equals(table, "spot/user/balance", StringComparison.Ordinal))
@@ -179,7 +179,7 @@ namespace BitMart.Net.Clients.SpotApi
             var authProvider = (BitMartAuthenticationProvider)AuthenticationProvider!;
             var key = authProvider.GetApiKey();
             var memo = authProvider.GetMemo();
-            var sign = authProvider.Sign($"{timestamp}#{memo}#bitmart.Websocket");
+            var sign = authProvider.Sign($"{timestamp}#{memo}#bitmart.WebSocket");
 
             return new BitMartLoginQuery(key, timestamp, sign);
         }

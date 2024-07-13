@@ -48,9 +48,9 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// </summary>
         /// <param name="symbol">The symbol</param>
         /// <param name="leverage">Leverage</param>
-        /// <param name="openType">Open type, required at close position</param>
+        /// <param name="marginType">Open type, required at close position</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartLeverage>> SetLeverageAsync(string symbol, decimal leverage, MarginType openType, CancellationToken ct = default);
+        Task<WebCallResult<BitMartLeverage>> SetLeverageAsync(string symbol, decimal leverage, MarginType marginType, CancellationToken ct = default);
 
     }
 }

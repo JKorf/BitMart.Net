@@ -137,7 +137,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         #region Place Order
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMartFuturesOrderResponse>> PlaceOrderAsync(string symbol, FuturesSide side, FuturesOrderType type, decimal quantity, decimal? price = null, string? clientOrderId = null, decimal? leverage = null, MarginType? openType = null, OrderMode? orderMode = null, decimal? triggerPrice = null, decimal? callbackRate = null, TriggerPriceType? triggerPriceType = null, TriggerPriceType? presetTakeProfitPriceType = null, TriggerPriceType? presetStopLossPriceType = null, decimal? presetTakeProfitPrice = null, decimal? presetStopLossPrice = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BitMartFuturesOrderResponse>> PlaceOrderAsync(string symbol, FuturesSide side, FuturesOrderType type, decimal quantity, decimal? price = null, string? clientOrderId = null, decimal? leverage = null, MarginType? marginType = null, OrderMode? orderMode = null, decimal? triggerPrice = null, decimal? callbackRate = null, TriggerPriceType? triggerPriceType = null, TriggerPriceType? presetTakeProfitPriceType = null, TriggerPriceType? presetStopLossPriceType = null, decimal? presetTakeProfitPrice = null, decimal? presetStopLossPrice = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("symbol", symbol);
@@ -147,7 +147,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             parameters.AddOptionalString("price", price);
             parameters.AddOptional("client_order_id", clientOrderId);
             parameters.AddOptionalString("leverage", leverage);
-            parameters.AddOptionalEnum("open_type", openType);
+            parameters.AddOptionalEnum("open_type", marginType);
             parameters.AddOptionalEnum("mode", orderMode);
             parameters.AddOptionalString("activation_price", triggerPrice);
             parameters.AddOptionalString("callback_rate", callbackRate);
@@ -195,7 +195,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         #region Place Trigger Order
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMartFuturesOrderId>> PlaceTriggerOrderAsync(string symbol, OrderType orderType, FuturesSide side, decimal quantity, decimal leverage, MarginType openType, decimal triggerPrice, PriceDirection priceDirection, TriggerPriceType triggerPriceType, OrderMode? orderMode = null, decimal? orderPrice = null, PlanCategory? planCategory = null, decimal? takeProfitPrice = null, decimal? stopLossPrice = null, TriggerPriceType? takeProfitPriceType = null, TriggerPriceType? stopLossPriceType = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BitMartFuturesOrderId>> PlaceTriggerOrderAsync(string symbol, OrderType orderType, FuturesSide side, decimal quantity, decimal leverage, MarginType marginType, decimal triggerPrice, PriceDirection priceDirection, TriggerPriceType triggerPriceType, OrderMode? orderMode = null, decimal? orderPrice = null, PlanCategory? planCategory = null, decimal? takeProfitPrice = null, decimal? stopLossPrice = null, TriggerPriceType? takeProfitPriceType = null, TriggerPriceType? stopLossPriceType = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("symbol", symbol);
@@ -203,7 +203,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             parameters.AddEnum("side", side);
             parameters.AddString("size", quantity);
             parameters.AddString("leverage", leverage);
-            parameters.AddEnum("open_type", openType);
+            parameters.AddEnum("open_type", marginType);
             parameters.AddString("trigger_price", triggerPrice);
             parameters.AddEnum("price_way", priceDirection);
             parameters.AddEnum("price_type", triggerPriceType);

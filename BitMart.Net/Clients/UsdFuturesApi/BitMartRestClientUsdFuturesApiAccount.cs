@@ -72,12 +72,12 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         #region Set Leverage
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMartLeverage>> SetLeverageAsync(string symbol, decimal leverage, MarginType openType, CancellationToken ct = default)
+        public async Task<WebCallResult<BitMartLeverage>> SetLeverageAsync(string symbol, decimal leverage, MarginType marginType, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("symbol", symbol);
             parameters.AddString("leverage", leverage);
-            parameters.AddEnum("open_type", openType);
+            parameters.AddEnum("open_type", marginType);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/contract/private/submit-leverage", BitMartExchange.RateLimiter.BitMart, 1, true);
             var result = await _baseClient.SendAsync<BitMartLeverage>(request, parameters, ct).ConfigureAwait(false);
             return result;

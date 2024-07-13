@@ -91,7 +91,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="price">Limit price</param>
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="leverage">Leverage</param>
-        /// <param name="openType">Margin type</param>
+        /// <param name="marginType">Margin type</param>
         /// <param name="orderMode">Order mode</param>
         /// <param name="triggerPrice">Trigger price</param>
         /// <param name="callbackRate">Trailing order callback rate</param>
@@ -101,7 +101,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="presetTakeProfitPrice">Take profit price</param>
         /// <param name="presetStopLossPrice">Stop loss price</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartFuturesOrderResponse>> PlaceOrderAsync(string symbol, FuturesSide side, FuturesOrderType type, decimal quantity, decimal? price = null, string? clientOrderId = null, decimal? leverage = null, MarginType? openType = null, OrderMode? orderMode = null, decimal? triggerPrice = null, decimal? callbackRate = null, TriggerPriceType? triggerPriceType = null, TriggerPriceType? presetTakeProfitPriceType = null, TriggerPriceType? presetStopLossPriceType = null, decimal? presetTakeProfitPrice = null, decimal? presetStopLossPrice = null, CancellationToken ct = default);
+        Task<WebCallResult<BitMartFuturesOrderResponse>> PlaceOrderAsync(string symbol, FuturesSide side, FuturesOrderType type, decimal quantity, decimal? price = null, string? clientOrderId = null, decimal? leverage = null, MarginType? marginType = null, OrderMode? orderMode = null, decimal? triggerPrice = null, decimal? callbackRate = null, TriggerPriceType? triggerPriceType = null, TriggerPriceType? presetTakeProfitPriceType = null, TriggerPriceType? presetStopLossPriceType = null, decimal? presetTakeProfitPrice = null, decimal? presetStopLossPrice = null, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel an active order
@@ -129,7 +129,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="side">Side</param>
         /// <param name="quantity">Quantity</param>
         /// <param name="leverage">Order leverage</param>
-        /// <param name="openType">Margin type</param>
+        /// <param name="marginType">Margin type</param>
         /// <param name="triggerPrice">Trigger price</param>
         /// <param name="priceDirection">Price direction</param>
         /// <param name="triggerPriceType">Trigger price type</param>
@@ -141,7 +141,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="takeProfitPriceType">Take profit price type</param>
         /// <param name="stopLossPriceType">Stop loss price type</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartFuturesOrderId>> PlaceTriggerOrderAsync(string symbol, OrderType orderType, FuturesSide side, decimal quantity, decimal leverage, MarginType openType, decimal triggerPrice, PriceDirection priceDirection, TriggerPriceType triggerPriceType, OrderMode? orderMode = null, decimal? orderPrice = null, PlanCategory? planCategory = null, decimal? takeProfitPrice = null, decimal? stopLossPrice = null, TriggerPriceType? takeProfitPriceType = null, TriggerPriceType? stopLossPriceType = null, CancellationToken ct = default);
+        Task<WebCallResult<BitMartFuturesOrderId>> PlaceTriggerOrderAsync(string symbol, OrderType orderType, FuturesSide side, decimal quantity, decimal leverage, MarginType marginType, decimal triggerPrice, PriceDirection priceDirection, TriggerPriceType triggerPriceType, OrderMode? orderMode = null, decimal? orderPrice = null, PlanCategory? planCategory = null, decimal? takeProfitPrice = null, decimal? stopLossPrice = null, TriggerPriceType? takeProfitPriceType = null, TriggerPriceType? stopLossPriceType = null, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel a trigger order

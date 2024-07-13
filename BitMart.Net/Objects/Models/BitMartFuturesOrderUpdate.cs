@@ -7,9 +7,26 @@ using System.Text.Json.Serialization;
 namespace BitMart.Net.Objects.Models
 {
     /// <summary>
-    /// Order info
+    /// Order update event
     /// </summary>
-    public record BitMartFuturesOrder
+    public record BitMartFuturesOrderUpdateEvent
+    {
+        /// <summary>
+        /// Update trigger
+        /// </summary>
+        [JsonPropertyName("action")]
+        public OrderEvent Event { get; set; }
+        /// <summary>
+        /// Order info
+        /// </summary>
+        [JsonPropertyName("order")]
+        public BitMartFuturesOrderUpdate Order { get; set; } = null!;
+    }
+
+    /// <summary>
+    /// Order update
+    /// </summary>
+    public record BitMartFuturesOrderUpdate
     {
         /// <summary>
         /// Order id
@@ -81,48 +98,47 @@ namespace BitMart.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("update_time")]
         public DateTime? UpdateTime { get; set; }
-
-        /// <summary>
-        /// Trailing order trigger price
-        /// </summary>
-        [JsonPropertyName("activation_price")]
-        public decimal? TriggerPrice { get; set; }
-        /// <summary>
-        /// Trailing order callback rate
-        /// </summary>
-        [JsonPropertyName("callback_rate")]
-        public decimal? CallbackRate { get; set; }
-        /// <summary>
-        /// Trailing order trigger price type
-        /// </summary>
-        [JsonPropertyName("activation_price_type")]
-        public TriggerPriceType? TriggerPriceType { get; set; }
-        /// <summary>
-        /// Pre-set TakeProfit trigger price type
-        /// </summary>
-        [JsonPropertyName("preset_take_profit_price_type")]
-        public TriggerPriceType? PresetTakeProfitPriceType { get; set; }
-        /// <summary>
-        /// Pre-set StopLoss trigger price type
-        /// </summary>
-        [JsonPropertyName("preset_stop_loss_price_type")]
-        public TriggerPriceType? PresetStopLossPriceType { get; set; }
-        /// <summary>
-        /// Pre-set TakeProfit price
-        /// </summary>
-        [JsonPropertyName("preset_take_profit_price")]
-        public decimal? PresetTakeProfitPrice { get; set; }
-        /// <summary>
-        /// Pre-set StopLoss price
-        /// </summary>
-        [JsonPropertyName("preset_stop_loss_price")]
-        public decimal? PresetStopLossPrice { get; set; }
         /// <summary>
         /// Order id of the executed trigger order
         /// </summary>
-        [JsonPropertyName("executive_order_id")]
+        [JsonPropertyName("plan_order_id")]
         public string? TriggerOrderId { get; set; }
+        /// <summary>
+        /// Last trade info
+        /// </summary>
+        [JsonPropertyName("last_trade")]
+        public BitMartFuturesOrderTrade? LastTrade { get; set; }
     }
 
-
+    /// <summary>
+    /// Order trade info
+    /// </summary>
+    public record BitMartFuturesOrderTrade
+    {
+        /// <summary>
+        /// Id of the last trade
+        /// </summary>
+        [JsonPropertyName("lastTradeID")]
+        public long TradeId { get; set; }
+        /// <summary>
+        /// Quantity
+        /// </summary>
+        [JsonPropertyName("fillQty")]
+        public decimal Quantity { get; set; }
+        /// <summary>
+        /// Price
+        /// </summary>
+        [JsonPropertyName("fillPrice")]
+        public decimal Price { get; set; }
+        /// <summary>
+        /// Fee
+        /// </summary>
+        [JsonPropertyName("fee")]
+        public decimal Fee { get; set; }
+        /// <summary>
+        /// Fee asset
+        /// </summary>
+        [JsonPropertyName("feeCcy")]
+        public string FeeAsset { get; set; } = string.Empty;
+    }
 }

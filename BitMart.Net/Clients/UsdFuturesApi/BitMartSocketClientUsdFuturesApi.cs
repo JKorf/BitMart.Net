@@ -20,6 +20,7 @@ using CryptoExchange.Net;
 using System.Net.WebSockets;
 using System.Collections.Generic;
 using System.Linq;
+using BitMart.Net.Enums;
 
 namespace BitMart.Net.Clients.UsdFuturesApi
 {
@@ -62,17 +63,76 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             return await SubscribeAsync(BaseAddress.AppendPath("api?protocol=1.1"), subscription, ct).ConfigureAwait(false);
         }
 
+        /// <inheritdoc />
+        public Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<IEnumerable<BitMartFuturesTradeUpdate>>> onMessage, CancellationToken ct = default)
+            => SubscribeToTradeUpdatesAsync(new[] { symbol }, onMessage, ct);
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<IEnumerable<BitMartFuturesTradeUpdate>>> onMessage, CancellationToken ct = default)
+        {
+            var subscription = new BitMartFuturesSubscription<IEnumerable<BitMartFuturesTradeUpdate>>(_logger, symbols.Select(s => "futures/trade:" + s).ToArray(), 
+                update => onMessage(update.WithSymbol(update.Data.First().Symbol)), false);
+            return await SubscribeAsync(BaseAddress.AppendPath("api?protocol=1.1"), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, int depth, Action<DataEvent<BitMartFuturesOrderBookUpdate>> onMessage, CancellationToken ct = default)
+            => SubscribeToOrderBookUpdatesAsync(new[] { symbol }, depth, onMessage, ct);
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(IEnumerable<string> symbols, int depth, Action<DataEvent<BitMartFuturesOrderBookUpdate>> onMessage, CancellationToken ct = default)
+        {
+            var subscription = new BitMartFuturesSubscription<BitMartFuturesOrderBookUpdate>(_logger, symbols.Select(s => $"futures/depth{depth}:" + s).ToArray(),
+                update => onMessage(update.WithSymbol(update.Data.Symbol)), false);
+            return await SubscribeAsync(BaseAddress.AppendPath("api?protocol=1.1"), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, FuturesStreamKlineInterval interval, Action<DataEvent<BitMartFuturesKlineUpdate>> onMessage, CancellationToken ct = default)
+            => SubscribeToKlineUpdatesAsync(new[] { symbol }, interval, onMessage, ct);
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(IEnumerable<string> symbols, FuturesStreamKlineInterval interval, Action<DataEvent<BitMartFuturesKlineUpdate>> onMessage, CancellationToken ct = default)
+        {
+            var intervalStr = EnumConverter.GetString(interval);
+            var subscription = new BitMartFuturesSubscription<BitMartFuturesKlineUpdate>(_logger, symbols.Select(s => $"futures/klineBin{intervalStr}:" + s).ToArray(),
+                update => onMessage(update.WithSymbol(update.Data.Symbol)), false);
+            return await SubscribeAsync(BaseAddress.AppendPath("api?protocol=1.1"), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(Action<DataEvent<BitMartFuturesBalanceUpdate>> onMessage, CancellationToken ct = default)
+        {
+            var subscription = new BitMartFuturesSubscription<BitMartFuturesBalanceUpdate>(_logger, new[] { "futures/asset:USDT", "futures/asset:BTC", "futures/asset:ETH" }, onMessage, true);
+            return await SubscribeAsync(BaseAddress.AppendPath("user?protocol=1.1"), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(Action<DataEvent<BitMartPositionUpdate>> onMessage, CancellationToken ct = default)
+        {
+            var subscription = new BitMartFuturesSubscription<BitMartPositionUpdate>(_logger, new[] { "futures/position" }, onMessage, true);
+            return await SubscribeAsync(BaseAddress.AppendPath("user?protocol=1.1"), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<BitMartFuturesOrderUpdate>> onMessage, CancellationToken ct = default)
+        {
+            var subscription = new BitMartFuturesSubscription<BitMartFuturesOrderUpdate>(_logger, new[] { "futures/order" }, onMessage, true);
+            return await SubscribeAsync(BaseAddress.AppendPath("user?protocol=1.1"), subscription, ct).ConfigureAwait(false);
+        }
 
         /// <inheritdoc />
         public override string? GetListenerIdentifier(IMessageAccessor message)
         {
-            if (!message.IsJson)
+            var group = message.GetValue<string>(_groupPath);
+            if (group == "System")
                 return "pong";
 
             var action = message.GetValue<string>(_actionPath);
-            var group = message.GetValue<string>(_groupPath);
+            if (action == "access")
+                return action;
             
-            if (action != null)
+            if (!string.IsNullOrEmpty(action))
                 return action + "-" + group;
 
             return group;
@@ -93,9 +153,9 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             var authProvider = (BitMartAuthenticationProvider)AuthenticationProvider!;
             var key = authProvider.GetApiKey();
             var memo = authProvider.GetMemo();
-            var sign = authProvider.Sign($"{timestamp}#{memo}#bitmart.Websocket");
+            var sign = authProvider.Sign($"{timestamp}#{memo}#bitmart.WebSocket");
 
-            return new BitMartLoginQuery(key, timestamp, sign);
+            return new BitMartFuturesLoginQuery(key, timestamp, sign);
         }
 
         /// <inheritdoc />

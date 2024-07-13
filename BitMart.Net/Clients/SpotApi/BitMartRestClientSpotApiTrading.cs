@@ -93,7 +93,6 @@ namespace BitMart.Net.Clients.SpotApi
 
         #endregion
 
-
         #region Place Margin Order
 
         /// <inheritdoc />
