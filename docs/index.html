@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
 <link href="assets/images/logo.png" rel="icon" />
-<title>BitMartNAME.Net Documentation</title>
-<meta name="description" content="Documentation for the BitMartNAME.Net library">
+<title>BitMart.Net Documentation</title>
+<meta name="description" content="Documentation for the BitMart.Net library">
 <meta name="author" content="JKorf">
 
 <!-- Stylesheet
@@ -60,8 +60,8 @@
         
         <ul class="social-icons social-icons-sm ml-lg-2 mr-2">
           <li class="social-icons-ce"><a data-toggle="tooltip" href="https://jkorf.github.io/CryptoExchange.Net/" target="_blank" title="" data-original-title="Nuget">CryptoExchange.Net</a></li>
-          <li class="social-icons-nuget"><a data-toggle="tooltip" href="http://www.nuget.org/profiles/JKorf/BitMartNAME.Net" target="_blank" title="" data-original-title="Nuget">Nuget</a></li>
-          <li><a data-toggle="tooltip" href="http://www.github.com/JKorf/BitMartNAME.Net" target="_blank" title="" data-original-title="GitHub"><i class="fab fa-github"></i></a></li>
+          <li class="social-icons-nuget"><a data-toggle="tooltip" href="http://www.nuget.org/profiles/JKorf/BitMart.Net" target="_blank" title="" data-original-title="Nuget">Nuget</a></li>
+          <li><a data-toggle="tooltip" href="http://www.github.com/JKorf/BitMart.Net" target="_blank" title="" data-original-title="GitHub"><i class="fab fa-github"></i></a></li>
           <li><a data-toggle="tooltip" href="https://discord.gg/Wyqd4hegMZ" target="_blank" title="" data-original-title="Discord"><i class="fab fa-discord"></i></a></li>
         </ul>
       </div>
@@ -95,9 +95,9 @@
     <div class="idocs-content">
       <div class="container"> 
         <section id="idocs_intro">
-			<h1>BitMartNAME.Net</h1>
+			<h1>BitMart.Net</h1>
 			
-		<p>BitMartNAME.Net is a client library for accessing the <a href="BitMartNAME" target="_blank">BitMartNAME REST and Websocket API</a>. All data is mapped to readable models and enum values. Additional features include an implementation for maintaining a client side order book, easy integration with other exchange client libraries and more.</p>
+		<p>BitMart.Net is a client library for accessing the <a href="BitMart" target="_blank">BitMart REST and Websocket API</a>. All data is mapped to readable models and enum values. Additional features include an implementation for maintaining a client side order book, easy integration with other exchange client libraries and more.</p>
 		<div class="alert alert-info">This library is based on the <a href="https://jkorf.github.io/CryptoExchange.Net/" target="_blank">CryptoExchange.Net</a> base package and can be used in combination with other exchange packages!</div>
 		
 		<h4>Supported Frameworks</h4>
@@ -144,7 +144,7 @@
 		============================ -->
         <section id="idocs_start">
         <h1>Getting Started</h1>
-		<p>The packge is available on Nuget. After installing the package the BitMartNAME API is available by using the <code>BitMartNAMERestClient</code> and <code>BitMartNAMESocketClient</code>.</p>
+		<p>The packge is available on Nuget. After installing the package the BitMart API is available by using the <code>BitMartRestClient</code> and <code>BitMartSocketClient</code>.</p>
 		<div class="alert alert-info">More information and usage documentation is available at the <a href="https://jkorf.github.io/CryptoExchange.Net/" target="_blank">CryptoExchange.Net</a> documentation page</div>
 		
         </section>
@@ -158,7 +158,7 @@
           
 		  <p>Add the package via dotnet, or add it via the package manager.</p>
 		  
-		  <pre><code>dotnet add package BitMartNAME.Net</code></pre>
+		  <pre><code>dotnet add package BitMart.Net</code></pre>
         </section>
         		
 		<hr class="divider">
@@ -166,20 +166,20 @@
 		<section id="idocs_apiaccess">
           <h2>API Access</h2>
           
-		  <p>BitMartNAME.Net can be configured using Dotnet dependency injection, after which the clients can be injected into your services. It also correctly configures logging and HttpClient usage.</p>
+		  <p>BitMart.Net can be configured using Dotnet dependency injection, after which the clients can be injected into your services. It also correctly configures logging and HttpClient usage.</p>
 		  
-		  <pre><code>builder.Services.AddBitMartNAME(options => {
+		  <pre><code>builder.Services.AddBitMart(options => {
   // Options can be configured here, for example:
   options.ApiCredentials = new ApiCredentials("APIKEY", "APISECRET");
 });</code></pre>
 		  
-		  <p>The <code>IBitMartNAMERestClient</code> and <code>IBitMartNAMESocketClient</code> can then be injected.</p>
+		  <p>The <code>IBitMartRestClient</code> and <code>IBitMartSocketClient</code> can then be injected.</p>
 		  <p>Alternatively the rest and socket client can be constructed directly</p>
-		  <pre><code>var restClient = new BitMartNAMERestClient(options => {
+		  <pre><code>var restClient = new BitMartRestClient(options => {
   // Options can be configured here, for example:
   options.ApiCredentials = new ApiCredentials("APIKEY", "APISECRET");
 });
-var socketClient = new BitMartNAMESocketClient();</code></pre>
+var socketClient = new BitMartSocketClient();</code></pre>
 		  
         </section>
         		
@@ -189,8 +189,71 @@ var socketClient = new BitMartNAMESocketClient();</code></pre>
           <h2>Examples</h2>
           
 		  <b id="idocs_example_symbols">Get Symbols</b><br />
-		  <p>Get a list of supported symbols on BitMartNAME</p>
-		  <pre><code>await BitMartNAMEClient.SpotApi.ExchangeData.GetSymbolsAsync();</code></pre>
+		  <p>Get a list of supported symbols on BitMart</p>
+		  <pre><code>var symbolsResult = await bitMartRestClient.SpotApi.ExchangeData.GetSymbolsAsync();
+if (!symbolsResult.Success)
+{
+    Console.WriteLine("Failed to retrieve symbols: " + symbolsResult.Error);
+    return;
+}
+
+foreach (var symbol in symbolsResult.Data)
+    Console.WriteLine(symbol.Symbol);</code></pre>
+		  
+		  <b id="idocs_example_symbols">Get Tickers</b><br />
+		  <p>Get a ticker data (price statistics)</p>
+		  <pre><code>var tickersResult = await bitMartRestClient.SpotApi.ExchangeData.GetTickersAsync();
+if (!tickersResult.Success)
+{
+    Console.WriteLine("Failed to retrieve tickers: " + tickersResult.Error);
+    return;
+}
+
+foreach (var ticker in tickersResult.Data)
+    Console.WriteLine($"{ticker.Symbol}: " + ticker.LastPrice);
+</code></pre>
+
+<b id="idocs_example_symbols">Get Spot Balances</b><br />
+		  <p>Get the balances on the spot account</p>
+		  <pre><code>// Assumes that API credentials are set in the client options / DI configuration
+var balanceResult = await bitMartRestClient.SpotApi.Account.GetSpotBalancesAsync();
+if (!balanceResult.Success)
+{
+    Console.WriteLine("Failed to retrieve balances: " + balanceResult.Error);
+    return;
+}
+
+foreach (var balance in balanceResult.Data)
+    Console.WriteLine($"{balance.Asset}: " + balance.Available);
+</code></pre>
+
+<b id="idocs_example_symbols">Place order</b><br />
+		  <p>Place limit order for buying 0.01 eth at a price of 3000 per eth</p>
+		  <pre><code>// Assumes that API credentials are set in the client options / DI configuration
+var orderResult = await bitMartRestClient.SpotApi.Trading.PlaceOrderAsync("ETH_USDT", BitMart.Net.Enums.OrderSide.Buy, BitMart.Net.Enums.OrderType.Limit, 0.01m, 3000);
+if (!orderResult.Success)
+{
+    Console.WriteLine("Failed to place order: " + orderResult.Error);
+    return;
+}
+
+Console.WriteLine($"Order placed, id: {orderResult.Data.OrderId}");
+</code></pre>
+
+<b id="idocs_example_symbols">Subscribe to book ticker updates</b><br />
+		  <p>Subscribe to  ticker updates for the ETH_USDT symbol</p>
+		  <pre><code>var subscribeResult = await bitMartSocketClient.SpotApi.SubscribeToTickerUpdatesAsync("ETH_USDT", update =>
+{
+    Console.WriteLine($"Best ask: {update.Data.BestAskPrice}, best bid: {update.Data.BestBidPrice}");
+});
+
+if (!subscribeResult.Success)
+{
+    Console.WriteLine($"Failed to subscribe: {subscribeResult.Error}");
+    return;
+}
+Console.WriteLine("Successfully subscribed to book ticker updates");
+</code></pre>
 		  
         </section>
         		

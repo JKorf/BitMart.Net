@@ -22,13 +22,13 @@ namespace BitMart.Net
         /// <summary>
         /// Url to the main website
         /// </summary>
-        public static string Url { get; } = "https://www.XXX.com";
+        public static string Url { get; } = "https://www.bitmart.com";
 
         /// <summary>
         /// Urls to the API documentation
         /// </summary>
         public static string[] ApiDocsUrl { get; } = new[] {
-            "XXX"
+            "https://developer-pro.bitmart.com/#introduction"
             };
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace BitMart.Net
 
         private void Initialize()
         {
-            BitMart = new RateLimitGate("BitMart");
+            BitMart = new RateLimitGate("BitMart IP");
             BitMart.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
         }
 

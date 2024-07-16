@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using BitMart.Net.Interfaces.Clients.UsdFuturesApi;
 using BitMart.Net.Objects.Models;
 using BitMart.Net.Enums;
+using CryptoExchange.Net.RateLimiting.Guards;
 
 namespace BitMart.Net.Clients.UsdFuturesApi
 {
@@ -30,7 +31,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("symbol", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/public/details", BitMartExchange.RateLimiter.BitMart, 1, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/public/details", BitMartExchange.RateLimiter.BitMart, 1, false,
+                new SingleLimitGuard(12, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<BitMartContractWrapper>(request, parameters, ct).ConfigureAwait(false);
             return result.As<IEnumerable<BitMartContract>>(result.Data?.Symbols);
         }
@@ -44,7 +46,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         {
             var parameters = new ParameterCollection();
             parameters.Add("symbol", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/public/depth", BitMartExchange.RateLimiter.BitMart, 1, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/public/depth", BitMartExchange.RateLimiter.BitMart, 1, false,
+                new SingleLimitGuard(12, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<BitMartOrderBook>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -58,7 +61,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         {
             var parameters = new ParameterCollection();
             parameters.Add("symbol", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/public/open-interest", BitMartExchange.RateLimiter.BitMart, 1, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/public/open-interest", BitMartExchange.RateLimiter.BitMart, 1, false,
+                new SingleLimitGuard(2, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<BitMartOpenInterest>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -72,7 +76,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         {
             var parameters = new ParameterCollection();
             parameters.Add("symbol", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/public/funding-rate", BitMartExchange.RateLimiter.BitMart, 1, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/public/funding-rate", BitMartExchange.RateLimiter.BitMart, 1, false,
+                new SingleLimitGuard(2, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<BitMartFundingRate>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -89,7 +94,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             parameters.AddEnum("step", klineInterval);
             parameters.AddMilliseconds("start_time", startTime);
             parameters.AddMilliseconds("end_time", endTime);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/public/kline", BitMartExchange.RateLimiter.BitMart, 1, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/public/kline", BitMartExchange.RateLimiter.BitMart, 1, false,
+                new SingleLimitGuard(12, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<IEnumerable<BitMartFuturesKline>>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }

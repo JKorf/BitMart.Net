@@ -37,9 +37,7 @@ namespace BitMart.Net.SymbolOrderBooks
 
          /// <inheritdoc />
         public IOrderBookFactory<BitMartOrderBookOptions> Spot { get; }
-
-
-        
+                
          /// <inheritdoc />
         public ISymbolOrderBook CreateUsdFutures(string symbol, Action<BitMartOrderBookOptions>? options = null)
             => new BitMartUsdFuturesSymbolOrderBook(symbol, options, 

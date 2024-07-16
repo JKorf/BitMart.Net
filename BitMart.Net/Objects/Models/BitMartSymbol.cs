@@ -53,12 +53,12 @@ namespace BitMart.Net.Objects.Models
         /// Price min precision
         /// </summary>
         [JsonPropertyName("price_min_precision")]
-        public decimal PriceMinPrecision { get; set; }
+        public int PriceMinPrecision { get; set; }
         /// <summary>
         /// Price max precision
         /// </summary>
         [JsonPropertyName("price_max_precision")]
-        public decimal PriceMaxPrecision { get; set; }
+        public int PriceMaxPrecision { get; set; }
         /// <summary>
         /// Expiration
         /// </summary>

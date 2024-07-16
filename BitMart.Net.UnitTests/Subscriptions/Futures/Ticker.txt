@@ -1,0 +1,17 @@
+> {"action": "subscribe", "args": ["futures/ticker"]}
+< {"action":"subscribe","group":"futures/ticker","success":true,"request":{"action":"subscribe","args":["futures/ticker"]}}
+= 
+{
+    "group":"futures/ticker",
+    "data":{
+          "symbol":"BTCUSDT",
+          "volume_24":"117387.58",
+          "fair_price":"146.24",
+          "last_price":"146.24",
+          "range":"147.17",
+          "ask_price": "147.11",
+          "ask_vol": "1",
+          "bid_price": "142.11",
+          "bid_vol": "1"
+        }
+}

@@ -9,7 +9,6 @@ namespace BitMart.Net.Interfaces
     /// </summary>
     public interface IBitMartOrderBookFactory
     {
-        
         /// <summary>
         /// UsdFutures order book factory methods
         /// </summary>
@@ -19,9 +18,7 @@ namespace BitMart.Net.Interfaces
         /// Spot order book factory methods
         /// </summary>
         IOrderBookFactory<BitMartOrderBookOptions> Spot { get; }
-
-
-        
+                
         /// <summary>
         /// Create a new UsdFutures local order book instance
         /// </summary>

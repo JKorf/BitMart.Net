@@ -1,0 +1,37 @@
+> {"action": "access", "args": ["123", "|1|", "|2|","web"]}
+< {"action":"access","success":true}
+> {"action": "subscribe", "args":["futures/order"]}
+< {"action":"subscribe","group":"futures/order","success":true,"request":{"action":"subscribe","args":["futures/order"]}}
+= 
+{
+  "group": "futures/order",
+  "data": [
+    {
+      "action": 3,
+      "order": {
+        "order_id": "220906179895578",
+        "client_order_id": "BM1234",
+        "price": "1",
+        "size": "1000",
+        "symbol": "BTCUSDT",
+        "state": 2,
+        "side": 1,
+        "type": "limit",
+        "leverage": "5",
+        "open_type": "isolated",
+        "deal_avg_price": "0",
+        "deal_size": "1000",
+        "create_time": 1662368173000,
+        "update_time": 1662368173000,
+        "plan_order_id": "220901412155341",
+        "last_trade": {
+          "lastTradeID": 1247592391,
+          "fillQty": "1",
+          "fillPrice": "25667.2",
+          "fee": "-0.00027",
+          "feeCcy": "USDT"
+        }
+      }
+    }
+  ]
+}

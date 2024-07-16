@@ -108,16 +108,16 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(Action<DataEvent<BitMartPositionUpdate>> onMessage, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(Action<DataEvent<IEnumerable<BitMartPositionUpdate>>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMartFuturesSubscription<BitMartPositionUpdate>(_logger, new[] { "futures/position" }, onMessage, true);
+            var subscription = new BitMartFuturesSubscription<IEnumerable<BitMartPositionUpdate>>(_logger, new[] { "futures/position" }, x => onMessage(x.WithSymbol(x.Data.First().Symbol)), true);
             return await SubscribeAsync(BaseAddress.AppendPath("user?protocol=1.1"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<BitMartFuturesOrderUpdate>> onMessage, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<IEnumerable<BitMartFuturesOrderUpdateEvent>>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMartFuturesSubscription<BitMartFuturesOrderUpdate>(_logger, new[] { "futures/order" }, onMessage, true);
+            var subscription = new BitMartFuturesSubscription<IEnumerable<BitMartFuturesOrderUpdateEvent>>(_logger, new[] { "futures/order" }, x => onMessage(x.WithSymbol(x.Data.First().Order.Symbol)), true);
             return await SubscribeAsync(BaseAddress.AppendPath("user?protocol=1.1"), subscription, ct).ConfigureAwait(false);
         }
 

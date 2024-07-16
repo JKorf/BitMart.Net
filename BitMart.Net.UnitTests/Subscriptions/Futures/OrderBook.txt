@@ -1,0 +1,14 @@
+> {"action": "subscribe", "args": ["futures/depth5:ETHUSDT"]}
+< {"action":"subscribe","group":"futures/depth5:ETHUSDT","success":true,"request":{"action":"subscribe","args":["futures/depth5:ETHUSDT"]}}
+= 
+{
+    "group":"futures/depth5:ETHUSDT",
+    "data":{
+            "symbol":"ETHUSDT",
+            "way":1,
+            "depths":[
+              {"price":"5","vol":"97"}
+            ],
+            "ms_t": 1542337219120
+        }
+}

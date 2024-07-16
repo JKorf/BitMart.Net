@@ -4,10 +4,12 @@ using System.Threading.Tasks;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.OrderBook;
+using CryptoExchange.Net.Converters.SystemTextJson;
 using Microsoft.Extensions.Logging;
 using BitMart.Net.Clients;
 using BitMart.Net.Interfaces.Clients;
 using BitMart.Net.Objects.Options;
+using BitMart.Net.Objects.Models;
 
 namespace BitMart.Net.SymbolOrderBooks
 {
@@ -66,8 +68,37 @@ namespace BitMart.Net.SymbolOrderBooks
         /// <inheritdoc />
         protected override async Task<CallResult<UpdateSubscription>> DoStartAsync(CancellationToken ct)
         {
-            // XXX
-            throw new NotImplementedException();
+            CallResult<UpdateSubscription> subResult;
+            if (Levels == null)
+                subResult = await _socketClient.SpotApi.SubscribeToOrderBookUpdatesAsync(Symbol, HandleUpdate).ConfigureAwait(false);
+            else
+                subResult = await _socketClient.SpotApi.SubscribeToPartialOrderBookUpdatesAsync(Symbol, Levels.Value, HandleUpdate).ConfigureAwait(false);
+
+            if (!subResult)
+                return new CallResult<UpdateSubscription>(subResult.Error!);
+
+            if (ct.IsCancellationRequested)
+            {
+                await subResult.Data.CloseAsync().ConfigureAwait(false);
+                return subResult.AsError<UpdateSubscription>(new CancellationRequestedError());
+            }
+
+            Status = OrderBookStatus.Syncing;
+            var setResult = await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
+            return setResult ? subResult : new CallResult<UpdateSubscription>(setResult.Error!);
+        }
+
+        private void HandleUpdate(DataEvent<BitMartOrderBookIncrementalUpdate> data)
+        {
+            if (data.UpdateType == SocketUpdateType.Snapshot)
+                SetInitialOrderBook(DateTimeConverter.ConvertToMilliseconds(data.Data.Timestamp).Value, data.Data.Bids, data.Data.Asks);
+            else
+                UpdateOrderBook(DateTimeConverter.ConvertToMilliseconds(data.Data.Timestamp).Value, data.Data.Bids, data.Data.Asks);
+        }
+
+        private void HandleUpdate(DataEvent<BitMartOrderBookUpdate> data)
+        {
+            SetInitialOrderBook(DateTimeConverter.ConvertToMilliseconds(data.Data.Timestamp).Value, data.Data.Bids, data.Data.Asks);
         }
 
         /// <inheritdoc />
@@ -78,8 +109,7 @@ namespace BitMart.Net.SymbolOrderBooks
         /// <inheritdoc />
         protected override async Task<CallResult<bool>> DoResyncAsync(CancellationToken ct)
         {
-            // XXX
-            throw new NotImplementedException();
+            return await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />

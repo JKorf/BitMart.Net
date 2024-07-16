@@ -8,6 +8,7 @@ using System.Threading;
 using BitMart.Net.Objects.Models;
 using System;
 using BitMart.Net.Enums;
+using CryptoExchange.Net.RateLimiting.Guards;
 
 namespace BitMart.Net.Clients.UsdFuturesApi
 {
@@ -28,7 +29,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         public async Task<WebCallResult<IEnumerable<BitMartFuturesBalance>>> GetBalancesAsync(CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/private/assets-detail", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/private/assets-detail", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(12, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<IEnumerable<BitMartFuturesBalance>>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -46,7 +48,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             parameters.AddOptionalMillisecondsString("time_end", endTime);
             parameters.Add("page", page ?? 1);
             parameters.Add("limit", limit ?? 10);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/account/v1/transfer-contract-list", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/account/v1/transfer-contract-list", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(1, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartFuturesTransferWrapper>(request, parameters, ct).ConfigureAwait(false);
             return result.As<IEnumerable<BitMartFuturesTransfer>>(result.Data?.Records);
         }
@@ -62,7 +65,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             parameters.Add("currency", asset);
             parameters.AddString("amount", quantity);
             parameters.AddEnum("type", type);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/account/v1/transfer-contract", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/account/v1/transfer-contract", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(1, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartTransferResult>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -78,7 +82,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             parameters.Add("symbol", symbol);
             parameters.AddString("leverage", leverage);
             parameters.AddEnum("open_type", marginType);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/contract/private/submit-leverage", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/contract/private/submit-leverage", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(24, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartLeverage>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }

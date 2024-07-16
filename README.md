@@ -1,8 +1,8 @@
-# ![.BitMartNAME.Net](https://raw.githubusercontent.com/JKorf/BitMartNAME.Net/master/BitMartNAME.Net/Icon/icon.png) BitMartNAME.Net  
+# ![.BitMart.Net](https://raw.githubusercontent.com/JKorf/BitMart.Net/master/BitMart.Net/Icon/icon.png) BitMart.Net  
 
-[![.NET](https://img.shields.io/github/actions/workflow/status/JKorf/BitMartNAME.Net/dotnet.yml?style=for-the-badge)](https://github.com/JKorf/BitMartNAME.Net/actions/workflows/dotnet.yml) ![License](https://img.shields.io/github/license/JKorf/BitMartNAME.Net?style=for-the-badge)
+[![.NET](https://img.shields.io/github/actions/workflow/status/JKorf/BitMart.Net/dotnet.yml?style=for-the-badge)](https://github.com/JKorf/BitMart.Net/actions/workflows/dotnet.yml) ![License](https://img.shields.io/github/license/JKorf/BitMart.Net?style=for-the-badge)
 
-BitMartNAME.Net is a client library for accessing the [BitMartNAME REST and Websocket API](BitMartNAME). All data is mapped to readable models and enum values. Additional features include an implementation for maintaining a client side order book, easy integration with other exchange client libraries and more.
+BitMart.Net is a client library for accessing the [BitMart REST and Websocket API](BitMart). All data is mapped to readable models and enum values. Additional features include an implementation for maintaining a client side order book, easy integration with other exchange client libraries and more.
 
 ## Supported Frameworks
 The library is targeting both `.NET Standard 2.0` and `.NET Standard 2.1` for optimal compatibility
@@ -18,32 +18,32 @@ The library is targeting both `.NET Standard 2.0` and `.NET Standard 2.1` for op
 |Unity|`2018.1` and higher|
 
 ## Get the library
-[![Nuget version](https://img.shields.io/nuget/v/BitMartNAME.net.svg?style=for-the-badge)](https://www.nuget.org/packages/BitMartNAME.Net)  [![Nuget downloads](https://img.shields.io/nuget/dt/BitMartNAME.Net.svg?style=for-the-badge)](https://www.nuget.org/packages/BitMartNAME.Net)
+[![Nuget version](https://img.shields.io/nuget/v/BitMart.net.svg?style=for-the-badge)](https://www.nuget.org/packages/BitMart.Net)  [![Nuget downloads](https://img.shields.io/nuget/dt/BitMart.Net.svg?style=for-the-badge)](https://www.nuget.org/packages/BitMart.Net)
 
-	dotnet add package BitMartNAME.Net
+	dotnet add package BitMart.Net
 	
 ## How to use
 * REST Endpoints
 	```csharp
 	// Get the ETH/USDT ticker via rest request
-	var restClient = new BitMartNAMERestClient();
-	var tickerResult = await restClient.SpotApi.ExchangeData.GetTickerAsync("ETHUSDT");
+	var restClient = new BitMartRestClient();
+	var tickerResult = await restClient.SpotApi.ExchangeData.GetTickerAsync("ETH_USDT");
 	var lastPrice = tickerResult.Data.LastPrice;
 	```
 * Websocket streams
 	```csharp
 	// Subscribe to ETH/USDT ticker updates via the websocket API
-	var socketClient = new BitMartNAMESocketClient();
-	var tickerSubscriptionResult = socketClient.SpotApi.ExchangeData.SubscribeToTickerUpdatesAsync("ETHUSDT", (update) => 
+	var socketClient = new BitMartSocketClient();
+	var tickerSubscriptionResult = socketClient.SpotApi.SubscribeToTickerUpdatesAsync("ETH_USDT", (update) => 
 	{
 	  var lastPrice = update.Data.LastPrice;
 	});
 	```
 
-For information on the clients, dependency injection, response processing and more see the [documentation](https://jkorf.github.io/CryptoExchange.Net), or have a look at the examples [here](https://github.com/JKorf/BitMartNAME.Net/tree/master/Examples) or [here](https://github.com/JKorf/CryptoExchange.Net/tree/master/Examples).
+For information on the clients, dependency injection, response processing and more see the [documentation](https://jkorf.github.io/CryptoExchange.Net), or have a look at the examples [here](https://github.com/JKorf/BitMart.Net/tree/master/Examples) or [here](https://github.com/JKorf/CryptoExchange.Net/tree/master/Examples).
 
 ## CryptoExchange.Net
-BitMartNAME.Net is based on the [CryptoExchange.Net](https://github.com/JKorf/CryptoExchange.Net) base library. Other exchange API implementations based on the CryptoExchange.Net base library are available and follow the same logic.
+BitMart.Net is based on the [CryptoExchange.Net](https://github.com/JKorf/CryptoExchange.Net) base library. Other exchange API implementations based on the CryptoExchange.Net base library are available and follow the same logic.
 
 CryptoExchange.Net also allows for [easy access to different exchange API's](https://jkorf.github.io/CryptoExchange.Net#idocs_common).
 
@@ -72,14 +72,40 @@ A Discord server is available [here](https://discord.gg/MSpeEtSY8t). For discuss
 
 ## Supported functionality
 
-### Spot
+### Spot Rest
 |API|Supported|Location|
 |--|--:|--|
-|TODO|✓|`restClient.SpotApi.Account`|
+|System Status|✓|`restClient.SpotApi.ExchangeData`|
+|Public Market Data|✓|`restClient.SpotApi.ExchangeData`|
+|Funding Account|✓|`restClient.SpotApi.Account`|
+|Spot/Margin Trading|✓|`restClient.SpotApi.Trading`|
+|Margin Loan|✓|`restClient.SpotApi.Margin`|
+|Sub Account|✓|`restClient.SpotApi.SubAccount`|
+
+### Spot Websocket
+|API|Supported|Location|
+|--|--:|--|
+|Public|✓|`socketClient.SpotApi`|
+|Private|✓|`socketClient.SpotApi`|
+
 ### Futures
 |API|Supported|Location|
 |--|--:|--|
-|TODO|✓|`restClient.FuturesApi.ExchangeData`|
+|Futures Market Data|✓|`restClient.FuturesApi.ExchangeData`|
+|Futures Account Data|✓|`restClient.FuturesApi.Account`|
+|Futures Trading|✓|`restClient.FuturesApi.Trading`|
+|Sub Account|✓|`restClient.FuturesApi.SubAccount`|
+
+### Spot Websocket
+|API|Supported|Location|
+|--|--:|--|
+|Public|✓|`socketClient.FuturesApi`|
+|Private|✓|`socketClient.FuturesApi`|
+
+### API Broker
+|API|Supported|Location|
+|--|--:|--|
+|*|X||
 
 ## Support the project
 I develop and maintain this package on my own for free in my spare time, any support is greatly appreciated.

@@ -30,10 +30,10 @@ namespace BitMart.Net.Objects.Models
         [JsonPropertyName("available")]
         public decimal Available { get; set; }
         /// <summary>
-        /// Name
+        /// Asset
         /// </summary>
         [JsonPropertyName("name")]
-        public string Name { get; set; } = string.Empty;
+        public string Asset { get; set; } = string.Empty;
         /// <summary>
         /// Frozen
         /// </summary>

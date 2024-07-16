@@ -15,7 +15,7 @@ namespace BitMart.Net
     {
         private static IMessageSerializer _serializer = new SystemTextJsonMessageSerializer();
         public string GetApiKey() => _credentials.Key!.GetString();
-        public string? GetMemo() => _credentials.Memo?.GetString();
+        public string GetMemo() => _credentials.Memo!.GetString();
 
         public BitMartAuthenticationProvider(BitMartApiCredentials credentials) : base(credentials)
         {
@@ -28,7 +28,7 @@ namespace BitMart.Net
 
             var timestamp = GetMillisecondTimestamp(apiClient);
             var paramStr = uriParameters.ToFormData() + _serializer.Serialize(bodyParameters);
-            var signStr = $"{timestamp}#{_credentials.Memo?.GetString()}#{paramStr}";
+            var signStr = $"{timestamp}#{GetMemo()}#{paramStr}";
 
             headers.Add("X-BM-KEY", GetApiKey());
             headers.Add("X-BM-SIGN", SignHMACSHA256(signStr, SignOutputType.Hex).ToLowerInvariant());

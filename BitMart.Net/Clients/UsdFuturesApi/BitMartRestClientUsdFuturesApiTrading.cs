@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO.Pipes;
+using CryptoExchange.Net.RateLimiting.Guards;
 
 namespace BitMart.Net.Clients.UsdFuturesApi
 {
@@ -34,7 +35,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             var parameters = new ParameterCollection();
             parameters.Add("", symbol);
             parameters.Add("order_id", orderId);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/private/order", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/private/order", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(50, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartFuturesOrder>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -50,7 +52,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             parameters.Add("symbol", symbol);
             parameters.AddOptionalMilliseconds("start_time", startTime);
             parameters.AddOptionalMilliseconds("end_time", endTime);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/private/order-history", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/private/order-history", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(6, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<IEnumerable<BitMartFuturesOrder>>(request, parameters, ct).ConfigureAwait(false);
             return result.As(result.Data ?? Array.Empty<BitMartFuturesOrder>());
         }
@@ -67,7 +70,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             parameters.AddOptionalEnum("type", orderType);
             parameters.AddOptionalEnum("order_state", status);
             parameters.AddOptional("limit", limit);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/private/get-open-orders", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/private/get-open-orders", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(50, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<IEnumerable<BitMartFuturesOrder>>(request, parameters, ct).ConfigureAwait(false);
             return result.As(result.Data ?? Array.Empty<BitMartFuturesOrder>());
         }
@@ -83,7 +87,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             parameters.AddOptional("symbol", symbol);
             parameters.AddOptionalEnum("type", type);
             parameters.AddOptional("limit", limit);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/private/current-plan-order", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/private/current-plan-order", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(50, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<IEnumerable<BitMartTriggerOrder>>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -97,7 +102,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("symbol", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/private/position", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/private/position", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(6, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<IEnumerable<BitMartPosition>>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -111,7 +117,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("symbol", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/private/position-risk", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/private/position-risk", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(24, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<IEnumerable<BitMartPositionRisk>>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -127,7 +134,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             parameters.Add("symbol", symbol);
             parameters.AddOptionalMilliseconds("start_time", startTime);
             parameters.AddOptionalMilliseconds("end_time", endTime);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/private/trades", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/private/trades", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(6, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<IEnumerable<BitMartFuturesUserTrade>>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -156,7 +164,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             parameters.AddOptionalEnum("preset_stop_loss_price_type", presetStopLossPriceType);
             parameters.AddOptionalString("preset_take_profit_price", presetTakeProfitPrice);
             parameters.AddOptionalString("preset_stop_loss_price", presetStopLossPrice);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/contract/private/submit-order", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/contract/private/submit-order", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(24, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartFuturesOrderResponse>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -171,7 +180,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             var parameters = new ParameterCollection();
             parameters.Add("", symbol);
             parameters.Add("order_id", orderId);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/contract/private/cancel-order", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/contract/private/cancel-order", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(40, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -185,7 +195,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         {
             var parameters = new ParameterCollection();
             parameters.Add("symbol", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/contract/private/cancel-orders", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/contract/private/cancel-orders", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(2, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -214,7 +225,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             parameters.AddOptionalString("preset_stop_loss_price", stopLossPrice);
             parameters.AddOptionalEnum("preset_take_profit_price_type", takeProfitPriceType);
             parameters.AddOptionalEnum("preset_stop_loss_price_type", stopLossPriceType);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/contract/private/submit-plan-order", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/contract/private/submit-plan-order", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(24, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartFuturesOrderId>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -229,7 +241,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             var parameters = new ParameterCollection();
             parameters.Add("symbol", symbol);
             parameters.Add("order_id", orderId);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/contract/private/cancel-plan-order", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/contract/private/cancel-plan-order", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(40, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
             return result;
         }

@@ -1,0 +1,16 @@
+> {"action": "access", "args": ["123", "|1|", "|2|","web"]}
+< {"action":"access","success":true}
+> {"action": "subscribe", "args":["futures/asset:USDT", "futures/asset:BTC", "futures/asset:ETH"]}
+< {"action":"subscribe","group":"futures/asset:USDT","success":true,"request":{"action":"subscribe","args":["futures/asset:USDT"]}}
+< {"action":"subscribe","group":"futures/asset:BTC","success":true,"request":{"action":"subscribe","args":["futures/asset:BTC"]}}
+< {"action":"subscribe","group":"futures/asset:ETH","success":true,"request":{"action":"subscribe","args":["futures/asset:ETH"]}}
+= 
+{
+  "group": "futures/asset:BTC",
+  "data": {
+    "currency": "BTC",
+    "available_balance": "1000",
+    "position_deposit": "1000",
+    "frozen_balance": "1000"
+  }
+}

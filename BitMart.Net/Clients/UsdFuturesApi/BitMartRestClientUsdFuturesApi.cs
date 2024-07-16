@@ -22,7 +22,7 @@ using CryptoExchange.Net.Converters.MessageParsing;
 namespace BitMart.Net.Clients.UsdFuturesApi
 {
     /// <inheritdoc cref="IBitMartRestClientUsdFuturesApi" />
-    internal class BitMartRestClientUsdFuturesApi : RestApiClient, IBitMartRestClientUsdFuturesApi, ISpotClient
+    internal class BitMartRestClientUsdFuturesApi : RestApiClient, IBitMartRestClientUsdFuturesApi
     {
         #region fields 
         internal static TimeSyncState _timeSyncState = new TimeSyncState("UsdFutures Api");
@@ -133,88 +133,6 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 return new ServerError(msg);
 
             return new ServerError(code.Value, msg);
-        }
-
-        /// <inheritdoc />
-        public ISpotClient CommonSpotClient => this;
-
-        /// <inheritdoc />
-        public string GetSymbolName(string baseAsset, string quoteAsset) =>
-            throw new NotImplementedException();
-
-        internal void InvokeOrderPlaced(OrderId id)
-        {
-            OnOrderPlaced?.Invoke(id);
-        }
-
-        internal void InvokeOrderCanceled(OrderId id)
-        {
-            OnOrderCanceled?.Invoke(id);
-        }
-
-        async Task<WebCallResult<OrderId>> ISpotClient.PlaceOrderAsync(string symbol, CommonOrderSide side, CommonOrderType type, decimal quantity, decimal? price, string? accountId, string? clientOrderId, CancellationToken ct)
-        {
-            throw new NotImplementedException();
-        }
-
-        async Task<WebCallResult<Order>> IBaseRestClient.GetOrderAsync(string orderId, string? symbol, CancellationToken ct)
-        {
-            throw new NotImplementedException();
-        }
-
-        async Task<WebCallResult<IEnumerable<UserTrade>>> IBaseRestClient.GetOrderTradesAsync(string orderId, string? symbol, CancellationToken ct)
-        {
-            throw new NotImplementedException();
-        }
-
-        async Task<WebCallResult<IEnumerable<Order>>> IBaseRestClient.GetOpenOrdersAsync(string? symbol, CancellationToken ct)
-        {
-            throw new NotImplementedException();
-        }
-
-        async Task<WebCallResult<IEnumerable<Order>>> IBaseRestClient.GetClosedOrdersAsync(string? symbol, CancellationToken ct)
-        {
-            throw new NotImplementedException();
-        }
-
-        async Task<WebCallResult<OrderId>> IBaseRestClient.CancelOrderAsync(string orderId, string? symbol, CancellationToken ct)
-        {
-            throw new NotImplementedException();
-        }
-
-        async Task<WebCallResult<IEnumerable<Symbol>>> IBaseRestClient.GetSymbolsAsync(CancellationToken ct)
-        {
-            throw new NotImplementedException();
-        }
-
-        async Task<WebCallResult<Ticker>> IBaseRestClient.GetTickerAsync(string symbol, CancellationToken ct)
-        {
-            throw new NotImplementedException();
-        }
-
-        async Task<WebCallResult<IEnumerable<Ticker>>> IBaseRestClient.GetTickersAsync(CancellationToken ct)
-        {
-            throw new NotImplementedException();
-        }
-
-        async Task<WebCallResult<IEnumerable<Kline>>> IBaseRestClient.GetKlinesAsync(string symbol, TimeSpan timespan, DateTime? startTime, DateTime? endTime, int? limit, CancellationToken ct)
-        {
-            throw new NotImplementedException();
-        }
-
-        async Task<WebCallResult<OrderBook>> IBaseRestClient.GetOrderBookAsync(string symbol, CancellationToken ct)
-        {
-            throw new NotImplementedException();
-        }
-
-        async Task<WebCallResult<IEnumerable<Trade>>> IBaseRestClient.GetRecentTradesAsync(string symbol, CancellationToken ct)
-        {
-            throw new NotImplementedException();
-        }
-
-        async Task<WebCallResult<IEnumerable<Balance>>> IBaseRestClient.GetBalancesAsync(string? accountId, CancellationToken ct)
-        {
-            throw new NotImplementedException();
         }
     }
 }

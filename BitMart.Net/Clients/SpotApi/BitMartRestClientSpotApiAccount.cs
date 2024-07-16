@@ -7,6 +7,8 @@ using BitMart.Net.Objects.Models;
 using System.Threading;
 using System.Net.Http;
 using BitMart.Net.Enums;
+using System;
+using CryptoExchange.Net.RateLimiting.Guards;
 
 namespace BitMart.Net.Clients.SpotApi
 {
@@ -26,7 +28,8 @@ namespace BitMart.Net.Clients.SpotApi
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("currency", asset);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/account/v1/wallet", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/account/v1/wallet", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(12, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartBalanceWrapper>(request, parameters, ct).ConfigureAwait(false);
             return result.As<IEnumerable<BitMartBalance>>(result.Data?.Wallet);
         }
@@ -35,7 +38,8 @@ namespace BitMart.Net.Clients.SpotApi
         public async Task<WebCallResult<IEnumerable<BitMartSpotBalance>>> GetSpotBalancesAsync(CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/v1/wallet", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/v1/wallet", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(12, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartSpotBalanceWrapper>(request, parameters, ct).ConfigureAwait(false);
             return result.As<IEnumerable<BitMartSpotBalance>>(result.Data?.Wallet);
         }
@@ -45,7 +49,8 @@ namespace BitMart.Net.Clients.SpotApi
         {
             var parameters = new ParameterCollection();
             parameters.Add("currency", asset);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/account/v1/deposit/address", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/account/v1/deposit/address", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(2, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartDepositAddress>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -55,7 +60,8 @@ namespace BitMart.Net.Clients.SpotApi
         {
             var parameters = new ParameterCollection();
             parameters.Add("currency", asset);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "account/v1/withdraw/charge", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "account/v1/withdraw/charge", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(2, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartWithdrawalQuota>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -72,7 +78,8 @@ namespace BitMart.Net.Clients.SpotApi
             parameters.AddOptional("areaCode", areaCode);
             parameters.Add("currency", asset);
             parameters.AddString("amount", quantity);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/account/v1/withdraw/apply", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/account/v1/withdraw/apply", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(8, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartWithdrawId>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -82,7 +89,8 @@ namespace BitMart.Net.Clients.SpotApi
         {
             var parameters = new ParameterCollection();
             parameters.Add("id", id);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "account/v1/deposit-withdraw/detail", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "account/v1/deposit-withdraw/detail", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(8, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartDepositWithdrawalWrapper>(request, parameters, ct).ConfigureAwait(false);
             return result.As<BitMartDepositWithdrawal>(result.Data?.Record);
         }
@@ -92,7 +100,8 @@ namespace BitMart.Net.Clients.SpotApi
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("symbol", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/v1/margin/isolated/account", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/v1/margin/isolated/account", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(12, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartIsolatedMarginAccountWrapper>(request, parameters, ct).ConfigureAwait(false);
             return result.As<IEnumerable<BitMartIsolatedMarginAccount>>(result.Data?.Symbols);
         }
@@ -105,7 +114,8 @@ namespace BitMart.Net.Clients.SpotApi
             parameters.Add("currency", asset);
             parameters.AddString("amount", quantity);
             parameters.AddEnum("side", direction);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/v1/margin/isolated/transfer", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/v1/margin/isolated/transfer", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(2, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartTransferId>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -114,7 +124,8 @@ namespace BitMart.Net.Clients.SpotApi
         public async Task<WebCallResult<BitMartFeeRate>> GetBaseTradeFeesAsync(CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/v1/user_fee", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/v1/user_fee", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(2, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartFeeRate>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -124,7 +135,8 @@ namespace BitMart.Net.Clients.SpotApi
         {
             var parameters = new ParameterCollection();
             parameters.Add("symbol", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/v1/trade_fee", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/v1/trade_fee", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(2, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartSymbolTradeFee>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }

@@ -8,6 +8,7 @@ using System.Threading;
 using System.Net.Http;
 using BitMart.Net.Enums;
 using System;
+using CryptoExchange.Net.RateLimiting.Guards;
 
 namespace BitMart.Net.Clients.SpotApi
 {
@@ -31,7 +32,8 @@ namespace BitMart.Net.Clients.SpotApi
             parameters.Add("symbol", symbol);
             parameters.Add("currency", asset);
             parameters.AddString("amount", quantity);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/spot/v1/margin/isolated/borrow", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/spot/v1/margin/isolated/borrow", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(2, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartBorrowId>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -47,7 +49,8 @@ namespace BitMart.Net.Clients.SpotApi
             parameters.Add("symbol", symbol);
             parameters.Add("currency", asset);
             parameters.AddString("amount", quantity);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/spot/v1/margin/isolated/repay", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/spot/v1/margin/isolated/repay", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(2, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartRepayId>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -65,7 +68,8 @@ namespace BitMart.Net.Clients.SpotApi
             parameters.AddOptionalMilliseconds("start_time", startTime);
             parameters.AddOptionalMilliseconds("end_time", endTime);
             parameters.AddOptional("N", limit);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/v1/margin/isolated/borrow_record", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/v1/margin/isolated/borrow_record", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(60, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BorrowRecordWrapper>(request, parameters, ct).ConfigureAwait(false);
             return result.As<IEnumerable<BorrowRecord>>(result.Data?.Records);
         }
@@ -84,7 +88,8 @@ namespace BitMart.Net.Clients.SpotApi
             parameters.AddOptionalMillisecondsString("start_time", startTime);
             parameters.AddOptionalMillisecondsString("end_time", endTime);
             parameters.AddOptional("N", limit);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/v1/margin/isolated/repay_record", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/v1/margin/isolated/repay_record", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(60, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<RepayRecordWrapper>(request, parameters, ct).ConfigureAwait(false);
             return result.As<IEnumerable<RepayRecord>>(result.Data?.Records);
         }
@@ -98,7 +103,8 @@ namespace BitMart.Net.Clients.SpotApi
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("symbol", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/v1/margin/isolated/pairs", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/v1/margin/isolated/pairs", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(2, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BorrowInfoWrapper>(request, parameters, ct).ConfigureAwait(false);
             return result.As<IEnumerable<BorrowInfo>>(result.Data?.Symbols);
         }

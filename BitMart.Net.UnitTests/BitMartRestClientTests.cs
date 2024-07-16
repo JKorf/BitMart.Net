@@ -15,7 +15,7 @@ namespace BitMart.Net.UnitTests
         [Test]
         public void CheckSignatureExample1()
         {
-            var authProvider = new BitMartAuthenticationProvider(new BitMartApiCredentials("XXX", "XXX"));
+            var authProvider = new BitMartAuthenticationProvider(new BitMartApiCredentials("XXX", "XXX", "XXX"));
             var client = (RestApiClient)new BitMartRestClient().SpotApi;
 
             CryptoExchange.Net.Testing.TestHelpers.CheckSignature(
@@ -27,7 +27,7 @@ namespace BitMart.Net.UnitTests
                 {
                     return headers["X-BM-SIGN"].ToString();
                 },
-                "2C75A72F6582D24AECD79F313BBF2F4D8690FAA7BF628230BD31D3DE9C48A23D",
+                "1d022acf035f8d7f899dcaad0621fe39d351f7809e30ac8c96939a36548a6502",
                 new Dictionary<string, object>
                 {
                     { "symbol", "LTCBTC" },

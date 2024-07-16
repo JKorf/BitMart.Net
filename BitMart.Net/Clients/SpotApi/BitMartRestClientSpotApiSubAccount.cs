@@ -8,6 +8,7 @@ using System.Threading;
 using System.Net.Http;
 using BitMart.Net.Enums;
 using System;
+using CryptoExchange.Net.RateLimiting.Guards;
 
 namespace BitMart.Net.Clients.SpotApi
 {
@@ -32,7 +33,8 @@ namespace BitMart.Net.Clients.SpotApi
             parameters.Add("currency", asset);
             parameters.AddString("amount", quantity);
             parameters.Add("subAccount", subAccount);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/account/sub-account/main/v1/sub-to-main", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/account/sub-account/main/v1/sub-to-main", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(2, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -48,7 +50,8 @@ namespace BitMart.Net.Clients.SpotApi
             parameters.Add("requestNo", clientOrderId);
             parameters.Add("currency", asset);
             parameters.AddString("amount", quantity);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/account/sub-account/sub/v1/sub-to-main", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/account/sub-account/sub/v1/sub-to-main", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(2, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -65,7 +68,8 @@ namespace BitMart.Net.Clients.SpotApi
             parameters.Add("currency", asset);
             parameters.AddString("amount", quantity);
             parameters.Add("subAccount", subAccount);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/account/sub-account/main/v1/main-to-sub", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/account/sub-account/main/v1/main-to-sub", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(2, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -83,7 +87,8 @@ namespace BitMart.Net.Clients.SpotApi
             parameters.Add("currency", asset);
             parameters.Add("fromAccount", fromAccount);
             parameters.Add("toAccount", toAccount);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/account/sub-account/main/v1/sub-to-sub", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/account/sub-account/main/v1/sub-to-sub", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(2, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -98,7 +103,8 @@ namespace BitMart.Net.Clients.SpotApi
             var parameters = new ParameterCollection();
             parameters.Add("N", limit);
             parameters.AddOptional("accountName", account);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/account/sub-account/main/v1/transfer-list", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/account/sub-account/main/v1/transfer-list", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(8, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<SubAccountTransferHistory>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -112,7 +118,8 @@ namespace BitMart.Net.Clients.SpotApi
         {
             var parameters = new ParameterCollection();
             parameters.Add("N", limit);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/account/sub-account/v1/transfer-history", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/account/sub-account/v1/transfer-history", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(8, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<SubAccountTransferHistory>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -127,7 +134,8 @@ namespace BitMart.Net.Clients.SpotApi
             var parameters = new ParameterCollection();
             parameters.Add("subAccount", subAccount);
             parameters.AddOptional("currency", asset);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/account/sub-account/main/v1/wallet", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/account/sub-account/main/v1/wallet", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(12, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartSubAccountBalanceWrapper>(request, parameters, ct).ConfigureAwait(false);
             return result.As<IEnumerable<BitMartSubAccountBalance>>(result.Data?.Wallet);
         }
@@ -140,7 +148,8 @@ namespace BitMart.Net.Clients.SpotApi
         public async Task<WebCallResult<IEnumerable<BitMartSubAccount>>> GetSubAccountListAsync(CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/account/sub-account/main/v1/subaccount-list", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/account/sub-account/main/v1/subaccount-list", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(8, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartSubAccountWrapper>(request, parameters, ct).ConfigureAwait(false);
             return result.As<IEnumerable<BitMartSubAccount>>(result.Data?.SubAccountList);
         }

@@ -14,66 +14,66 @@ namespace BitMart.Net.Enums
         /// One minute
         /// </summary>
         [Map("1")]
-        OneMinute,
+        OneMinute = 60,
         /// <summary>
         /// Three minutes
         /// </summary>
         [Map("3")]
-        ThreeMinutes,
+        ThreeMinutes = 180,
         /// <summary>
         /// Five minutes
         /// </summary>
         [Map("5")]
-        FiveMinutes,
+        FiveMinutes = 300,
         /// <summary>
         /// Fifteen minutes
         /// </summary>
         [Map("15")]
-        FifteenMinutes,
+        FifteenMinutes = 900,
         /// <summary>
         /// Thirty minutes
         /// </summary>
         [Map("30")]
-        ThirtyMinutes,
+        ThirtyMinutes = 1800,
         /// <summary>
         /// Fourty five minutes
         /// </summary>
         [Map("45")]
-        FourtyFiveMinutes,
+        FourtyFiveMinutes = 2700,
         /// <summary>
         /// One hour
         /// </summary>
         [Map("60")]
-        OneHour,
+        OneHour = 3600,
         /// <summary>
         /// Two hours
         /// </summary>
         [Map("120")]
-        TwoHours,
+        TwoHours = 7200,
         /// <summary>
         /// Three hours
         /// </summary>
         [Map("180")]
-        ThreeHours,
+        ThreeHours = 10800,
         /// <summary>
         /// Four hours
         /// </summary>
         [Map("240")]
-        FourHours,
+        FourHours = 14400,
         /// <summary>
         /// One day
         /// </summary>
         [Map("1440")]
-        OneDay,
+        OneDay = 86400,
         /// <summary>
         /// One week
         /// </summary>
         [Map("10080")]
-        OneWeek,
+        OneWeek = 604800,
         /// <summary>
         /// One month
         /// </summary>
         [Map("43200")]
-        OneMonth
+        OneMonth = 2592000
     }
 }

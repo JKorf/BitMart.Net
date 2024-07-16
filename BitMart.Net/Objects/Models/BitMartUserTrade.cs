@@ -70,7 +70,7 @@ namespace BitMart.Net.Objects.Models
         /// Fee asset name
         /// </summary>
         [JsonPropertyName("feeCoinName")]
-        public string FeeAssetName { get; set; } = string.Empty;
+        public string FeeAsset { get; set; } = string.Empty;
         /// <summary>
         /// Trade role
         /// </summary>

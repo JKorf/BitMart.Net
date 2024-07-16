@@ -74,11 +74,8 @@ namespace BitMart.Net.Clients
         /// <inheritdoc />
         public void SetApiCredentials(ApiCredentials credentials)
         {
-            
             UsdFuturesApi.SetApiCredentials(credentials);
-
             SpotApi.SetApiCredentials(credentials);
-
         }
     }
 }
