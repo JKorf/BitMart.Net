@@ -1,8 +1,8 @@
-# ![.BitMart.Net](https://raw.githubusercontent.com/JKorf/BitMart.Net/master/BitMart.Net/Icon/icon.png) BitMart.Net  
+# ![.BitMart.Net](https://raw.githubusercontent.com/JKorf/BitMart.Net/main/BitMart.Net/Icon/icon.png) BitMart.Net  
 
 [![.NET](https://img.shields.io/github/actions/workflow/status/JKorf/BitMart.Net/dotnet.yml?style=for-the-badge)](https://github.com/JKorf/BitMart.Net/actions/workflows/dotnet.yml) ![License](https://img.shields.io/github/license/JKorf/BitMart.Net?style=for-the-badge)
 
-BitMart.Net is a client library for accessing the [BitMart REST and Websocket API](BitMart). All data is mapped to readable models and enum values. Additional features include an implementation for maintaining a client side order book, easy integration with other exchange client libraries and more.
+BitMart.Net is a client library for accessing the [BitMart REST and Websocket API](https://developer-pro.bitmart.com/). All data is mapped to readable models and enum values. Additional features include an implementation for maintaining a client side order book, easy integration with other exchange client libraries and more.
 
 ## Supported Frameworks
 The library is targeting both `.NET Standard 2.0` and `.NET Standard 2.1` for optimal compatibility
@@ -40,7 +40,7 @@ The library is targeting both `.NET Standard 2.0` and `.NET Standard 2.1` for op
 	});
 	```
 
-For information on the clients, dependency injection, response processing and more see the [documentation](https://jkorf.github.io/CryptoExchange.Net), or have a look at the examples [here](https://github.com/JKorf/BitMart.Net/tree/master/Examples) or [here](https://github.com/JKorf/CryptoExchange.Net/tree/master/Examples).
+For information on the clients, dependency injection, response processing and more see the [documentation](https://jkorf.github.io/CryptoExchange.Net), or have a look at the examples [here](https://github.com/JKorf/BitMart.Net/tree/main/Examples) or [here](https://github.com/JKorf/CryptoExchange.Net/tree/master/Examples).
 
 ## CryptoExchange.Net
 BitMart.Net is based on the [CryptoExchange.Net](https://github.com/JKorf/CryptoExchange.Net) base library. Other exchange API implementations based on the CryptoExchange.Net base library are available and follow the same logic.
