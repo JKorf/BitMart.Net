@@ -293,7 +293,7 @@ namespace BitMart.Net.Clients.SpotApi
             if (string.IsNullOrWhiteSpace(symbol))
                 throw new ArgumentException(nameof(symbol) + " required for BitMart " + nameof(ISpotClient.CancelOrderAsync), nameof(symbol));
 
-            var result = await Trading.CancelOrderAsync(symbol, orderId).ConfigureAwait(false);
+            var result = await Trading.CancelOrderAsync(symbol!, orderId).ConfigureAwait(false);
 
             if (!result)
                 return result.As<OrderId>(default);

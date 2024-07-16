@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using BitMart.Net.Objects.Models;
 using BitMart.Net.Objects.Internal;
+using System.Linq;
 
 namespace BitMart.Net.Objects.Sockets.Subscriptions
 {
@@ -40,10 +41,10 @@ namespace BitMart.Net.Objects.Sockets.Subscriptions
         }
 
         /// <inheritdoc />
-        public override Query? GetSubQuery(SocketConnection connection) => new BitMartFuturesQuery("subscribe", _topics, Authenticated);
+        public override Query? GetSubQuery(SocketConnection connection) => new BitMartFuturesQuery("subscribe", _topics, Authenticated) { RequiredResponses = _topics.Count() };
 
         /// <inheritdoc />
-        public override Query? GetUnsubQuery() => new BitMartFuturesQuery("unsubscribe", _topics, Authenticated);
+        public override Query? GetUnsubQuery() => new BitMartFuturesQuery("unsubscribe", _topics, Authenticated) { RequiredResponses = _topics.Count() };
 
         /// <inheritdoc />
         public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)

@@ -42,15 +42,6 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         public string ExchangeName => "BitMart";
         #endregion
 
-        /// <summary>
-        /// Event triggered when an order is placed via this client. Only available for Spot orders
-        /// </summary>
-        public event Action<OrderId>? OnOrderPlaced;
-        /// <summary>
-        /// Event triggered when an order is canceled via this client. Note that this does not trigger when using CancelAllOrdersAsync. Only available for Spot orders
-        /// </summary>
-        public event Action<OrderId>? OnOrderCanceled;
-
         #region constructor/destructor
         internal BitMartRestClientUsdFuturesApi(ILogger logger, IBitMartRestClient baseClient, HttpClient? httpClient, BitMartRestOptions options)
             : base(logger, httpClient, options.Environment.RestClientAddress, options, options.UsdFuturesOptions)
