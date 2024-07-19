@@ -27,10 +27,21 @@ The library is targeting both `.NET Standard 2.0` and `.NET Standard 2.1` for op
 |UWP|`10.0.16299` and higher|
 |Unity|`2018.1` and higher|
 
-## Get the library
-[![Nuget version](https://img.shields.io/nuget/v/BitMart.net.svg?style=for-the-badge)](https://www.nuget.org/packages/BitMart.Net)  [![Nuget downloads](https://img.shields.io/nuget/dt/BitMart.Net.svg?style=for-the-badge)](https://www.nuget.org/packages/BitMart.Net)
+## Install the library
+
+### NuGet 
+[![NuGet version](https://img.shields.io/nuget/v/BitMart.net.svg?style=for-the-badge)](https://www.nuget.org/packages/BitMart.Net)  [![Nuget downloads](https://img.shields.io/nuget/dt/BitMart.Net.svg?style=for-the-badge)](https://www.nuget.org/packages/BitMart.Net)
 
 	dotnet add package BitMart.Net
+	
+### GitHub packages
+BitMart.Net is available on [GitHub packages](https://github.com/JKorf/BitMart.Net/pkgs/nuget/BitMart.Net). You'll need to add `https://nuget.pkg.github.com/JKorf/index.json` as a NuGet package source.
+
+### Download release
+[![GitHub Release](https://img.shields.io/github/v/release/JKorf/BitMart.Net?style=for-the-badge&label=GitHub)](https://github.com/JKorf/BitMart.Net/releases)
+
+The NuGet package files are added along side the source with the latest GitHub release which can found [here](https://github.com/JKorf/BitMart.Net/releases).
+
 	
 ## How to use
 * REST Endpoints
