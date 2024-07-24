@@ -114,8 +114,8 @@ namespace BitMart.Net.Clients.SpotApi
         public async Task<WebCallResult<IEnumerable<BitMartKline>>> GetKlinesAsync(string symbol, KlineInterval klineInterval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            parameters.AddOptionalMillisecondsString("after", startTime);
-            parameters.AddOptionalMillisecondsString("before", endTime);
+            parameters.AddOptionalSecondsString("after", startTime);
+            parameters.AddOptionalSecondsString("before", endTime);
             parameters.AddOptional("limit", limit);
             parameters.Add("symbol", symbol);
             parameters.AddEnum("step", klineInterval);
@@ -129,8 +129,8 @@ namespace BitMart.Net.Clients.SpotApi
         public async Task<WebCallResult<IEnumerable<BitMartKline>>> GetKlineHistoryAsync(string symbol, KlineInterval klineInterval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            parameters.AddOptionalMillisecondsString("after", startTime);
-            parameters.AddOptionalMillisecondsString("before", endTime);
+            parameters.AddOptionalSecondsString("after", startTime);
+            parameters.AddOptionalSecondsString("before", endTime);
             parameters.AddOptional("limit", limit);
             parameters.Add("symbol", symbol);
             parameters.AddEnum("step", klineInterval);

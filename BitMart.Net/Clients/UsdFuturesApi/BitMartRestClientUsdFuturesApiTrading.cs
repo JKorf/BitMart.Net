@@ -81,7 +81,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         #region Get Trigger Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<BitMartTriggerOrder>>> GetTriggerOrdersAsync(string? symbol = null, Type? type = null, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<BitMartTriggerOrder>>> GetTriggerOrdersAsync(string? symbol = null, OrderType? type = null, int? limit = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("symbol", symbol);

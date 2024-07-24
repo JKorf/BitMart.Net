@@ -92,8 +92,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             var parameters = new ParameterCollection();
             parameters.Add("symbol", symbol);
             parameters.AddEnum("step", klineInterval);
-            parameters.AddMilliseconds("start_time", startTime);
-            parameters.AddMilliseconds("end_time", endTime);
+            parameters.AddSeconds("start_time", startTime);
+            parameters.AddSeconds("end_time", endTime);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/public/kline", BitMartExchange.RateLimiter.BitMart, 1, false,
                 new SingleLimitGuard(12, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<IEnumerable<BitMartFuturesKline>>(request, parameters, ct).ConfigureAwait(false);

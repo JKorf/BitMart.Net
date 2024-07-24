@@ -52,7 +52,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="type">Filter by order type</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<IEnumerable<BitMartTriggerOrder>>> GetTriggerOrdersAsync(string? symbol = null, Type? type = null, int? limit = null, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<BitMartTriggerOrder>>> GetTriggerOrdersAsync(string? symbol = null, OrderType? type = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get current positions
