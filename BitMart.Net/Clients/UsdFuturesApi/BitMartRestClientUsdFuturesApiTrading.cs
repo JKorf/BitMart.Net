@@ -145,18 +145,18 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         #region Place Order
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMartFuturesOrderResponse>> PlaceOrderAsync(string symbol, FuturesSide side, FuturesOrderType type, decimal quantity, decimal? price = null, string? clientOrderId = null, decimal? leverage = null, MarginType? marginType = null, OrderMode? orderMode = null, decimal? triggerPrice = null, decimal? callbackRate = null, TriggerPriceType? triggerPriceType = null, TriggerPriceType? presetTakeProfitPriceType = null, TriggerPriceType? presetStopLossPriceType = null, decimal? presetTakeProfitPrice = null, decimal? presetStopLossPrice = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BitMartFuturesOrderResponse>> PlaceOrderAsync(string symbol, FuturesSide side, FuturesOrderType type, int quantity, decimal? price = null, string? clientOrderId = null, decimal? leverage = null, MarginType? marginType = null, OrderMode? orderMode = null, decimal? triggerPrice = null, decimal? callbackRate = null, TriggerPriceType? triggerPriceType = null, TriggerPriceType? presetTakeProfitPriceType = null, TriggerPriceType? presetStopLossPriceType = null, decimal? presetTakeProfitPrice = null, decimal? presetStopLossPrice = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("symbol", symbol);
-            parameters.AddEnum("side", side);
+            parameters.AddEnumAsInt("side", side);
             parameters.AddEnum("type", type);
-            parameters.AddString("size", quantity);
+            parameters.Add("size", quantity);
             parameters.AddOptionalString("price", price);
             parameters.AddOptional("client_order_id", clientOrderId);
             parameters.AddOptionalString("leverage", leverage);
             parameters.AddOptionalEnum("open_type", marginType);
-            parameters.AddOptionalEnum("mode", orderMode);
+            parameters.AddOptionalEnumAsInt("mode", orderMode);
             parameters.AddOptionalString("activation_price", triggerPrice);
             parameters.AddOptionalString("callback_rate", callbackRate);
             parameters.AddOptionalEnum("activation_price_type", triggerPriceType);
@@ -166,7 +166,10 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             parameters.AddOptionalString("preset_stop_loss_price", presetStopLossPrice);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/contract/private/submit-order", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(24, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            var result = await _baseClient.SendAsync<BitMartFuturesOrderResponse>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<BitMartFuturesOrderResponse>(request, parameters, ct, additionalHeaders:new Dictionary<string, string>
+            {
+                { "X-BM-BROKER-ID", _baseClient._brokerId }
+            }).ConfigureAwait(false);
             return result;
         }
 
@@ -227,7 +230,10 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             parameters.AddOptionalEnum("preset_stop_loss_price_type", stopLossPriceType);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/contract/private/submit-plan-order", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(24, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            var result = await _baseClient.SendAsync<BitMartFuturesOrderId>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<BitMartFuturesOrderId>(request, parameters, ct, additionalHeaders: new Dictionary<string, string>
+            {
+                { "X-BM-BROKER-ID", _baseClient._brokerId }
+            }).ConfigureAwait(false);
             return result;
         }
 

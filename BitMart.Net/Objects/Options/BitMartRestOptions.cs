@@ -15,8 +15,12 @@ namespace BitMart.Net.Objects.Options
             Environment = BitMartEnvironment.Live,
             AutoTimestamp = true
         };
-
         
+        /// <summary>
+        /// Set a broker id which will be send in the request headers
+        /// </summary>
+        public string? BrokerId { get; set; }
+
          /// <summary>
         /// UsdFutures API options
         /// </summary>
@@ -30,7 +34,8 @@ namespace BitMart.Net.Objects.Options
 
         internal BitMartRestOptions Copy()
         {
-            var options = Copy<BitMartRestOptions>();            
+            var options = Copy<BitMartRestOptions>();
+            options.BrokerId = BrokerId;
             options.UsdFuturesOptions = UsdFuturesOptions.Copy<RestApiOptions>();
             options.SpotOptions = SpotOptions.Copy<RestApiOptions>();
             return options;

@@ -9,7 +9,12 @@
             BitMart environments
             </summary>
         </member>
-        <member name="P:BitMart.Net.BitMartEnvironment.RestClientAddress">
+        <member name="P:BitMart.Net.BitMartEnvironment.RestSpotClientAddress">
+            <summary>
+            Rest API address
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.BitMartEnvironment.RestFuturesClientAddress">
             <summary>
             Rest API address
             </summary>
@@ -26,15 +31,21 @@
         </member>
         <member name="P:BitMart.Net.BitMartEnvironment.Live">
             <summary>
-            Live environment
+            Live environment, using Futures V2 API
             </summary>
         </member>
-        <member name="M:BitMart.Net.BitMartEnvironment.CreateCustom(System.String,System.String,System.String,System.String)">
+        <member name="P:BitMart.Net.BitMartEnvironment.LiveFuturesV1">
+            <summary>
+            Live environment, using Futures V1 API
+            </summary>
+        </member>
+        <member name="M:BitMart.Net.BitMartEnvironment.CreateCustom(System.String,System.String,System.String,System.String,System.String)">
             <summary>
             Create a custom environment
             </summary>
             <param name="name"></param>
-            <param name="restAddress"></param>
+            <param name="restSpotAddress"></param>
+            <param name="restFuturesAddress"></param>
             <param name="spotSocketStreamsAddress"></param>
             <param name="perpetualFuturesSocketStreamAddress"></param>
             <returns></returns>
@@ -535,7 +546,7 @@
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.GetUserTradesAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.PlaceOrderAsync(System.String,BitMart.Net.Enums.FuturesSide,BitMart.Net.Enums.FuturesOrderType,System.Decimal,System.Nullable{System.Decimal},System.String,System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.MarginType},System.Nullable{BitMart.Net.Enums.OrderMode},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.PlaceOrderAsync(System.String,BitMart.Net.Enums.FuturesSide,BitMart.Net.Enums.FuturesOrderType,System.Int32,System.Nullable{System.Decimal},System.String,System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.MarginType},System.Nullable{BitMart.Net.Enums.OrderMode},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.CancelOrderAsync(System.String,System.String,System.Threading.CancellationToken)">
@@ -2420,7 +2431,7 @@
             <param name="endTime">Filter by end time</param>
             <param name="ct">Cancellation token</param>
         </member>
-        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.PlaceOrderAsync(System.String,BitMart.Net.Enums.FuturesSide,BitMart.Net.Enums.FuturesOrderType,System.Decimal,System.Nullable{System.Decimal},System.String,System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.MarginType},System.Nullable{BitMart.Net.Enums.OrderMode},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.PlaceOrderAsync(System.String,BitMart.Net.Enums.FuturesSide,BitMart.Net.Enums.FuturesOrderType,System.Int32,System.Nullable{System.Decimal},System.String,System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.MarginType},System.Nullable{BitMart.Net.Enums.OrderMode},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
             <summary>
             Place a new order
             <para><a href="https://developer-pro.bitmart.com/en/futures/#submit-order-signed" /></para>
@@ -2428,7 +2439,7 @@
             <param name="symbol">The symbol</param>
             <param name="side">Order side</param>
             <param name="type">Order type</param>
-            <param name="quantity">Quantity</param>
+            <param name="quantity">Quantity in number of contracts</param>
             <param name="price">Limit price</param>
             <param name="clientOrderId">Client order id</param>
             <param name="leverage">Leverage</param>
@@ -2627,9 +2638,14 @@
             Api addresses
             </summary>
         </member>
-        <member name="P:BitMart.Net.Objects.BitMartApiAddresses.RestClientAddress">
+        <member name="P:BitMart.Net.Objects.BitMartApiAddresses.RestSpotClientAddress">
             <summary>
-            The address used by the BitMartRestClient for the API
+            The address used by the BitMartRestClient for the Spot API
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.BitMartApiAddresses.RestFuturesClientAddress">
+            <summary>
+            The address used by the BitMartRestClient for the Futures API
             </summary>
         </member>
         <member name="P:BitMart.Net.Objects.BitMartApiAddresses.SocketSpotClientAddress">
@@ -2644,7 +2660,12 @@
         </member>
         <member name="F:BitMart.Net.Objects.BitMartApiAddresses.Default">
             <summary>
-            The default addresses to connect to the BitMart API
+            The production environment for the BitMart API. Uses Futures V2.
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Objects.BitMartApiAddresses.FuturesV1">
+            <summary>
+            Production environment, but uses Futures V1 instead of Futures V2.
             </summary>
         </member>
         <member name="T:BitMart.Net.Objects.BitMartApiCredentials">
@@ -5577,6 +5598,11 @@
         <member name="P:BitMart.Net.Objects.Options.BitMartRestOptions.Default">
             <summary>
             Default options for new clients
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Options.BitMartRestOptions.BrokerId">
+            <summary>
+            Set a broker id which will be send in the request headers
             </summary>
         </member>
         <member name="P:BitMart.Net.Objects.Options.BitMartRestOptions.UsdFuturesOptions">

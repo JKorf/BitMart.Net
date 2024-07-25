@@ -5,6 +5,16 @@ using System.Text.Json.Serialization;
 
 namespace BitMart.Net.Objects.Models
 {
+    internal record BitMartOrderIdsWrapper
+    {
+        [JsonPropertyName("code")]
+        public int Code { get; set; }
+        [JsonPropertyName("msd")]
+        public string Message { get; set; } = string.Empty;
+        [JsonPropertyName("data")]
+        public BitMartOrderIds Data { get; set; } = null!;
+    }
+
     /// <summary>
     /// Order ids
     /// </summary>

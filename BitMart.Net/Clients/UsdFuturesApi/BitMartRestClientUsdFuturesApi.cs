@@ -27,6 +27,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         #region fields 
         internal static TimeSyncState _timeSyncState = new TimeSyncState("UsdFutures Api");
         private readonly IBitMartRestClient _baseClient;
+
+        internal readonly string _brokerId;
         #endregion
 
         #region Api clients
@@ -44,7 +46,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
         #region constructor/destructor
         internal BitMartRestClientUsdFuturesApi(ILogger logger, IBitMartRestClient baseClient, HttpClient? httpClient, BitMartRestOptions options)
-            : base(logger, httpClient, options.Environment.RestClientAddress, options, options.UsdFuturesOptions)
+            : base(logger, httpClient, options.Environment.RestFuturesClientAddress, options, options.UsdFuturesOptions)
         {
             Account = new BitMartRestClientUsdFuturesApiAccount(this);
             SubAccount = new BitMartRestClientUsdFuturesApiSubAccount(this);
@@ -52,6 +54,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             Trading = new BitMartRestClientUsdFuturesApiTrading(logger, this);
 
             _baseClient = baseClient;
+            _brokerId = !string.IsNullOrEmpty(options.BrokerId) ? options.BrokerId : "EASYTRADING0001";
         }
         #endregion
 
@@ -79,12 +82,12 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             return result.AsDataless();
         }
 
-        internal Task<WebCallResult<T>> SendAsync<T>(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null) where T : class
-            => SendToAddressAsync<T>(BaseAddress, definition, parameters, cancellationToken, weight);
+        internal Task<WebCallResult<T>> SendAsync<T>(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null, Dictionary<string, string>? additionalHeaders = null) where T : class
+            => SendToAddressAsync<T>(BaseAddress, definition, parameters, cancellationToken, weight, additionalHeaders);
 
-        internal async Task<WebCallResult<T>> SendToAddressAsync<T>(string baseAddress, RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null) where T : class
+        internal async Task<WebCallResult<T>> SendToAddressAsync<T>(string baseAddress, RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null, Dictionary<string, string>? additionalHeaders = null) where T : class
         {
-            var result = await base.SendAsync<BitMartResponse<T>>(baseAddress, definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
+            var result = await base.SendAsync<BitMartResponse<T>>(baseAddress, definition, parameters, cancellationToken, additionalHeaders, weight).ConfigureAwait(false);
             if (!result)
                 return result.As<T>(default);
 

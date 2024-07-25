@@ -138,7 +138,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             return group;
         }
 
-        public override ReadOnlyMemory<byte> PreprocessStreamMessage(WebSocketMessageType type, ReadOnlyMemory<byte> data)
+        public override ReadOnlyMemory<byte> PreprocessStreamMessage(SocketConnection connection, WebSocketMessageType type, ReadOnlyMemory<byte> data)
         {
             if (type == WebSocketMessageType.Text)
                 return data;

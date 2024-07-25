@@ -42,7 +42,10 @@ namespace BitMart.Net.Clients.SpotApi
             parameters.AddOptional("client_order_id", clientOrderId);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/spot/v2/submit_order", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(60, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            var result = await _baseClient.SendAsync<BitMartOrderId>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<BitMartOrderId>(request, parameters, ct, additionalHeaders: new Dictionary<string, string>
+            {
+                { "X-BM-BROKER-ID", _baseClient._brokerId }
+            }).ConfigureAwait(false);
             if (result)
             {
                 _baseClient.InvokeOrderPlaced(new CryptoExchange.Net.CommonObjects.OrderId
@@ -67,20 +70,27 @@ namespace BitMart.Net.Clients.SpotApi
             parameters.Add("orderParams", orders);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/spot/v4/batch_orders", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            var result = await _baseClient.SendAsync<BitMartOrderIds>(request, parameters, ct).ConfigureAwait(false);
-            if (result)
+            var result = await _baseClient.SendAsync<BitMartOrderIdsWrapper>(request, parameters, ct, additionalHeaders: new Dictionary<string, string>
             {
-                foreach (var order in result.Data.OrderIds)
+                { "X-BM-BROKER-ID", _baseClient._brokerId }
+            }).ConfigureAwait(false);
+            if (!result)
+                return result.As<BitMartOrderIds>(default);
+
+            if (result.Data.Code != 0)
+                return result.AsError<BitMartOrderIds>(new ServerError(result.Data.Code, result.Data.Message));
+
+
+            foreach (var order in result.Data.Data.OrderIds)
+            {
+                _baseClient.InvokeOrderPlaced(new CryptoExchange.Net.CommonObjects.OrderId
                 {
-                    _baseClient.InvokeOrderPlaced(new CryptoExchange.Net.CommonObjects.OrderId
-                    {
-                        Id = order,
-                        SourceObject = order
-                    });
-                }
+                    Id = order,
+                    SourceObject = order
+                });
             }
 
-            return result;
+            return result.As(result.Data.Data);
         }
 
         #endregion
@@ -153,7 +163,10 @@ namespace BitMart.Net.Clients.SpotApi
             parameters.AddOptional("client_order_id", clientOrderId);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/spot/v1/margin/submit_order", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(1, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            var result = await _baseClient.SendAsync<BitMartOrderId>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<BitMartOrderId>(request, parameters, ct, additionalHeaders: new Dictionary<string, string>
+            {
+                { "X-BM-BROKER-ID", _baseClient._brokerId }
+            }).ConfigureAwait(false);
             return result;
         }
 

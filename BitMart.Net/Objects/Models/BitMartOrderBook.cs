@@ -16,7 +16,7 @@ namespace BitMart.Net.Objects.Models
         /// <summary>
         /// Timestamp
         /// </summary>
-        [JsonPropertyName("ts")]
+        [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
         /// <summary>
         /// Symbol
