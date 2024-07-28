@@ -33,7 +33,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         public async Task<WebCallResult<BitMartFuturesOrder>> GetOrderAsync(string symbol, string orderId, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            parameters.Add("", symbol);
+            parameters.Add("symbol", symbol);
             parameters.Add("order_id", orderId);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/private/order", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(50, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
@@ -181,7 +181,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         public async Task<WebCallResult> CancelOrderAsync(string symbol, string orderId, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            parameters.Add("", symbol);
+            parameters.Add("symbol", symbol);
             parameters.Add("order_id", orderId);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/contract/private/cancel-order", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(40, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
@@ -209,25 +209,25 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         #region Place Trigger Order
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMartFuturesOrderId>> PlaceTriggerOrderAsync(string symbol, OrderType orderType, FuturesSide side, decimal quantity, decimal leverage, MarginType marginType, decimal triggerPrice, PriceDirection priceDirection, TriggerPriceType triggerPriceType, OrderMode? orderMode = null, decimal? orderPrice = null, PlanCategory? planCategory = null, decimal? takeProfitPrice = null, decimal? stopLossPrice = null, TriggerPriceType? takeProfitPriceType = null, TriggerPriceType? stopLossPriceType = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BitMartFuturesOrderId>> PlaceTriggerOrderAsync(string symbol, OrderType orderType, FuturesSide side, int quantity, decimal leverage, MarginType marginType, decimal triggerPrice, PriceDirection priceDirection, TriggerPriceType triggerPriceType, OrderMode? orderMode = null, decimal? orderPrice = null, PlanCategory? planCategory = null, decimal? takeProfitPrice = null, decimal? stopLossPrice = null, TriggerPriceType? takeProfitPriceType = null, TriggerPriceType? stopLossPriceType = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("symbol", symbol);
             parameters.AddEnum("type", orderType);
-            parameters.AddEnum("side", side);
-            parameters.AddString("size", quantity);
+            parameters.AddEnumAsInt("side", side);
+            parameters.Add("size", quantity);
             parameters.AddString("leverage", leverage);
             parameters.AddEnum("open_type", marginType);
             parameters.AddString("trigger_price", triggerPrice);
-            parameters.AddEnum("price_way", priceDirection);
-            parameters.AddEnum("price_type", triggerPriceType);
-            parameters.AddOptionalEnum("mode", orderMode);
+            parameters.Add("price_way", priceDirection == PriceDirection.ShortDirection ? 2 : 1);
+            parameters.AddEnumAsInt("price_type", triggerPriceType);
+            parameters.AddOptionalEnumAsInt("mode", orderMode);
             parameters.AddOptionalString("executive_price", orderPrice);
-            parameters.AddOptionalEnum("plan_category", planCategory);
+            parameters.AddOptionalEnumAsInt("plan_category", planCategory);
             parameters.AddOptionalString("preset_take_profit_price", takeProfitPrice);
             parameters.AddOptionalString("preset_stop_loss_price", stopLossPrice);
-            parameters.AddOptionalEnum("preset_take_profit_price_type", takeProfitPriceType);
-            parameters.AddOptionalEnum("preset_stop_loss_price_type", stopLossPriceType);
+            parameters.AddOptionalEnumAsInt("preset_take_profit_price_type", takeProfitPriceType);
+            parameters.AddOptionalEnumAsInt("preset_stop_loss_price_type", stopLossPriceType);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/contract/private/submit-plan-order", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(24, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartFuturesOrderId>(request, parameters, ct, additionalHeaders: new Dictionary<string, string>

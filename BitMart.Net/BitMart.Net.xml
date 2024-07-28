@@ -555,7 +555,7 @@
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.CancelOrdersAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.PlaceTriggerOrderAsync(System.String,BitMart.Net.Enums.OrderType,BitMart.Net.Enums.FuturesSide,System.Decimal,System.Decimal,BitMart.Net.Enums.MarginType,System.Decimal,BitMart.Net.Enums.PriceDirection,BitMart.Net.Enums.TriggerPriceType,System.Nullable{BitMart.Net.Enums.OrderMode},System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.PlanCategory},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.PlaceTriggerOrderAsync(System.String,BitMart.Net.Enums.OrderType,BitMart.Net.Enums.FuturesSide,System.Int32,System.Decimal,BitMart.Net.Enums.MarginType,System.Decimal,BitMart.Net.Enums.PriceDirection,BitMart.Net.Enums.TriggerPriceType,System.Nullable{BitMart.Net.Enums.OrderMode},System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.PlanCategory},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.CancelTriggerOrderAsync(System.String,System.String,System.Threading.CancellationToken)">
@@ -2471,7 +2471,7 @@
             <param name="symbol">The symbol</param>
             <param name="ct">Cancellation token</param>
         </member>
-        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.PlaceTriggerOrderAsync(System.String,BitMart.Net.Enums.OrderType,BitMart.Net.Enums.FuturesSide,System.Decimal,System.Decimal,BitMart.Net.Enums.MarginType,System.Decimal,BitMart.Net.Enums.PriceDirection,BitMart.Net.Enums.TriggerPriceType,System.Nullable{BitMart.Net.Enums.OrderMode},System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.PlanCategory},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.PlaceTriggerOrderAsync(System.String,BitMart.Net.Enums.OrderType,BitMart.Net.Enums.FuturesSide,System.Int32,System.Decimal,BitMart.Net.Enums.MarginType,System.Decimal,BitMart.Net.Enums.PriceDirection,BitMart.Net.Enums.TriggerPriceType,System.Nullable{BitMart.Net.Enums.OrderMode},System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.PlanCategory},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Threading.CancellationToken)">
             <summary>
             Place a new trigger order
             <para><a href="https://developer-pro.bitmart.com/en/futures/#submit-plan-order-signed" /></para>
@@ -3597,7 +3597,7 @@
         </member>
         <member name="P:BitMart.Net.Objects.Models.BitMartFuturesOrderResponse.Price">
             <summary>
-            Price
+            Price. Not that this is a string because when executing a market trade the server will return `market price` as string value.
             </summary>
         </member>
         <member name="T:BitMart.Net.Objects.Models.BitMartFuturesOrderUpdateEvent">

@@ -16,9 +16,9 @@ namespace BitMart.Net.Objects.Models
         [JsonPropertyName("order_id")]
         public long OrderId { get; set; }
         /// <summary>
-        /// Price
+        /// Price. Not that this is a string because when executing a market trade the server will return `market price` as string value.
         /// </summary>
         [JsonPropertyName("price")]
-        public decimal Price { get; set; }
+        public string Price { get; set; } = string.Empty;
     }
 }

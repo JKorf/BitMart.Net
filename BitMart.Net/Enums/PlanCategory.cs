@@ -13,12 +13,12 @@ namespace BitMart.Net.Enums
         /// <summary>
         /// Take profit / Stop loss
         /// </summary>
-        [Map("")]
+        [Map("1")]
         TpSl,
         /// <summary>
         /// Position Take profit / Stop loss
         /// </summary>
-        [Map("")]
+        [Map("2")]
         PositionTpSl
     }
 }

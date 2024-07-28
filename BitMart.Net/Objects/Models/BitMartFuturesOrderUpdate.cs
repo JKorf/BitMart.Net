@@ -102,7 +102,7 @@ namespace BitMart.Net.Objects.Models
         /// Order id of the executed trigger order
         /// </summary>
         [JsonPropertyName("plan_order_id")]
-        public string? TriggerOrderId { get; set; }
+        public long? TriggerOrderId { get; set; }
         /// <summary>
         /// Last trade info
         /// </summary>
