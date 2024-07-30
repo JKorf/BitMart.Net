@@ -193,14 +193,14 @@
 		  
 		  <pre><code>builder.Services.AddBitMart(options => {
   // Options can be configured here, for example:
-  options.ApiCredentials = new ApiCredentials("APIKEY", "APISECRET");
+  options.ApiCredentials = new BitMartApiCredentials("APIKEY", "APISECRET", "MEMO");
 });</code></pre>
 		  
 		  <p>The <code>IBitMartRestClient</code> and <code>IBitMartSocketClient</code> can then be injected.</p>
 		  <p>Alternatively the rest and socket client can be constructed directly</p>
 		  <pre><code>var restClient = new BitMartRestClient(options => {
   // Options can be configured here, for example:
-  options.ApiCredentials = new ApiCredentials("APIKEY", "APISECRET");
+  options.ApiCredentials = new BitMartApiCredentials("APIKEY", "APISECRET", "MEMO");
 });
 var socketClient = new BitMartSocketClient();</code></pre>
 		  

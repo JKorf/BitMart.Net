@@ -66,7 +66,7 @@ namespace BitMart.Net.Clients.SpotApi
             SubAccount = new BitMartRestClientSpotApiSubAccount(this);
             Trading = new BitMartRestClientSpotApiTrading(logger, this);
 
-            _brokerId = !string.IsNullOrEmpty(options.BrokerId) ? options.BrokerId : "EASYTRADING0001";
+            _brokerId = !string.IsNullOrEmpty(options.BrokerId) ? options.BrokerId! : "EASYTRADING0001";
         }
         #endregion
 

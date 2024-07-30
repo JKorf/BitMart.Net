@@ -54,7 +54,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             Trading = new BitMartRestClientUsdFuturesApiTrading(logger, this);
 
             _baseClient = baseClient;
-            _brokerId = !string.IsNullOrEmpty(options.BrokerId) ? options.BrokerId : "EASYTRADING0001";
+            _brokerId = !string.IsNullOrEmpty(options.BrokerId) ? options.BrokerId! : "EASYTRADING0001";
         }
         #endregion
 
