@@ -13,7 +13,7 @@ Console.ReadLine();
 var bitMartSocketClient = new BitMartSocketClient();
 var subscription = await bitMartSocketClient.SpotApi.SubscribeToTickerUpdatesAsync("ETH_USDT", update =>
 {
-    Console.WriteLine($"Websocket client ticker price for ETHUSDT: {update.Data.LastPrice}");
+    Console.WriteLine($"Websocket client ticker price for ETH_USDT: {update.Data.LastPrice}");
 });
 
 Console.ReadLine();

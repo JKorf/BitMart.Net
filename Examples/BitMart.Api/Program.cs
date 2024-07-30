@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using BitMart.Net.Objects;
+using BitMart.Net.Interfaces.Clients;
 
 var builder = WebApplication.CreateBuilder(args);
 
