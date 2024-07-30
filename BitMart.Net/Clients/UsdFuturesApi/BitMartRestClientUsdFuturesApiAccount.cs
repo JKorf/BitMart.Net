@@ -9,6 +9,7 @@ using BitMart.Net.Objects.Models;
 using System;
 using BitMart.Net.Enums;
 using CryptoExchange.Net.RateLimiting.Guards;
+using BitMart.Net.Objects.Internal;
 
 namespace BitMart.Net.Clients.UsdFuturesApi
 {
@@ -31,8 +32,17 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             var parameters = new ParameterCollection();
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/private/assets-detail", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(12, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            var result = await _baseClient.SendAsync<IEnumerable<BitMartFuturesBalance>>(request, parameters, ct).ConfigureAwait(false);
-            return result;
+            
+            // V2 returns data within internal list, which V1 doesn't
+            if (_baseClient.BaseAddress.Contains("v2"))
+            {
+                var result = await _baseClient.SendAsync<BitMartFuturesBalanceWrapper>(request, parameters, ct).ConfigureAwait(false);
+                return result.As<IEnumerable<BitMartFuturesBalance>>(result.Data?.List);
+            }
+            else
+            {
+                return await _baseClient.SendAsync<IEnumerable<BitMartFuturesBalance>>(request, parameters, ct).ConfigureAwait(false);
+            }
         }
 
         #endregion

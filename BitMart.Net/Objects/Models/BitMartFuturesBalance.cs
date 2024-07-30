@@ -5,6 +5,12 @@ using System.Text.Json.Serialization;
 
 namespace BitMart.Net.Objects.Models
 {
+    internal record BitMartFuturesBalanceWrapper 
+    { 
+        [JsonPropertyName("list")]
+        public IEnumerable<BitMartFuturesBalance> List { get; set; } = Array.Empty<BitMartFuturesBalance>();
+    }
+
     /// <summary>
     /// Futures account balance
     /// </summary>

@@ -50,7 +50,7 @@ namespace BitMart.Net.Objects.Models
         /// Margin type
         /// </summary>
         [JsonPropertyName("margin_type")]
-        public MarginType MarginType { get; set; }
+        public MarginType? MarginType { get; set; }
         /// <summary>
         /// Margin for isolated position
         /// </summary>
@@ -60,7 +60,7 @@ namespace BitMart.Net.Objects.Models
         /// Position side
         /// </summary>
         [JsonPropertyName("position_side")]
-        public PositionSide PositionSide { get; set; }
+        public PositionSide? PositionSide { get; set; }
         /// <summary>
         /// Notional
         /// </summary>
