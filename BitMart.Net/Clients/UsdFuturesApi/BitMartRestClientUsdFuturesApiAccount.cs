@@ -33,16 +33,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/private/assets-detail", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(12, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             
-            // V2 returns data within internal list, which V1 doesn't
-            if (_baseClient.BaseAddress.Contains("v2"))
-            {
-                var result = await _baseClient.SendAsync<BitMartFuturesBalanceWrapper>(request, parameters, ct).ConfigureAwait(false);
-                return result.As<IEnumerable<BitMartFuturesBalance>>(result.Data?.List);
-            }
-            else
-            {
-                return await _baseClient.SendAsync<IEnumerable<BitMartFuturesBalance>>(request, parameters, ct).ConfigureAwait(false);
-            }
+            return await _baseClient.SendAsync<IEnumerable<BitMartFuturesBalance>>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
