@@ -58,6 +58,16 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<BitMartCancelOrdersResult>> CancelOrdersAsync(string symbol, IEnumerable<string>? orderIds = null, IEnumerable<string>? clientOrderIds = null, CancellationToken ct = default);
 
         /// <summary>
+        /// Cancel all orders matching the parameters
+        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#cancel-all-order-v4-signed" /></para>
+        /// </summary>
+        /// <param name="symbol">Filter by symbol</param>
+        /// <param name="side">Filter by order side</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult> CancelAllOrderAsync(string? symbol = null, OrderSide? side = null, CancellationToken ct = default);
+
+        /// <summary>
         /// Place a new margin order
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#new-margin-order-v1-signed" /></para>
         /// </summary>

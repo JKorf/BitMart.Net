@@ -347,6 +347,9 @@
         <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiTrading.CancelOrdersAsync(System.String,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiTrading.CancelAllOrderAsync(System.String,System.Nullable{BitMart.Net.Enums.OrderSide},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiTrading.PlaceMarginOrderAsync(System.String,BitMart.Net.Enums.OrderSide,BitMart.Net.Enums.OrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -1976,6 +1979,16 @@
             <param name="orderIds">Order ids to cancel. Either this or clientOrderIds should be provided</param>
             <param name="clientOrderIds">Client order ids to cancel. Either this or orderIds should be provided</param>
             <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiTrading.CancelAllOrderAsync(System.String,System.Nullable{BitMart.Net.Enums.OrderSide},System.Threading.CancellationToken)">
+            <summary>
+            Cancel all orders matching the parameters
+            <para><a href="https://developer-pro.bitmart.com/en/spot/#cancel-all-order-v4-signed" /></para>
+            </summary>
+            <param name="symbol">Filter by symbol</param>
+            <param name="side">Filter by order side</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiTrading.PlaceMarginOrderAsync(System.String,BitMart.Net.Enums.OrderSide,BitMart.Net.Enums.OrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Threading.CancellationToken)">
             <summary>

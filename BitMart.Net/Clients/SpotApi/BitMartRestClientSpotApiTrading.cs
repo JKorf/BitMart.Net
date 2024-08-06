@@ -148,6 +148,21 @@ namespace BitMart.Net.Clients.SpotApi
 
         #endregion
 
+        #region Cancel Order
+
+        /// <inheritdoc />
+        public async Task<WebCallResult> CancelAllOrderAsync(string? symbol = null, OrderSide? side = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptional("symbol", symbol);
+            parameters.AddOptionalEnum("side", side);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/spot/v4/cancel_all", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(1, TimeSpan.FromSeconds(3), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
+            return await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
         #region Place Margin Order
 
         /// <inheritdoc />

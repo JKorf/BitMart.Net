@@ -108,6 +108,7 @@ namespace BitMart.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.Trading.GetUserTradesAsync(), "GetUserTrades", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.SpotApi.Trading.GetOrderTradesAsync("123"), "GetOrderTrades", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.SpotApi.Trading.CancelOrdersAsync("123"), "CancelOrders", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.SpotApi.Trading.CancelAllOrderAsync(), "CancelAllOrder");
         }
 
         [Test]
