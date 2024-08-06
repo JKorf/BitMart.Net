@@ -24,7 +24,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// Get account transfer history
         /// <para><a href="https://developer-pro.bitmart.com/en/futures/#get-transfer-list-signed" /></para>
         /// </summary>
-        /// <param name="asset">Filter by asset</param>
+        /// <param name="asset">Filter by asset, for example `USDT`</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
         /// <param name="page">Page number</param>
@@ -36,7 +36,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// Transfer between futures and spot account
         /// <para><a href="https://developer-pro.bitmart.com/en/futures/#transfer-signed" /></para>
         /// </summary>
-        /// <param name="asset">The asset</param>
+        /// <param name="asset">The asset, for example `USDT`</param>
         /// <param name="quantity">Quantity to transfer</param>
         /// <param name="type">Transfer direction</param>
         /// <param name="ct">Cancellation token</param>
@@ -46,7 +46,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// Set leverage
         /// <para><a href="https://developer-pro.bitmart.com/en/futures/#submit-leverage-signed" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="leverage">Leverage</param>
         /// <param name="marginType">Open type, required at close position</param>
         /// <param name="ct">Cancellation token</param>

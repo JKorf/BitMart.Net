@@ -19,7 +19,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// Subscribe to price ticker updates for a symbol
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#public-ticker-channel" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -29,7 +29,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// Subscribe to price ticker updates for multiple symbols
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#public-ticker-channel" /></para>
         /// </summary>
-        /// <param name="symbols">The symbols</param>
+        /// <param name="symbols">The symbols, for example `ETH_USDT`</param>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -39,7 +39,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// Subscribe to kline/candlestick updates for a symbol
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#public-kline-channel" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="interval">Kline interval</param>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -50,7 +50,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// Subscribe to kline/candlestick updates for multiple symbols
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#public-kline-channel" /></para>
         /// </summary>
-        /// <param name="symbols">Symbols</param>
+        /// <param name="symbols">Symbols, for example `ETH_USDT`</param>
         /// <param name="interval">Kline interval</param>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -61,7 +61,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// Subscribe to full order book updates of the first x order book records
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#public-depth-all-channel" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="depth">Order book depth, 5, 20 or 50</param>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -73,7 +73,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// Subscribe to full order book updates of the first x order book records
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#public-depth-all-channel" /></para>
         /// </summary>
-        /// <param name="symbols">The symbols</param>
+        /// <param name="symbols">The symbols, for example `ETH_USDT`</param>
         /// <param name="depth">Order book depth, 5, 20 or 50</param>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -84,7 +84,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// Subscribe to order book updates. An initial snapshot will be pushed, followed by change updates
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#public-depth-increase-channel" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -94,7 +94,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// Subscribe to order book updates. An initial snapshot will be pushed, followed by change updates
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#public-depth-increase-channel" /></para>
         /// </summary>
-        /// <param name="symbols">Symbols</param>
+        /// <param name="symbols">Symbols, for example `ETH_USDT`</param>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -104,7 +104,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// Subscribe to trade updates for a symbol
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#public-trade-channel" /></para>
         /// </summary>
-        /// <param name="symbol">Symbol</param>
+        /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -114,7 +114,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// Subscribe to trade updates for multiple symbols
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#public-trade-channel" /></para>
         /// </summary>
-        /// <param name="symbols">Symbols</param>
+        /// <param name="symbols">Symbols, for example `ETH_USDT`</param>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>

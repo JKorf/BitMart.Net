@@ -55,7 +55,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// Get price ticker for a symbol
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-ticker-of-a-trading-pair-v3" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BitMartTicker>> GetTickerAsync(string symbol, CancellationToken ct = default);
 
@@ -77,7 +77,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// Get kline/candlesticks
         /// <para><a href="https://openapi-doc.bitmart.com/en/spot/#get-latest-k-line-v3" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="klineInterval">The interval</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
@@ -89,7 +89,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// Get historical klines
         /// <para><a href="https://openapi-doc.bitmart.com/en/spot/#get-history-k-line-v3" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="klineInterval">Kline interval</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
@@ -101,7 +101,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// Get recent trades
         /// <para><a href="https://openapi-doc.bitmart.com/en/spot/#get-recent-trades-v3" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<IEnumerable<BitMartTrade>>> GetTradesAsync(string symbol, int? limit = null, CancellationToken ct = default);
@@ -110,7 +110,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// Get the current order book
         /// <para><a href="https://openapi-doc.bitmart.com/en/spot/#get-depth-v3" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="limit">Max number of rows in the book</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>

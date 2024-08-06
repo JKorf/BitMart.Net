@@ -16,7 +16,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// Get funding account balances
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-account-balance-keyed" /></para>
         /// </summary>
-        /// <param name="asset">Filter on asset</param>
+        /// <param name="asset">Filter on asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<IEnumerable<BitMartBalance>>> GetFundingBalancesAsync(string? asset = null, CancellationToken ct = default);
         
@@ -31,15 +31,15 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// Get deposit address
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#deposit-address-keyed" /></para>
         /// </summary>
-        /// <param name="asset">The asset</param>
+        /// <param name="asset">The asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BitMartDepositAddress>> GetDepositAddressAsync(string asset, CancellationToken ct = default);
-        
+
         /// <summary>
         /// Get withdrawal quotas
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#withdraw-quota-keyed" /></para>
         /// </summary>
-        /// <param name="asset">Asset</param>
+        /// <param name="asset">Asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BitMartWithdrawalQuota>> GetWithdrawalQuotaAsync(string asset, CancellationToken ct = default);
 
@@ -47,7 +47,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// Withdraw funds
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#withdraw-signed" /></para>
         /// </summary>
-        /// <param name="asset">The asset</param>
+        /// <param name="asset">The asset, for example `ETH`</param>
         /// <param name="quantity">Quantity to withdraw</param>
         /// <param name="targetAddress">Target blockchain address</param>
         /// <param name="memo">Memo</param>
@@ -70,7 +70,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// Get isolated margin account info
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-margin-account-details-isolated-keyed" /></para>
         /// </summary>
-        /// <param name="symbol">Filter by symbol</param>
+        /// <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<IEnumerable<BitMartIsolatedMarginAccount>>> GetIsolatedMarginAccountsAsync(string? symbol = null, CancellationToken ct = default);
 
@@ -78,8 +78,8 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// Transfer asset between Spot and Isolated Margin account
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#margin-asset-transfer-signed" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
-        /// <param name="asset">The asset</param>
+        /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
+        /// <param name="asset">The asset, for example `ETH`</param>
         /// <param name="quantity">Quantity to transfer</param>
         /// <param name="direction">Direction</param>
         /// <param name="ct">Cancellation token</param>
@@ -96,7 +96,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// Get trading fees for a specific symbol
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-actual-trade-fee-rate-keyed" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BitMartSymbolTradeFee>> GetSymbolTradeFeeAsync(string symbol, CancellationToken ct = default);
 

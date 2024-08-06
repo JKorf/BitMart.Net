@@ -18,7 +18,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// Get an order by id
         /// <para><a href="https://developer-pro.bitmart.com/en/futures/#get-order-detail-keyed" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="orderId">Order id</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BitMartFuturesOrder>> GetOrderAsync(string symbol, string orderId, CancellationToken ct = default);
@@ -27,7 +27,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// Get order history
         /// <para><a href="https://developer-pro.bitmart.com/en/futures/#get-order-history-keyed" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
         /// <param name="ct">Cancellation token</param>
@@ -37,7 +37,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// Get open orders
         /// <para><a href="https://developer-pro.bitmart.com/en/futures/#get-all-open-orders-keyed" /></para>
         /// </summary>
-        /// <param name="symbol">Filter by symbol</param>
+        /// <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
         /// <param name="orderType">Filter by order type</param>
         /// <param name="status">Filter by order status</param>
         /// <param name="limit">Max number of results</param>
@@ -48,7 +48,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// Get open trigger orders
         /// <para><a href="https://developer-pro.bitmart.com/en/futures/#get-all-current-plan-orders-keyed" /></para>
         /// </summary>
-        /// <param name="symbol">Filter by symbol</param>
+        /// <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
         /// <param name="type">Filter by order type</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
@@ -58,7 +58,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// Get current positions
         /// <para><a href="https://developer-pro.bitmart.com/en/futures/#get-current-position-keyed" /></para>
         /// </summary>
-        /// <param name="symbol">Filter by symbol</param>
+        /// <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<IEnumerable<BitMartPosition>>> GetPositionsAsync(string? symbol = null, CancellationToken ct = default);
 
@@ -66,7 +66,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// Get position risk
         /// <para><a href="https://developer-pro.bitmart.com/en/futures/#get-current-position-risk-details-keyed" /></para>
         /// </summary>
-        /// <param name="symbol">Filter by symbol</param>
+        /// <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<IEnumerable<BitMartPositionRisk>>> GetPositionRiskAsync(string? symbol = null, CancellationToken ct = default);
 
@@ -74,7 +74,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// Get user trades
         /// <para><a href="https://developer-pro.bitmart.com/en/futures/#get-order-trade-keyed" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
         /// <param name="ct">Cancellation token</param>
@@ -84,7 +84,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// Place a new order
         /// <para><a href="https://developer-pro.bitmart.com/en/futures/#submit-order-signed" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="side">Order side</param>
         /// <param name="type">Order type</param>
         /// <param name="quantity">Quantity in number of contracts</param>
@@ -107,7 +107,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// Cancel an active order
         /// <para><a href="https://developer-pro.bitmart.com/en/futures/#cancel-order-signed" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="orderId">The id</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult> CancelOrderAsync(string symbol, string orderId, CancellationToken ct = default);
@@ -116,7 +116,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// Cancel all orders on a symbol
         /// <para><a href="https://developer-pro.bitmart.com/en/futures/#cancel-all-orders-signed" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult> CancelOrdersAsync(string symbol, CancellationToken ct = default);
 
@@ -124,7 +124,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// Place a new trigger order
         /// <para><a href="https://developer-pro.bitmart.com/en/futures/#submit-plan-order-signed" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="orderType">The order type</param>
         /// <param name="side">Side</param>
         /// <param name="quantity">Quantity</param>
@@ -147,7 +147,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// Cancel a trigger order
         /// <para><a href="https://developer-pro.bitmart.com/en/futures/#cancel-plan-order-signed" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="orderId">The id</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult> CancelTriggerOrderAsync(string symbol, string orderId, CancellationToken ct = default);

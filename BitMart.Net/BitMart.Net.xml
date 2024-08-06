@@ -1599,7 +1599,7 @@
             Get funding account balances
             <para><a href="https://developer-pro.bitmart.com/en/spot/#get-account-balance-keyed" /></para>
             </summary>
-            <param name="asset">Filter on asset</param>
+            <param name="asset">Filter on asset, for example `ETH`</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiAccount.GetSpotBalancesAsync(System.Threading.CancellationToken)">
@@ -1614,7 +1614,7 @@
             Get deposit address
             <para><a href="https://developer-pro.bitmart.com/en/spot/#deposit-address-keyed" /></para>
             </summary>
-            <param name="asset">The asset</param>
+            <param name="asset">The asset, for example `ETH`</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiAccount.GetWithdrawalQuotaAsync(System.String,System.Threading.CancellationToken)">
@@ -1622,7 +1622,7 @@
             Get withdrawal quotas
             <para><a href="https://developer-pro.bitmart.com/en/spot/#withdraw-quota-keyed" /></para>
             </summary>
-            <param name="asset">Asset</param>
+            <param name="asset">Asset, for example `ETH`</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiAccount.WithdrawAsync(System.String,System.Decimal,System.String,System.String,System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
@@ -1630,7 +1630,7 @@
             Withdraw funds
             <para><a href="https://developer-pro.bitmart.com/en/spot/#withdraw-signed" /></para>
             </summary>
-            <param name="asset">The asset</param>
+            <param name="asset">The asset, for example `ETH`</param>
             <param name="quantity">Quantity to withdraw</param>
             <param name="targetAddress">Target blockchain address</param>
             <param name="memo">Memo</param>
@@ -1653,7 +1653,7 @@
             Get isolated margin account info
             <para><a href="https://developer-pro.bitmart.com/en/spot/#get-margin-account-details-isolated-keyed" /></para>
             </summary>
-            <param name="symbol">Filter by symbol</param>
+            <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiAccount.IsolatedMarginTransferAsync(System.String,System.String,System.Decimal,BitMart.Net.Enums.TransferDirection,System.Threading.CancellationToken)">
@@ -1661,8 +1661,8 @@
             Transfer asset between Spot and Isolated Margin account
             <para><a href="https://developer-pro.bitmart.com/en/spot/#margin-asset-transfer-signed" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
-            <param name="asset">The asset</param>
+            <param name="symbol">The symbol, for example `ETH_USDT`</param>
+            <param name="asset">The asset, for example `ETH`</param>
             <param name="quantity">Quantity to transfer</param>
             <param name="direction">Direction</param>
             <param name="ct">Cancellation token</param>
@@ -1679,7 +1679,7 @@
             Get trading fees for a specific symbol
             <para><a href="https://developer-pro.bitmart.com/en/spot/#get-actual-trade-fee-rate-keyed" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="T:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiExchangeData">
@@ -1730,7 +1730,7 @@
             Get price ticker for a symbol
             <para><a href="https://developer-pro.bitmart.com/en/spot/#get-ticker-of-a-trading-pair-v3" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiExchangeData.GetTickersAsync(System.Threading.CancellationToken)">
@@ -1752,7 +1752,7 @@
             Get kline/candlesticks
             <para><a href="https://openapi-doc.bitmart.com/en/spot/#get-latest-k-line-v3" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="klineInterval">The interval</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
@@ -1764,7 +1764,7 @@
             Get historical klines
             <para><a href="https://openapi-doc.bitmart.com/en/spot/#get-history-k-line-v3" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="klineInterval">Kline interval</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
@@ -1776,7 +1776,7 @@
             Get recent trades
             <para><a href="https://openapi-doc.bitmart.com/en/spot/#get-recent-trades-v3" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="limit">Max number of results</param>
             <param name="ct">Cancellation token</param>
         </member>
@@ -1785,7 +1785,7 @@
             Get the current order book
             <para><a href="https://openapi-doc.bitmart.com/en/spot/#get-depth-v3" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="limit">Max number of rows in the book</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -1800,8 +1800,8 @@
             Borrow an asset
             <para><a href="https://developer-pro.bitmart.com/en/spot/#margin-borrow-isolated-signed" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
-            <param name="asset">The asset</param>
+            <param name="symbol">The symbol, for example `ETH_USDT`</param>
+            <param name="asset">The asset, for example `ETH`</param>
             <param name="quantity">Quantity to borrow</param>
             <param name="ct">Cancellation token</param>
         </member>
@@ -1810,8 +1810,8 @@
             Repay an asset
             <para><a href="https://developer-pro.bitmart.com/en/spot/#margin-repay-isolated-signed" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
-            <param name="asset">The asset</param>
+            <param name="symbol">The symbol, for example `ETH_USDT`</param>
+            <param name="asset">The asset, for example `ETH`</param>
             <param name="quantity">Quantity to repay</param>
             <param name="ct">Cancellation token</param>
         </member>
@@ -1820,7 +1820,7 @@
             Get borrow history
             <para><a href="https://developer-pro.bitmart.com/en/spot/#get-borrow-record-isolated-keyed" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="borrowId">Filter by borrow id</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
@@ -1832,8 +1832,8 @@
             Get repayment history
             <para><a href="https://developer-pro.bitmart.com/en/spot/#get-repayment-record-isolated-keyed" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
-            <param name="asset">Filter by asset</param>
+            <param name="symbol">The symbol, for example `ETH_USDT`</param>
+            <param name="asset">Filter by asset, for example `ETH`</param>
             <param name="repayId">Filter by repay id</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
@@ -1845,7 +1845,7 @@
             Get borrow rate and quantity info
             <para><a href="https://developer-pro.bitmart.com/en/spot/#get-trading-pair-borrowing-rate-and-amount-keyed" /></para>
             </summary>
-            <param name="symbol">Filter by symbol</param>
+            <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="T:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiSubAccount">
@@ -1859,7 +1859,7 @@
             <para><a href="https://developer-pro.bitmart.com/en/spot/#sub-account-to-main-account-for-main-account-signed" /></para>
             </summary>
             <param name="clientOrderId">Unique identifier</param>
-            <param name="asset">The asset</param>
+            <param name="asset">The asset, for example `ETH`</param>
             <param name="quantity">Quantity to transfer</param>
             <param name="subAccount">Sub account user name</param>
             <param name="ct">Cancellation token</param>
@@ -1870,7 +1870,7 @@
             <para><a href="https://developer-pro.bitmart.com/en/spot/#sub-account-to-main-account-for-sub-account-signed" /></para>
             </summary>
             <param name="clientOrderId">Unique identifier</param>
-            <param name="asset">The asset</param>
+            <param name="asset">The asset, for example `ETH`</param>
             <param name="quantity">Quantity to transfer</param>
             <param name="ct">Cancellation token</param>
         </member>
@@ -1880,7 +1880,7 @@
             <para><a href="https://developer-pro.bitmart.com/en/spot/#main-account-to-sub-account-for-main-account-signed" /></para>
             </summary>
             <param name="clientOrderId">Unique identifier</param>
-            <param name="asset">The asset</param>
+            <param name="asset">The asset, for example `ETH`</param>
             <param name="quantity">Quantity to transfer</param>
             <param name="subAccount">Sub account name</param>
             <param name="ct">Cancellation token</param>
@@ -1892,7 +1892,7 @@
             </summary>
             <param name="clientOrderId">Unique identifier</param>
             <param name="quantity">Quantity to transfer</param>
-            <param name="asset">The asset</param>
+            <param name="asset">The asset, for example `ETH`</param>
             <param name="fromAccount">Source sub account name</param>
             <param name="toAccount">Target sub account name</param>
             <param name="ct">Cancellation token</param>
@@ -1921,7 +1921,7 @@
             <para><a href="https://developer-pro.bitmart.com/en/spot/#get-sub-account-spot-wallet-balance-for-main-account-keyed" /></para>
             </summary>
             <param name="subAccount">Sub account name</param>
-            <param name="asset">Filter by asset</param>
+            <param name="asset">Filter by asset, for example `ETH`</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiSubAccount.GetSubAccountListAsync(System.Threading.CancellationToken)">
@@ -1941,7 +1941,7 @@
             Place a new order
             <para><a href="https://developer-pro.bitmart.com/en/spot/#new-order-v2-signed" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="side">Order side</param>
             <param name="type">Order type</param>
             <param name="quantity">Quantity</param>
@@ -1955,7 +1955,7 @@
             Place multiple orders in one call
             <para><a href="https://developer-pro.bitmart.com/en/spot/#new-batch-order-v4-signed" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="orders">Order parameters</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -1965,7 +1965,7 @@
             Cancel an open order
             <para><a href="https://developer-pro.bitmart.com/en/spot/#cancel-order-v3-signed" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="orderId">Cancel by order id. Either this or clientOrderId should be provided</param>
             <param name="clientOrderId">Cancel by client order Id. Either this or orderId should be provided</param>
             <param name="ct">Cancellation token</param>
@@ -1975,7 +1975,7 @@
             Cancel multiple orders
             <para><a href="https://developer-pro.bitmart.com/en/spot/#cancel-batch-order-v4-signed" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="orderIds">Order ids to cancel. Either this or clientOrderIds should be provided</param>
             <param name="clientOrderIds">Client order ids to cancel. Either this or orderIds should be provided</param>
             <param name="ct">Cancellation token</param>
@@ -1985,7 +1985,7 @@
             Cancel all orders matching the parameters
             <para><a href="https://developer-pro.bitmart.com/en/spot/#cancel-all-order-v4-signed" /></para>
             </summary>
-            <param name="symbol">Filter by symbol</param>
+            <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
             <param name="side">Filter by order side</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -1995,7 +1995,7 @@
             Place a new margin order
             <para><a href="https://developer-pro.bitmart.com/en/spot/#new-margin-order-v1-signed" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="side">Order side</param>
             <param name="type">Order type</param>
             <param name="quantity">Quantity</param>
@@ -2027,7 +2027,7 @@
             Get current open orders
             <para><a href="https://developer-pro.bitmart.com/en/spot/#current-open-orders-v4-signed" /></para>
             </summary>
-            <param name="symbol">Filter by symbol</param>
+            <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
             <param name="spotOrderMode">Filter by order mode</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
@@ -2039,7 +2039,7 @@
             Get closed orders
             <para><a href="https://developer-pro.bitmart.com/en/spot/#account-orders-v4-signed" /></para>
             </summary>
-            <param name="symbol">Filter by symbol</param>
+            <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
             <param name="spotOrderMode">Filter spot order more</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
@@ -2051,7 +2051,7 @@
             Get list of user trades
             <para><a href="https://developer-pro.bitmart.com/en/spot/#account-trade-list-v4-signed" /></para>
             </summary>
-            <param name="symbol">Filter by symbol</param>
+            <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
             <param name="spotOrderMode">Filter by order mode</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
@@ -2076,7 +2076,7 @@
             Subscribe to price ticker updates for a symbol
             <para><a href="https://developer-pro.bitmart.com/en/spot/#public-ticker-channel" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -2086,7 +2086,7 @@
             Subscribe to price ticker updates for multiple symbols
             <para><a href="https://developer-pro.bitmart.com/en/spot/#public-ticker-channel" /></para>
             </summary>
-            <param name="symbols">The symbols</param>
+            <param name="symbols">The symbols, for example `ETH_USDT`</param>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -2096,7 +2096,7 @@
             Subscribe to kline/candlestick updates for a symbol
             <para><a href="https://developer-pro.bitmart.com/en/spot/#public-kline-channel" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `ETH_USDT`</param>
             <param name="interval">Kline interval</param>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -2107,7 +2107,7 @@
             Subscribe to kline/candlestick updates for multiple symbols
             <para><a href="https://developer-pro.bitmart.com/en/spot/#public-kline-channel" /></para>
             </summary>
-            <param name="symbols">Symbols</param>
+            <param name="symbols">Symbols, for example `ETH_USDT`</param>
             <param name="interval">Kline interval</param>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -2118,7 +2118,7 @@
             Subscribe to full order book updates of the first x order book records
             <para><a href="https://developer-pro.bitmart.com/en/spot/#public-depth-all-channel" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="depth">Order book depth, 5, 20 or 50</param>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -2129,7 +2129,7 @@
             Subscribe to full order book updates of the first x order book records
             <para><a href="https://developer-pro.bitmart.com/en/spot/#public-depth-all-channel" /></para>
             </summary>
-            <param name="symbols">The symbols</param>
+            <param name="symbols">The symbols, for example `ETH_USDT`</param>
             <param name="depth">Order book depth, 5, 20 or 50</param>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -2140,7 +2140,7 @@
             Subscribe to order book updates. An initial snapshot will be pushed, followed by change updates
             <para><a href="https://developer-pro.bitmart.com/en/spot/#public-depth-increase-channel" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `ETH_USDT`</param>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -2150,7 +2150,7 @@
             Subscribe to order book updates. An initial snapshot will be pushed, followed by change updates
             <para><a href="https://developer-pro.bitmart.com/en/spot/#public-depth-increase-channel" /></para>
             </summary>
-            <param name="symbols">Symbols</param>
+            <param name="symbols">Symbols, for example `ETH_USDT`</param>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -2160,7 +2160,7 @@
             Subscribe to trade updates for a symbol
             <para><a href="https://developer-pro.bitmart.com/en/spot/#public-trade-channel" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `ETH_USDT`</param>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -2170,7 +2170,7 @@
             Subscribe to trade updates for multiple symbols
             <para><a href="https://developer-pro.bitmart.com/en/spot/#public-trade-channel" /></para>
             </summary>
-            <param name="symbols">Symbols</param>
+            <param name="symbols">Symbols, for example `ETH_USDT`</param>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -2235,7 +2235,7 @@
             Get account transfer history
             <para><a href="https://developer-pro.bitmart.com/en/futures/#get-transfer-list-signed" /></para>
             </summary>
-            <param name="asset">Filter by asset</param>
+            <param name="asset">Filter by asset, for example `USDT`</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
             <param name="page">Page number</param>
@@ -2247,7 +2247,7 @@
             Transfer between futures and spot account
             <para><a href="https://developer-pro.bitmart.com/en/futures/#transfer-signed" /></para>
             </summary>
-            <param name="asset">The asset</param>
+            <param name="asset">The asset, for example `USDT`</param>
             <param name="quantity">Quantity to transfer</param>
             <param name="type">Transfer direction</param>
             <param name="ct">Cancellation token</param>
@@ -2257,7 +2257,7 @@
             Set leverage
             <para><a href="https://developer-pro.bitmart.com/en/futures/#submit-leverage-signed" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="leverage">Leverage</param>
             <param name="marginType">Open type, required at close position</param>
             <param name="ct">Cancellation token</param>
@@ -2272,7 +2272,7 @@
             Get contracts
             <para><a href="https://developer-pro.bitmart.com/en/futures/#get-contract-details" /></para>
             </summary>
-            <param name="symbol">Filter by symbol</param>
+            <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiExchangeData.GetOrderBookAsync(System.String,System.Threading.CancellationToken)">
@@ -2280,7 +2280,7 @@
             Get the current order book
             <para><a href="https://developer-pro.bitmart.com/en/futures/#get-market-depth" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiExchangeData.GetOpenInterestAsync(System.String,System.Threading.CancellationToken)">
@@ -2288,7 +2288,7 @@
             Get open interest for a symbol
             <para><a href="https://developer-pro.bitmart.com/en/futures/#get-futures-openinterest" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiExchangeData.GetCurrentFundingRateAsync(System.String,System.Threading.CancellationToken)">
@@ -2296,7 +2296,7 @@
             Get the current funding rate for a symbol
             <para><a href="https://developer-pro.bitmart.com/en/futures/#get-current-funding-rate" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiExchangeData.GetKlinesAsync(System.String,BitMart.Net.Enums.FuturesKlineInterval,System.DateTime,System.DateTime,System.Threading.CancellationToken)">
@@ -2304,7 +2304,7 @@
             Get kline/candlestick data
             <para><a href="https://developer-pro.bitmart.com/en/futures/#get-k-line" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="klineInterval">Kline interval</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
@@ -2320,7 +2320,7 @@
             Transfer from sub futures account to main account, for main account
             <para><a href="https://developer-pro.bitmart.com/en/futures/#sub-account-to-main-account-for-main-account-signed" /></para>
             </summary>
-            <param name="asset">The asset</param>
+            <param name="asset">The asset, for example `USDT`</param>
             <param name="quantity">Quantity</param>
             <param name="subAccount">Sub account name</param>
             <param name="clientOrderId">Unique identifier</param>
@@ -2331,7 +2331,7 @@
             Transfer from main account to sub futures acount
             <para><a href="https://developer-pro.bitmart.com/en/futures/#main-account-to-sub-account-for-main-account-signed" /></para>
             </summary>
-            <param name="asset">The asset</param>
+            <param name="asset">The asset, for example `USDT`</param>
             <param name="quantity">Quantity</param>
             <param name="subAccount">Sub account name</param>
             <param name="clientOrderId">Unique identifier</param>
@@ -2342,7 +2342,7 @@
             Transfer from sub futures account to main account, for sub account
             <para><a href="https://developer-pro.bitmart.com/en/futures/#sub-account-to-main-account-for-sub-account-signed" /></para>
             </summary>
-            <param name="asset">The asset</param>
+            <param name="asset">The asset, for example `USDT`</param>
             <param name="quantity">Quantity</param>
             <param name="clientOrderId">Unique identifier</param>
             <param name="ct">Cancellation token</param>
@@ -2353,7 +2353,7 @@
             <para><a href="https://developer-pro.bitmart.com/en/futures/#get-sub-account-futures-wallet-balance-for-main-account-keyed" /></para>
             </summary>
             <param name="subAccount">Sub account name</param>
-            <param name="asset">The asset</param>
+            <param name="asset">The asset, for example `USDT`</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiSubAccount.GetSubAccountTransferHistoryForMainAsync(System.String,System.Int32,System.Threading.CancellationToken)">
@@ -2383,7 +2383,7 @@
             Get an order by id
             <para><a href="https://developer-pro.bitmart.com/en/futures/#get-order-detail-keyed" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="orderId">Order id</param>
             <param name="ct">Cancellation token</param>
         </member>
@@ -2392,7 +2392,7 @@
             Get order history
             <para><a href="https://developer-pro.bitmart.com/en/futures/#get-order-history-keyed" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
             <param name="ct">Cancellation token</param>
@@ -2402,7 +2402,7 @@
             Get open orders
             <para><a href="https://developer-pro.bitmart.com/en/futures/#get-all-open-orders-keyed" /></para>
             </summary>
-            <param name="symbol">Filter by symbol</param>
+            <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
             <param name="orderType">Filter by order type</param>
             <param name="status">Filter by order status</param>
             <param name="limit">Max number of results</param>
@@ -2413,7 +2413,7 @@
             Get open trigger orders
             <para><a href="https://developer-pro.bitmart.com/en/futures/#get-all-current-plan-orders-keyed" /></para>
             </summary>
-            <param name="symbol">Filter by symbol</param>
+            <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
             <param name="type">Filter by order type</param>
             <param name="limit">Max number of results</param>
             <param name="ct">Cancellation token</param>
@@ -2423,7 +2423,7 @@
             Get current positions
             <para><a href="https://developer-pro.bitmart.com/en/futures/#get-current-position-keyed" /></para>
             </summary>
-            <param name="symbol">Filter by symbol</param>
+            <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.GetPositionRiskAsync(System.String,System.Threading.CancellationToken)">
@@ -2431,7 +2431,7 @@
             Get position risk
             <para><a href="https://developer-pro.bitmart.com/en/futures/#get-current-position-risk-details-keyed" /></para>
             </summary>
-            <param name="symbol">Filter by symbol</param>
+            <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.GetUserTradesAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
@@ -2439,7 +2439,7 @@
             Get user trades
             <para><a href="https://developer-pro.bitmart.com/en/futures/#get-order-trade-keyed" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
             <param name="ct">Cancellation token</param>
@@ -2449,7 +2449,7 @@
             Place a new order
             <para><a href="https://developer-pro.bitmart.com/en/futures/#submit-order-signed" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="side">Order side</param>
             <param name="type">Order type</param>
             <param name="quantity">Quantity in number of contracts</param>
@@ -2472,7 +2472,7 @@
             Cancel an active order
             <para><a href="https://developer-pro.bitmart.com/en/futures/#cancel-order-signed" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="orderId">The id</param>
             <param name="ct">Cancellation token</param>
         </member>
@@ -2481,7 +2481,7 @@
             Cancel all orders on a symbol
             <para><a href="https://developer-pro.bitmart.com/en/futures/#cancel-all-orders-signed" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.PlaceTriggerOrderAsync(System.String,BitMart.Net.Enums.OrderType,BitMart.Net.Enums.FuturesSide,System.Int32,System.Decimal,BitMart.Net.Enums.MarginType,System.Decimal,BitMart.Net.Enums.PriceDirection,BitMart.Net.Enums.TriggerPriceType,System.Nullable{BitMart.Net.Enums.OrderMode},System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.PlanCategory},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Threading.CancellationToken)">
@@ -2489,7 +2489,7 @@
             Place a new trigger order
             <para><a href="https://developer-pro.bitmart.com/en/futures/#submit-plan-order-signed" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="orderType">The order type</param>
             <param name="side">Side</param>
             <param name="quantity">Quantity</param>
@@ -2512,7 +2512,7 @@
             Cancel a trigger order
             <para><a href="https://developer-pro.bitmart.com/en/futures/#cancel-plan-order-signed" /></para>
             </summary>
-            <param name="symbol">The symbol</param>
+            <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="orderId">The id</param>
             <param name="ct">Cancellation token</param>
         </member>
@@ -2535,7 +2535,7 @@
             Subscribe to trade updates for a symbol
             <para><a href="https://developer-pro.bitmart.com/en/futures/#public-trade-channel" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `ETHUSDT`</param>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -2545,7 +2545,7 @@
             Subscribe to trade updates for multiple symbols
             <para><a href="https://developer-pro.bitmart.com/en/futures/#public-trade-channel" /></para>
             </summary>
-            <param name="symbols">Symbols</param>
+            <param name="symbols">Symbols, for example `ETHUSDT`</param>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
@@ -2555,7 +2555,7 @@
             Subscribe to order book updates for a symbol
             <para><a href="https://developer-pro.bitmart.com/en/futures/#public-depth-channel" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `ETHUSDT`</param>
             <param name="depth">Depth level, 5, 20 or 50</param>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -2566,7 +2566,7 @@
             Subscribe to order book updates for multiple symbols
             <para><a href="https://developer-pro.bitmart.com/en/futures/#public-depth-channel" /></para>
             </summary>
-            <param name="symbols">Symbols</param>
+            <param name="symbols">Symbols, for example `ETHUSDT`</param>
             <param name="depth">Depth level, 5, 20 or 50</param>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -2577,7 +2577,7 @@
             Subscribe to kline/candlestick updates for a symbol
             <para><a href="https://developer-pro.bitmart.com/en/futures/#public-klinebin-channel" /></para>
             </summary>
-            <param name="symbol">Symbol</param>
+            <param name="symbol">Symbol, for example `ETHUSDT`</param>
             <param name="interval">Kline interval</param>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -2588,7 +2588,7 @@
             Subscribe to kline/candlestick updates for multiple symbols
             <para><a href="https://developer-pro.bitmart.com/en/futures/#public-klinebin-channel" /></para>
             </summary>
-            <param name="symbols">Symbols</param>
+            <param name="symbols">Symbols, for example `ETHUSDT`</param>
             <param name="interval">Kline interval</param>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>

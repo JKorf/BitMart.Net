@@ -17,7 +17,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// Transfer from sub futures account to main account, for main account
         /// <para><a href="https://developer-pro.bitmart.com/en/futures/#sub-account-to-main-account-for-main-account-signed" /></para>
         /// </summary>
-        /// <param name="asset">The asset</param>
+        /// <param name="asset">The asset, for example `USDT`</param>
         /// <param name="quantity">Quantity</param>
         /// <param name="subAccount">Sub account name</param>
         /// <param name="clientOrderId">Unique identifier</param>
@@ -28,7 +28,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// Transfer from main account to sub futures acount
         /// <para><a href="https://developer-pro.bitmart.com/en/futures/#main-account-to-sub-account-for-main-account-signed" /></para>
         /// </summary>
-        /// <param name="asset">The asset</param>
+        /// <param name="asset">The asset, for example `USDT`</param>
         /// <param name="quantity">Quantity</param>
         /// <param name="subAccount">Sub account name</param>
         /// <param name="clientOrderId">Unique identifier</param>
@@ -39,7 +39,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// Transfer from sub futures account to main account, for sub account
         /// <para><a href="https://developer-pro.bitmart.com/en/futures/#sub-account-to-main-account-for-sub-account-signed" /></para>
         /// </summary>
-        /// <param name="asset">The asset</param>
+        /// <param name="asset">The asset, for example `USDT`</param>
         /// <param name="quantity">Quantity</param>
         /// <param name="clientOrderId">Unique identifier</param>
         /// <param name="ct">Cancellation token</param>
@@ -50,7 +50,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <para><a href="https://developer-pro.bitmart.com/en/futures/#get-sub-account-futures-wallet-balance-for-main-account-keyed" /></para>
         /// </summary>
         /// <param name="subAccount">Sub account name</param>
-        /// <param name="asset">The asset</param>
+        /// <param name="asset">The asset, for example `USDT`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<IEnumerable<BitMartSubAccountBalance>>> GetSubAcccountBalanceAsync(string subAccount, string? asset = null, CancellationToken ct = default);
 

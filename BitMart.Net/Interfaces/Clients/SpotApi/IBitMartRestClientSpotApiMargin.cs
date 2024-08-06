@@ -17,8 +17,8 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// Borrow an asset
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#margin-borrow-isolated-signed" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
-        /// <param name="asset">The asset</param>
+        /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
+        /// <param name="asset">The asset, for example `ETH`</param>
         /// <param name="quantity">Quantity to borrow</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BitMartBorrowId>> BorrowAsync(string symbol, string asset, decimal quantity, CancellationToken ct = default);
@@ -27,8 +27,8 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// Repay an asset
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#margin-repay-isolated-signed" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
-        /// <param name="asset">The asset</param>
+        /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
+        /// <param name="asset">The asset, for example `ETH`</param>
         /// <param name="quantity">Quantity to repay</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BitMartRepayId>> RepayAsync(string symbol, string asset, decimal quantity, CancellationToken ct = default);
@@ -37,7 +37,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// Get borrow history
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-borrow-record-isolated-keyed" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
+        /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="borrowId">Filter by borrow id</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
@@ -49,8 +49,8 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// Get repayment history
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-repayment-record-isolated-keyed" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol</param>
-        /// <param name="asset">Filter by asset</param>
+        /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
+        /// <param name="asset">Filter by asset, for example `ETH`</param>
         /// <param name="repayId">Filter by repay id</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
@@ -62,7 +62,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// Get borrow rate and quantity info
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-trading-pair-borrowing-rate-and-amount-keyed" /></para>
         /// </summary>
-        /// <param name="symbol">Filter by symbol</param>
+        /// <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<IEnumerable<BorrowInfo>>> GetBorrowInfoAsync(string? symbol = null, CancellationToken ct = default);
 

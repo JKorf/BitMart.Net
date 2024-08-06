@@ -18,7 +18,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#sub-account-to-main-account-for-main-account-signed" /></para>
         /// </summary>
         /// <param name="clientOrderId">Unique identifier</param>
-        /// <param name="asset">The asset</param>
+        /// <param name="asset">The asset, for example `ETH`</param>
         /// <param name="quantity">Quantity to transfer</param>
         /// <param name="subAccount">Sub account user name</param>
         /// <param name="ct">Cancellation token</param>
@@ -29,7 +29,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#sub-account-to-main-account-for-sub-account-signed" /></para>
         /// </summary>
         /// <param name="clientOrderId">Unique identifier</param>
-        /// <param name="asset">The asset</param>
+        /// <param name="asset">The asset, for example `ETH`</param>
         /// <param name="quantity">Quantity to transfer</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult> TransferSubToMainForSubAsync(string clientOrderId, string asset, decimal quantity, CancellationToken ct = default);
@@ -39,19 +39,19 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#main-account-to-sub-account-for-main-account-signed" /></para>
         /// </summary>
         /// <param name="clientOrderId">Unique identifier</param>
-        /// <param name="asset">The asset</param>
+        /// <param name="asset">The asset, for example `ETH`</param>
         /// <param name="quantity">Quantity to transfer</param>
         /// <param name="subAccount">Sub account name</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult> TransferMainToSubAccountAsync(string clientOrderId, string asset, decimal quantity, string subAccount, CancellationToken ct = default);
-        
+
         /// <summary>
         /// Transfer from sub account to another sub account
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#sub-account-to-sub-account-for-main-account-signed" /></para>
         /// </summary>
         /// <param name="clientOrderId">Unique identifier</param>
         /// <param name="quantity">Quantity to transfer</param>
-        /// <param name="asset">The asset</param>
+        /// <param name="asset">The asset, for example `ETH`</param>
         /// <param name="fromAccount">Source sub account name</param>
         /// <param name="toAccount">Target sub account name</param>
         /// <param name="ct">Cancellation token</param>
@@ -80,7 +80,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-sub-account-spot-wallet-balance-for-main-account-keyed" /></para>
         /// </summary>
         /// <param name="subAccount">Sub account name</param>
-        /// <param name="asset">Filter by asset</param>
+        /// <param name="asset">Filter by asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<IEnumerable<BitMartSubAccountBalance>>> GetSubAcccountBalanceAsync(string subAccount, string? asset = null, CancellationToken ct = default);
 
