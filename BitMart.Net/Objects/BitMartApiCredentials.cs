@@ -10,7 +10,7 @@ namespace BitMart.Net.Objects
         /// <summary>
         /// Memo
         /// </summary>
-        public SecureString Memo { get; set; }
+        public string Memo { get; set; }
 
         /// <summary>
         /// ctor
@@ -20,7 +20,7 @@ namespace BitMart.Net.Objects
         /// <param name="memo">API key memo</param>
         public BitMartApiCredentials(string key, string secret, string memo) : base(key, secret)
         {
-            Memo = memo.ToSecureString();
+            Memo = memo;
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace BitMart.Net.Objects
         /// <returns></returns>
         public override ApiCredentials Copy()
         {
-            return new BitMartApiCredentials(Key!.GetString(), Secret!.GetString(), Memo.GetString());
+            return new BitMartApiCredentials(Key, Secret, Memo);
         }
     }
 }

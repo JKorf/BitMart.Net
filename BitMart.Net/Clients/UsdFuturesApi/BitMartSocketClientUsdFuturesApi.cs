@@ -151,7 +151,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         {
             var timestamp = DateTimeConverter.ConvertToMilliseconds(DateTime.UtcNow).ToString();
             var authProvider = (BitMartAuthenticationProvider)AuthenticationProvider!;
-            var key = authProvider.GetApiKey();
+            var key = authProvider.ApiKey;
             var memo = authProvider.GetMemo();
             var sign = authProvider.Sign($"{timestamp}#{memo}#bitmart.WebSocket");
 
