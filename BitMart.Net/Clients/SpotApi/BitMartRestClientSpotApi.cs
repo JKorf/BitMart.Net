@@ -160,8 +160,7 @@ namespace BitMart.Net.Clients.SpotApi
         public ISpotClient CommonSpotClient => this;
 
         /// <inheritdoc />
-        public string GetSymbolName(string baseAsset, string quoteAsset) =>
-            throw new NotImplementedException();
+        public string GetSymbolName(string baseAsset, string quoteAsset) => baseAsset + "_" + quoteAsset;
 
         internal void InvokeOrderPlaced(OrderId id)
         {
