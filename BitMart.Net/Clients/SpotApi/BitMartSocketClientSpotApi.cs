@@ -185,6 +185,6 @@ namespace BitMart.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public override string FormatSymbol(string baseAsset, string quoteAsset, FuturesType? futuresType = null) => baseAsset + "_" + quoteAsset;
+        public override string FormatSymbol(string baseAsset, string quoteAsset, ApiType? futuresType = null) => baseAsset + "_" + quoteAsset;
     }
 }
