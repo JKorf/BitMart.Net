@@ -159,6 +159,6 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         }
 
         /// <inheritdoc />
-        public override string FormatSymbol(string baseAsset, string quoteAsset) => baseAsset + quoteAsset;
+        public override string FormatSymbol(string baseAsset, string quoteAsset, FuturesType? futuresType = null) => baseAsset + quoteAsset;
     }
 }
