@@ -23,13 +23,14 @@ using System.Linq;
 using BitMart.Net.Objects.Sockets;
 using BitMart.Net.Enums;
 using BitMart.Net.Objects.Internal;
+using GateIo.Net.Interfaces.Clients.SpotApi;
 
 namespace BitMart.Net.Clients.SpotApi
 {
     /// <summary>
     /// Client providing access to the BitMart Spot websocket Api
     /// </summary>
-    internal class BitMartSocketClientSpotApi : SocketApiClient, IBitMartSocketClientSpotApi
+    internal partial class BitMartSocketClientSpotApi : SocketApiClient, IBitMartSocketClientSpotApi
     {
         #region fields
         private static readonly MessagePath _topicPath = MessagePath.Get().Property("topic");
@@ -55,6 +56,8 @@ namespace BitMart.Net.Clients.SpotApi
         protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor();
 
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer();
+
+        public IBitMartSocketClientSpotApiShared SharedClient => this;
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)

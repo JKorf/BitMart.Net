@@ -7,6 +7,7 @@ using CryptoExchange.Net.Objects.Sockets;
 using BitMart.Net.Objects.Models;
 using System.Collections.Generic;
 using BitMart.Net.Enums;
+using GateIo.Net.Interfaces.Clients.SpotApi;
 
 namespace BitMart.Net.Interfaces.Clients.SpotApi
 {
@@ -15,6 +16,8 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
     /// </summary>
     public interface IBitMartSocketClientSpotApi : ISocketApiClient, IDisposable
     {
+        IBitMartSocketClientSpotApiShared SharedClient { get; }
+
         /// <summary>
         /// Subscribe to price ticker updates for a symbol
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#public-ticker-channel" /></para>
