@@ -42,5 +42,41 @@ namespace BitMart.Net.Clients.SpotApi
 
             return result;
         }
+
+        async Task<CallResult<UpdateSubscription>> IBalanceSocketClient.SubscribeToBalanceUpdatesAsync(SharedRequest request, Action<DataEvent<IEnumerable<SharedBalance>>> handler, CancellationToken ct)
+        {
+            var result = await SubscribeToBalanceUpdatesAsync(
+                update => handler(update.As(update.Data.Balances.Select(x => new SharedBalance(x.Asset, x.Available, x.Available + x.Frozen)))),
+                ct: ct).ConfigureAwait(false);
+
+            return result;
+        }
+
+        async Task<CallResult<UpdateSubscription>> ISpotOrderSocketClient.SubscribeToOrderUpdatesAsync(SharedRequest request, Action<DataEvent<IEnumerable<SharedSpotOrder>>> handler, CancellationToken ct)
+        {
+            var result = await SubscribeToOrderUpdatesAsync(
+                update => handler(update.As<IEnumerable<SharedSpotOrder>>(new[] {
+                    new SharedSpotOrder(
+                        update.Data.Symbol,
+                        update.Data.OrderId.ToString(),
+                        update.Data.OrderType == Enums.OrderType.Limit ? CryptoExchange.Net.SharedApis.Enums.SharedOrderType.Limit : update.Data.OrderType == Enums.OrderType.Market ? CryptoExchange.Net.SharedApis.Enums.SharedOrderType.Market : CryptoExchange.Net.SharedApis.Enums.SharedOrderType.Other,
+                        update.Data.Side == Enums.OrderSide.Buy ? CryptoExchange.Net.SharedApis.Enums.SharedOrderSide.Buy : CryptoExchange.Net.SharedApis.Enums.SharedOrderSide.Sell,
+                        update.Data.Status == Enums.OrderStatus.Canceled ? CryptoExchange.Net.SharedApis.Enums.SharedOrderStatus.Canceled : update.Data.Status == Enums.OrderStatus.New ? CryptoExchange.Net.SharedApis.Enums.SharedOrderStatus.Open : update.Data.Status == Enums.OrderStatus.PartiallyFilled ? CryptoExchange.Net.SharedApis.Enums.SharedOrderStatus.PartiallyFilled : CryptoExchange.Net.SharedApis.Enums.SharedOrderStatus.Filled,
+                        update.Data.CreateTime)
+                    {
+                        ClientOrderId = update.Data.ClientOrderId?.ToString(),
+                        Quantity = update.Data.Quantity,
+                        QuantityFilled = update.Data.QuantityFilled,
+                        QuoteQuantity = update.Data.QuoteQuantity,
+                        QuoteQuantityFilled = update.Data.QuoteQuantityFilled,
+                        TimeInForce = update.Data.EntrustType == Enums.EntrustType.ImmediateOrCancel ? CryptoExchange.Net.SharedApis.Enums.SharedTimeInForce.ImmediateOrCancel : CryptoExchange.Net.SharedApis.Enums.SharedTimeInForce.GoodTillCanceled,
+                        UpdateTime = update.Data.UpdateTime,
+                        Price = update.Data.Price,
+                    }
+                })),
+                ct: ct).ConfigureAwait(false);
+
+            return result;
+        }
     }
 }

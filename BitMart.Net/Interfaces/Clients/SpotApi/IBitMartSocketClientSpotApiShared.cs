@@ -8,7 +8,9 @@ namespace GateIo.Net.Interfaces.Clients.SpotApi
     public interface IBitMartSocketClientSpotApiShared :
         ITickerSocketClient,
         ITradeSocketClient,
-        IBookTickerSocketClient
+        IBookTickerSocketClient,
+        IBalanceSocketClient,
+        ISpotOrderSocketClient
     {
     }
 }
