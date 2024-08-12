@@ -23,7 +23,7 @@ namespace BitMart.Net.Objects.Sockets
 
         public override CallResult<BitMartSocketResponse> HandleMessage(SocketConnection connection, DataEvent<BitMartSocketResponse> message)
         {
-            if (message.Data.ErrorCode != null)
+            if (message.Data.ErrorCode != null && message.Data.ErrorCode != 90008) // 90008 = duplicate subscription, which is fine
                 return new CallResult<BitMartSocketResponse>(new ServerError(message.Data.ErrorCode.Value, message.Data.ErrorMessage!));
 
             return new CallResult<BitMartSocketResponse>(message.Data, message.OriginalData, null);
