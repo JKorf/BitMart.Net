@@ -1,5 +1,6 @@
 ﻿using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
+using CryptoExchange.Net.SharedApis.Enums;
 using CryptoExchange.Net.SharedApis.Interfaces.Socket;
 using CryptoExchange.Net.SharedApis.Models.Socket;
 using CryptoExchange.Net.SharedApis.RequestModels;
@@ -59,9 +60,9 @@ namespace BitMart.Net.Clients.SpotApi
                     new SharedSpotOrder(
                         update.Data.Symbol,
                         update.Data.OrderId.ToString(),
-                        update.Data.OrderType == Enums.OrderType.Limit ? CryptoExchange.Net.SharedApis.Enums.SharedOrderType.Limit : update.Data.OrderType == Enums.OrderType.Market ? CryptoExchange.Net.SharedApis.Enums.SharedOrderType.Market : CryptoExchange.Net.SharedApis.Enums.SharedOrderType.Other,
-                        update.Data.Side == Enums.OrderSide.Buy ? CryptoExchange.Net.SharedApis.Enums.SharedOrderSide.Buy : CryptoExchange.Net.SharedApis.Enums.SharedOrderSide.Sell,
-                        update.Data.Status == Enums.OrderStatus.Canceled ? CryptoExchange.Net.SharedApis.Enums.SharedOrderStatus.Canceled : update.Data.Status == Enums.OrderStatus.New ? CryptoExchange.Net.SharedApis.Enums.SharedOrderStatus.Open : update.Data.Status == Enums.OrderStatus.PartiallyFilled ? CryptoExchange.Net.SharedApis.Enums.SharedOrderStatus.PartiallyFilled : CryptoExchange.Net.SharedApis.Enums.SharedOrderStatus.Filled,
+                        update.Data.OrderType == Enums.OrderType.Limit ? SharedOrderType.Limit : update.Data.OrderType == Enums.OrderType.Market ? SharedOrderType.Market : SharedOrderType.Other,
+                        update.Data.Side == Enums.OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                        update.Data.Status == Enums.OrderStatus.Canceled ? SharedOrderStatus.Canceled : (update.Data.Status == Enums.OrderStatus.New || update.Data.Status == Enums.OrderStatus.PartiallyFilled) ? SharedOrderStatus.Open : SharedOrderStatus.Filled,
                         update.Data.CreateTime)
                     {
                         ClientOrderId = update.Data.ClientOrderId?.ToString(),
@@ -69,9 +70,13 @@ namespace BitMart.Net.Clients.SpotApi
                         QuantityFilled = update.Data.QuantityFilled,
                         QuoteQuantity = update.Data.QuoteQuantity,
                         QuoteQuantityFilled = update.Data.QuoteQuantityFilled,
-                        TimeInForce = update.Data.EntrustType == Enums.EntrustType.ImmediateOrCancel ? CryptoExchange.Net.SharedApis.Enums.SharedTimeInForce.ImmediateOrCancel : CryptoExchange.Net.SharedApis.Enums.SharedTimeInForce.GoodTillCanceled,
+                        TimeInForce = update.Data.EntrustType == Enums.EntrustType.ImmediateOrCancel ? SharedTimeInForce.ImmediateOrCancel : SharedTimeInForce.GoodTillCanceled,
                         UpdateTime = update.Data.UpdateTime,
                         Price = update.Data.Price,
+                        LastTrade = update.Data.LastTradeId == null ? null : new SharedUserTrade(update.Data.OrderId, update.Data.LastTradeId, update.Data.LastTradeQuantity, update.Data.LastTradePrice, update.Data.LastTradeTime!.Value)
+                        {
+                            Role = update.Data.LastTradeRole == Enums.TradeRole.Taker ? SharedRole.Taker : SharedRole.Maker
+                        }
                     }
                 })),
                 ct: ct).ConfigureAwait(false);

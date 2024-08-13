@@ -25,7 +25,7 @@ using BitMart.Net.Enums;
 namespace BitMart.Net.Clients.SpotApi
 {
     /// <inheritdoc cref="IBitMartRestClientSpotApi" />
-    internal class BitMartRestClientSpotApi : RestApiClient, IBitMartRestClientSpotApi, ISpotClient
+    internal partial class BitMartRestClientSpotApi : RestApiClient, IBitMartRestClientSpotApi, ISpotClient
     {
         #region fields 
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Spot Api");
@@ -158,6 +158,7 @@ namespace BitMart.Net.Clients.SpotApi
 
         /// <inheritdoc />
         public ISpotClient CommonSpotClient => this;
+        public IBitMartRestClientSpotApiShared SharedClient => this;
 
         /// <inheritdoc />
         public string GetSymbolName(string baseAsset, string quoteAsset) => baseAsset + "_" + quoteAsset;
