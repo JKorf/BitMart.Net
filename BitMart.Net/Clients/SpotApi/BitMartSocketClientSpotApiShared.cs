@@ -73,7 +73,7 @@ namespace BitMart.Net.Clients.SpotApi
                         TimeInForce = update.Data.EntrustType == Enums.EntrustType.ImmediateOrCancel ? SharedTimeInForce.ImmediateOrCancel : SharedTimeInForce.GoodTillCanceled,
                         UpdateTime = update.Data.UpdateTime,
                         Price = update.Data.Price,
-                        LastTrade = update.Data.LastTradeId == null ? null : new SharedUserTrade(update.Data.OrderId, update.Data.LastTradeId, update.Data.LastTradeQuantity, update.Data.LastTradePrice, update.Data.LastTradeTime!.Value)
+                        LastTrade = update.Data.LastTradeId == null ? null : new SharedUserTrade(update.Data.Symbol, update.Data.OrderId, update.Data.LastTradeId, update.Data.LastTradeQuantity, update.Data.LastTradePrice, update.Data.LastTradeTime!.Value)
                         {
                             Role = update.Data.LastTradeRole == Enums.TradeRole.Taker ? SharedRole.Taker : SharedRole.Maker
                         }
