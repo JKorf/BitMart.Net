@@ -9,7 +9,7 @@ BitMart.Net is a client library for accessing the [BitMart REST and Websocket AP
 * Input parameters and response values are mapped to discriptive enum values where possible
 * Automatic websocket (re)connection management 
 * Client side rate limiting 
-* Cient side order book implementation
+* Client side order book implementation
 * Extensive logging
 * Support for different environments
 * Easy integration with other exchange client based on the CryptoExchange.Net base library
@@ -142,6 +142,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 1.1.1 - 09 Aug 2024
+    * Fixed SpotApi.GetSymbolName not being implemented
+
 * Version 1.1.0 - 07 Aug 2024
     * Updated CryptoExchange.Net to version 7.11.0, see https://github.com/JKorf/CryptoExchange.Net/releases/tag/7.11.0
     * Updated XML code comments
