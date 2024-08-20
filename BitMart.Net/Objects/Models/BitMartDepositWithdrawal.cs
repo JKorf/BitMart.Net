@@ -15,6 +15,16 @@ namespace BitMart.Net.Objects.Models
         public BitMartDepositWithdrawal Record { get; set; } = null!;
     }
 
+
+    internal record BitMartDepositWithdrawalHistoryWrapper
+    {
+        /// <summary>
+        /// Records
+        /// </summary>
+        [JsonPropertyName("records")]
+        public IEnumerable<BitMartDepositWithdrawal> Records { get; set; } = Array.Empty<BitMartDepositWithdrawal>();
+    }
+
     /// <summary>
     /// 
     /// </summary>

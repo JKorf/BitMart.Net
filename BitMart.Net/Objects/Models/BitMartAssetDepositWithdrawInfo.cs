@@ -55,7 +55,7 @@ namespace BitMart.Net.Objects.Models
         [JsonPropertyName("withdraw_minsize")]
         public decimal? WithdrawMinsize { get; set; }
         /// <summary>
-        /// Withdraw minfee
+        /// Withdraw minimal fee in USDT
         /// </summary>
         [JsonPropertyName("withdraw_minfee")]
         public decimal? WithdrawMinfee { get; set; }
