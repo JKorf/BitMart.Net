@@ -47,8 +47,8 @@ namespace BitMart.Net.Clients.SpotApi
             base(logger, options.Environment.SocketClientSpotAddress!, options, options.SpotOptions)
         {
             KeepAliveInterval = TimeSpan.Zero;
-
             RegisterPeriodicQuery("ping", TimeSpan.FromSeconds(15), x => new PingQuery(), null);
+            RateLimiter = BitMartExchange.RateLimiter.SocketLimits;
         }
         #endregion 
 
