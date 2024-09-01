@@ -6,7 +6,7 @@ using System.Text;
 namespace BitMart.Net.Interfaces.Clients.SpotApi
 {
     public interface IBitMartRestClientSpotApiShared :
-        IAssetRestClient,
+        IAssetsRestClient,
         IBalanceRestClient,
         IDepositRestClient,
         IKlineRestClient,
