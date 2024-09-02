@@ -1,3 +1,4 @@
+using BitMart.Net.Interfaces.Clients.SpotApi;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Interfaces.CommonClients;
 using System;
@@ -28,5 +29,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// Endpoints related to orders and trades
         /// </summary>
         public IBitMartRestClientUsdFuturesApiTrading Trading { get; }
+
+        public IBitMartRestClientUsdFuturesApiShared SharedClient { get; }
     }
 }

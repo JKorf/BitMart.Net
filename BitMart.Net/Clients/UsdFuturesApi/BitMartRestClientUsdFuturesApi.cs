@@ -18,11 +18,12 @@ using BitMart.Net.Objects.Internal;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Converters.MessageParsing;
+using BitMart.Net.Interfaces.Clients.SpotApi;
 
 namespace BitMart.Net.Clients.UsdFuturesApi
 {
     /// <inheritdoc cref="IBitMartRestClientUsdFuturesApi" />
-    internal class BitMartRestClientUsdFuturesApi : RestApiClient, IBitMartRestClientUsdFuturesApi
+    internal partial class BitMartRestClientUsdFuturesApi : RestApiClient, IBitMartRestClientUsdFuturesApi
     {
         #region fields 
         internal static TimeSyncState _timeSyncState = new TimeSyncState("UsdFutures Api");
@@ -62,6 +63,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         protected override IStreamMessageAccessor CreateAccessor() => new SystemTextJsonStreamMessageAccessor();
         /// <inheritdoc />
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer();
+
+        public IBitMartRestClientUsdFuturesApiShared SharedClient => this;
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
