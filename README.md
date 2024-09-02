@@ -142,6 +142,10 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 1.1.2 - 25 Aug 2024
+    * Added websocket connection ratelimiter
+    * Updated CryptoExchange.Net to version 7.11.1 to fix some reconnect issues, see https://github.com/JKorf/CryptoExchange.Net/releases/tag/7.11.1
+
 * Version 1.1.1 - 09 Aug 2024
     * Fixed SpotApi.GetSymbolName not being implemented
 

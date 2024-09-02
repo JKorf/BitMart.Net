@@ -58,10 +58,14 @@ namespace BitMart.Net
         {
             BitMart = new RateLimitGate("BitMart IP");
             BitMart.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            SocketLimits = new RateLimitGate("Socket limits")
+                .AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, new LimitItemTypeFilter(RateLimitItemType.Connection), 100, TimeSpan.FromSeconds(60), RateLimitWindowType.Sliding, connectionWeight: 1));
+            SocketLimits.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
         }
 
 
         internal IRateLimitGate BitMart { get; private set; }
+        internal IRateLimitGate SocketLimits { get; private set; }
 
     }
 }
