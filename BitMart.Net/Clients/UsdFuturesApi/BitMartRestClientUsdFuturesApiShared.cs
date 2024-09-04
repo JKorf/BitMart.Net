@@ -113,7 +113,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedFuturesSymbol>>(Exchange, default);
 
-            return result.AsExchangeResult(Exchange, result.Data.Select(s => new SharedFuturesSymbol(s.BaseAsset, s.QuoteAsset, s.Symbol)
+            return result.AsExchangeResult(Exchange, result.Data.Select(s => new SharedFuturesSymbol(s.ProductType == ContractType.Perpetual ? SharedSymbolType.PerpetualLinear : SharedSymbolType.DeliveryLinear, s.BaseAsset, s.QuoteAsset, s.Symbol)
             {
                 MinTradeQuantity = s.MinQuantity,
                 DeliveryTime = s.SettleTime,

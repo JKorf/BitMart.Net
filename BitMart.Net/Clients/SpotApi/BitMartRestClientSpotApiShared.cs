@@ -122,7 +122,7 @@ namespace BitMart.Net.Clients.SpotApi
         }
 
         EndpointOptions ISpotTickerRestClient.GetSpotTickersOptions { get; } = new EndpointOptions("GetTickersRequest", false);
-        async Task<ExchangeWebResult<IEnumerable<SharedSpotTicker>>> ISpotTickerRestClient.GetSpotTickersAsync(ApiType? apiType, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        async Task<ExchangeWebResult<IEnumerable<SharedSpotTicker>>> ISpotTickerRestClient.GetSpotTickersAsync(ExchangeParameters? exchangeParameters, CancellationToken ct)
         {
             var validationError = ((ISpotTickerRestClient)this).GetSpotTickerOptions.ValidateRequest(Exchange, exchangeParameters);
             if (validationError != null)
@@ -510,7 +510,7 @@ namespace BitMart.Net.Clients.SpotApi
             if (!depositAddresses)
                 return depositAddresses.AsExchangeResult<IEnumerable<SharedDepositAddress>>(Exchange, default);
 
-            return depositAddresses.AsExchangeResult<IEnumerable<SharedDepositAddress>>(Exchange, new[] { new SharedDepositAddress(depositAddresses.Data.Asset, depositAddresses.Data.Address)
+            return depositAddresses.AsExchangeResult<IEnumerable<SharedDepositAddress>>(Exchange, new[] { new SharedDepositAddress(depositAddresses.Data.Asset.Split(new[] { "-" }, StringSplitOptions.RemoveEmptyEntries)[0], depositAddresses.Data.Address)
             {
                 Tag = depositAddresses.Data.AddressMemo,
                 Network = depositAddresses.Data.Network
@@ -533,7 +533,7 @@ namespace BitMart.Net.Clients.SpotApi
             if (!deposits)
                 return deposits.AsExchangeResult<IEnumerable<SharedDeposit>>(Exchange, default);
 
-            return deposits.AsExchangeResult(Exchange, deposits.Data.Select(x => new SharedDeposit(x.Asset, x.ArrivalQuantity, x.Status == DepositWithdrawalStatus.Completed, x.ApplyTime)
+            return deposits.AsExchangeResult(Exchange, deposits.Data.Select(x => new SharedDeposit(x.Asset.Split(new[] { "-" }, StringSplitOptions.RemoveEmptyEntries)[0], x.ArrivalQuantity, x.Status == DepositWithdrawalStatus.Completed, x.ApplyTime)
             {
                 Tag = x.AddressMemo,
                 TransactionId = x.TransactionId,
@@ -580,7 +580,7 @@ namespace BitMart.Net.Clients.SpotApi
             if (!withdrawals)
                 return withdrawals.AsExchangeResult<IEnumerable<SharedWithdrawal>>(Exchange, default);
 
-            return withdrawals.AsExchangeResult(Exchange, withdrawals.Data.Select(x => new SharedWithdrawal(x.Asset, x.Address!, x.ArrivalQuantity, x.Status == DepositWithdrawalStatus.Completed, x.ApplyTime)
+            return withdrawals.AsExchangeResult(Exchange, withdrawals.Data.Select(x => new SharedWithdrawal(x.Asset.Split(new[] { "-" }, StringSplitOptions.RemoveEmptyEntries)[0], x.Address!, x.ArrivalQuantity, x.Status == DepositWithdrawalStatus.Completed, x.ApplyTime)
             {
                 Tag = x.AddressMemo,
                 TransactionId = x.TransactionId,
