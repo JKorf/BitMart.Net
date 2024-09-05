@@ -1427,6 +1427,21 @@
             Frozen by main account
             </summary>
         </member>
+        <member name="T:BitMart.Net.Enums.SymbolStatus">
+            <summary>
+            Symbol status
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.SymbolStatus.Trading">
+            <summary>
+            Trading
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.SymbolStatus.PreTrade">
+            <summary>
+            Pre-trade
+            </summary>
+        </member>
         <member name="T:BitMart.Net.Enums.SystemMaintenanceStatus">
             <summary>
             System status

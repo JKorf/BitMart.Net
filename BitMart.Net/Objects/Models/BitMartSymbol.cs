@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BitMart.Net.Enums;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -78,7 +79,7 @@ namespace BitMart.Net.Objects.Models
         /// Trade status
         /// </summary>
         [JsonPropertyName("trade_status")]
-        public string? TradeStatus { get; set; }
+        public SymbolStatus? TradeStatus { get; set; }
     }
 
 
