@@ -150,17 +150,17 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             if (pageToken is DateTimeToken dateTimeToken)
                 fromTimestamp = dateTimeToken.LastTime;
 
-            var startTime = request.Filter?.StartTime;
-            var endTime = request.Filter?.EndTime;
+            var startTime = request.StartTime;
+            var endTime = request.EndTime;
             var apiLimit = 1000;
 
             // API returns the newest data first if the timespan is bigger than the api limit of 1000 results
             // So we need to request the first 1000 from the start time, then the 1000 after that etc
-            if (request.Filter?.StartTime != null)
+            if (request.StartTime != null)
             {
                 // Not paginated, check if the data will fit
                 var seconds = apiLimit * (int)request.Interval;
-                var maxEndTime = (fromTimestamp ?? request.Filter.StartTime).Value.AddSeconds(seconds);
+                var maxEndTime = (fromTimestamp ?? request.StartTime).Value.AddSeconds(seconds);
                 if (maxEndTime < endTime)
                     endTime = maxEndTime;
             }
@@ -168,7 +168,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             var result = await ExchangeData.GetKlinesAsync(
                 request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
                 interval,
-                fromTimestamp ?? request.Filter?.StartTime ?? DateTime.UtcNow.AddSeconds(-(request.Filter?.Limit ?? 100) * (int)interval),
+                fromTimestamp ?? request.StartTime ?? DateTime.UtcNow.AddSeconds(-(request.Limit ?? 100) * (int)interval),
                 endTime ?? DateTime.UtcNow,
                 ct: ct
                 ).ConfigureAwait(false);
@@ -177,10 +177,10 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
             // Get next token
             DateTimeToken? nextToken = null;
-            if (request.Filter?.StartTime != null && result.Data.Any())
+            if (request.StartTime != null && result.Data.Any())
             {
                 var maxOpenTime = result.Data.Max(x => x.Timestamp!.Value);
-                if (maxOpenTime < request.Filter.EndTime!.Value.AddSeconds(-(int)request.Interval))
+                if (maxOpenTime < request.EndTime!.Value.AddSeconds(-(int)request.Interval))
                     nextToken = new DateTimeToken(maxOpenTime.AddSeconds((int)interval));
             }
 
@@ -387,8 +387,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
             // Get data
             var orders = await Trading.GetClosedOrdersAsync(request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
-                startTime: fromTimestamp ?? request.Filter?.StartTime,
-                endTime: request.Filter?.EndTime).ConfigureAwait(false);
+                startTime: fromTimestamp ?? request.StartTime,
+                endTime: request.EndTime).ConfigureAwait(false);
             if (!orders)
                 return orders.AsExchangeResult<IEnumerable<SharedFuturesOrder>>(Exchange, default);
 
@@ -462,8 +462,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 #warning check result data sorting, oldest or newest first for pagination
             // Get data
             var orders = await Trading.GetUserTradesAsync(request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
-                startTime: fromTime ?? request.Filter?.StartTime,
-                endTime: request.Filter?.EndTime
+                startTime: fromTime ?? request.StartTime,
+                endTime: request.EndTime
                 ).ConfigureAwait(false);
             if (!orders)
                 return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, default);
@@ -523,24 +523,25 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             }).ToList());
         }
 
-        EndpointOptions<ClosePositionRequest> IFuturesOrderRestClient.ClosePositionOptions { get; } = new EndpointOptions<ClosePositionRequest>(true);
+        EndpointOptions<ClosePositionRequest> IFuturesOrderRestClient.ClosePositionOptions { get; } = new EndpointOptions<ClosePositionRequest>(true)
+        {
+            RequiredOptionalParameters = new List<ParameterDescription>
+            {
+                new ParameterDescription(nameof(ClosePositionRequest.Quantity), typeof(decimal), "Quantity of position to close", 1m)
+            }
+        };
         async Task<ExchangeWebResult<SharedId>> IFuturesOrderRestClient.ClosePositionAsync(ClosePositionRequest request, ExchangeParameters? exchangeParameters, CancellationToken ct)
         {
             var validationError = ((IFuturesOrderRestClient)this).ClosePositionOptions.ValidateRequest(Exchange, request, exchangeParameters, request.ApiType, SupportedApiTypes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
-            var symbol = request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset));
-            var positions = await Trading.GetPositionsAsync(symbol).ConfigureAwait(false);
-            var position = positions.Data.SingleOrDefault(x => x.PositionSide == (request.PositionSide == SharedPositionSide.Long ? PositionSide.Long : PositionSide.Short));
-            if (position == null || !(position.CurrentQuantity > 0))
-                return positions.AsExchangeError<SharedId>(Exchange, new ServerError("Position not found"));
-
+            var symbol = request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset));            
             var result = await Trading.PlaceOrderAsync(
                 symbol,
                 request.PositionSide == SharedPositionSide.Short ? FuturesSide.BuyCloseShort : FuturesSide.SellCloseLong,
                 FuturesOrderType.Market,
-                (int)position.CurrentQuantity,
+                (int)request.Quantity!.Value,
                 ct: ct).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<SharedId>(Exchange, default);
@@ -592,6 +593,25 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             return SharedOrderType.Other;
         }
 
+        #endregion
+
+        #region Position Mode client
+
+        GetPositionModeOptions IPositionModeRestClient.GetPositionModeOptions { get; } = new GetPositionModeOptions(false);
+        async Task<ExchangeWebResult<SharedPositionModeResult>> IPositionModeRestClient.GetPositionModeAsync(GetPositionModeRequest request, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        {
+            // Only support one mode, so never actually needs to change
+            return new ExchangeWebResult<SharedPositionModeResult>(Exchange, new WebCallResult<SharedPositionModeResult>(
+                null, null, null, null, null, null, null, null, null, null, ResultDataSource.Server, new SharedPositionModeResult(SharedPositionMode.LongShort), null));
+        }
+
+        SetPositionModeOptions IPositionModeRestClient.SetPositionModeOptions { get; } = new SetPositionModeOptions(false, true, false);
+        async Task<ExchangeWebResult<SharedPositionModeResult>> IPositionModeRestClient.SetPositionModeAsync(SetPositionModeRequest request, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        {
+            // Only support one mode, so never actually needs to change
+            return new ExchangeWebResult<SharedPositionModeResult>(Exchange, new WebCallResult<SharedPositionModeResult>(
+                null, null, null, null, null, null, null, null, null, null, ResultDataSource.Server, new SharedPositionModeResult(request.Mode), null));
+        }
         #endregion
     }
 }

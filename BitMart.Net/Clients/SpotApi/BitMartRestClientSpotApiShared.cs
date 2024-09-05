@@ -45,15 +45,15 @@ namespace BitMart.Net.Clients.SpotApi
             if (pageToken is DateTimeToken dateTimeToken)
                 fromTimestamp = dateTimeToken.LastTime;
 
-            var startTime = request.Filter?.StartTime;
-            var endTime = request.Filter?.EndTime?.AddSeconds(-1);
+            var startTime = request.StartTime;
+            var endTime = request.EndTime?.AddSeconds(-1);
             var apiLimit = 200;
 
-            if (request.Filter?.StartTime != null)
+            if (request.StartTime != null)
             {
                 // Not paginated, check if the data will fit
                 var seconds = apiLimit * (int)request.Interval;
-                var maxEndTime = (fromTimestamp ?? request.Filter.StartTime).Value.AddSeconds(seconds - 1);
+                var maxEndTime = (fromTimestamp ?? request.StartTime).Value.AddSeconds(seconds - 1);
                 if (maxEndTime < endTime)
                     endTime = maxEndTime;
             }
@@ -62,9 +62,9 @@ namespace BitMart.Net.Clients.SpotApi
             var result = await ExchangeData.GetKlineHistoryAsync(
                 request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
                 interval,
-                fromTimestamp ?? request.Filter?.StartTime,
+                fromTimestamp ?? request.StartTime,
                 endTime,
-                request.Filter?.Limit ?? apiLimit,
+                request.Limit ?? apiLimit,
                 ct: ct
                 ).ConfigureAwait(false);
             if (!result)
@@ -72,10 +72,10 @@ namespace BitMart.Net.Clients.SpotApi
 
             // Get next token
             DateTimeToken? nextToken = null;
-            if (request.Filter?.StartTime != null && result.Data.Any())
+            if (request.StartTime != null && result.Data.Any())
             {
                 var maxOpenTime = result.Data.Max(x => x.OpenTime);
-                if (maxOpenTime < request.Filter.EndTime!.Value.AddSeconds(-(int)request.Interval))
+                if (maxOpenTime < request.EndTime!.Value.AddSeconds(-(int)request.Interval))
                     nextToken = new DateTimeToken(maxOpenTime.AddSeconds((int)interval));
             }
 
@@ -295,15 +295,15 @@ namespace BitMart.Net.Clients.SpotApi
 
             // Get data
             var orders = await Trading.GetClosedOrdersAsync(request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
-                startTime: request.Filter?.StartTime,
-                endTime: request.Filter?.EndTime,
-                limit: request.Filter?.Limit ?? 200).ConfigureAwait(false);
+                startTime: request.StartTime,
+                endTime: request.EndTime,
+                limit: request.Limit ?? 200).ConfigureAwait(false);
             if (!orders)
                 return orders.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, default);
 
             // Get next token
             DateTimeToken? nextToken = null;
-            if (orders.Data.Count() == (request.Filter?.Limit ?? 200))
+            if (orders.Data.Count() == (request.Limit ?? 200))
                 nextToken = new DateTimeToken(orders.Data.Max(o => o.CreateTime));
 
             return orders.AsExchangeResult(Exchange, orders.Data.Select(x => new SharedSpotOrder(
@@ -365,15 +365,15 @@ namespace BitMart.Net.Clients.SpotApi
 
             // Get data
             var trades = await Trading.GetUserTradesAsync(request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
-                startTime: fromTimestamp ?? request.Filter?.StartTime,
-                endTime: request.Filter?.EndTime,
-                limit: request.Filter?.Limit ?? 200).ConfigureAwait(false);
+                startTime: fromTimestamp ?? request.StartTime,
+                endTime: request.EndTime,
+                limit: request.Limit ?? 200).ConfigureAwait(false);
             if (!trades)
                 return trades.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, default);
 
             // Get next token
             DateTimeToken? nextToken = null;
-            if (trades.Data.Count() == (request.Filter?.Limit ?? 200))
+            if (trades.Data.Count() == (request.Limit ?? 200))
                 nextToken = new DateTimeToken(trades.Data.Max(o => o.CreateTime));
 
             return trades.AsExchangeResult(Exchange, trades.Data.Select(x => new SharedUserTrade(
@@ -529,7 +529,7 @@ namespace BitMart.Net.Clients.SpotApi
             // Get data
             var deposits = await Account.GetDepositHistoryAsync(
                 asset: request.Asset,
-                limit: request.Filter?.Limit ?? 100,
+                limit: request.Limit ?? 100,
                 ct: ct).ConfigureAwait(false);
             if (!deposits)
                 return deposits.AsExchangeResult<IEnumerable<SharedDeposit>>(Exchange, default);
@@ -576,7 +576,7 @@ namespace BitMart.Net.Clients.SpotApi
             // Get data
             var withdrawals = await Account.GetWithdrawalHistoryAsync(
                 asset: request.Asset,
-                limit: request.Filter?.Limit ?? 100,
+                limit: request.Limit ?? 100,
                 ct: ct).ConfigureAwait(false);
             if (!withdrawals)
                 return withdrawals.AsExchangeResult<IEnumerable<SharedWithdrawal>>(Exchange, default);
