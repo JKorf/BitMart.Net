@@ -27,7 +27,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
     /// <summary>
     /// Client providing access to the BitMart UsdFutures websocket Api
     /// </summary>
-    internal class BitMartSocketClientUsdFuturesApi : SocketApiClient, IBitMartSocketClientUsdFuturesApi
+    internal partial class BitMartSocketClientUsdFuturesApi : SocketApiClient, IBitMartSocketClientUsdFuturesApi
     {
         #region fields
         private static readonly MessagePath _actionPath = MessagePath.Get().Property("action");
@@ -51,6 +51,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor();
 
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer();
+
+        public IBitMartSocketClientUsdFuturesApiShared SharedClient => this;
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)

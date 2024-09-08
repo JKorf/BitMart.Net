@@ -4,16 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace GateIo.Net.Interfaces.Clients.SpotApi
+namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 {
-    public interface IBitMartSocketClientSpotApiShared :
-        ITickerSocketClient,
+    public interface IBitMartSocketClientUsdFuturesApiShared :
+        //ITickerSocketClient,
         ITradeSocketClient,
         IBookTickerSocketClient,
         IBalanceSocketClient,
-        ISpotOrderSocketClient,
-        IKlineSocketClient,
-        IOrderBookSocketClient
+        IKlineSocketClient
     {
     }
 }
