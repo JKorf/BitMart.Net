@@ -24,22 +24,41 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         public string Exchange => BitMartExchange.ExchangeName;
         public ApiType[] SupportedApiTypes { get; } = new[] { ApiType.PerpetualLinear, ApiType.DeliveryLinear };
 
-        // Ticker subscription information is not complete..
-        //#region Ticker client
-        //SubscriptionOptions<SubscribeTickerRequest> ITickerSocketClient.SubscribeTickerOptions { get; } = new SubscriptionOptions<SubscribeTickerRequest>(false);
-        //async Task<ExchangeResult<UpdateSubscription>> ITickerSocketClient.SubscribeToTickerUpdatesAsync(SubscribeTickerRequest request, Action<ExchangeEvent<SharedSpotTicker>> handler, ExchangeParameters? exchangeParameters, CancellationToken ct)
-        //{
-        //    var validationError = ((ITickerSocketClient)this).SubscribeTickerOptions.ValidateRequest(Exchange, request, exchangeParameters, request.ApiType, SupportedApiTypes);
-        //    if (validationError != null)
-        //        return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
+        #region Tickers client
+        SubscriptionOptions ITickersSocketClient.SubscribeAllTickersOptions { get; } = new SubscriptionOptions("SubscribeAllTickersRequest", false);
+        async Task<ExchangeResult<UpdateSubscription>> ITickersSocketClient.SubscribeToAllTickersUpdatesAsync(ApiType apiType, Action<ExchangeEvent<IEnumerable<SharedSpotTicker>>> handler, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        {
+            var validationError = ((ITickersSocketClient)this).SubscribeAllTickersOptions.ValidateRequest(Exchange, exchangeParameters, apiType, SupportedApiTypes);
+            if (validationError != null)
+                return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
-        //    var symbol = request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType));
-        //    var result = await SubscribeToKlineUpdatesAsync(symbol, Enums.FuturesStreamKlineInterval.OneDay update => handler(update.AsExchangeEvent(Exchange, new SharedSpotTicker(update.Data.Symbol, update.Data.LastPrice, update.Data.HighPrice, update.Data.LowPrice, update.Data.Volume24h))), ct).ConfigureAwait(false);
+            var result = await SubscribeToTickerUpdatesAsync(update => handler(update.AsExchangeEvent<IEnumerable<SharedSpotTicker>>(Exchange, new[] { new SharedSpotTicker(update.Data.Symbol, update.Data.LastPrice, null, null, update.Data.Volume24h) })), ct).ConfigureAwait(false);
 
-        //    return new ExchangeResult<UpdateSubscription>(Exchange, result);
-        //}
+            return new ExchangeResult<UpdateSubscription>(Exchange, result);
+        }
 
-        //#endregion
+        #endregion
+
+        #region Ticker client
+        SubscriptionOptions<SubscribeTickerRequest> ITickerSocketClient.SubscribeTickerOptions { get; } = new SubscriptionOptions<SubscribeTickerRequest>(false);
+        async Task<ExchangeResult<UpdateSubscription>> ITickerSocketClient.SubscribeToTickerUpdatesAsync(SubscribeTickerRequest request, Action<ExchangeEvent<SharedSpotTicker>> handler, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        {
+            var validationError = ((ITickerSocketClient)this).SubscribeTickerOptions.ValidateRequest(Exchange, exchangeParameters, request.ApiType, SupportedApiTypes);
+            if (validationError != null)
+                return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
+
+            var symbol = request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType));
+            var result = await SubscribeToTickerUpdatesAsync(update => {
+                if (update.Symbol != symbol)
+                    return;
+                
+                handler(update.AsExchangeEvent(Exchange, new SharedSpotTicker(update.Data.Symbol, update.Data.LastPrice, null, null, update.Data.Volume24h)));
+            }, ct).ConfigureAwait(false);
+
+            return new ExchangeResult<UpdateSubscription>(Exchange, result);
+        }
+
+        #endregion
 
         #region Trade client
 
@@ -66,9 +85,14 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             if (validationError != null)
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
+            // There is no symbol specific ticker, so we have to subscribe to all symbols
+            // This works correctly when subscribing multiple symbols
             var symbol = request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType));
-#warning Ticker doesn't have filter. Test to see if can be added. See documentation for :filter
-            var result = await SubscribeToTickerUpdatesAsync(symbol, update => handler(update.AsExchangeEvent(Exchange, new SharedBookTicker(update.Data.BestAskPrice, update.Data.BestAskQuantity, update.Data.BestBidPrice, update.Data.BestBidQuantity))), ct).ConfigureAwait(false);
+            var result = await SubscribeToTickerUpdatesAsync(update =>
+            {
+                if (update.Data.Symbol == symbol)
+                    handler(update.AsExchangeEvent(Exchange, new SharedBookTicker(update.Data.BestAskPrice, update.Data.BestAskQuantity, update.Data.BestBidPrice, update.Data.BestBidQuantity)));
+            }, ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }
@@ -113,8 +137,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         }
         #endregion
 
+        #region Order Book client
         // Order book only sends one side at a time
-        //#region Order Book client
         //SubscribeOrderBookOptions IOrderBookSocketClient.SubscribeOrderBookOptions { get; } = new SubscribeOrderBookOptions(false, new[] { 5, 20, 50 });
         //async Task<ExchangeResult<UpdateSubscription>> IOrderBookSocketClient.SubscribeToOrderBookUpdatesAsync(SubscribeOrderBookRequest request, Action<ExchangeEvent<SharedOrderBook>> handler, ExchangeParameters? exchangeParameters, CancellationToken ct)
         //{
@@ -127,6 +151,56 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
         //    return new ExchangeResult<UpdateSubscription>(Exchange, result);
         //}
-        //#endregion
+        #endregion
+
+        #region Futures Order client
+
+        SubscriptionOptions IFuturesOrderSocketClient.SubscribeFuturesOrderOptions { get; } = new SubscriptionOptions("SubscribeFuturesOrderRequest", false);
+        async Task<ExchangeResult<UpdateSubscription>> IFuturesOrderSocketClient.SubscribeToFuturesOrderUpdatesAsync(ApiType apiType, Action<ExchangeEvent<IEnumerable<SharedFuturesOrder>>> handler, ExchangeParameters? exchangeParameters, CancellationToken ct)
+        {
+            var validationError = ((IFuturesOrderSocketClient)this).SubscribeFuturesOrderOptions.ValidateRequest(Exchange, exchangeParameters, apiType, SupportedApiTypes);
+            if (validationError != null)
+                return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
+
+            var result = await SubscribeToOrderUpdatesAsync(
+                update => handler(update.AsExchangeEvent<IEnumerable<SharedFuturesOrder>>(Exchange, update.Data.Select(x => 
+                    new SharedFuturesOrder(
+                        x.Order.Symbol,
+                        x.Order.OrderId.ToString(),
+                        ParseOrderType(x.Order.OrderType),
+                        (x.Order.Side == Enums.FuturesSide.BuyCloseShort || x.Order.Side == Enums.FuturesSide.BuyOpenLong) ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                        ParseOrderStatus(x.Order.Status, x.Order.Quantity - x.Order.QuantityFilled),
+                        x.Order.CreateTime)
+                    {
+                        ClientOrderId = x.Order.ClientOrderId?.ToString(),
+                        Quantity = x.Order.Quantity,
+                        QuantityFilled = x.Order.QuantityFilled,
+                        AveragePrice = x.Order.AveragePrice,
+                        UpdateTime = x.Order.UpdateTime,
+                        Price = x.Order.Price,
+                        Leverage = x.Order.Leverage,
+                        LastTrade = x.Order.LastTrade == null ? null : new SharedUserTrade(x.Order.Symbol, x.Order.OrderId, x.Order.LastTrade.TradeId.ToString(), x.Order.LastTrade.Quantity, x.Order.LastTrade.Price, x.Order.UpdateTime!.Value)
+                    }
+                ))),
+                ct: ct).ConfigureAwait(false);
+
+            return new ExchangeResult<UpdateSubscription>(Exchange, result);
+        }
+
+        private SharedOrderStatus ParseOrderStatus(Enums.FuturesOrderStatus status, decimal remainingQuantity)
+        {
+            if (status == Enums.FuturesOrderStatus.Approval || status == Enums.FuturesOrderStatus.Check) return SharedOrderStatus.Open;
+            if (remainingQuantity > 0) return SharedOrderStatus.Canceled;
+            return SharedOrderStatus.Filled;
+        }
+
+        private SharedOrderType ParseOrderType(Enums.FuturesOrderType type)
+        {
+            if (type == Enums.FuturesOrderType.Market) return SharedOrderType.Market;
+            if (type == Enums.FuturesOrderType.Limit) return SharedOrderType.Limit;
+
+            return SharedOrderType.Other;
+        }
+        #endregion
     }
 }

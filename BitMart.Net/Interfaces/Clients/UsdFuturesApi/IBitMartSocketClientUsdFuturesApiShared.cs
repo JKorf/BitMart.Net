@@ -7,11 +7,13 @@ using System.Text;
 namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 {
     public interface IBitMartSocketClientUsdFuturesApiShared :
-        //ITickerSocketClient,
+        ITickersSocketClient,
+        ITickerSocketClient,
         ITradeSocketClient,
         IBookTickerSocketClient,
         IBalanceSocketClient,
-        IKlineSocketClient
+        IKlineSocketClient,
+        IFuturesOrderSocketClient
     {
     }
 }
