@@ -52,8 +52,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             if (validationError != null)
                 return new ExchangeWebResult<SharedFuturesTicker>(Exchange, validationError);
 
-            var resultTicker = ExchangeData.GetContractsAsync(request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)), ct);            
-            var resultFundingRate = ExchangeData.GetCurrentFundingRateAsync(request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)), ct);
+            var resultTicker = ExchangeData.GetContractsAsync(request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)), ct);            
+            var resultFundingRate = ExchangeData.GetCurrentFundingRateAsync(request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)), ct);
             await Task.WhenAll(resultTicker, resultFundingRate).ConfigureAwait(false);
             if (!resultTicker.Result)
                 return resultTicker.Result.AsExchangeResult<SharedFuturesTicker>(Exchange, default);
@@ -166,7 +166,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             }
 
             var result = await ExchangeData.GetKlinesAsync(
-                request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
+                request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)),
                 interval,
                 fromTimestamp ?? request.StartTime ?? DateTime.UtcNow.AddSeconds(-(request.Limit ?? 100) * (int)interval),
                 endTime ?? DateTime.UtcNow,
@@ -199,7 +199,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 return new ExchangeWebResult<SharedLeverage>(Exchange, validationError);
 
             var result = await Trading.GetPositionRiskAsync(
-                symbol: request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset)),
+                symbol: request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)),
                 ct: ct).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<SharedLeverage>(Exchange, default);
@@ -217,7 +217,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 return new ExchangeWebResult<SharedLeverage>(Exchange, validationError);
 
             var result = await Account.SetLeverageAsync(
-                symbol: request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset)),
+                symbol: request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)),
                 request.Leverage,
                 request.MarginMode == SharedMarginMode.Isolated ? MarginType.IsolatedMargin : MarginType.CrossMargin,
                 ct: ct).ConfigureAwait(false);
@@ -240,7 +240,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 return new ExchangeWebResult<SharedOrderBook>(Exchange, validationError);
 
             var result = await ExchangeData.GetOrderBookAsync(
-                request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset)),
+                request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)),
                 ct: ct).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<SharedOrderBook>(Exchange, default);
@@ -259,7 +259,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             if (validationError != null)
                 return new ExchangeWebResult<SharedOpenInterest>(Exchange, validationError);
 
-            var result = await ExchangeData.GetOpenInterestAsync(request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset)), ct: ct).ConfigureAwait(false);
+            var result = await ExchangeData.GetOpenInterestAsync(request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)), ct: ct).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<SharedOpenInterest>(Exchange, default);
 
@@ -299,7 +299,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
             var result = await Trading.PlaceOrderAsync(
-                request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
+                request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)),
                 GetFuturesSide(request),
                 request.OrderType == SharedOrderType.Limit ? Enums.FuturesOrderType.Limit : Enums.FuturesOrderType.Market,
                 quantity: (int)(request.Quantity ?? 0),
@@ -321,7 +321,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             if (validationError != null)
                 return new ExchangeWebResult<SharedFuturesOrder>(Exchange, validationError);
 
-            var order = await Trading.GetOrderAsync(request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)), request.OrderId).ConfigureAwait(false);
+            var order = await Trading.GetOrderAsync(request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)), request.OrderId).ConfigureAwait(false);
             if (!order)
                 return order.AsExchangeResult<SharedFuturesOrder>(Exchange, default);
 
@@ -350,7 +350,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedFuturesOrder>>(Exchange, validationError);
 
-            var symbol = request.Symbol?.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType));
+            var symbol = request.Symbol?.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate));
             var orders = await Trading.GetOpenOrdersAsync(symbol).ConfigureAwait(false);
             if (!orders)
                 return orders.AsExchangeResult<IEnumerable<SharedFuturesOrder>>(Exchange, default);
@@ -386,7 +386,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 fromTimestamp = dateTimeToken.LastTime;
 
             // Get data
-            var orders = await Trading.GetClosedOrdersAsync(request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
+            var orders = await Trading.GetClosedOrdersAsync(request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)),
                 startTime: fromTimestamp ?? request.StartTime,
                 endTime: request.EndTime).ConfigureAwait(false);
             if (!orders)
@@ -428,7 +428,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             if (!long.TryParse(request.OrderId, out var orderId))
                 return new ExchangeWebResult<IEnumerable<SharedUserTrade>>(Exchange, new ArgumentError("Invalid order id"));
 
-            var orders = await Trading.GetUserTradesAsync(request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType))).ConfigureAwait(false);
+            var orders = await Trading.GetUserTradesAsync(request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate))).ConfigureAwait(false);
             if (!orders)
                 return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, default);
 
@@ -461,7 +461,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
 #warning check result data sorting, oldest or newest first for pagination
             // Get data
-            var orders = await Trading.GetUserTradesAsync(request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)),
+            var orders = await Trading.GetUserTradesAsync(request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)),
                 startTime: fromTime ?? request.StartTime,
                 endTime: request.EndTime
                 ).ConfigureAwait(false);
@@ -495,7 +495,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             if (validationError != null)
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
-            var order = await Trading.CancelOrderAsync(request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType)), request.OrderId).ConfigureAwait(false);
+            var order = await Trading.CancelOrderAsync(request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)), request.OrderId).ConfigureAwait(false);
             if (!order)
                 return order.AsExchangeResult<SharedId>(Exchange, default);
 
@@ -509,7 +509,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedPosition>>(Exchange, validationError);
 
-            var result = await Trading.GetPositionsAsync(symbol: request.Symbol?.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset)), ct: ct).ConfigureAwait(false);
+            var result = await Trading.GetPositionsAsync(symbol: request.Symbol?.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate)), ct: ct).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedPosition>>(Exchange, default);
 
@@ -536,7 +536,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             if (validationError != null)
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
-            var symbol = request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset));            
+            var symbol = request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate));            
             var result = await Trading.PlaceOrderAsync(
                 symbol,
                 request.PositionSide == SharedPositionSide.Short ? FuturesSide.BuyCloseShort : FuturesSide.SellCloseLong,

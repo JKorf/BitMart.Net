@@ -203,7 +203,7 @@
         <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.GetTimeOffset">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.FormatSymbol(System.String,System.String,System.Nullable{CryptoExchange.Net.Objects.ApiType})">
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.Objects.ApiType,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
         <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.ParseErrorResponse(System.Int32,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.Collections.Generic.IEnumerable{System.String}}},CryptoExchange.Net.Interfaces.IMessageAccessor)">
@@ -432,7 +432,7 @@
         <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.GetAuthenticationRequest(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.FormatSymbol(System.String,System.String,System.Nullable{CryptoExchange.Net.Objects.ApiType})">
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.Objects.ApiType,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
         <member name="T:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi">
@@ -471,7 +471,7 @@
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.GetTimeOffset">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.FormatSymbol(System.String,System.String,System.Nullable{CryptoExchange.Net.Objects.ApiType})">
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.Objects.ApiType,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.ParseErrorResponse(System.Int32,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.Collections.Generic.IEnumerable{System.String}}},CryptoExchange.Net.Interfaces.IMessageAccessor)">
@@ -619,7 +619,7 @@
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.GetAuthenticationRequest(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.FormatSymbol(System.String,System.String,System.Nullable{CryptoExchange.Net.Objects.ApiType})">
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.Objects.ApiType,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
         <member name="T:BitMart.Net.Enums.BalanceUpdateType">

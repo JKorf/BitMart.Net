@@ -47,7 +47,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             if (validationError != null)
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
-            var symbol = request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType));
+            var symbol = request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate));
             var result = await SubscribeToTickerUpdatesAsync(update => {
                 if (update.Symbol != symbol)
                     return;
@@ -69,7 +69,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             if (validationError != null)
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
-            var symbol = request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType));
+            var symbol = request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate));
             var result = await SubscribeToTradeUpdatesAsync(symbol, update => handler(update.AsExchangeEvent(Exchange, update.Data.Select(x => new SharedTrade(x.Quantity, x.Price, x.Timestamp)))), ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
@@ -87,7 +87,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
             // There is no symbol specific ticker, so we have to subscribe to all symbols
             // This works correctly when subscribing multiple symbols
-            var symbol = request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType));
+            var symbol = request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate));
             var result = await SubscribeToTickerUpdatesAsync(update =>
             {
                 if (update.Data.Symbol == symbol)
@@ -127,7 +127,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             if (validationError != null)
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
-            var symbol = request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType));
+            var symbol = request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate));
             var result = await SubscribeToKlineUpdatesAsync(symbol, interval, update => {
                 foreach (var item in update.Data.Klines)
                     handler(update.AsExchangeEvent(Exchange, new SharedKline(item.Timestamp!.Value, item.ClosePrice, item.HighPrice, item.LowPrice, item.OpenPrice, item.Volume)));
@@ -146,7 +146,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         //    if (validationError != null)
         //        return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
-        //    var symbol = request.Symbol.GetSymbol((baseAsset, quoteAsset) => FormatSymbol(baseAsset, quoteAsset, request.ApiType));
+        //    var symbol = request.Symbol.GetSymbol((baseAsset, quoteAsset, deliverDate) => FormatSymbol(baseAsset, quoteAsset, request.ApiType, deliverDate));
         //    var result = await SubscribeToOrderBookUpdatesAsync(symbol, request.Limit ?? 20, update => handler(update.AsExchangeEvent(Exchange, new SharedOrderBook(update.Data.Depths.Asks, update.Data.Bids))), ct).ConfigureAwait(false);
 
         //    return new ExchangeResult<UpdateSubscription>(Exchange, result);

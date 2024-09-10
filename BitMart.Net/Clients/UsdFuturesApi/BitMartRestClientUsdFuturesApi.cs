@@ -113,7 +113,9 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             => _timeSyncState.TimeOffset;
 
         /// <inheritdoc />
-        public override string FormatSymbol(string baseAsset, string quoteAsset, ApiType? futuresType = null) => baseAsset + quoteAsset;
+        public override string FormatSymbol(string baseAsset, string quoteAsset, ApiType apiType, DateTime? deliverTime = null)
+#warning unclear how deliverDate is specified in symbol, check later
+            => baseAsset + quoteAsset;
 
         /// <inheritdoc />
         protected override Error ParseErrorResponse(int httpStatusCode, IEnumerable<KeyValuePair<string, IEnumerable<string>>> responseHeaders, IMessageAccessor accessor)
