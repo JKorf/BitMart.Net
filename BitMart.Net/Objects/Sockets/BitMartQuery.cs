@@ -18,7 +18,7 @@ namespace BitMart.Net.Objects.Sockets
             Parameters = parameters,
         }, authenticated, weight)
         {
-            ListenerIdentifiers = new HashSet<string>(parameters.Select(p => operation + "-" + p));
+            ListenerIdentifiers = new HashSet<string>(parameters.Select(p => operation + ":" + p));
         }
 
         public override CallResult<BitMartSocketResponse> HandleMessage(SocketConnection connection, DataEvent<BitMartSocketResponse> message)
