@@ -153,7 +153,7 @@ namespace BitMart.Net.Clients.SpotApi
                 if (topic == null)
                     return evnt;
 
-                return evnt + "-" + topic;
+                return evnt + ":" + topic;
             }
 
             var table = message.GetValue<string>(_tablePath);
