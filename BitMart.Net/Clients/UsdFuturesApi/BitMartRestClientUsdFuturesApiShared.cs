@@ -287,10 +287,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 SharedQuantityType.BaseAssetQuantity,
                 SharedQuantityType.BaseAssetQuantity,
                 SharedQuantityType.BaseAssetQuantity,
-                SharedQuantityType.BaseAssetQuantity))
-        {
-            OnlyHedgeMode = true
-        };
+                SharedQuantityType.BaseAssetQuantity));
 
         async Task<ExchangeWebResult<SharedId>> IFuturesOrderRestClient.PlaceFuturesOrderAsync(PlaceFuturesOrderRequest request, ExchangeParameters? exchangeParameters, CancellationToken ct)
         {
