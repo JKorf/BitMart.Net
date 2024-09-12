@@ -33,7 +33,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             if (validationError != null)
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
-            var result = await SubscribeToTickerUpdatesAsync(update => handler(update.AsExchangeEvent<IEnumerable<SharedSpotTicker>>(Exchange, new[] { new SharedSpotTicker(update.Data.Symbol, update.Data.LastPrice, null, null, update.Data.Volume24h) })), ct).ConfigureAwait(false);
+#warning What is the price range?
+            var result = await SubscribeToTickerUpdatesAsync(update => handler(update.AsExchangeEvent<IEnumerable<SharedSpotTicker>>(Exchange, new[] { new SharedSpotTicker(update.Data.Symbol, update.Data.LastPrice, null, null, update.Data.Volume24h, update.Data.PriceRange) })), ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }
@@ -53,7 +54,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 if (update.Symbol != symbol)
                     return;
                 
-                handler(update.AsExchangeEvent(Exchange, new SharedSpotTicker(update.Data.Symbol, update.Data.LastPrice, null, null, update.Data.Volume24h)));
+                handler(update.AsExchangeEvent(Exchange, new SharedSpotTicker(update.Data.Symbol, update.Data.LastPrice, null, null, update.Data.Volume24h, update.Data.PriceRange)));
             }, ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
