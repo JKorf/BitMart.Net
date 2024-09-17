@@ -108,13 +108,13 @@ namespace BitMart.Net.Clients.SpotApi
                         update.Data.CreateTime)
                     {
                         ClientOrderId = update.Data.ClientOrderId?.ToString(),
-                        Quantity = update.Data.Quantity,
+                        Quantity = update.Data.Quantity == 0 ? null : update.Data.Quantity,
                         QuantityFilled = update.Data.QuantityFilled,
                         QuoteQuantity = update.Data.QuoteQuantity,
                         QuoteQuantityFilled = update.Data.QuoteQuantityFilled,
                         TimeInForce = update.Data.EntrustType == Enums.EntrustType.ImmediateOrCancel ? SharedTimeInForce.ImmediateOrCancel : SharedTimeInForce.GoodTillCanceled,
                         UpdateTime = update.Data.UpdateTime,
-                        Price = update.Data.Price,
+                        Price = update.Data.Price == 0 ? null : update.Data.Price,
                         LastTrade = update.Data.LastTradeId == null ? null : new SharedUserTrade(update.Data.Symbol, update.Data.OrderId, update.Data.LastTradeId, update.Data.LastTradeQuantity, update.Data.LastTradePrice, update.Data.LastTradeTime!.Value)
                         {
                             Role = update.Data.LastTradeRole == Enums.TradeRole.Taker ? SharedRole.Taker : SharedRole.Maker

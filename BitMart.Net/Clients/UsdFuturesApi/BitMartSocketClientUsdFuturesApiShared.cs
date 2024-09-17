@@ -33,8 +33,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             if (validationError != null)
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
-#warning What is the price range?
-            var result = await SubscribeToTickerUpdatesAsync(update => handler(update.AsExchangeEvent<IEnumerable<SharedSpotTicker>>(Exchange, new[] { new SharedSpotTicker(update.Data.Symbol, update.Data.LastPrice, null, null, update.Data.Volume24h, update.Data.PriceRange) })), ct).ConfigureAwait(false);
+            var result = await SubscribeToTickerUpdatesAsync(update => handler(update.AsExchangeEvent<IEnumerable<SharedSpotTicker>>(Exchange, new[] { new SharedSpotTicker(update.Data.Symbol, update.Data.LastPrice, null, null, update.Data.Volume24h, Math.Round(update.Data.PriceRange * 100, 2)) })), ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }
@@ -54,7 +53,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 if (update.Symbol != symbol)
                     return;
                 
-                handler(update.AsExchangeEvent(Exchange, new SharedSpotTicker(update.Data.Symbol, update.Data.LastPrice, null, null, update.Data.Volume24h, update.Data.PriceRange)));
+                handler(update.AsExchangeEvent(Exchange, new SharedSpotTicker(update.Data.Symbol, update.Data.LastPrice, null, null, update.Data.Volume24h, Math.Round(update.Data.PriceRange * 100, 2))));
             }, ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
@@ -139,22 +138,6 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         }
         #endregion
 
-        #region Order Book client
-        // Order book only sends one side at a time
-        //SubscribeOrderBookOptions IOrderBookSocketClient.SubscribeOrderBookOptions { get; } = new SubscribeOrderBookOptions(false, new[] { 5, 20, 50 });
-        //async Task<ExchangeResult<UpdateSubscription>> IOrderBookSocketClient.SubscribeToOrderBookUpdatesAsync(SubscribeOrderBookRequest request, Action<ExchangeEvent<SharedOrderBook>> handler, CancellationToken ct)
-        //{
-        //    var validationError = ((IOrderBookSocketClient)this).SubscribeOrderBookOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedApiTypes);
-        //    if (validationError != null)
-        //        return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
-
-        //    var symbol = request.Symbol.GetSymbol(FormatSymbol);
-        //    var result = await SubscribeToOrderBookUpdatesAsync(symbol, request.Limit ?? 20, update => handler(update.AsExchangeEvent(Exchange, new SharedOrderBook(update.Data.Depths.Asks, update.Data.Bids))), ct).ConfigureAwait(false);
-
-        //    return new ExchangeResult<UpdateSubscription>(Exchange, result);
-        //}
-        #endregion
-
         #region Futures Order client
 
         SubscriptionOptions<SubscribeFuturesOrderRequest> IFuturesOrderSocketClient.SubscribeFuturesOrderOptions { get; } = new SubscriptionOptions<SubscribeFuturesOrderRequest>(false);
@@ -177,11 +160,16 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                         ClientOrderId = x.Order.ClientOrderId?.ToString(),
                         Quantity = x.Order.Quantity,
                         QuantityFilled = x.Order.QuantityFilled,
-                        AveragePrice = x.Order.AveragePrice,
+                        AveragePrice = x.Order.AveragePrice == 0 ? null : x.Order.AveragePrice,
                         UpdateTime = x.Order.UpdateTime,
                         Price = x.Order.Price,
                         Leverage = x.Order.Leverage,
+                        PositionSide = (x.Order.Side == Enums.FuturesSide.SellCloseLong || x.Order.Side == Enums.FuturesSide.BuyOpenLong) ? SharedPositionSide.Long : SharedPositionSide.Short,
                         LastTrade = x.Order.LastTrade == null ? null : new SharedUserTrade(x.Order.Symbol, x.Order.OrderId, x.Order.LastTrade.TradeId.ToString(), x.Order.LastTrade.Quantity, x.Order.LastTrade.Price, x.Order.UpdateTime!.Value)
+                        {
+                            Fee = x.Order.LastTrade.Fee,
+                            FeeAsset = x.Order.LastTrade.FeeAsset
+                        }
                     }
                 ))),
                 ct: ct).ConfigureAwait(false);

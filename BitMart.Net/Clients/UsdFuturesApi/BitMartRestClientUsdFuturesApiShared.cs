@@ -38,7 +38,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedBalance>>(Exchange, default);
 
-            return result.AsExchangeResult<IEnumerable<SharedBalance>>(Exchange, result.Data.Select(x => new SharedBalance(x.Asset, x.AvailableBalance, x.Equity)));
+            return result.AsExchangeResult<IEnumerable<SharedBalance>>(Exchange, result.Data.Select(x => new SharedBalance(x.Asset, x.AvailableBalance, x.Equity)).ToArray());
         }
 
         #endregion
@@ -91,13 +91,17 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             if (!resultTicker)
                 return resultTicker.AsExchangeResult<IEnumerable<SharedFuturesTicker>>(Exchange, default);
 
-            return resultTicker.AsExchangeResult<IEnumerable<SharedFuturesTicker>>(Exchange, resultTicker.Data.Select(x =>
+            var data = resultTicker.Data;
+            if (request.ApiType != null)
+                data = data.Where(x => request.ApiType == ApiType.PerpetualLinear ? x.ProductType == ContractType.Perpetual : x.ProductType == ContractType.Futures);
+
+            return resultTicker.AsExchangeResult<IEnumerable<SharedFuturesTicker>>(Exchange, data.Select(x =>
              new SharedFuturesTicker(x.Symbol, x.LastPrice ?? 0, x.HighPrice ?? 0, x.LowPrice ?? 0, x.Volume24h, x.Change24h)
              {
                  FundingRate = x.FundingRate,
                  IndexPrice = x.IndexPrice
              }
-            ));
+            ).ToArray());
         }
 
         #endregion
@@ -115,8 +119,10 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             if (!result)
                 return result.AsExchangeResult<IEnumerable<SharedFuturesSymbol>>(Exchange, default);
 
-            var data = result.Data.Where(x => request.ApiType == ApiType.PerpetualLinear ? x.ProductType == ContractType.Perpetual : x.ProductType != ContractType.Perpetual);
-            return result.AsExchangeResult(Exchange, data.Select(s => new SharedFuturesSymbol(s.ProductType == ContractType.Perpetual ? SharedSymbolType.PerpetualLinear : SharedSymbolType.DeliveryLinear, s.BaseAsset, s.QuoteAsset, s.Symbol, true)
+            var data = result.Data;
+            if (request.ApiType != null)
+                data = data.Where(x => request.ApiType == ApiType.PerpetualLinear ? x.ProductType == ContractType.Perpetual : x.ProductType != ContractType.Perpetual);
+            return result.AsExchangeResult<IEnumerable<SharedFuturesSymbol>>(Exchange, data.Select(s => new SharedFuturesSymbol(s.ProductType == ContractType.Perpetual ? SharedSymbolType.PerpetualLinear : SharedSymbolType.DeliveryLinear, s.BaseAsset, s.QuoteAsset, s.Symbol, true)
             {
                 MinTradeQuantity = s.MinQuantity,
                 DeliveryTime = s.SettleTime,
@@ -124,7 +130,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 QuantityStep = s.QuantityPrecision,
                 ContractSize = s.ContractQuantity,
                 MaxTradeQuantity = s.MaxQuantity
-            }));
+            }).ToArray());
         }
 
         #endregion
@@ -146,31 +152,28 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedKline>>(Exchange, validationError);
 
-            // Determine page token
-            DateTime? fromTimestamp = null;
+            // Determine pagination
+            // Data is normally returned oldest first, so to do newest first pagination we have to do some calc
+            DateTime endTime = RoundDown(request.EndTime ?? DateTime.UtcNow, TimeSpan.FromSeconds((int)interval));
             if (pageToken is DateTimeToken dateTimeToken)
-                fromTimestamp = dateTimeToken.LastTime;
+                endTime = dateTimeToken.LastTime;
 
-            var startTime = request.StartTime;
-            var endTime = request.EndTime;
-            var apiLimit = 1000;
-
-            // API returns the newest data first if the timespan is bigger than the api limit of 1000 results
-            // So we need to request the first 1000 from the start time, then the 1000 after that etc
-            if (request.StartTime != null)
+            var limit = request.Limit ?? 1000;
+            DateTime startTime = request.StartTime ?? endTime.AddSeconds(-((int)interval) * limit);
+            if (startTime == null || startTime < endTime)
             {
-                // Not paginated, check if the data will fit
-                var seconds = apiLimit * (int)request.Interval;
-                var maxEndTime = (fromTimestamp ?? request.StartTime).Value.AddSeconds(seconds);
-                if (maxEndTime < endTime)
-                    endTime = maxEndTime;
+                var offset = (int)interval * (limit - 1);
+                startTime = endTime.AddSeconds(-offset);
             }
+
+            if (startTime < request.StartTime)
+                startTime = request.StartTime.Value;
 
             var result = await ExchangeData.GetKlinesAsync(
                 request.Symbol.GetSymbol(FormatSymbol),
                 interval,
-                fromTimestamp ?? request.StartTime ?? DateTime.UtcNow.AddSeconds(-(request.Limit ?? 100) * (int)interval),
-                endTime ?? DateTime.UtcNow,
+                startTime,
+                endTime,
                 ct: ct
                 ).ConfigureAwait(false);
             if (!result)
@@ -178,14 +181,16 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
             // Get next token
             DateTimeToken? nextToken = null;
-            if (request.StartTime != null && result.Data.Any())
+            var resultCount = result.Data.Count();
+            if (resultCount == limit || resultCount == limit - 1)
             {
-                var maxOpenTime = result.Data.Max(x => x.Timestamp!.Value);
-                if (maxOpenTime < request.EndTime!.Value.AddSeconds(-(int)request.Interval))
-                    nextToken = new DateTimeToken(maxOpenTime.AddSeconds((int)interval));
+                var minOpenTime = result.Data.Min(x => x.Timestamp!.Value);
+                if (request.StartTime == null || minOpenTime > request.StartTime.Value)
+                    nextToken = new DateTimeToken(minOpenTime.AddSeconds(-(int)(interval - 1)));
+                //nextToken = new DateTimeToken(result.Data.Min(x => x.Timestamp!.Value));
             }
 
-            return result.AsExchangeResult(Exchange, result.Data.Select(x => new SharedKline(x.Timestamp!.Value, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.Volume)), nextToken);
+            return result.AsExchangeResult<IEnumerable<SharedKline>>(Exchange, result.Data.Reverse().Select(x => new SharedKline(x.Timestamp!.Value, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.Volume)).ToArray(), nextToken);
         }
 
         #endregion
@@ -205,9 +210,12 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             if (!result)
                 return result.AsExchangeResult<SharedLeverage>(Exchange, default);
 
-            var position = result.Data.SingleOrDefault(x => x.PositionSide == (request.Side == SharedPositionSide.Short ? PositionSide.Short : PositionSide.Long));
-
-            return result.AsExchangeResult(Exchange, new SharedLeverage(position?.Leverage ?? 0));
+            var position = result.Data.FirstOrDefault(x => x.PositionSide == (request.Side == SharedPositionSide.Short ? PositionSide.Short : PositionSide.Long)) ?? result.Data.First();
+            
+            return result.AsExchangeResult(Exchange, new SharedLeverage(position.Leverage)
+            {
+                MarginMode = position.MarginType == MarginType.CrossMargin ? SharedMarginMode.Cross : SharedMarginMode.Isolated
+            });
         }
 
         SetLeverageOptions ILeverageRestClient.SetLeverageOptions { get; } = new SetLeverageOptions(false);
@@ -285,16 +293,22 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 SharedTimeInForce.FillOrKill
             },
             new SharedQuantitySupport(
-                SharedQuantityType.BaseAsset,
-                SharedQuantityType.BaseAsset,
-                SharedQuantityType.BaseAsset,
-                SharedQuantityType.BaseAsset));
+                SharedQuantityType.Contracts,
+                SharedQuantityType.Contracts,
+                SharedQuantityType.Contracts,
+                SharedQuantityType.Contracts));
+
+        SharedFeeAssetType IFuturesOrderRestClient.FuturesFeeAssetType => SharedFeeAssetType.QuoteAsset;
+        SharedFeeDeductionType IFuturesOrderRestClient.FuturesFeeDeductionType => SharedFeeDeductionType.AddToCost;
 
         async Task<ExchangeWebResult<SharedId>> IFuturesOrderRestClient.PlaceFuturesOrderAsync(PlaceFuturesOrderRequest request, CancellationToken ct)
         {
             var validationError = ((IFuturesOrderRestClient)this).PlaceFuturesOrderOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedApiTypes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
+
+            if (request.PositionSide == null)
+                return new ExchangeWebResult<SharedId>(Exchange, new ServerError("PositionSide parameter missing"));
 
             var result = await Trading.PlaceOrderAsync(
                 request.Symbol.GetSymbol(FormatSymbol),
@@ -304,7 +318,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 price: request.Price,
                 marginType: request.MarginMode == null ? null : request.MarginMode == SharedMarginMode.Isolated ? MarginType.IsolatedMargin : MarginType.CrossMargin,
                 orderMode: GetOrderMode(request.OrderType, request.TimeInForce),
-                clientOrderId: request.ClientOrderId).ConfigureAwait(false);
+                clientOrderId: request.ClientOrderId,
+                ct: ct).ConfigureAwait(false);
 
             if (!result)
                 return result.AsExchangeResult<SharedId>(Exchange, default);
@@ -319,7 +334,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             if (validationError != null)
                 return new ExchangeWebResult<SharedFuturesOrder>(Exchange, validationError);
 
-            var order = await Trading.GetOrderAsync(request.Symbol.GetSymbol(FormatSymbol), request.OrderId).ConfigureAwait(false);
+            var order = await Trading.GetOrderAsync(request.Symbol.GetSymbol(FormatSymbol), request.OrderId, ct: ct).ConfigureAwait(false);
             if (!order)
                 return order.AsExchangeResult<SharedFuturesOrder>(Exchange, default);
 
@@ -332,10 +347,11 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 order.Data.CreateTime)
             {
                 ClientOrderId = order.Data.ClientOrderId,
-                AveragePrice = order.Data.AveragePrice,
+                AveragePrice = order.Data.AveragePrice == 0 ? null : order.Data.AveragePrice,
                 Price = order.Data.Price,
                 Quantity = order.Data.Quantity,
                 QuantityFilled = order.Data.QuantityFilled,
+                Leverage = order.Data.Leverage,
                 UpdateTime = order.Data.UpdateTime,
                 PositionSide = (order.Data.Side == FuturesSide.SellCloseLong || order.Data.Side == FuturesSide.BuyOpenLong) ? SharedPositionSide.Long : SharedPositionSide.Short,
             });
@@ -349,11 +365,11 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 return new ExchangeWebResult<IEnumerable<SharedFuturesOrder>>(Exchange, validationError);
 
             var symbol = request.Symbol?.GetSymbol(FormatSymbol);
-            var orders = await Trading.GetOpenOrdersAsync(symbol).ConfigureAwait(false);
+            var orders = await Trading.GetOpenOrdersAsync(symbol, ct: ct).ConfigureAwait(false);
             if (!orders)
                 return orders.AsExchangeResult<IEnumerable<SharedFuturesOrder>>(Exchange, default);
 
-            return orders.AsExchangeResult(Exchange, orders.Data.Select(x => new SharedFuturesOrder(
+            return orders.AsExchangeResult<IEnumerable<SharedFuturesOrder>>(Exchange, orders.Data.Select(x => new SharedFuturesOrder(
                 x.Symbol,
                 x.OrderId,
                 ParseOrderType(x.OrderType),
@@ -362,40 +378,33 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 x.CreateTime)
             {
                 ClientOrderId = x.ClientOrderId,
-                AveragePrice = x.AveragePrice,
+                AveragePrice = x.AveragePrice == 0 ? null : x.AveragePrice,
                 Price = x.Price,
                 Quantity = x.Quantity,
                 QuantityFilled = x.QuantityFilled,
+                Leverage = x.Leverage,
                 UpdateTime = x.UpdateTime,
                 PositionSide = (x.Side == FuturesSide.SellCloseLong || x.Side == FuturesSide.BuyOpenLong) ? SharedPositionSide.Long : SharedPositionSide.Short,
-            }));
+            }).ToArray());
         }
 
-        PaginatedEndpointOptions<GetClosedOrdersRequest> IFuturesOrderRestClient.GetClosedFuturesOrdersOptions { get; } = new PaginatedEndpointOptions<GetClosedOrdersRequest>(SharedPaginationType.Ascending, true);
+        PaginatedEndpointOptions<GetClosedOrdersRequest> IFuturesOrderRestClient.GetClosedFuturesOrdersOptions { get; } = new PaginatedEndpointOptions<GetClosedOrdersRequest>(SharedPaginationType.NotSupported, true);
         async Task<ExchangeWebResult<IEnumerable<SharedFuturesOrder>>> IFuturesOrderRestClient.GetClosedFuturesOrdersAsync(GetClosedOrdersRequest request, INextPageToken? pageToken, CancellationToken ct)
         {
             var validationError = ((IFuturesOrderRestClient)this).GetClosedFuturesOrdersOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedApiTypes);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedFuturesOrder>>(Exchange, validationError);
 
-            // Determine page token
-            DateTime? fromTimestamp = null;
-            if (pageToken is DateTimeToken dateTimeToken)
-                fromTimestamp = dateTimeToken.LastTime;
-
             // Get data
+            var endTime = request.EndTime;
             var orders = await Trading.GetClosedOrdersAsync(request.Symbol.GetSymbol(FormatSymbol),
-                startTime: fromTimestamp ?? request.StartTime,
-                endTime: request.EndTime).ConfigureAwait(false);
+                startTime: request.StartTime ?? endTime?.AddDays(-7),
+                endTime: endTime,
+                ct: ct).ConfigureAwait(false);
             if (!orders)
                 return orders.AsExchangeResult<IEnumerable<SharedFuturesOrder>>(Exchange, default);
 
-            // Get next token
-            DateTimeToken? nextToken = null;
-            if (orders.Data.Any())
-                nextToken = new DateTimeToken(orders.Data.Max(o => o.CreateTime));
-
-            return orders.AsExchangeResult(Exchange, orders.Data.Select(x => new SharedFuturesOrder(
+            return orders.AsExchangeResult<IEnumerable<SharedFuturesOrder>>(Exchange, orders.Data.Select(x => new SharedFuturesOrder(
                 x.Symbol,
                 x.OrderId,
                 ParseOrderType(x.OrderType),
@@ -404,13 +413,14 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 x.CreateTime)
             {
                 ClientOrderId = x.ClientOrderId,
-                AveragePrice = x.AveragePrice,
+                AveragePrice = x.AveragePrice == 0 ? null : x.AveragePrice,
                 Price = x.Price,
                 Quantity = x.Quantity,
                 QuantityFilled = x.QuantityFilled,
                 UpdateTime = x.UpdateTime,
+                Leverage = x.Leverage,
                 PositionSide = (x.Side == FuturesSide.SellCloseLong || x.Side == FuturesSide.BuyOpenLong) ? SharedPositionSide.Long : SharedPositionSide.Short,
-            }));
+            }).ToArray());
         }
 
         EndpointOptions<GetOrderTradesRequest> IFuturesOrderRestClient.GetFuturesOrderTradesOptions { get; } = new EndpointOptions<GetOrderTradesRequest>(true)
@@ -426,11 +436,11 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             if (!long.TryParse(request.OrderId, out var orderId))
                 return new ExchangeWebResult<IEnumerable<SharedUserTrade>>(Exchange, new ArgumentError("Invalid order id"));
 
-            var orders = await Trading.GetUserTradesAsync(request.Symbol.GetSymbol(FormatSymbol)).ConfigureAwait(false);
+            var orders = await Trading.GetUserTradesAsync(request.Symbol.GetSymbol(FormatSymbol), ct: ct).ConfigureAwait(false);
             if (!orders)
                 return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, default);
 
-            return orders.AsExchangeResult(Exchange, orders.Data.Where(x => x.OrderId == request.OrderId).Select(x => new SharedUserTrade(
+            return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, orders.Data.Where(x => x.OrderId == request.OrderId).Select(x => new SharedUserTrade(
                 x.Symbol,
                 x.OrderId.ToString(),
                 x.TradeId,
@@ -442,36 +452,26 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 Quantity = x.Quantity,
                 Fee = x.Fee,
                 Role = x.Role == TradeRole.Maker ? SharedRole.Maker : SharedRole.Taker
-            }));
+            }).ToArray());
         }
 
-        PaginatedEndpointOptions<GetUserTradesRequest> IFuturesOrderRestClient.GetFuturesUserTradesOptions { get; } = new PaginatedEndpointOptions<GetUserTradesRequest>(SharedPaginationType.Ascending, true);
+        PaginatedEndpointOptions<GetUserTradesRequest> IFuturesOrderRestClient.GetFuturesUserTradesOptions { get; } = new PaginatedEndpointOptions<GetUserTradesRequest>(SharedPaginationType.NotSupported, true);
         async Task<ExchangeWebResult<IEnumerable<SharedUserTrade>>> IFuturesOrderRestClient.GetFuturesUserTradesAsync(GetUserTradesRequest request, INextPageToken? pageToken, CancellationToken ct)
         {
             var validationError = ((IFuturesOrderRestClient)this).GetFuturesUserTradesOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedApiTypes);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedUserTrade>>(Exchange, validationError);
 
-            // Determine page token
-            DateTime? fromTime = null;
-            if (pageToken is DateTimeToken timeToken)
-                fromTime = timeToken.LastTime;
-
-#warning check result data sorting, oldest or newest first for pagination
             // Get data
             var orders = await Trading.GetUserTradesAsync(request.Symbol.GetSymbol(FormatSymbol),
-                startTime: fromTime ?? request.StartTime,
-                endTime: request.EndTime
+                startTime: request.StartTime,
+                endTime: request.EndTime,
+                ct: ct
                 ).ConfigureAwait(false);
             if (!orders)
                 return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, default);
 
-            // Get next token
-            FromIdToken? nextToken = null;
-            if (orders.Data.Any())
-                nextToken = new FromIdToken(orders.Data.Max(o => o.CreateTime).AddMilliseconds(1).ToString());
-
-            return orders.AsExchangeResult(Exchange, orders.Data.Select(x => new SharedUserTrade(
+            return orders.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, orders.Data.Select(x => new SharedUserTrade(
                 x.Symbol,
                 x.OrderId.ToString(),
                 x.TradeId.ToString(),
@@ -483,7 +483,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 Quantity = x.Quantity,
                 Fee = x.Fee,
                 Role = x.Role == TradeRole.Maker ? SharedRole.Maker : SharedRole.Taker
-            }), nextToken);
+            }).ToArray());
         }
 
         EndpointOptions<CancelOrderRequest> IFuturesOrderRestClient.CancelFuturesOrderOptions { get; } = new EndpointOptions<CancelOrderRequest>(true);
@@ -493,7 +493,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             if (validationError != null)
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
-            var order = await Trading.CancelOrderAsync(request.Symbol.GetSymbol(FormatSymbol), request.OrderId).ConfigureAwait(false);
+            var order = await Trading.CancelOrderAsync(request.Symbol.GetSymbol(FormatSymbol), request.OrderId, ct: ct).ConfigureAwait(false);
             if (!order)
                 return order.AsExchangeResult<SharedId>(Exchange, default);
 
@@ -503,7 +503,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         EndpointOptions<GetPositionsRequest> IFuturesOrderRestClient.GetPositionsOptions { get; } = new EndpointOptions<GetPositionsRequest>(true);
         async Task<ExchangeWebResult<IEnumerable<SharedPosition>>> IFuturesOrderRestClient.GetPositionsAsync(GetPositionsRequest request, CancellationToken ct)
         {
-            var validationError = ((IFuturesOrderRestClient)this).GetPositionsOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedApiTypes);
+            var validationError = ((IFuturesOrderRestClient)this).GetPositionsOptions.ValidateRequest(Exchange, request, request.Symbol?.ApiType ?? request.ApiType, SupportedApiTypes);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedPosition>>(Exchange, validationError);
 
@@ -518,7 +518,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 PositionSide = x.PositionSide == PositionSide.Short ? SharedPositionSide.Short : SharedPositionSide.Long,
                 Leverage = x.Leverage,
                 MaintenanceMargin = x.MaintenanceMargin
-            }).ToList());
+            }).ToArray());
         }
 
         EndpointOptions<ClosePositionRequest> IFuturesOrderRestClient.ClosePositionOptions { get; } = new EndpointOptions<ClosePositionRequest>(true)
@@ -593,23 +593,11 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
         #endregion
 
-        #region Position Mode client
-
-        GetPositionModeOptions IPositionModeRestClient.GetPositionModeOptions { get; } = new GetPositionModeOptions(false);
-        async Task<ExchangeWebResult<SharedPositionModeResult>> IPositionModeRestClient.GetPositionModeAsync(GetPositionModeRequest request, CancellationToken ct)
+        public static DateTime RoundDown(DateTime dt, TimeSpan d)
         {
-            // Only support one mode, so never actually needs to change
-            return new ExchangeWebResult<SharedPositionModeResult>(Exchange, new WebCallResult<SharedPositionModeResult>(
-                null, null, null, null, null, null, null, null, null, null, ResultDataSource.Server, new SharedPositionModeResult(SharedPositionMode.LongShort), null));
+            var delta = dt.Ticks % d.Ticks;
+            return new DateTime(dt.Ticks - delta, dt.Kind);
         }
 
-        SetPositionModeOptions IPositionModeRestClient.SetPositionModeOptions { get; } = new SetPositionModeOptions(false, true, false);
-        async Task<ExchangeWebResult<SharedPositionModeResult>> IPositionModeRestClient.SetPositionModeAsync(SetPositionModeRequest request, CancellationToken ct)
-        {
-            // Only support one mode, so never actually needs to change
-            return new ExchangeWebResult<SharedPositionModeResult>(Exchange, new WebCallResult<SharedPositionModeResult>(
-                null, null, null, null, null, null, null, null, null, null, ResultDataSource.Server, new SharedPositionModeResult(request.Mode), null));
-        }
-        #endregion
     }
 }

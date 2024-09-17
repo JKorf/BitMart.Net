@@ -197,6 +197,9 @@ namespace BitMart.Net.Clients.SpotApi
                 SharedQuantityType.BaseAndQuoteAsset,
                 SharedQuantityType.BaseAndQuoteAsset));
 
+        SharedFeeAssetType ISpotOrderRestClient.SpotFeeAssetType => SharedFeeAssetType.QuoteAsset;
+        SharedFeeDeductionType ISpotOrderRestClient.SpotFeeDeductionType => SharedFeeDeductionType.DeductFromTrade;
+
         async Task<ExchangeWebResult<SharedId>> ISpotOrderRestClient.PlaceSpotOrderAsync(PlaceSpotOrderRequest request, CancellationToken ct)
         {
             var validationError = ((ISpotOrderRestClient)this).PlaceSpotOrderOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedApiTypes);
@@ -238,12 +241,12 @@ namespace BitMart.Net.Clients.SpotApi
                 order.Data.CreateTime)
             {
                 ClientOrderId = order.Data.ClientOrderId,
-                Price = order.Data.Price,
+                Price = order.Data.Price == 0 ? null : order.Data.Price,
                 Quantity = order.Data.Quantity,
                 QuantityFilled = order.Data.QuantityFilled,
                 QuoteQuantity = order.Data.QuoteQuantity,
                 QuoteQuantityFilled = order.Data.QuoteQuantityFilled,
-                AveragePrice = order.Data.PriceAverage,
+                AveragePrice = order.Data.PriceAverage == 0 ? null : order.Data.PriceAverage,
                 UpdateTime = order.Data.UpdateTime,
                 TimeInForce = ParseTimeInForce(order.Data.OrderType)
             });
@@ -270,12 +273,12 @@ namespace BitMart.Net.Clients.SpotApi
                 x.CreateTime)
             {
                 ClientOrderId = x.ClientOrderId,
-                Price = x.Price,
+                Price = x.Price == 0 ? null : x.Price,
                 Quantity = x.Quantity,
                 QuantityFilled = x.QuantityFilled,
                 QuoteQuantity = x.QuoteQuantity,
                 QuoteQuantityFilled = x.QuoteQuantityFilled,
-                AveragePrice = x.PriceAverage,
+                AveragePrice = x.PriceAverage == 0 ? null : x.PriceAverage,
                 UpdateTime = x.UpdateTime,
                 TimeInForce = ParseTimeInForce(x.OrderType)
             }).ToArray());
@@ -315,12 +318,12 @@ namespace BitMart.Net.Clients.SpotApi
                 x.CreateTime)
             {
                 ClientOrderId = x.ClientOrderId,
-                Price = x.Price,
+                Price = x.Price == 0 ? null : x.Price,
                 Quantity = x.Quantity,
                 QuantityFilled = x.QuantityFilled,
                 QuoteQuantity = x.QuoteQuantity,
                 QuoteQuantityFilled = x.QuoteQuantityFilled,
-                AveragePrice = x.PriceAverage,
+                AveragePrice = x.PriceAverage == 0 ? null : x.PriceAverage,
                 UpdateTime = x.UpdateTime,
                 TimeInForce = ParseTimeInForce(x.OrderType)
             }).ToArray(), nextToken);
@@ -513,7 +516,7 @@ namespace BitMart.Net.Clients.SpotApi
 
             return depositAddresses.AsExchangeResult<IEnumerable<SharedDepositAddress>>(Exchange, new[] { new SharedDepositAddress(depositAddresses.Data.Asset.Split(new[] { "-" }, StringSplitOptions.RemoveEmptyEntries)[0], depositAddresses.Data.Address)
             {
-                Tag = depositAddresses.Data.AddressMemo,
+                TagOrMemo = depositAddresses.Data.AddressMemo,
                 Network = depositAddresses.Data.Network
             }
             });
