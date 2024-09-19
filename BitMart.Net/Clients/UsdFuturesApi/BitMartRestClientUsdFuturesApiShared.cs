@@ -428,7 +428,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
         EndpointOptions<GetOrderTradesRequest> IFuturesOrderRestClient.GetFuturesOrderTradesOptions { get; } = new EndpointOptions<GetOrderTradesRequest>(true)
         {
-            ExchangeRequestInfo = "Can only request trades for the past 7 days"
+            RequestNotes = "Can only request trades for the past 7 days"
         };
         async Task<ExchangeWebResult<IEnumerable<SharedUserTrade>>> IFuturesOrderRestClient.GetFuturesOrderTradesAsync(GetOrderTradesRequest request, CancellationToken ct)
         {
