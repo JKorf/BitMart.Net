@@ -23,7 +23,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
     internal partial class BitMartSocketClientUsdFuturesApi : IBitMartSocketClientUsdFuturesApiShared
     {
         public string Exchange => BitMartExchange.ExchangeName;
-        public ApiType[] SupportedApiTypes { get; } = new[] { ApiType.PerpetualLinear, ApiType.DeliveryLinear };
+        public TradingMode[] SupportedApiTypes { get; } = new[] { TradingMode.PerpetualLinear, TradingMode.DeliveryLinear };
 
         public void SetDefaultExchangeParameter(string key, object value) => ExchangeParameters.SetStaticParameter(Exchange, key, value);
         public void ResetDefaultExchangeParameters() => ExchangeParameters.ResetStaticParameters();

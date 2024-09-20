@@ -21,7 +21,7 @@ namespace BitMart.Net.Clients.SpotApi
     internal partial class BitMartRestClientSpotApi : IBitMartRestClientSpotApiShared
     {
         public string Exchange => BitMartExchange.ExchangeName;
-        public ApiType[] SupportedApiTypes { get; } = new[] { ApiType.Spot };
+        public TradingMode[] SupportedApiTypes { get; } = new[] { TradingMode.Spot };
 
         public void SetDefaultExchangeParameter(string key, object value) => ExchangeParameters.SetStaticParameter(Exchange, key, value);
         public void ResetDefaultExchangeParameters() => ExchangeParameters.ResetStaticParameters();
@@ -70,7 +70,7 @@ namespace BitMart.Net.Clients.SpotApi
                 ct: ct
                 ).ConfigureAwait(false);
             if (!result)
-                return result.AsExchangeResult<IEnumerable<SharedKline>>(Exchange, default);
+                return result.AsExchangeResult<IEnumerable<SharedKline>>(Exchange, null, default);
 
             // Get next token
             DateTimeToken? nextToken = null;
@@ -82,7 +82,7 @@ namespace BitMart.Net.Clients.SpotApi
                 nextToken = new DateTimeToken(result.Data.Min(x => x.OpenTime));
             }
 
-            return result.AsExchangeResult<IEnumerable<SharedKline>>(Exchange, result.Data.Reverse().Select(x => new SharedKline(x.OpenTime, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.Volume)).ToArray(), nextToken);
+            return result.AsExchangeResult<IEnumerable<SharedKline>>(Exchange, request.Symbol.ApiType, result.Data.Reverse().Select(x => new SharedKline(x.OpenTime, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.Volume)).ToArray(), nextToken);
         }
 
         #endregion
@@ -92,15 +92,15 @@ namespace BitMart.Net.Clients.SpotApi
         EndpointOptions<GetSymbolsRequest> ISpotSymbolRestClient.GetSpotSymbolsOptions { get; } = new EndpointOptions<GetSymbolsRequest>(false);
         async Task<ExchangeWebResult<IEnumerable<SharedSpotSymbol>>> ISpotSymbolRestClient.GetSpotSymbolsAsync(GetSymbolsRequest request, CancellationToken ct)
         {
-            var validationError = ((ISpotSymbolRestClient)this).GetSpotSymbolsOptions.ValidateRequest(Exchange, request, ApiType.Spot, SupportedApiTypes);
+            var validationError = ((ISpotSymbolRestClient)this).GetSpotSymbolsOptions.ValidateRequest(Exchange, request, TradingMode.Spot, SupportedApiTypes);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedSpotSymbol>>(Exchange, validationError);
 
             var result = await ExchangeData.GetSymbolsAsync(ct: ct).ConfigureAwait(false);
             if (!result)
-                return result.AsExchangeResult<IEnumerable<SharedSpotSymbol>>(Exchange, default);
+                return result.AsExchangeResult<IEnumerable<SharedSpotSymbol>>(Exchange, null, default);
 
-            return result.AsExchangeResult<IEnumerable<SharedSpotSymbol>>(Exchange, result.Data.Select(s => new SharedSpotSymbol(s.BaseAsset, s.QuoteAsset, s.Symbol, s.TradeStatus == SymbolStatus.Trading)
+            return result.AsExchangeResult<IEnumerable<SharedSpotSymbol>>(Exchange, TradingMode.Spot, result.Data.Select(s => new SharedSpotSymbol(s.BaseAsset, s.QuoteAsset, s.Symbol, s.TradeStatus == SymbolStatus.Trading)
             {
                 MinTradeQuantity = s.BaseMinQuantity,
                 PriceDecimals = s.PriceMaxPrecision,
@@ -120,23 +120,23 @@ namespace BitMart.Net.Clients.SpotApi
 
             var result = await ExchangeData.GetTickerAsync(request.Symbol.GetSymbol(FormatSymbol), ct).ConfigureAwait(false);
             if (!result)
-                return result.AsExchangeResult<SharedSpotTicker>(Exchange, default);
+                return result.AsExchangeResult<SharedSpotTicker>(Exchange, null, default);
 
-            return result.AsExchangeResult(Exchange, new SharedSpotTicker(result.Data.Symbol, result.Data.LastPrice, result.Data.HighPrice, result.Data.LowPrice, result.Data.Volume24h, result.Data.Change * 100));
+            return result.AsExchangeResult(Exchange, TradingMode.Spot, new SharedSpotTicker(result.Data.Symbol, result.Data.LastPrice, result.Data.HighPrice, result.Data.LowPrice, result.Data.Volume24h, result.Data.Change * 100));
         }
 
         EndpointOptions<GetTickersRequest> ISpotTickerRestClient.GetSpotTickersOptions { get; } = new EndpointOptions<GetTickersRequest>(false);
         async Task<ExchangeWebResult<IEnumerable<SharedSpotTicker>>> ISpotTickerRestClient.GetSpotTickersAsync(GetTickersRequest request, CancellationToken ct)
         {
-            var validationError = ((ISpotTickerRestClient)this).GetSpotTickersOptions.ValidateRequest(Exchange, request, ApiType.Spot, SupportedApiTypes);
+            var validationError = ((ISpotTickerRestClient)this).GetSpotTickersOptions.ValidateRequest(Exchange, request, TradingMode.Spot, SupportedApiTypes);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedSpotTicker>>(Exchange, validationError);
 
             var result = await ExchangeData.GetTickersAsync(ct: ct).ConfigureAwait(false);
             if (!result)
-                return result.AsExchangeResult<IEnumerable<SharedSpotTicker>>(Exchange, default);
+                return result.AsExchangeResult<IEnumerable<SharedSpotTicker>>(Exchange, null, default);
 
-            return result.AsExchangeResult<IEnumerable<SharedSpotTicker>>(Exchange, result.Data.Select(x => new SharedSpotTicker(x.Symbol, x.LastPrice, x.HighPrice, x.LowPrice, x.Volume24h, x.Change * 100)).ToArray());
+            return result.AsExchangeResult<IEnumerable<SharedSpotTicker>>(Exchange, TradingMode.Spot, result.Data.Select(x => new SharedSpotTicker(x.Symbol, x.LastPrice, x.HighPrice, x.LowPrice, x.Volume24h, x.Change * 100)).ToArray());
         }
 
         #endregion
@@ -155,9 +155,9 @@ namespace BitMart.Net.Clients.SpotApi
                 limit: request.Limit,
                 ct: ct).ConfigureAwait(false);
             if (!result)
-                return result.AsExchangeResult<IEnumerable<SharedTrade>>(Exchange, default);
+                return result.AsExchangeResult<IEnumerable<SharedTrade>>(Exchange, null, default);
 
-            return result.AsExchangeResult<IEnumerable<SharedTrade>>(Exchange, result.Data.Select(x => new SharedTrade(x.Quantity, x.Price, x.Timestamp)).ToArray());
+            return result.AsExchangeResult<IEnumerable<SharedTrade>>(Exchange, request.Symbol.ApiType, result.Data.Select(x => new SharedTrade(x.Quantity, x.Price, x.Timestamp)).ToArray());
         }
 
         #endregion
@@ -173,9 +173,9 @@ namespace BitMart.Net.Clients.SpotApi
 
             var result = await Account.GetSpotBalancesAsync(ct: ct).ConfigureAwait(false);
             if (!result)
-                return result.AsExchangeResult<IEnumerable<SharedBalance>>(Exchange, default);
+                return result.AsExchangeResult<IEnumerable<SharedBalance>>(Exchange, null, default);
 
-            return result.AsExchangeResult<IEnumerable<SharedBalance>>(Exchange, result.Data.Select(x => new SharedBalance(x.Id, x.Available, x.Available + x.Frozen)).ToArray());
+            return result.AsExchangeResult<IEnumerable<SharedBalance>>(Exchange, TradingMode.Spot, result.Data.Select(x => new SharedBalance(x.Id, x.Available, x.Available + x.Frozen)).ToArray());
         }
 
         #endregion
@@ -216,12 +216,13 @@ namespace BitMart.Net.Clients.SpotApi
                 quantity: request.Quantity,
                 quoteQuantity: request.QuoteQuantity,
                 price: request.Price,
-                clientOrderId: request.ClientOrderId).ConfigureAwait(false);
+                clientOrderId: request.ClientOrderId,
+                ct: ct).ConfigureAwait(false);
 
             if (!result)
-                return result.AsExchangeResult<SharedId>(Exchange, default);
+                return result.AsExchangeResult<SharedId>(Exchange, null, default);
 
-            return result.AsExchangeResult(Exchange, new SharedId(result.Data.OrderId));
+            return result.AsExchangeResult(Exchange, request.Symbol.ApiType, new SharedId(result.Data.OrderId));
         }
 
         EndpointOptions<GetOrderRequest> ISpotOrderRestClient.GetSpotOrderOptions { get; } = new EndpointOptions<GetOrderRequest>(true);
@@ -231,11 +232,11 @@ namespace BitMart.Net.Clients.SpotApi
             if (validationError != null)
                 return new ExchangeWebResult<SharedSpotOrder>(Exchange, validationError);
 
-            var order = await Trading.GetOrderAsync(request.OrderId).ConfigureAwait(false);
+            var order = await Trading.GetOrderAsync(request.OrderId, ct: ct).ConfigureAwait(false);
             if (!order)
-                return order.AsExchangeResult<SharedSpotOrder>(Exchange, default);
+                return order.AsExchangeResult<SharedSpotOrder>(Exchange, null, default);
 
-            return order.AsExchangeResult(Exchange, new SharedSpotOrder(
+            return order.AsExchangeResult(Exchange, TradingMode.Spot, new SharedSpotOrder(
                 order.Data.Symbol,
                 order.Data.OrderId.ToString(),
                 ParseOrderType(order.Data.OrderType),
@@ -263,11 +264,11 @@ namespace BitMart.Net.Clients.SpotApi
                 return new ExchangeWebResult<IEnumerable<SharedSpotOrder>>(Exchange, validationError);
 
             var symbol = request.Symbol?.GetSymbol(FormatSymbol);
-            var orders = await Trading.GetOpenOrdersAsync(symbol).ConfigureAwait(false);
+            var orders = await Trading.GetOpenOrdersAsync(symbol, ct: ct).ConfigureAwait(false);
             if (!orders)
-                return orders.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, default);
+                return orders.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, null, default);
 
-            return orders.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, orders.Data.Select(x => new SharedSpotOrder(
+            return orders.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, TradingMode.Spot, orders.Data.Select(x => new SharedSpotOrder(
                 x.Symbol,
                 x.OrderId.ToString(),
                 ParseOrderType(x.OrderType),
@@ -287,7 +288,7 @@ namespace BitMart.Net.Clients.SpotApi
             }).ToArray());
         }
 
-        PaginatedEndpointOptions<GetClosedOrdersRequest> ISpotOrderRestClient.GetClosedSpotOrdersOptions { get; } = new PaginatedEndpointOptions<GetClosedOrdersRequest>(SharedPaginationType.Ascending, true);
+        PaginatedEndpointOptions<GetClosedOrdersRequest> ISpotOrderRestClient.GetClosedSpotOrdersOptions { get; } = new PaginatedEndpointOptions<GetClosedOrdersRequest>(SharedPaginationType.Descending, true);
         async Task<ExchangeWebResult<IEnumerable<SharedSpotOrder>>> ISpotOrderRestClient.GetClosedSpotOrdersAsync(GetClosedOrdersRequest request, INextPageToken? pageToken, CancellationToken ct)
         {
             var validationError = ((ISpotOrderRestClient)this).GetClosedSpotOrdersOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedApiTypes);
@@ -301,18 +302,20 @@ namespace BitMart.Net.Clients.SpotApi
 
             // Get data
             var orders = await Trading.GetClosedOrdersAsync(request.Symbol.GetSymbol(FormatSymbol),
+                SpotMode.Spot,
                 startTime: request.StartTime,
-                endTime: request.EndTime,
-                limit: request.Limit ?? 200).ConfigureAwait(false);
+                endTime: fromTimestamp ?? request.EndTime,
+                limit: request.Limit ?? 200,
+                ct: ct).ConfigureAwait(false);
             if (!orders)
-                return orders.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, default);
+                return orders.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, null, default);
 
             // Get next token
             DateTimeToken? nextToken = null;
             if (orders.Data.Count() == (request.Limit ?? 200))
-                nextToken = new DateTimeToken(orders.Data.Max(o => o.CreateTime));
+                nextToken = new DateTimeToken(orders.Data.Min(o => o.CreateTime).AddMilliseconds(-1));
 
-            return orders.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, orders.Data.Select(x => new SharedSpotOrder(
+            return orders.AsExchangeResult<IEnumerable<SharedSpotOrder>>(Exchange, TradingMode.Spot, orders.Data.Select(x => new SharedSpotOrder(
                 x.Symbol,
                 x.OrderId.ToString(),
                 ParseOrderType(x.OrderType),
@@ -339,11 +342,11 @@ namespace BitMart.Net.Clients.SpotApi
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedUserTrade>>(Exchange, validationError);
 
-            var trades = await Trading.GetOrderTradesAsync(request.OrderId).ConfigureAwait(false);
+            var trades = await Trading.GetOrderTradesAsync(request.OrderId, ct: ct).ConfigureAwait(false);
             if (!trades)
-                return trades.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, default);
+                return trades.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, null, default);
 
-            return trades.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, trades.Data.Select(x => new SharedUserTrade(
+            return trades.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, TradingMode.Spot, trades.Data.Select(x => new SharedUserTrade(
                 x.Symbol,
                 x.OrderId,
                 x.TradeId,
@@ -357,7 +360,7 @@ namespace BitMart.Net.Clients.SpotApi
             }).ToArray());
         }
 
-        PaginatedEndpointOptions<GetUserTradesRequest> ISpotOrderRestClient.GetSpotUserTradesOptions { get; } = new PaginatedEndpointOptions<GetUserTradesRequest>(SharedPaginationType.Ascending, true);
+        PaginatedEndpointOptions<GetUserTradesRequest> ISpotOrderRestClient.GetSpotUserTradesOptions { get; } = new PaginatedEndpointOptions<GetUserTradesRequest>(SharedPaginationType.Descending, true);
         async Task<ExchangeWebResult<IEnumerable<SharedUserTrade>>> ISpotOrderRestClient.GetSpotUserTradesAsync(GetUserTradesRequest request, INextPageToken? pageToken, CancellationToken ct)
         {
             var validationError = ((ISpotOrderRestClient)this).GetSpotUserTradesOptions.ValidateRequest(Exchange, request, request.Symbol.ApiType, SupportedApiTypes);
@@ -371,18 +374,19 @@ namespace BitMart.Net.Clients.SpotApi
 
             // Get data
             var trades = await Trading.GetUserTradesAsync(request.Symbol.GetSymbol(FormatSymbol),
-                startTime: fromTimestamp ?? request.StartTime,
-                endTime: request.EndTime,
-                limit: request.Limit ?? 200).ConfigureAwait(false);
+                startTime: request.StartTime,
+                endTime: fromTimestamp ?? request.EndTime,
+                limit: request.Limit ?? 200,
+                ct: ct).ConfigureAwait(false);
             if (!trades)
-                return trades.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, default);
+                return trades.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, null, default);
 
             // Get next token
             DateTimeToken? nextToken = null;
             if (trades.Data.Count() == (request.Limit ?? 200))
-                nextToken = new DateTimeToken(trades.Data.Max(o => o.CreateTime));
+                nextToken = new DateTimeToken(trades.Data.Min(o => o.CreateTime).AddMilliseconds(-1));
 
-            return trades.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, trades.Data.Select(x => new SharedUserTrade(
+            return trades.AsExchangeResult<IEnumerable<SharedUserTrade>>(Exchange, TradingMode.Spot, trades.Data.Select(x => new SharedUserTrade(
                 x.Symbol,
                 x.OrderId,
                 x.TradeId,
@@ -403,11 +407,11 @@ namespace BitMart.Net.Clients.SpotApi
             if (validationError != null)
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
-            var order = await Trading.CancelOrderAsync(request.Symbol.GetSymbol(FormatSymbol), request.OrderId).ConfigureAwait(false);
+            var order = await Trading.CancelOrderAsync(request.Symbol.GetSymbol(FormatSymbol), request.OrderId, ct: ct).ConfigureAwait(false);
             if (!order)
-                return order.AsExchangeResult<SharedId>(Exchange, default);
+                return order.AsExchangeResult<SharedId>(Exchange, null, default);
 
-            return order.AsExchangeResult(Exchange, new SharedId(request.OrderId));
+            return order.AsExchangeResult(Exchange, request.Symbol.ApiType, new SharedId(request.OrderId));
         }
 
         private SharedOrderStatus ParseOrderStatus(OrderStatus status)
@@ -450,19 +454,19 @@ namespace BitMart.Net.Clients.SpotApi
         EndpointOptions<GetAssetRequest> IAssetsRestClient.GetAssetOptions { get; } = new EndpointOptions<GetAssetRequest>(false);
         async Task<ExchangeWebResult<SharedAsset>> IAssetsRestClient.GetAssetAsync(GetAssetRequest request, CancellationToken ct)
         {
-            var validationError = ((IAssetsRestClient)this).GetAssetOptions.ValidateRequest(Exchange, request, ApiType.Spot, SupportedApiTypes);
+            var validationError = ((IAssetsRestClient)this).GetAssetOptions.ValidateRequest(Exchange, request, TradingMode.Spot, SupportedApiTypes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedAsset>(Exchange, validationError);
 
             var assets = await ExchangeData.GetAssetDepositWithdrawInfoAsync(ct: ct).ConfigureAwait(false);
             if (!assets)
-                return assets.AsExchangeResult<SharedAsset>(Exchange, default);
+                return assets.AsExchangeResult<SharedAsset>(Exchange, null, default);
 
             var asset = assets.Data.Where(x => x.Asset.Split(new[] { "-" }, StringSplitOptions.RemoveEmptyEntries)[0].Equals(request.Asset, StringComparison.InvariantCultureIgnoreCase)).ToList();
             if (asset == null)
                 return assets.AsExchangeError<SharedAsset>(Exchange, new ServerError("Asset not found"));
 
-            return assets.AsExchangeResult(Exchange, new SharedAsset(request.Asset)
+            return assets.AsExchangeResult(Exchange, TradingMode.Spot, new SharedAsset(request.Asset)
             {
                 Networks = asset.Select(x => new SharedAssetNetwork(x.Network)
                 {
@@ -478,15 +482,15 @@ namespace BitMart.Net.Clients.SpotApi
 
         async Task<ExchangeWebResult<IEnumerable<SharedAsset>>> IAssetsRestClient.GetAssetsAsync(GetAssetsRequest request, CancellationToken ct)
         {
-            var validationError = ((IAssetsRestClient)this).GetAssetsOptions.ValidateRequest(Exchange, request, ApiType.Spot, SupportedApiTypes);
+            var validationError = ((IAssetsRestClient)this).GetAssetsOptions.ValidateRequest(Exchange, request, TradingMode.Spot, SupportedApiTypes);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedAsset>>(Exchange, validationError);
 
             var assets = await ExchangeData.GetAssetDepositWithdrawInfoAsync(ct: ct).ConfigureAwait(false);
             if (!assets)
-                return assets.AsExchangeResult<IEnumerable<SharedAsset>>(Exchange, default);
+                return assets.AsExchangeResult<IEnumerable<SharedAsset>>(Exchange, null, default);
 
-            return assets.AsExchangeResult<IEnumerable<SharedAsset>>(Exchange, assets.Data.GroupBy(x => x.Asset.Split(new[] { "-" }, StringSplitOptions.RemoveEmptyEntries)[0]).Select(x => new SharedAsset(x.Key)
+            return assets.AsExchangeResult<IEnumerable<SharedAsset>>(Exchange, TradingMode.Spot, assets.Data.GroupBy(x => x.Asset.Split(new[] { "-" }, StringSplitOptions.RemoveEmptyEntries)[0]).Select(x => new SharedAsset(x.Key)
             {
                 Networks = x.Select(x => new SharedAssetNetwork(x.Network)
                 {
@@ -505,7 +509,7 @@ namespace BitMart.Net.Clients.SpotApi
         EndpointOptions<GetDepositAddressesRequest> IDepositRestClient.GetDepositAddressesOptions { get; } = new EndpointOptions<GetDepositAddressesRequest>(true);
         async Task<ExchangeWebResult<IEnumerable<SharedDepositAddress>>> IDepositRestClient.GetDepositAddressesAsync(GetDepositAddressesRequest request, CancellationToken ct)
         {
-            var validationError = ((IDepositRestClient)this).GetDepositAddressesOptions.ValidateRequest(Exchange, request, ApiType.Spot, SupportedApiTypes);
+            var validationError = ((IDepositRestClient)this).GetDepositAddressesOptions.ValidateRequest(Exchange, request, TradingMode.Spot, SupportedApiTypes);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedDepositAddress>>(Exchange, validationError);
 
@@ -515,9 +519,9 @@ namespace BitMart.Net.Clients.SpotApi
 
             var depositAddresses = await Account.GetDepositAddressAsync(assetName).ConfigureAwait(false);
             if (!depositAddresses)
-                return depositAddresses.AsExchangeResult<IEnumerable<SharedDepositAddress>>(Exchange, default);
+                return depositAddresses.AsExchangeResult<IEnumerable<SharedDepositAddress>>(Exchange, null, default);
 
-            return depositAddresses.AsExchangeResult<IEnumerable<SharedDepositAddress>>(Exchange, new[] { new SharedDepositAddress(depositAddresses.Data.Asset.Split(new[] { "-" }, StringSplitOptions.RemoveEmptyEntries)[0], depositAddresses.Data.Address)
+            return depositAddresses.AsExchangeResult<IEnumerable<SharedDepositAddress>>(Exchange, TradingMode.Spot, new[] { new SharedDepositAddress(depositAddresses.Data.Asset.Split(new[] { "-" }, StringSplitOptions.RemoveEmptyEntries)[0], depositAddresses.Data.Address)
             {
                 TagOrMemo = depositAddresses.Data.AddressMemo,
                 Network = depositAddresses.Data.Network
@@ -528,7 +532,7 @@ namespace BitMart.Net.Clients.SpotApi
         GetDepositsOptions IDepositRestClient.GetDepositsOptions { get; } = new GetDepositsOptions(SharedPaginationType.Descending, true);
         async Task<ExchangeWebResult<IEnumerable<SharedDeposit>>> IDepositRestClient.GetDepositsAsync(GetDepositsRequest request, INextPageToken? pageToken, CancellationToken ct)
         {
-            var validationError = ((IDepositRestClient)this).GetDepositsOptions.ValidateRequest(Exchange, request, ApiType.Spot, SupportedApiTypes);
+            var validationError = ((IDepositRestClient)this).GetDepositsOptions.ValidateRequest(Exchange, request, TradingMode.Spot, SupportedApiTypes);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedDeposit>>(Exchange, validationError);
 
@@ -538,9 +542,9 @@ namespace BitMart.Net.Clients.SpotApi
                 limit: request.Limit ?? 100,
                 ct: ct).ConfigureAwait(false);
             if (!deposits)
-                return deposits.AsExchangeResult<IEnumerable<SharedDeposit>>(Exchange, default);
+                return deposits.AsExchangeResult<IEnumerable<SharedDeposit>>(Exchange, null, default);
 
-            return deposits.AsExchangeResult<IEnumerable<SharedDeposit>>(Exchange, deposits.Data.Select(x => new SharedDeposit(x.Asset.Split(new[] { "-" }, StringSplitOptions.RemoveEmptyEntries)[0], x.ArrivalQuantity, x.Status == DepositWithdrawalStatus.Completed, x.ApplyTime)
+            return deposits.AsExchangeResult<IEnumerable<SharedDeposit>>(Exchange, TradingMode.Spot, deposits.Data.Select(x => new SharedDeposit(x.Asset.Split(new[] { "-" }, StringSplitOptions.RemoveEmptyEntries)[0], x.ArrivalQuantity, x.Status == DepositWithdrawalStatus.Completed, x.ApplyTime)
             {
                 Id = x.DepositId!,
                 Tag = x.AddressMemo,
@@ -564,9 +568,9 @@ namespace BitMart.Net.Clients.SpotApi
                 limit: request.Limit,
                 ct: ct).ConfigureAwait(false);
             if (!result)
-                return result.AsExchangeResult<SharedOrderBook>(Exchange, default);
+                return result.AsExchangeResult<SharedOrderBook>(Exchange, null, default);
 
-            return result.AsExchangeResult(Exchange, new SharedOrderBook(result.Data.Asks, result.Data.Bids));
+            return result.AsExchangeResult(Exchange, request.Symbol.ApiType, new SharedOrderBook(result.Data.Asks, result.Data.Bids));
         }
 
         #endregion
@@ -576,7 +580,7 @@ namespace BitMart.Net.Clients.SpotApi
         GetWithdrawalsOptions IWithdrawalRestClient.GetWithdrawalsOptions { get; } = new GetWithdrawalsOptions(SharedPaginationType.Descending, true);
         async Task<ExchangeWebResult<IEnumerable<SharedWithdrawal>>> IWithdrawalRestClient.GetWithdrawalsAsync(GetWithdrawalsRequest request, INextPageToken? pageToken, CancellationToken ct)
         {
-            var validationError = ((IWithdrawalRestClient)this).GetWithdrawalsOptions.ValidateRequest(Exchange, request, ApiType.Spot, SupportedApiTypes);
+            var validationError = ((IWithdrawalRestClient)this).GetWithdrawalsOptions.ValidateRequest(Exchange, request, TradingMode.Spot, SupportedApiTypes);
             if (validationError != null)
                 return new ExchangeWebResult<IEnumerable<SharedWithdrawal>>(Exchange, validationError);
 
@@ -586,9 +590,9 @@ namespace BitMart.Net.Clients.SpotApi
                 limit: request.Limit ?? 100,
                 ct: ct).ConfigureAwait(false);
             if (!withdrawals)
-                return withdrawals.AsExchangeResult<IEnumerable<SharedWithdrawal>>(Exchange, default);
+                return withdrawals.AsExchangeResult<IEnumerable<SharedWithdrawal>>(Exchange, null, default);
 
-            return withdrawals.AsExchangeResult<IEnumerable<SharedWithdrawal>>(Exchange, withdrawals.Data.Select(x => new SharedWithdrawal(x.Asset.Split(new[] { "-" }, StringSplitOptions.RemoveEmptyEntries)[0], x.Address!, x.ArrivalQuantity, x.Status == DepositWithdrawalStatus.Completed, x.ApplyTime)
+            return withdrawals.AsExchangeResult<IEnumerable<SharedWithdrawal>>(Exchange, TradingMode.Spot, withdrawals.Data.Select(x => new SharedWithdrawal(x.Asset.Split(new[] { "-" }, StringSplitOptions.RemoveEmptyEntries)[0], x.Address!, x.ArrivalQuantity, x.Status == DepositWithdrawalStatus.Completed, x.ApplyTime)
             {
                 Network = x.Asset.Split('-')[1],
                 Id = x.WithdrawId!,
@@ -606,7 +610,7 @@ namespace BitMart.Net.Clients.SpotApi
 
         async Task<ExchangeWebResult<SharedId>> IWithdrawRestClient.WithdrawAsync(WithdrawRequest request, CancellationToken ct)
         {
-            var validationError = ((IWithdrawRestClient)this).WithdrawOptions.ValidateRequest(Exchange, request, ApiType.Spot, SupportedApiTypes);
+            var validationError = ((IWithdrawRestClient)this).WithdrawOptions.ValidateRequest(Exchange, request, TradingMode.Spot, SupportedApiTypes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
@@ -622,9 +626,9 @@ namespace BitMart.Net.Clients.SpotApi
                 memo: request.AddressTag,
                 ct: ct).ConfigureAwait(false);
             if (!withdrawal)
-                return withdrawal.AsExchangeResult<SharedId>(Exchange, default);
+                return withdrawal.AsExchangeResult<SharedId>(Exchange, null, default);
 
-            return withdrawal.AsExchangeResult(Exchange, new SharedId(withdrawal.Data.WithdrawId));
+            return withdrawal.AsExchangeResult(Exchange, TradingMode.Spot, new SharedId(withdrawal.Data.WithdrawId));
         }
 
         #endregion
