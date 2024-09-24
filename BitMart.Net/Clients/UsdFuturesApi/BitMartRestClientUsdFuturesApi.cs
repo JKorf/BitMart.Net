@@ -1,4 +1,3 @@
-using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects;
 using Microsoft.Extensions.Logging;
@@ -7,8 +6,6 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using CryptoExchange.Net.CommonObjects;
-using CryptoExchange.Net.Interfaces.CommonClients;
 using BitMart.Net.Interfaces.Clients.UsdFuturesApi;
 using BitMart.Net.Objects.Options;
 using CryptoExchange.Net.Clients;
@@ -114,7 +111,6 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode apiType, DateTime? deliverTime = null)
-#warning unclear how deliverDate is specified in symbol, check later
             => baseAsset + quoteAsset;
 
         /// <inheritdoc />

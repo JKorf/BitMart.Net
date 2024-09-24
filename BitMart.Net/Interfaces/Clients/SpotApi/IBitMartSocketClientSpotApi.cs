@@ -7,7 +7,6 @@ using CryptoExchange.Net.Objects.Sockets;
 using BitMart.Net.Objects.Models;
 using System.Collections.Generic;
 using BitMart.Net.Enums;
-using GateIo.Net.Interfaces.Clients.SpotApi;
 
 namespace BitMart.Net.Interfaces.Clients.SpotApi
 {
@@ -16,6 +15,9 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
     /// </summary>
     public interface IBitMartSocketClientSpotApi : ISocketApiClient, IDisposable
     {
+        /// <summary>
+        /// Get the shared socket subscription client
+        /// </summary>
         IBitMartSocketClientSpotApiShared SharedClient { get; }
 
         /// <summary>

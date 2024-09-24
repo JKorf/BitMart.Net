@@ -15,6 +15,9 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
     /// </summary>
     public interface IBitMartSocketClientUsdFuturesApi : ISocketApiClient, IDisposable
     {
+        /// <summary>
+        /// Get the shared socket subscription client
+        /// </summary>
         IBitMartSocketClientUsdFuturesApiShared SharedClient { get; }
 
         /// <summary>

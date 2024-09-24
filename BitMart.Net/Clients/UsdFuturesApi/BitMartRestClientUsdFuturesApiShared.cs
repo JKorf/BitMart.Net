@@ -1,22 +1,12 @@
 ﻿using BitMart.Net.Interfaces.Clients.SpotApi;
 using BitMart.Net.Enums;
 using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.SharedApis.Enums;
-using CryptoExchange.Net.SharedApis.Interfaces;
-using CryptoExchange.Net.SharedApis.Models.Rest;
-using CryptoExchange.Net.SharedApis.ResponseModels;
+using CryptoExchange.Net.SharedApis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using CryptoExchange.Net.SharedApis.Models;
-using CryptoExchange.Net.SharedApis.Interfaces.Rest.Spot;
-using CryptoExchange.Net.SharedApis.Interfaces.Rest.Futures;
-using CryptoExchange.Net.SharedApis.Interfaces.Rest;
-using CryptoExchange.Net.SharedApis.Models.Options.Endpoints;
-using CryptoExchange.Net.SharedApis.Models.Options;
 
 namespace BitMart.Net.Clients.UsdFuturesApi
 {
@@ -446,6 +436,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 x.Symbol,
                 x.OrderId.ToString(),
                 x.TradeId,
+                (x.Side == FuturesSide.BuyCloseShort || x.Side == FuturesSide.BuyOpenLong) ? SharedOrderSide.Buy : SharedOrderSide.Sell,
                 x.Quantity,
                 x.Price,
                 x.CreateTime)
@@ -477,6 +468,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 x.Symbol,
                 x.OrderId.ToString(),
                 x.TradeId.ToString(),
+                (x.Side == FuturesSide.BuyCloseShort || x.Side == FuturesSide.BuyOpenLong) ? SharedOrderSide.Buy : SharedOrderSide.Sell,
                 x.Quantity,
                 x.Price,
                 x.CreateTime)

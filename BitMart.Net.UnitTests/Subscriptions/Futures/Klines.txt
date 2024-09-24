@@ -1,4 +1,4 @@
 > {"action": "subscribe", "args": ["futures/klineBin1d:ETHUSDT"]}
-< {"action":"subscribe","group":"futures/klineBin1d:ETHUSDT","success":true,"request":{"action":"subscribe","args":["futures/klineBin1d:ETHUSDT"]}}
+< {"action":"subscribe","group":"futures/klineBin1d:ETHUSDT","success":true,"request":{"action":"subscribe","args":["futures/klineBin1D:ETHUSDT"]}}
 = 
-{"group":"futures/klineBin1d:ETHUSDT","data":{"symbol":"ETHUSDT","items":[{"o":"3354.38","h":"3371.21","l":"3338.48","c":"3352.2","v":"159199176","ts":1721030401}]}}
+{"group":"futures/klineBin1D:ETHUSDT","data":{"symbol":"ETHUSDT","items":[{"o":"3354.38","h":"3371.21","l":"3338.48","c":"3352.2","v":"159199176","ts":1721030401}]}}

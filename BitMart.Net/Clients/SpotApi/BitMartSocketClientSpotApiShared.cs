@@ -1,18 +1,10 @@
-﻿using CryptoExchange.Net.Objects;
+﻿using BitMart.Net.Interfaces.Clients.SpotApi;
+using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
-using CryptoExchange.Net.SharedApis.Enums;
-using CryptoExchange.Net.SharedApis.Interfaces.Socket;
-using CryptoExchange.Net.SharedApis.Interfaces.Socket.Spot;
-using CryptoExchange.Net.SharedApis.Models;
-using CryptoExchange.Net.SharedApis.Models.Options.Endpoints;
-using CryptoExchange.Net.SharedApis.Models.Options.Subscriptions;
-using CryptoExchange.Net.SharedApis.Models.Socket;
-using CryptoExchange.Net.SharedApis.ResponseModels;
-using GateIo.Net.Interfaces.Clients.SpotApi;
+using CryptoExchange.Net.SharedApis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -118,7 +110,7 @@ namespace BitMart.Net.Clients.SpotApi
                         TimeInForce = update.Data.EntrustType == Enums.EntrustType.ImmediateOrCancel ? SharedTimeInForce.ImmediateOrCancel : SharedTimeInForce.GoodTillCanceled,
                         UpdateTime = update.Data.UpdateTime,
                         OrderPrice = update.Data.Price == 0 ? null : update.Data.Price,
-                        LastTrade = update.Data.LastTradeId == null ? null : new SharedUserTrade(update.Data.Symbol, update.Data.OrderId, update.Data.LastTradeId, update.Data.LastTradeQuantity, update.Data.LastTradePrice, update.Data.LastTradeTime!.Value)
+                        LastTrade = update.Data.LastTradeId == null ? null : new SharedUserTrade(update.Data.Symbol, update.Data.OrderId, update.Data.LastTradeId, update.Data.Side == Enums.OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell, update.Data.LastTradeQuantity, update.Data.LastTradePrice, update.Data.LastTradeTime!.Value)
                         {
                             Role = update.Data.LastTradeRole == Enums.TradeRole.Taker ? SharedRole.Taker : SharedRole.Maker
                         }

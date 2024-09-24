@@ -1610,6 +1610,11 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="P:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApi.SharedClient">
+            <summary>
+            Get the shared rest requests client
+            </summary>
+        </member>
         <member name="T:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiAccount">
             <summary>
             BitMart Spot account endpoints. Account endpoints include balance info, withdraw/deposit info and requesting and account settings
@@ -1889,6 +1894,11 @@
             <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
             <param name="ct">Cancellation token</param>
         </member>
+        <member name="T:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiShared">
+            <summary>
+            Shared interface for Spot rest API usage
+            </summary>
+        </member>
         <member name="T:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiSubAccount">
             <summary>
             BitMart subaccount endpoints
@@ -2112,6 +2122,11 @@
             BitMart Spot streams
             </summary>
         </member>
+        <member name="P:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartSocketClientSpotApi.SharedClient">
+            <summary>
+            Get the shared socket subscription client
+            </summary>
+        </member>
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartSocketClientSpotApi.SubscribeToTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartTickerUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to price ticker updates for a symbol
@@ -2234,6 +2249,16 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
+        <member name="T:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartSocketClientSpotApiShared">
+            <summary>
+            Shared interface for Spot socket API usage
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientUsdFuturesApiShared">
+            <summary>
+            Shared interface for Usd futures rest API usage
+            </summary>
+        </member>
         <member name="T:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApi">
             <summary>
             BitMart UsdFutures API endpoints
@@ -2257,6 +2282,11 @@
         <member name="P:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApi.Trading">
             <summary>
             Endpoints related to orders and trades
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApi.SharedClient">
+            <summary>
+            Get the shared rest requests client
             </summary>
         </member>
         <member name="T:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiAccount">
@@ -2562,6 +2592,11 @@
             BitMart UsdFutures streams
             </summary>
         </member>
+        <member name="P:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SharedClient">
+            <summary>
+            Get the shared socket subscription client
+            </summary>
+        </member>
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToTickerUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesTickerUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to ticker updates
@@ -2661,6 +2696,11 @@
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="T:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApiShared">
+            <summary>
+            Shared interface for Usd futures socket API usage
+            </summary>
         </member>
         <member name="T:BitMart.Net.Interfaces.IBitMartOrderBookFactory">
             <summary>

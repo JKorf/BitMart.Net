@@ -16,14 +16,11 @@ using BitMart.Net.Objects.Sockets.Subscriptions;
 using BitMart.Net.Objects;
 using System.Net.WebSockets;
 using CryptoExchange.Net;
-using System.Collections;
 using System.Collections.Generic;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using System.Linq;
 using BitMart.Net.Objects.Sockets;
 using BitMart.Net.Enums;
-using BitMart.Net.Objects.Internal;
-using GateIo.Net.Interfaces.Clients.SpotApi;
 
 namespace BitMart.Net.Clients.SpotApi
 {

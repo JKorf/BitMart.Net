@@ -1,4 +1,3 @@
-using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects;
 using Microsoft.Extensions.Logging;
@@ -17,8 +16,6 @@ using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Interfaces;
 using BitMart.Net.Objects;
 using CryptoExchange.Net.Converters.MessageParsing;
-using System.Diagnostics;
-using System.Drawing;
 using System.Linq;
 using BitMart.Net.Enums;
 
