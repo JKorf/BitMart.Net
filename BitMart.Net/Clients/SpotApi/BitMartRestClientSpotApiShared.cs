@@ -82,12 +82,7 @@ namespace BitMart.Net.Clients.SpotApi
             // Get next token
             DateTimeToken? nextToken = null;
             if (result.Data.Count() == limit)
-            {
-                //var minOpenTime = result.Data.Min(x => x.OpenTime);
-                //if (request.StartTime == null || minOpenTime > request.StartTime.Value)
-                //    nextToken = new DateTimeToken(minOpenTime.AddSeconds(-(int)(interval - 1)));
-                nextToken = new DateTimeToken(result.Data.Min(x => x.OpenTime));
-            }
+                nextToken = new DateTimeToken(result.Data.Min(x => x.OpenTime));            
 
             return result.AsExchangeResult<IEnumerable<SharedKline>>(Exchange, request.Symbol.TradingMode, result.Data.Reverse().Select(x => new SharedKline(x.OpenTime, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.Volume)).ToArray(), nextToken);
         }
@@ -112,6 +107,7 @@ namespace BitMart.Net.Clients.SpotApi
                 MinTradeQuantity = s.BaseMinQuantity,
                 QuantityStep = s.BaseMinQuantity,
                 PriceDecimals = s.PriceMaxPrecision,
+                MinNotionalValue = s.MinBuyQuantity == null && s.MinSellQuantity == null ? null : Math.Min(s.MinBuyQuantity ?? decimal.MaxValue, s.MinSellQuantity ?? decimal.MaxValue)
             }).ToArray());
         }
 

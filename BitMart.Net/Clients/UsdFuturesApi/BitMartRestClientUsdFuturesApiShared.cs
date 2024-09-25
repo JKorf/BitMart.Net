@@ -299,7 +299,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
             if (request.PositionSide == null)
-                return new ExchangeWebResult<SharedId>(Exchange, new ServerError("PositionSide parameter missing"));
+                return new ExchangeWebResult<SharedId>(Exchange, new ArgumentError("PositionSide parameter missing"));
 
             var result = await Trading.PlaceOrderAsync(
                 request.Symbol.GetSymbol(FormatSymbol),
