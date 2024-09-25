@@ -1606,12 +1606,12 @@
         </member>
         <member name="P:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApi.CommonSpotClient">
             <summary>
-            DEPRECATED; use <see cref="T:CryptoExchange.Net.SharedApis.ISharedClient" /> instead for common/shared functionality. See <see href="SHAREDDOCSURL" /> for more info.
+            DEPRECATED; use <see cref="T:CryptoExchange.Net.SharedApis.ISharedClient" /> instead for common/shared functionality. See <see href="https://jkorf.github.io/CryptoExchange.Net/docs/index.html#shared" /> for more info.
             </summary>
         </member>
         <member name="P:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApi.SharedClient">
             <summary>
-            Get the shared rest requests client
+            Get the shared rest requests client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
             </summary>
         </member>
         <member name="T:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiAccount">
@@ -2123,7 +2123,7 @@
         </member>
         <member name="P:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartSocketClientSpotApi.SharedClient">
             <summary>
-            Get the shared socket subscription client
+            Get the shared socket subscription client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
             </summary>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartSocketClientSpotApi.SubscribeToTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartTickerUpdate}},System.Threading.CancellationToken)">
@@ -2285,7 +2285,7 @@
         </member>
         <member name="P:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApi.SharedClient">
             <summary>
-            Get the shared rest requests client
+            Get the shared rest requests client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
             </summary>
         </member>
         <member name="T:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiAccount">
@@ -2593,7 +2593,7 @@
         </member>
         <member name="P:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SharedClient">
             <summary>
-            Get the shared socket subscription client
+            Get the shared socket subscription client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
             </summary>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToTickerUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesTickerUpdate}},System.Threading.CancellationToken)">
