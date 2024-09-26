@@ -18,6 +18,7 @@ using BitMart.Net.Objects;
 using CryptoExchange.Net.Converters.MessageParsing;
 using System.Linq;
 using BitMart.Net.Enums;
+using CryptoExchange.Net.SharedApis;
 
 namespace BitMart.Net.Clients.SpotApi
 {

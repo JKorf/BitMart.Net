@@ -21,6 +21,7 @@ using System.Net.WebSockets;
 using System.Collections.Generic;
 using System.Linq;
 using BitMart.Net.Enums;
+using CryptoExchange.Net.SharedApis;
 
 namespace BitMart.Net.Clients.UsdFuturesApi
 {

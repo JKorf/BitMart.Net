@@ -21,6 +21,7 @@ using CryptoExchange.Net.Converters.SystemTextJson;
 using System.Linq;
 using BitMart.Net.Objects.Sockets;
 using BitMart.Net.Enums;
+using CryptoExchange.Net.SharedApis;
 
 namespace BitMart.Net.Clients.SpotApi
 {
