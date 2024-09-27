@@ -36,9 +36,9 @@ namespace BitMart.Net.UnitTests
                 opts.ApiCredentials = new BitMartApiCredentials("123", "456", "XXX");
             });
             var tester = new SocketSubscriptionValidator<BitMartSocketClient>(client, "Subscriptions/Futures", "wss://openapi-ws.bitmart.com", "data", stjCompare: true);
-            //await tester.ValidateAsync<BitMartFuturesTickerUpdate>((client, handler) => client.UsdFuturesApi.SubscribeToTickerUpdatesAsync(handler), "Ticker");
-            //await tester.ValidateAsync<IEnumerable<BitMartFuturesTradeUpdate>>((client, handler) => client.UsdFuturesApi.SubscribeToTradeUpdatesAsync("ETHUSDT", handler), "Trades");
-            //await tester.ValidateAsync<BitMartFuturesOrderBookUpdate>((client, handler) => client.UsdFuturesApi.SubscribeToOrderBookUpdatesAsync("ETHUSDT", 5, handler), "OrderBook");
+            await tester.ValidateAsync<BitMartFuturesTickerUpdate>((client, handler) => client.UsdFuturesApi.SubscribeToTickerUpdatesAsync(handler), "Ticker");
+            await tester.ValidateAsync<IEnumerable<BitMartFuturesTradeUpdate>>((client, handler) => client.UsdFuturesApi.SubscribeToTradeUpdatesAsync("ETHUSDT", handler), "Trades");
+            await tester.ValidateAsync<BitMartFuturesOrderBookUpdate>((client, handler) => client.UsdFuturesApi.SubscribeToOrderBookUpdatesAsync("ETHUSDT", 5, handler), "OrderBook");
             await tester.ValidateAsync<BitMartFuturesKlineUpdate>((client, handler) => client.UsdFuturesApi.SubscribeToKlineUpdatesAsync("ETHUSDT", Enums.FuturesStreamKlineInterval.OneDay, handler), "Klines");
             await tester.ValidateAsync<BitMartFuturesBalanceUpdate>((client, handler) => client.UsdFuturesApi.SubscribeToBalanceUpdatesAsync(handler), "Balances");
             await tester.ValidateAsync<IEnumerable<BitMartPositionUpdate>>((client, handler) => client.UsdFuturesApi.SubscribeToPositionUpdatesAsync(handler), "Positions");
