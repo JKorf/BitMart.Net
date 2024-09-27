@@ -142,6 +142,17 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 1.2.0 - 27 Sep 2024
+    * Updated CryptoExchange.Net to version 8.0.0, see https://github.com/JKorf/CryptoExchange.Net/releases/tag/8.0.0
+    * Added Shared client interfaces implementation for Spot and Usd Futures Rest and Socket clients
+    * Added SpotApi.Account.GetDepositHistoryAsync endpoint
+    * Added SpotApi.Account.GetwithdrawalHistoryAsync endpoint
+    * Updated Sourcelink package version
+    * Updated FuturesKlineInterval, FuturesStreamKlineInterval and KlineStreamInterval Enum values to match number of seconds
+    * Updated TradeStatus property type from string to SymbolStatus? Enum on BitMartSymbol model
+    * Fixed UsdFuturesApi.Trading.GetClosedOrdersAsync and GetUserTradesAsync startTime/endTime filter
+    * Marked ISpotClient references as deprecated
+
 * Version 1.1.3 - 11 Sep 2024
     * Fixed SpotApi Websocket error response parsing
 
