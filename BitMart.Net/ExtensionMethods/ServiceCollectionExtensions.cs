@@ -8,6 +8,7 @@ using BitMart.Net.Interfaces;
 using BitMart.Net.Interfaces.Clients;
 using BitMart.Net.Objects.Options;
 using BitMart.Net.SymbolOrderBooks;
+using CryptoExchange.Net;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -62,6 +63,12 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<ICryptoSocketClient, CryptoSocketClient>();
             services.AddSingleton<IBitMartOrderBookFactory, BitMartOrderBookFactory>();
             services.AddTransient(x => x.GetRequiredService<IBitMartRestClient>().SpotApi.CommonSpotClient);
+
+            services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IBitMartRestClient>().SpotApi.SharedClient);
+            services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IBitMartSocketClient>().SpotApi.SharedClient);
+            services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IBitMartRestClient>().UsdFuturesApi.SharedClient);
+            services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IBitMartSocketClient>().UsdFuturesApi.SharedClient);
+
             if (socketClientLifeTime == null)
                 services.AddSingleton<IBitMartSocketClient, BitMartSocketClient>();
             else

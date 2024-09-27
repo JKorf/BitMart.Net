@@ -59,6 +59,26 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<BitMartWithdrawId>> WithdrawAsync(string asset, decimal quantity, string? targetAddress = null, string? memo = null, string? remark = null, string? accountDestType = null, string? targetAccount = null, string? areaCode = null, CancellationToken ct = default);
 
         /// <summary>
+        /// Get deposit history
+        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-deposit-and-withdraw-history-keyed" /></para>
+        /// </summary>
+        /// <param name="asset">Filter by asset</param>
+        /// <param name="limit">Max number of results</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<BitMartDepositWithdrawal>>> GetDepositHistoryAsync(string? asset = null, int? limit = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get withdrawal history
+        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-deposit-and-withdraw-history-keyed" /></para>
+        /// </summary>
+        /// <param name="asset">Filter by asset</param>
+        /// <param name="limit">Max number of results</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<BitMartDepositWithdrawal>>> GetWithdrawalHistoryAsync(string? asset = null, int? limit = null, CancellationToken ct = default);
+
+        /// <summary>
         /// Get a specific withdrawal or deposit
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-a-deposit-or-withdraw-detail-keyed" /></para>
         /// </summary>

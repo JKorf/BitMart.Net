@@ -16,6 +16,11 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
     public interface IBitMartSocketClientSpotApi : ISocketApiClient, IDisposable
     {
         /// <summary>
+        /// Get the shared socket subscription client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
+        /// </summary>
+        IBitMartSocketClientSpotApiShared SharedClient { get; }
+
+        /// <summary>
         /// Subscribe to price ticker updates for a symbol
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#public-ticker-channel" /></para>
         /// </summary>

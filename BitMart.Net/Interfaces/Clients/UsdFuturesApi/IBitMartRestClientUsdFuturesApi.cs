@@ -1,5 +1,5 @@
+using BitMart.Net.Interfaces.Clients.SpotApi;
 using CryptoExchange.Net.Interfaces;
-using CryptoExchange.Net.Interfaces.CommonClients;
 using System;
 
 namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
@@ -28,5 +28,10 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// Endpoints related to orders and trades
         /// </summary>
         public IBitMartRestClientUsdFuturesApiTrading Trading { get; }
+
+        /// <summary>
+        /// Get the shared rest requests client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
+        /// </summary>
+        public IBitMartRestClientUsdFuturesApiShared SharedClient { get; }
     }
 }

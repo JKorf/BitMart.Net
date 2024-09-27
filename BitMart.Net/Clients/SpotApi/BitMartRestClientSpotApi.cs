@@ -1,4 +1,3 @@
-using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects;
 using Microsoft.Extensions.Logging;
@@ -17,15 +16,14 @@ using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Interfaces;
 using BitMart.Net.Objects;
 using CryptoExchange.Net.Converters.MessageParsing;
-using System.Diagnostics;
-using System.Drawing;
 using System.Linq;
 using BitMart.Net.Enums;
+using CryptoExchange.Net.SharedApis;
 
 namespace BitMart.Net.Clients.SpotApi
 {
     /// <inheritdoc cref="IBitMartRestClientSpotApi" />
-    internal class BitMartRestClientSpotApi : RestApiClient, IBitMartRestClientSpotApi, ISpotClient
+    internal partial class BitMartRestClientSpotApi : RestApiClient, IBitMartRestClientSpotApi, ISpotClient
     {
         #region fields 
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Spot Api");
@@ -122,7 +120,7 @@ namespace BitMart.Net.Clients.SpotApi
             => _timeSyncState.TimeOffset;
 
         /// <inheritdoc />
-        public override string FormatSymbol(string baseAsset, string quoteAsset) => baseAsset + "_" + quoteAsset;
+        public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null) => baseAsset.ToUpper() + "_" + quoteAsset.ToUpper();
 
         /// <inheritdoc />
         protected override Error ParseErrorResponse(int httpStatusCode, IEnumerable<KeyValuePair<string, IEnumerable<string>>> responseHeaders, IMessageAccessor accessor)
@@ -158,6 +156,7 @@ namespace BitMart.Net.Clients.SpotApi
 
         /// <inheritdoc />
         public ISpotClient CommonSpotClient => this;
+        public IBitMartRestClientSpotApiShared SharedClient => this;
 
         /// <inheritdoc />
         public string GetSymbolName(string baseAsset, string quoteAsset) => baseAsset + "_" + quoteAsset;

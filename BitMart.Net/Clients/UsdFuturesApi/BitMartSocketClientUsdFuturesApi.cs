@@ -21,13 +21,14 @@ using System.Net.WebSockets;
 using System.Collections.Generic;
 using System.Linq;
 using BitMart.Net.Enums;
+using CryptoExchange.Net.SharedApis;
 
 namespace BitMart.Net.Clients.UsdFuturesApi
 {
     /// <summary>
     /// Client providing access to the BitMart UsdFutures websocket Api
     /// </summary>
-    internal class BitMartSocketClientUsdFuturesApi : SocketApiClient, IBitMartSocketClientUsdFuturesApi
+    internal partial class BitMartSocketClientUsdFuturesApi : SocketApiClient, IBitMartSocketClientUsdFuturesApi
     {
         #region fields
         private static readonly MessagePath _actionPath = MessagePath.Get().Property("action");
@@ -51,6 +52,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor();
 
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer();
+
+        public IBitMartSocketClientUsdFuturesApiShared SharedClient => this;
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
@@ -159,6 +162,6 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         }
 
         /// <inheritdoc />
-        public override string FormatSymbol(string baseAsset, string quoteAsset) => baseAsset + quoteAsset;
+        public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null) => baseAsset.ToUpper() + quoteAsset.ToUpper();
     }
 }
