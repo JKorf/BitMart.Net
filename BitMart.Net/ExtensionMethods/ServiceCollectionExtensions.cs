@@ -61,7 +61,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.AddTransient<ICryptoRestClient, CryptoRestClient>();
             services.AddSingleton<ICryptoSocketClient, CryptoSocketClient>();
-            services.AddSingleton<IBitMartOrderBookFactory, BitMartOrderBookFactory>();
+            services.AddTransient<IBitMartOrderBookFactory, BitMartOrderBookFactory>();
             services.AddTransient(x => x.GetRequiredService<IBitMartRestClient>().SpotApi.CommonSpotClient);
 
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IBitMartRestClient>().SpotApi.SharedClient);

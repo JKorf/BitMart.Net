@@ -22,12 +22,12 @@ namespace BitMart.Net.Interfaces
         /// <summary>
         /// Create a new UsdFutures local order book instance
         /// </summary>
-        ISymbolOrderBook CreateUsdFutures(string symbol, Action<BitMartOrderBookOptions>? options);
+        ISymbolOrderBook CreateUsdFutures(string symbol, Action<BitMartOrderBookOptions>? options = null);
 
         /// <summary>
         /// Create a new Spot local order book instance
         /// </summary>
-        ISymbolOrderBook CreateSpot(string symbol, Action<BitMartOrderBookOptions>? options);
+        ISymbolOrderBook CreateSpot(string symbol, Action<BitMartOrderBookOptions>? options = null);
 
     }
 }
