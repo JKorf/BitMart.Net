@@ -27,7 +27,7 @@ namespace BitMart.Net.SymbolOrderBooks
             
             UsdFutures = new OrderBookFactory<BitMartOrderBookOptions>((symbol, options) => CreateUsdFutures(symbol, options), (baseAsset, quoteAsset, options) => CreateUsdFutures(baseAsset + quoteAsset, options));
 
-            Spot = new OrderBookFactory<BitMartOrderBookOptions>((symbol, options) => CreateSpot(symbol, options), (baseAsset, quoteAsset, options) => CreateSpot(baseAsset + quoteAsset, options));
+            Spot = new OrderBookFactory<BitMartOrderBookOptions>((symbol, options) => CreateSpot(symbol, options), (baseAsset, quoteAsset, options) => CreateSpot(baseAsset + "_" + quoteAsset, options));
 
         }
 
