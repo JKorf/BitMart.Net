@@ -51,8 +51,9 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
         /// <param name="type">Filter by order type</param>
         /// <param name="limit">Max number of results</param>
+        /// <param name="planType">Filter by plan type</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<IEnumerable<BitMartTriggerOrder>>> GetTriggerOrdersAsync(string? symbol = null, OrderType? type = null, int? limit = null, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<BitMartTriggerOrder>>> GetTriggerOrdersAsync(string? symbol = null, OrderType? type = null, int? limit = null, TriggerPlanType? planType = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get current positions
@@ -108,9 +109,10 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <para><a href="https://developer-pro.bitmart.com/en/futures/#cancel-order-signed" /></para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
-        /// <param name="orderId">The id</param>
+        /// <param name="orderId">The order id, either this or clientOrderId should be provided</param>
+        /// <param name="clientOrderId">The client order id, either this or orderId should be provided</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> CancelOrderAsync(string symbol, string orderId, CancellationToken ct = default);
+        Task<WebCallResult> CancelOrderAsync(string symbol, string orderId, string? clientOrderId = null, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel all orders on a symbol
@@ -148,9 +150,69 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <para><a href="https://developer-pro.bitmart.com/en/futures/#cancel-plan-order-signed" /></para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
-        /// <param name="orderId">The id</param>
+        /// <param name="orderId">The order id, either this or clientOrderId should be provided</param>
+        /// <param name="clientOrderId">The client order id, either this or orderId should be provided</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> CancelTriggerOrderAsync(string symbol, string orderId, CancellationToken ct = default);
+        Task<WebCallResult> CancelTriggerOrderAsync(string symbol, string orderId, string? clientOrderId = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Place a new tp/sl order
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#submit-tp-or-sl-order-signed" /></para>
+        /// </summary>
+        /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
+        /// <param name="tpSlType">Take profit or stop loss</param>
+        /// <param name="orderSide">Order side, either BuyCloseShort or SellCloseLong</param>
+        /// <param name="triggerPrice">Trigger price</param>
+        /// <param name="priceType">Trigger price type</param>
+        /// <param name="planCategory">Plan category</param>
+        /// <param name="executionPrice">Execution price</param>
+        /// <param name="quantity">Quantity to close. Defaults to position size</param>
+        /// <param name="clientOrderId">Client order id</param>
+        /// <param name="triggerOrderType">Type of order to place when triggered</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<BitMartOrderId>> PlaceTpSlOrderAsync(string symbol, TplSlOrderType tpSlType, FuturesSide orderSide, decimal triggerPrice, TriggerPriceType priceType, PlanCategory planCategory, decimal? executionPrice = null, int? quantity = null, string? clientOrderId = null, OrderType? triggerOrderType = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Edit an existing tp/sl order
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#modify-tp-sl-order-signed" /></para>
+        /// </summary>
+        /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
+        /// <param name="orderId">Order id, either this or clientOrderId should be provided</param>
+        /// <param name="clientOrderId">Client order id, either this or orderId should be provided</param>
+        /// <param name="triggerPrice">Trigger price</param>
+        /// <param name="executionPrice">Execution price</param>
+        /// <param name="priceType">Price type</param>
+        /// <param name="planCategory">Plan category</param>
+        /// <param name="orderType">Order type</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<BitMartOrderId>> EditTpSlOrderAsync(string symbol, decimal triggerPrice, TriggerPriceType priceType, PlanCategory planCategory, OrderType orderType, string? orderId = null, string? clientOrderId = null, decimal? executionPrice = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Edit an existing plan order
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#modify-plan-order-signed" /></para>
+        /// </summary>
+        /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
+        /// <param name="orderId">Order id, either this or clientOrderId should be provided</param>
+        /// <param name="clientOrderId">Client order id, either this or orderId should be provided</param>
+        /// <param name="triggerPrice">Trigger price</param>
+        /// <param name="executionPrice">Execution price</param>
+        /// <param name="priceType">Price type</param>
+        /// <param name="orderType">Order type</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<BitMartOrderId>> EditTriggerOrderAsync(string symbol, decimal triggerPrice, TriggerPriceType priceType, OrderType orderType, string? orderId = null, string? clientOrderId = null, decimal? executionPrice = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Edit an preset plan order
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#modify-preset-plan-order-signed" /></para>
+        /// </summary>
+        /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
+        /// <param name="orderId">The order id</param>
+        /// <param name="takeProfitPriceType">Take profit price type</param>
+        /// <param name="stopLossPriceType">Stop loss price type</param>
+        /// <param name="takeProfitPrice">Take profit price</param>
+        /// <param name="stopLossPrice">Stop loss price</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<BitMartOrderId>> EditPresetTriggerOrderAsync(string symbol, string orderId, TriggerPriceType takeProfitPriceType, TriggerPriceType stopLossPriceType, decimal takeProfitPrice, decimal stopLossPrice, CancellationToken ct = default);
 
     }
 }

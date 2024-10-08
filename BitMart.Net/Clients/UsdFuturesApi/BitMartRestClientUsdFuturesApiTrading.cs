@@ -81,12 +81,13 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         #region Get Trigger Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<BitMartTriggerOrder>>> GetTriggerOrdersAsync(string? symbol = null, OrderType? type = null, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<BitMartTriggerOrder>>> GetTriggerOrdersAsync(string? symbol = null, OrderType? type = null, int? limit = null, TriggerPlanType? planType = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("symbol", symbol);
             parameters.AddOptionalEnum("type", type);
             parameters.AddOptional("limit", limit);
+            parameters.AddOptionalEnum("plan_type", planType);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/private/current-plan-order", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(50, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<IEnumerable<BitMartTriggerOrder>>(request, parameters, ct).ConfigureAwait(false);
@@ -178,11 +179,12 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         #region Cancel Order
 
         /// <inheritdoc />
-        public async Task<WebCallResult> CancelOrderAsync(string symbol, string orderId, CancellationToken ct = default)
+        public async Task<WebCallResult> CancelOrderAsync(string symbol, string? orderId = null, string? clientOrderId = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("symbol", symbol);
-            parameters.Add("order_id", orderId);
+            parameters.AddOptional("order_id", orderId);
+            parameters.AddOptional("client_order_id", clientOrderId);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/contract/private/cancel-order", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(40, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
@@ -242,14 +244,101 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         #region Cancel Trigger Order
 
         /// <inheritdoc />
-        public async Task<WebCallResult> CancelTriggerOrderAsync(string symbol, string orderId, CancellationToken ct = default)
+        public async Task<WebCallResult> CancelTriggerOrderAsync(string symbol, string? orderId = null, string? clientOrderId = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("symbol", symbol);
+            parameters.AddOptional("order_id", orderId);
+            parameters.AddOptional("client_order_id", orderId);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/contract/private/cancel-plan-order", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(40, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
+            var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Place Tp Sl Order
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<BitMartOrderId>> PlaceTpSlOrderAsync(string symbol, TplSlOrderType tpSlType, FuturesSide orderSide, decimal triggerPrice, TriggerPriceType priceType, PlanCategory planCategory, decimal? executionPrice = null, int? quantity = null, string? clientOrderId = null, OrderType? triggerOrderType = null, CancellationToken ct = default)
+        {
+            if (orderSide != FuturesSide.BuyCloseShort && orderSide != FuturesSide.SellCloseLong)
+                throw new ArgumentException("Order side should be either BuyCloseShort or SellCloseLong");
+
+            var parameters = new ParameterCollection();
+            parameters.Add("symbol", symbol);
+            parameters.AddEnum("type", tpSlType);
+            parameters.AddEnumAsInt("side", orderSide);
+            parameters.AddString("trigger_price", triggerPrice);
+            parameters.AddEnumAsInt("price_type", priceType);
+            parameters.AddEnumAsInt("plan_category", planCategory);
+            parameters.AddOptionalString("executive_price", executionPrice);
+            parameters.AddOptional("size", quantity);
+            parameters.AddOptional("client_order_id", clientOrderId);
+            parameters.AddOptionalEnum("category", triggerOrderType);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/contract/private/submit-tp-sl-order", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var result = await _baseClient.SendAsync<BitMartOrderId>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Edit Tp Sl Order
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<BitMartOrderId>> EditTpSlOrderAsync(string symbol, decimal triggerPrice, TriggerPriceType priceType, PlanCategory planCategory, OrderType orderType, string? orderId = null, string? clientOrderId = null, decimal? executionPrice = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("symbol", symbol);
+            parameters.AddString("trigger_price", triggerPrice);
+            parameters.AddEnumAsInt("price_type", priceType);
+            parameters.AddEnumAsInt("plan_category", planCategory);
+            parameters.AddEnum("category", orderType);
+            parameters.AddOptional("orderId", orderId);
+            parameters.AddOptional("client_order_id", clientOrderId);
+            parameters.AddOptionalString("executive_price", executionPrice);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/contract/private/modify-tp-sl-order", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var result = await _baseClient.SendAsync<BitMartOrderId>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Edit Trigger Order
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<BitMartOrderId>> EditTriggerOrderAsync(string symbol, decimal triggerPrice, TriggerPriceType priceType, OrderType orderType, string? orderId = null, string? clientOrderId = null, decimal? executionPrice = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("symbol", symbol);
+            parameters.AddString("trigger_price", triggerPrice);
+            parameters.AddEnumAsInt("price_type", priceType);
+            parameters.AddEnum("type", orderType);
+            parameters.AddOptional("orderId", orderId);
+            parameters.AddOptional("client_order_id", clientOrderId);
+            parameters.AddOptionalString("executive_price", executionPrice);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/contract/private/modify-plan-order", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var result = await _baseClient.SendAsync<BitMartOrderId>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Edit Preset Trigger Order
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<BitMartOrderId>> EditPresetTriggerOrderAsync(string symbol, string orderId, TriggerPriceType takeProfitPriceType, TriggerPriceType stopLossPriceType, decimal takeProfitPrice, decimal stopLossPrice, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("symbol", symbol);
             parameters.Add("order_id", orderId);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/contract/private/cancel-plan-order", BitMartExchange.RateLimiter.BitMart, 1, true,
-                new SingleLimitGuard(40, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
+            parameters.AddEnumAsInt("preset_take_profit_price_type", takeProfitPriceType);
+            parameters.AddEnumAsInt("preset_stop_loss_price_type", stopLossPriceType);
+            parameters.AddString("preset_take_profit_price", takeProfitPrice);
+            parameters.AddString("preset_stop_loss_price", stopLossPrice);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/contract/private/modify-preset-plan-order", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var result = await _baseClient.SendAsync<BitMartOrderId>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 

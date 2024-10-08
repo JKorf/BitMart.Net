@@ -1,0 +1,11 @@
+POST
+/contract/private/modify-tp-sl-order
+true
+{
+  "code": 1000,
+  "message": "Ok",
+  "data": {
+    "order_id": "220609666322019"
+  },
+  "trace": "13f7fda9-9543-4e11-a0ba-cbe117989988"
+}

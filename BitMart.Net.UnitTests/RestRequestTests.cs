@@ -181,6 +181,10 @@ namespace BitMart.Net.UnitTests
             await tester.ValidateAsync(client => client.UsdFuturesApi.Trading.CancelOrdersAsync("123"), "CancelOrders");
             await tester.ValidateAsync(client => client.UsdFuturesApi.Trading.PlaceTriggerOrderAsync("123", OrderType.Market, FuturesSide.BuyCloseShort, 1, 0.1m, MarginType.CrossMargin, 0.1m, PriceDirection.LongDirection, TriggerPriceType.FairPrice), "PlaceTriggerOrder", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UsdFuturesApi.Trading.CancelTriggerOrderAsync("123", "123"), "CancelTriggerOrder");
+            await tester.ValidateAsync(client => client.UsdFuturesApi.Trading.PlaceTpSlOrderAsync("123", TplSlOrderType.StopLoss, FuturesSide.SellCloseLong, 0.1m, TriggerPriceType.FairPrice, PlanCategory.PositionTpSl), "PlaceTpSlOrder", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UsdFuturesApi.Trading.EditTpSlOrderAsync("123", 0.1m, TriggerPriceType.FairPrice, PlanCategory.PositionTpSl, OrderType.Market), "EditTpSlOrder", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UsdFuturesApi.Trading.EditTriggerOrderAsync("123", 0.1m, TriggerPriceType.FairPrice, OrderType.Market), "EditPlanOrder", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UsdFuturesApi.Trading.EditPresetTriggerOrderAsync("123", "123", TriggerPriceType.FairPrice, TriggerPriceType.FairPrice, 0.1m, 0.1m), "EditPresetPlanOrder", nestedJsonProperty: "data");
         }
 
         private bool IsAuthenticated(WebCallResult result)

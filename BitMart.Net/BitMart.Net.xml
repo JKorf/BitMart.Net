@@ -543,7 +543,7 @@
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.GetOpenOrdersAsync(System.String,System.Nullable{BitMart.Net.Enums.FuturesOrderType},System.Nullable{BitMart.Net.Enums.OrderStatusQuery},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.GetTriggerOrdersAsync(System.String,System.Nullable{BitMart.Net.Enums.OrderType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.GetTriggerOrdersAsync(System.String,System.Nullable{BitMart.Net.Enums.OrderType},System.Nullable{System.Int32},System.Nullable{BitMart.Net.Enums.TriggerPlanType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.GetPositionsAsync(System.String,System.Threading.CancellationToken)">
@@ -558,7 +558,7 @@
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.PlaceOrderAsync(System.String,BitMart.Net.Enums.FuturesSide,BitMart.Net.Enums.FuturesOrderType,System.Int32,System.Nullable{System.Decimal},System.String,System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.MarginType},System.Nullable{BitMart.Net.Enums.OrderMode},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.CancelOrderAsync(System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.CancelOrderAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.CancelOrdersAsync(System.String,System.Threading.CancellationToken)">
@@ -567,7 +567,19 @@
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.PlaceTriggerOrderAsync(System.String,BitMart.Net.Enums.OrderType,BitMart.Net.Enums.FuturesSide,System.Int32,System.Decimal,BitMart.Net.Enums.MarginType,System.Decimal,BitMart.Net.Enums.PriceDirection,BitMart.Net.Enums.TriggerPriceType,System.Nullable{BitMart.Net.Enums.OrderMode},System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.PlanCategory},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.CancelTriggerOrderAsync(System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.CancelTriggerOrderAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.PlaceTpSlOrderAsync(System.String,BitMart.Net.Enums.TplSlOrderType,BitMart.Net.Enums.FuturesSide,System.Decimal,BitMart.Net.Enums.TriggerPriceType,BitMart.Net.Enums.PlanCategory,System.Nullable{System.Decimal},System.Nullable{System.Int32},System.String,System.Nullable{BitMart.Net.Enums.OrderType},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.EditTpSlOrderAsync(System.String,System.Decimal,BitMart.Net.Enums.TriggerPriceType,BitMart.Net.Enums.PlanCategory,BitMart.Net.Enums.OrderType,System.String,System.String,System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.EditTriggerOrderAsync(System.String,System.Decimal,BitMart.Net.Enums.TriggerPriceType,BitMart.Net.Enums.OrderType,System.String,System.String,System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.EditPresetTriggerOrderAsync(System.String,System.String,BitMart.Net.Enums.TriggerPriceType,BitMart.Net.Enums.TriggerPriceType,System.Decimal,System.Decimal,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="T:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi">
@@ -1462,6 +1474,21 @@
             Completed
             </summary>
         </member>
+        <member name="T:BitMart.Net.Enums.TplSlOrderType">
+            <summary>
+            TakeProfit/StopLoss order type
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.TplSlOrderType.TakeProfit">
+            <summary>
+            Take profit order
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.TplSlOrderType.StopLoss">
+            <summary>
+            Stop loss order
+            </summary>
+        </member>
         <member name="T:BitMart.Net.Enums.TradeRole">
             <summary>
             Trade role
@@ -1510,6 +1537,21 @@
         <member name="F:BitMart.Net.Enums.TriggerOrderType.StopLoss">
             <summary>
             Stop loss order
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Enums.TriggerPlanType">
+            <summary>
+            Trigger plan type
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.TriggerPlanType.Plan">
+            <summary>
+            Plan
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.TriggerPlanType.ProfitLoss">
+            <summary>
+            Profit loss
             </summary>
         </member>
         <member name="T:BitMart.Net.Enums.TriggerPriceType">
@@ -2478,7 +2520,7 @@
             <param name="limit">Max number of results</param>
             <param name="ct">Cancellation token</param>
         </member>
-        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.GetTriggerOrdersAsync(System.String,System.Nullable{BitMart.Net.Enums.OrderType},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.GetTriggerOrdersAsync(System.String,System.Nullable{BitMart.Net.Enums.OrderType},System.Nullable{System.Int32},System.Nullable{BitMart.Net.Enums.TriggerPlanType},System.Threading.CancellationToken)">
             <summary>
             Get open trigger orders
             <para><a href="https://developer-pro.bitmart.com/en/futures/#get-all-current-plan-orders-keyed" /></para>
@@ -2486,6 +2528,7 @@
             <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
             <param name="type">Filter by order type</param>
             <param name="limit">Max number of results</param>
+            <param name="planType">Filter by plan type</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.GetPositionsAsync(System.String,System.Threading.CancellationToken)">
@@ -2537,13 +2580,14 @@
             <param name="presetStopLossPrice">Stop loss price</param>
             <param name="ct">Cancellation token</param>
         </member>
-        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.CancelOrderAsync(System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.CancelOrderAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Cancel an active order
             <para><a href="https://developer-pro.bitmart.com/en/futures/#cancel-order-signed" /></para>
             </summary>
             <param name="symbol">The symbol, for example `ETHUSDT`</param>
-            <param name="orderId">The id</param>
+            <param name="orderId">The order id, either this or clientOrderId should be provided</param>
+            <param name="clientOrderId">The client order id, either this or orderId should be provided</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.CancelOrdersAsync(System.String,System.Threading.CancellationToken)">
@@ -2577,13 +2621,73 @@
             <param name="stopLossPriceType">Stop loss price type</param>
             <param name="ct">Cancellation token</param>
         </member>
-        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.CancelTriggerOrderAsync(System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.CancelTriggerOrderAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Cancel a trigger order
             <para><a href="https://developer-pro.bitmart.com/en/futures/#cancel-plan-order-signed" /></para>
             </summary>
             <param name="symbol">The symbol, for example `ETHUSDT`</param>
-            <param name="orderId">The id</param>
+            <param name="orderId">The order id, either this or clientOrderId should be provided</param>
+            <param name="clientOrderId">The client order id, either this or orderId should be provided</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.PlaceTpSlOrderAsync(System.String,BitMart.Net.Enums.TplSlOrderType,BitMart.Net.Enums.FuturesSide,System.Decimal,BitMart.Net.Enums.TriggerPriceType,BitMart.Net.Enums.PlanCategory,System.Nullable{System.Decimal},System.Nullable{System.Int32},System.String,System.Nullable{BitMart.Net.Enums.OrderType},System.Threading.CancellationToken)">
+            <summary>
+            Place a new tp/sl order
+            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#submit-tp-or-sl-order-signed" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `ETHUSDT`</param>
+            <param name="tpSlType">Take profit or stop loss</param>
+            <param name="orderSide">Order side, either BuyCloseShort or SellCloseLong</param>
+            <param name="triggerPrice">Trigger price</param>
+            <param name="priceType">Trigger price type</param>
+            <param name="planCategory">Plan category</param>
+            <param name="executionPrice">Execution price</param>
+            <param name="quantity">Quantity to close. Defaults to position size</param>
+            <param name="clientOrderId">Client order id</param>
+            <param name="triggerOrderType">Type of order to place when triggered</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.EditTpSlOrderAsync(System.String,System.Decimal,BitMart.Net.Enums.TriggerPriceType,BitMart.Net.Enums.PlanCategory,BitMart.Net.Enums.OrderType,System.String,System.String,System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+            <summary>
+            Edit an existing tp/sl order
+            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#modify-tp-sl-order-signed" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `ETHUSDT`</param>
+            <param name="orderId">Order id, either this or clientOrderId should be provided</param>
+            <param name="clientOrderId">Client order id, either this or orderId should be provided</param>
+            <param name="triggerPrice">Trigger price</param>
+            <param name="executionPrice">Execution price</param>
+            <param name="priceType">Price type</param>
+            <param name="planCategory">Plan category</param>
+            <param name="orderType">Order type</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.EditTriggerOrderAsync(System.String,System.Decimal,BitMart.Net.Enums.TriggerPriceType,BitMart.Net.Enums.OrderType,System.String,System.String,System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+            <summary>
+            Edit an existing plan order
+            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#modify-plan-order-signed" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `ETHUSDT`</param>
+            <param name="orderId">Order id, either this or clientOrderId should be provided</param>
+            <param name="clientOrderId">Client order id, either this or orderId should be provided</param>
+            <param name="triggerPrice">Trigger price</param>
+            <param name="executionPrice">Execution price</param>
+            <param name="priceType">Price type</param>
+            <param name="orderType">Order type</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.EditPresetTriggerOrderAsync(System.String,System.String,BitMart.Net.Enums.TriggerPriceType,BitMart.Net.Enums.TriggerPriceType,System.Decimal,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            Edit an preset plan order
+            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#modify-preset-plan-order-signed" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `ETHUSDT`</param>
+            <param name="orderId">The order id</param>
+            <param name="takeProfitPriceType">Take profit price type</param>
+            <param name="stopLossPriceType">Stop loss price type</param>
+            <param name="takeProfitPrice">Take profit price</param>
+            <param name="stopLossPrice">Stop loss price</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="T:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi">
@@ -4391,6 +4495,11 @@
         <member name="P:BitMart.Net.Objects.Models.BitMartOrderId.OrderId">
             <summary>
             Order id
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartOrderId.ClientOrderId">
+            <summary>
+            Client order id
             </summary>
         </member>
         <member name="T:BitMart.Net.Objects.Models.BitMartOrderIds">
