@@ -143,6 +143,14 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 1.3.0 - 08 Oct 2024
+    * Added UsdFuturesApi.Trading.PlaceTpSlOrderAsync endpoint
+    * Added UsdFuturesApi.Trading.EditTpSlOrderAsync endpoint
+    * Added UsdFuturesApi.Trading.EditTriggerOrderAsync endpoint
+    * Added UsdFuturesApi.Trading.EditPresetTriggerOrderAsync endpoint
+    * Added clientOrderId parameter to CancelOrderAsync and CancelTriggerOrderAsync endpoints
+    * Added planType parameter to GetTriggerOrdersAsync endpoint
+
 * Version 1.2.0 - 27 Sep 2024
     * Updated CryptoExchange.Net to version 8.0.0, see https://github.com/JKorf/CryptoExchange.Net/releases/tag/8.0.0
     * Added Shared client interfaces implementation for Spot and Usd Futures Rest and Socket clients
