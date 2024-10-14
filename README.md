@@ -143,6 +143,10 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 1.3.2 - 14 Oct 2024
+    * Updated CryptoExchange.Net to version 8.0.3, see https://github.com/JKorf/CryptoExchange.Net/releases/tag/8.0.3
+    * Fixed TypeLoadException during initialization
+
 * Version 1.3.1 - 14 Oct 2024
     * Fixed symbol formatting order book factory
     * Fixed IBitMartOrderBookFactory DI lifetime
