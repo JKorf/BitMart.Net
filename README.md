@@ -143,6 +143,10 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 1.3.1 - 14 Oct 2024
+    * Fixed symbol formatting order book factory
+    * Fixed IBitMartOrderBookFactory DI lifetime
+
 * Version 1.3.0 - 08 Oct 2024
     * Added UsdFuturesApi.Trading.PlaceTpSlOrderAsync endpoint
     * Added UsdFuturesApi.Trading.EditTpSlOrderAsync endpoint
