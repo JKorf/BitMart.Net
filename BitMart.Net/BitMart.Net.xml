@@ -492,6 +492,9 @@
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiAccount.SetLeverageAsync(System.String,System.Decimal,BitMart.Net.Enums.MarginType,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiAccount.GetSymbolTradeFeeAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiExchangeData">
             <inheritdoc />
         </member>
@@ -2374,6 +2377,15 @@
             <param name="marginType">Open type, required at close position</param>
             <param name="ct">Cancellation token</param>
         </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiAccount.GetSymbolTradeFeeAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get symbol trading fee
+            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-trade-fee-rate-keyed" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `ETHUSDT`</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
         <member name="T:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiExchangeData">
             <summary>
             BitMart UsdFutures exchange data endpoints. Exchange data includes market data (tickers, order books, etc) and system status.
@@ -3550,6 +3562,26 @@
         <member name="P:BitMart.Net.Objects.Models.BitMartFuturesBalanceUpdate.PositionMargin">
             <summary>
             Position Margin
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Objects.Models.BitMartFuturesFeeRate">
+            <summary>
+            Fee rate
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartFuturesFeeRate.Symbol">
+            <summary>
+            Symbol name
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartFuturesFeeRate.TakerFeeRateA">
+            <summary>
+            Taker fee rate
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartFuturesFeeRate.MakerFeeRateA">
+            <summary>
+            Maker fee rate
             </summary>
         </member>
         <member name="T:BitMart.Net.Objects.Models.BitMartFuturesKline">

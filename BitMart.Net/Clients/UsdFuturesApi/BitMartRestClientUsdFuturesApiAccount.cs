@@ -91,5 +91,21 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
         #endregion
 
+        #region Get Symbol Trade Fee
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<BitMartFuturesFeeRate>> GetSymbolTradeFeeAsync(string symbol, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection()
+            {
+                { "symbol", symbol }
+            };
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/private/trade-fee-rate", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(2, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
+
+            return await _baseClient.SendAsync<BitMartFuturesFeeRate>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
     }
 }

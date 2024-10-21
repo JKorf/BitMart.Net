@@ -52,5 +52,13 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BitMartLeverage>> SetLeverageAsync(string symbol, decimal leverage, MarginType marginType, CancellationToken ct = default);
 
+        /// <summary>
+        /// Get symbol trading fee
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-trade-fee-rate-keyed" /></para>
+        /// </summary>
+        /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<BitMartFuturesFeeRate>> GetSymbolTradeFeeAsync(string symbol, CancellationToken ct = default);
     }
 }
