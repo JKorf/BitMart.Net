@@ -3437,6 +3437,16 @@
             Maker fee rate for Class-C pairs
             </summary>
         </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartFeeRate.TakerFeeRateD">
+            <summary>
+            Taker fee rate for Class-D pairs
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartFeeRate.MakerFeeRateD">
+            <summary>
+            Maker fee rate for Class-D pairs
+            </summary>
+        </member>
         <member name="T:BitMart.Net.Objects.Models.BitMartFundingRate">
             <summary>
             Funding rate info

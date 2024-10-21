@@ -51,6 +51,16 @@ namespace BitMart.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("maker_fee_rate_C")]
         public decimal MakerFeeRateC { get; set; }
+        /// <summary>
+        /// Taker fee rate for Class-D pairs
+        /// </summary>
+        [JsonPropertyName("taker_fee_rate_D")]
+        public decimal TakerFeeRateD { get; set; }
+        /// <summary>
+        /// Maker fee rate for Class-D pairs
+        /// </summary>
+        [JsonPropertyName("maker_fee_rate_D")]
+        public decimal MakerFeeRateD { get; set; }
     }
 
 
