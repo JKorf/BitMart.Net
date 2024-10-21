@@ -150,6 +150,11 @@ namespace BitMart.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("change_24h")]
         public decimal Change24h { get; set; }
+        /// <summary>
+        /// Interval of funding in hours
+        /// </summary>
+        [JsonPropertyName("funding_interval_hours")]
+        public int? FundingIntervalHours { get; set; }
     }
 
 

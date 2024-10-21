@@ -3297,6 +3297,11 @@
             Change in the last 24h
             </summary>
         </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartContract.FundingIntervalHours">
+            <summary>
+            Interval of funding in hours
+            </summary>
+        </member>
         <member name="T:BitMart.Net.Objects.Models.BitMartDepositAddress">
             <summary>
             Deposit address info
