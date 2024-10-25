@@ -60,9 +60,9 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             return resultTicker.Result.AsExchangeResult(Exchange, SupportedTradingModes,
                 new SharedFuturesTicker(
                     symbol.Symbol,
-                    symbol.LastPrice ?? 0,
-                    symbol.HighPrice ?? 0,
-                    symbol.LowPrice ?? 0,
+                    symbol.LastPrice,
+                    symbol.HighPrice,
+                    symbol.LowPrice,
                     symbol.Volume24h,
                     symbol.Change24h * 100)
                 {
@@ -89,7 +89,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 data = data.Where(x => request.TradingMode == TradingMode.PerpetualLinear ? x.ProductType == ContractType.Perpetual : x.ProductType == ContractType.Futures);
 
             return resultTicker.AsExchangeResult<IEnumerable<SharedFuturesTicker>>(Exchange, request.TradingMode == null ? SupportedTradingModes : new[] { request.TradingMode.Value }, data.Select(x =>
-             new SharedFuturesTicker(x.Symbol, x.LastPrice ?? 0, x.HighPrice ?? 0, x.LowPrice ?? 0, x.Volume24h, x.Change24h * 100)
+             new SharedFuturesTicker(x.Symbol, x.LastPrice, x.HighPrice, x.LowPrice, x.Volume24h, x.Change24h * 100)
              {
                  FundingRate = x.FundingRate,
                  IndexPrice = x.IndexPrice

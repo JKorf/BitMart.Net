@@ -6,6 +6,7 @@ using System;
 using BitMart.Net.Interfaces;
 using BitMart.Net.Interfaces.Clients;
 using BitMart.Net.Objects.Options;
+using CryptoExchange.Net.SharedApis;
 
 namespace BitMart.Net.SymbolOrderBooks
 {
@@ -23,22 +24,34 @@ namespace BitMart.Net.SymbolOrderBooks
         public BitMartOrderBookFactory(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
-            
-            
-            UsdFutures = new OrderBookFactory<BitMartOrderBookOptions>((symbol, options) => CreateUsdFutures(symbol, options), (baseAsset, quoteAsset, options) => CreateUsdFutures(baseAsset + quoteAsset, options));
+                        
+            UsdFutures = new OrderBookFactory<BitMartOrderBookOptions>(
+                CreateUsdFutures,
+                (sharedSymbol, options) => CreateUsdFutures(BitMartExchange.FormatSymbol(sharedSymbol.BaseAsset, sharedSymbol.QuoteAsset, sharedSymbol.TradingMode, sharedSymbol.DeliverTime), options));
 
-            Spot = new OrderBookFactory<BitMartOrderBookOptions>((symbol, options) => CreateSpot(symbol, options), (baseAsset, quoteAsset, options) => CreateSpot(baseAsset + "_" + quoteAsset, options));
+            Spot = new OrderBookFactory<BitMartOrderBookOptions>(
+                CreateSpot,
+                (sharedSymbol, options) => CreateSpot(BitMartExchange.FormatSymbol(sharedSymbol.BaseAsset, sharedSymbol.QuoteAsset, sharedSymbol.TradingMode, sharedSymbol.DeliverTime), options));
 
         }
 
-        
          /// <inheritdoc />
         public IOrderBookFactory<BitMartOrderBookOptions> UsdFutures { get; }
 
          /// <inheritdoc />
         public IOrderBookFactory<BitMartOrderBookOptions> Spot { get; }
-                
-         /// <inheritdoc />
+
+        /// <inheritdoc />
+        public ISymbolOrderBook Create(SharedSymbol symbol, Action<BitMartOrderBookOptions>? options = null)
+        {
+            var symbolName = BitMartExchange.FormatSymbol(symbol.BaseAsset, symbol.QuoteAsset, symbol.TradingMode, symbol.DeliverTime);
+            if (symbol.TradingMode == TradingMode.Spot)
+                return CreateSpot(symbolName, options);
+
+            return CreateUsdFutures(symbolName, options);
+        }
+
+        /// <inheritdoc />
         public ISymbolOrderBook CreateUsdFutures(string symbol, Action<BitMartOrderBookOptions>? options = null)
             => new BitMartUsdFuturesSymbolOrderBook(symbol, options, 
                                                           _serviceProvider.GetRequiredService<ILoggerFactory>(),

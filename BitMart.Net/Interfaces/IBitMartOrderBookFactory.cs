@@ -1,6 +1,7 @@
 using CryptoExchange.Net.Interfaces;
 using System;
 using BitMart.Net.Objects.Options;
+using CryptoExchange.Net.SharedApis;
 
 namespace BitMart.Net.Interfaces
 {
@@ -18,7 +19,15 @@ namespace BitMart.Net.Interfaces
         /// Spot order book factory methods
         /// </summary>
         IOrderBookFactory<BitMartOrderBookOptions> Spot { get; }
-                
+
+        /// <summary>
+        /// Create a SymbolOrderBook for the symbol
+        /// </summary>
+        /// <param name="symbol">The symbol</param>
+        /// <param name="options">Book options</param>
+        /// <returns></returns>
+        ISymbolOrderBook Create(SharedSymbol symbol, Action<BitMartOrderBookOptions>? options = null);
+
         /// <summary>
         /// Create a new UsdFutures local order book instance
         /// </summary>

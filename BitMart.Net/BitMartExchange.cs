@@ -6,6 +6,7 @@ using CryptoExchange.Net.RateLimiting;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using CryptoExchange.Net.SharedApis;
 
 namespace BitMart.Net
 {
@@ -30,6 +31,22 @@ namespace BitMart.Net
         public static string[] ApiDocsUrl { get; } = new[] {
             "https://developer-pro.bitmart.com/#introduction"
             };
+
+        /// <summary>
+        /// Format a base and quote asset to a BitMart recognized symbol 
+        /// </summary>
+        /// <param name="baseAsset">Base asset</param>
+        /// <param name="quoteAsset">Quote asset</param>
+        /// <param name="tradingMode">Trading mode</param>
+        /// <param name="deliverTime">Delivery time for delivery futures</param>
+        /// <returns></returns>
+        public static string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
+        {
+            if (tradingMode == TradingMode.Spot)
+                return baseAsset.ToUpperInvariant() + "_" + quoteAsset.ToUpperInvariant();
+
+            return baseAsset.ToUpperInvariant() + quoteAsset.ToUpperInvariant();
+        }
 
         /// <summary>
         /// Rate limiter configuration for the BitMart API
