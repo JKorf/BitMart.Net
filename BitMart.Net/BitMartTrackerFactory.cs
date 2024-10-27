@@ -1,4 +1,5 @@
-﻿using BitMart.Net.Interfaces;
+﻿using BitMart.Net.Clients;
+using BitMart.Net.Interfaces;
 using BitMart.Net.Interfaces.Clients;
 using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Trackers.Klines;
@@ -12,7 +13,14 @@ namespace BitMart.Net
     /// <inheritdoc />
     public class BitMartTrackerFactory : IBitMartTrackerFactory
     {
-        private readonly IServiceProvider _serviceProvider;
+        private readonly IServiceProvider? _serviceProvider;
+
+        /// <summary>
+        /// ctor
+        /// </summary>
+        public BitMartTrackerFactory()
+        {
+        }
 
         /// <summary>
         /// ctor
@@ -26,23 +34,26 @@ namespace BitMart.Net
         /// <inheritdoc />
         public IKlineTracker CreateKlineTracker(SharedSymbol symbol, SharedKlineInterval interval, int? limit = null, TimeSpan? period = null)
         {
-            IKlineRestClient restClient;
-            IKlineSocketClient socketClient;
+            var restClient = _serviceProvider?.GetRequiredService<IBitMartRestClient>() ?? new BitMartRestClient();
+            var socketClient = _serviceProvider?.GetRequiredService<IBitMartSocketClient>() ?? new BitMartSocketClient();
+
+            IKlineRestClient sharedRestClient;
+            IKlineSocketClient sharedSocketClient;
             if (symbol.TradingMode == TradingMode.Spot)
             {
-                restClient = _serviceProvider.GetRequiredService<IBitMartRestClient>().SpotApi.SharedClient;
-                socketClient = _serviceProvider.GetRequiredService<IBitMartSocketClient>().SpotApi.SharedClient;
+                sharedRestClient = restClient.SpotApi.SharedClient;
+                sharedSocketClient = socketClient.SpotApi.SharedClient;
             }
             else
             {
-                restClient = _serviceProvider.GetRequiredService<IBitMartRestClient>().UsdFuturesApi.SharedClient;
-                socketClient = _serviceProvider.GetRequiredService<IBitMartSocketClient>().UsdFuturesApi.SharedClient;
+                sharedRestClient = restClient.UsdFuturesApi.SharedClient;
+                sharedSocketClient = socketClient.UsdFuturesApi.SharedClient;
             }
 
             return new KlineTracker(
-                _serviceProvider.GetRequiredService<ILoggerFactory>().CreateLogger(restClient.Exchange),
-                restClient,
-                socketClient,
+                _serviceProvider?.GetRequiredService<ILoggerFactory>().CreateLogger(restClient.Exchange),
+                sharedRestClient,
+                sharedSocketClient,
                 symbol,
                 interval,
                 limit,
@@ -53,22 +64,26 @@ namespace BitMart.Net
         /// <inheritdoc />
         public ITradeTracker CreateTradeTracker(SharedSymbol symbol, int? limit = null, TimeSpan? period = null)
         {
-            IRecentTradeRestClient? restClient = null;
-            ITradeSocketClient socketClient;
+            var restClient = _serviceProvider?.GetRequiredService<IBitMartRestClient>() ?? new BitMartRestClient();
+            var socketClient = _serviceProvider?.GetRequiredService<IBitMartSocketClient>() ?? new BitMartSocketClient();
+
+            IRecentTradeRestClient? sharedRestClient = null;
+            ITradeSocketClient sharedSocketClient;
             if (symbol.TradingMode == TradingMode.Spot)
             {
-                restClient = _serviceProvider.GetRequiredService<IBitMartRestClient>().SpotApi.SharedClient;
-                socketClient = _serviceProvider.GetRequiredService<IBitMartSocketClient>().SpotApi.SharedClient;
+                sharedRestClient = restClient.SpotApi.SharedClient;
+                sharedSocketClient = socketClient.SpotApi.SharedClient;
             }
             else
             {
-                socketClient = _serviceProvider.GetRequiredService<IBitMartSocketClient>().UsdFuturesApi.SharedClient;
+                sharedSocketClient = socketClient.UsdFuturesApi.SharedClient;
             }
 
             return new TradeTracker(
-                _serviceProvider.GetRequiredService<ILoggerFactory>().CreateLogger(socketClient.Exchange),
-                restClient,
-                socketClient,
+                _serviceProvider?.GetRequiredService<ILoggerFactory>().CreateLogger(socketClient.Exchange),
+                sharedRestClient,
+                null,
+                sharedSocketClient,
                 symbol,
                 limit,
                 period
