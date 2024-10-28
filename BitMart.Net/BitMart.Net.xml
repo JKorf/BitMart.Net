@@ -70,6 +70,16 @@
             Urls to the API documentation
             </summary>
         </member>
+        <member name="M:BitMart.Net.BitMartExchange.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
+            <summary>
+            Format a base and quote asset to a BitMart recognized symbol 
+            </summary>
+            <param name="baseAsset">Base asset</param>
+            <param name="quoteAsset">Quote asset</param>
+            <param name="tradingMode">Trading mode</param>
+            <param name="deliverTime">Delivery time for delivery futures</param>
+            <returns></returns>
+        </member>
         <member name="P:BitMart.Net.BitMartExchange.RateLimiter">
             <summary>
             Rate limiter configuration for the BitMart API
@@ -84,6 +94,26 @@
             <summary>
             Event for when a rate limit is triggered
             </summary>
+        </member>
+        <member name="T:BitMart.Net.BitMartTrackerFactory">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.BitMartTrackerFactory.#ctor">
+            <summary>
+            ctor
+            </summary>
+        </member>
+        <member name="M:BitMart.Net.BitMartTrackerFactory.#ctor(System.IServiceProvider)">
+            <summary>
+            ctor
+            </summary>
+            <param name="serviceProvider">Service provider for resolving logging and clients</param>
+        </member>
+        <member name="M:BitMart.Net.BitMartTrackerFactory.CreateKlineTracker(CryptoExchange.Net.SharedApis.SharedSymbol,CryptoExchange.Net.SharedApis.SharedKlineInterval,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.BitMartTrackerFactory.CreateTradeTracker(CryptoExchange.Net.SharedApis.SharedSymbol,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
+            <inheritdoc />
         </member>
         <member name="T:BitMart.Net.Clients.BitMartRestClient">
             <inheritdoc cref="T:BitMart.Net.Interfaces.Clients.IBitMartRestClient" />
@@ -2832,6 +2862,14 @@
             Spot order book factory methods
             </summary>
         </member>
+        <member name="M:BitMart.Net.Interfaces.IBitMartOrderBookFactory.Create(CryptoExchange.Net.SharedApis.SharedSymbol,System.Action{BitMart.Net.Objects.Options.BitMartOrderBookOptions})">
+            <summary>
+            Create a SymbolOrderBook for the symbol
+            </summary>
+            <param name="symbol">The symbol</param>
+            <param name="options">Book options</param>
+            <returns></returns>
+        </member>
         <member name="M:BitMart.Net.Interfaces.IBitMartOrderBookFactory.CreateUsdFutures(System.String,System.Action{BitMart.Net.Objects.Options.BitMartOrderBookOptions})">
             <summary>
             Create a new UsdFutures local order book instance
@@ -2841,6 +2879,30 @@
             <summary>
             Create a new Spot local order book instance
             </summary>
+        </member>
+        <member name="T:BitMart.Net.Interfaces.IBitMartTrackerFactory">
+            <summary>
+            Tracker factory
+            </summary>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.IBitMartTrackerFactory.CreateKlineTracker(CryptoExchange.Net.SharedApis.SharedSymbol,CryptoExchange.Net.SharedApis.SharedKlineInterval,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
+            <summary>
+            Create a new kline tracker
+            </summary>
+            <param name="symbol">The symbol</param>
+            <param name="interval">Kline interval</param>
+            <param name="limit">The max amount of klines to retain</param>
+            <param name="period">The max period the data should be retained</param>
+            <returns></returns>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.IBitMartTrackerFactory.CreateTradeTracker(CryptoExchange.Net.SharedApis.SharedSymbol,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
+            <summary>
+            Create a new trade tracker for a symbol
+            </summary>
+            <param name="symbol">The symbol</param>
+            <param name="limit">The max amount of klines to retain</param>
+            <param name="period">The max period the data should be retained</param>
+            <returns></returns>
         </member>
         <member name="T:BitMart.Net.Objects.BitMartApiAddresses">
             <summary>
@@ -5958,6 +6020,9 @@
             <inheritdoc />
         </member>
         <member name="P:BitMart.Net.SymbolOrderBooks.BitMartOrderBookFactory.Spot">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.SymbolOrderBooks.BitMartOrderBookFactory.Create(CryptoExchange.Net.SharedApis.SharedSymbol,System.Action{BitMart.Net.Objects.Options.BitMartOrderBookOptions})">
             <inheritdoc />
         </member>
         <member name="M:BitMart.Net.SymbolOrderBooks.BitMartOrderBookFactory.CreateUsdFutures(System.String,System.Action{BitMart.Net.Objects.Options.BitMartOrderBookOptions})">
