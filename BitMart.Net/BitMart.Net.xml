@@ -98,6 +98,11 @@
         <member name="T:BitMart.Net.BitMartTrackerFactory">
             <inheritdoc />
         </member>
+        <member name="M:BitMart.Net.BitMartTrackerFactory.#ctor">
+            <summary>
+            ctor
+            </summary>
+        </member>
         <member name="M:BitMart.Net.BitMartTrackerFactory.#ctor(System.IServiceProvider)">
             <summary>
             ctor

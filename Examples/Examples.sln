@@ -1,11 +1,16 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32002.185
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BitMart.Examples.Api", "BitMart.Api\BitMart.Examples.Api.csproj", "{8D7694ED-912A-4F92-B924-CFD107EB20CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BitMart.Examples.Api", "BitMart.Examples.Api\BitMart.Examples.Api.csproj", "{8D7694ED-912A-4F92-B924-CFD107EB20CA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BitMart.Examples.Console", "BitMart.Console\BitMart.Examples.Console.csproj", "{5B869493-8271-45C5-93AE-5357B45FE005}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BitMart.Examples.Console", "BitMart.Examples.Console\BitMart.Examples.Console.csproj", "{5B869493-8271-45C5-93AE-5357B45FE005}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BitMart.Net", "..\BitMart.Net\BitMart.Net.csproj", "{D03634A9-5BD6-4856-BFD7-BF01FA1E3BF0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BitMart.Examples.OrderBook", "BitMart.Examples.OrderBook\BitMart.Examples.OrderBook.csproj", "{4D6348CC-9E9D-4980-BB32-75B30E408446}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BitMart.Examples.Tracker", "BitMart.Examples.Tracker\BitMart.Examples.Tracker.csproj", "{F0B2C8B9-F9B4-4D4C-9DE3-2EC0247D4B26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +26,18 @@ Global
 		{5B869493-8271-45C5-93AE-5357B45FE005}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B869493-8271-45C5-93AE-5357B45FE005}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B869493-8271-45C5-93AE-5357B45FE005}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D03634A9-5BD6-4856-BFD7-BF01FA1E3BF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D03634A9-5BD6-4856-BFD7-BF01FA1E3BF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D03634A9-5BD6-4856-BFD7-BF01FA1E3BF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D03634A9-5BD6-4856-BFD7-BF01FA1E3BF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D6348CC-9E9D-4980-BB32-75B30E408446}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D6348CC-9E9D-4980-BB32-75B30E408446}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D6348CC-9E9D-4980-BB32-75B30E408446}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D6348CC-9E9D-4980-BB32-75B30E408446}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0B2C8B9-F9B4-4D4C-9DE3-2EC0247D4B26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0B2C8B9-F9B4-4D4C-9DE3-2EC0247D4B26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0B2C8B9-F9B4-4D4C-9DE3-2EC0247D4B26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0B2C8B9-F9B4-4D4C-9DE3-2EC0247D4B26}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
