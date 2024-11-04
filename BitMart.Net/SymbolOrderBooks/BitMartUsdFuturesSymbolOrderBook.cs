@@ -10,10 +10,6 @@ using BitMart.Net.Clients;
 using BitMart.Net.Interfaces.Clients;
 using BitMart.Net.Objects.Options;
 using BitMart.Net.Objects.Models;
-using CryptoExchange.Net.Interfaces;
-using System.Collections;
-using System.Collections.Generic;
-using BitMart.Net.Enums;
 
 namespace BitMart.Net.SymbolOrderBooks
 {
@@ -27,9 +23,6 @@ namespace BitMart.Net.SymbolOrderBooks
         private readonly IBitMartRestClient _restClient;
         private readonly IBitMartSocketClient _socketClient;
         private readonly TimeSpan _initialDataTimeout;
-
-        private IEnumerable<ISymbolOrderBookEntry>? _depthBuffer;
-        private OrderBookSide? _bufferSide;
 
         /// <summary>
         /// Create a new order book instance
@@ -63,7 +56,7 @@ namespace BitMart.Net.SymbolOrderBooks
             Initialize(options);
 
             _strictLevels = false;
-            _sequencesAreConsecutive = options?.Limit == null;
+            _sequencesAreConsecutive = true;
 
             Levels = options?.Limit;
             _initialDataTimeout = options?.InitialDataTimeout ?? TimeSpan.FromSeconds(30);
@@ -75,7 +68,7 @@ namespace BitMart.Net.SymbolOrderBooks
         /// <inheritdoc />
         protected override async Task<CallResult<UpdateSubscription>> DoStartAsync(CancellationToken ct)
         {
-            var subResult = await _socketClient.UsdFuturesApi.SubscribeToOrderBookUpdatesAsync(Symbol, Levels ?? 20, HandleUpdate).ConfigureAwait(false);
+            var subResult = await _socketClient.UsdFuturesApi.SubscribeToOrderBookIncrementalUpdatesAsync(Symbol, Levels ?? 20, HandleUpdate).ConfigureAwait(false);
             if (!subResult)
                 return new CallResult<UpdateSubscription>(subResult.Error!);
 
@@ -90,25 +83,15 @@ namespace BitMart.Net.SymbolOrderBooks
             return setResult ? subResult : new CallResult<UpdateSubscription>(setResult.Error!);
         }
 
-        private void HandleUpdate(DataEvent<BitMartFuturesOrderBookUpdate> data)
+        private void HandleUpdate(DataEvent<BitMartFuturesFullOrderBookUpdate> data)
         {
-            if (!_bookSet)
+            if (data.UpdateType == SocketUpdateType.Snapshot)
             {
-                if (_depthBuffer == null || _bufferSide == data.Data.Side)
-                {
-                    _depthBuffer = data.Data.Depths;
-                    _bufferSide = data.Data.Side;
-                }
-                else if(_bufferSide != data.Data.Side && _depthBuffer != null)
-                {
-                    SetInitialOrderBook(DateTimeConverter.ConvertToMilliseconds(data.Data.Timestamp).Value, _bufferSide == OrderBookSide.Bids ? _depthBuffer : data.Data.Depths, _bufferSide == OrderBookSide.Asks ? _depthBuffer : data.Data.Depths);
-                    _depthBuffer = null;
-                    _bufferSide = null;
-                }
+                SetInitialOrderBook(data.Data.Version!.Value, data.Data.Bids, data.Data.Asks);
             }
             else
             {
-                UpdateOrderBook(DateTimeConverter.ConvertToMilliseconds(data.Data.Timestamp).Value, data.Data.Side == Enums.OrderBookSide.Bids ? data.Data.Depths : Array.Empty<ISymbolOrderBookEntry>(), data.Data.Side == Enums.OrderBookSide.Asks ? data.Data.Depths : Array.Empty<ISymbolOrderBookEntry>());
+                UpdateOrderBook(data.Data.Version!.Value, data.Data.Bids, data.Data.Asks);
             }
         }
 
@@ -116,8 +99,6 @@ namespace BitMart.Net.SymbolOrderBooks
         /// <inheritdoc />
         protected override void DoReset()
         {
-            _depthBuffer = null;
-            _bufferSide = null;
         }
 
         /// <inheritdoc />

@@ -13,7 +13,8 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         IBalanceSocketClient,
         IKlineSocketClient,
         IFuturesOrderSocketClient,
-        IPositionSocketClient
+        IPositionSocketClient,
+        IOrderBookSocketClient
     {
     }
 }

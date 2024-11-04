@@ -72,6 +72,50 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(IEnumerable<string> symbols, int depth, Action<DataEvent<BitMartFuturesOrderBookUpdate>> onMessage, CancellationToken ct = default);
 
         /// <summary>
+        /// Subscribe to order book updates for a symbol. Pushes the full order book depth with each update
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-depth-all-channel" /></para>
+        /// </summary>
+        /// <param name="symbol">Symbol, for example `ETHUSDT`</param>
+        /// <param name="depth">Depth level, 5, 20 or 50</param>
+        /// <param name="onMessage">The event handler for the received data</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToOrderBookSnapshotUpdatesAsync(string symbol, int depth, Action<DataEvent<BitMartFuturesFullOrderBookUpdate>> onMessage, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to order book updates for multiple symbols. Pushes the full order book depth with each update
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-depth-all-channel" /></para>
+        /// </summary>
+        /// <param name="symbols">Symbols, for example `ETHUSDT`</param>
+        /// <param name="depth">Depth level, 5, 20 or 50</param>
+        /// <param name="onMessage">The event handler for the received data</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToOrderBookSnapshotUpdatesAsync(IEnumerable<string> symbols, int depth, Action<DataEvent<BitMartFuturesFullOrderBookUpdate>> onMessage, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to order book updates for a symbol. First update is the snapshot, after that updates to the snapshot will be pushed
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-depth-all-channel" /></para>
+        /// </summary>
+        /// <param name="symbol">Symbol, for example `ETHUSDT`</param>
+        /// <param name="depth">Depth level, 5, 20 or 50</param>
+        /// <param name="onMessage">The event handler for the received data</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToOrderBookIncrementalUpdatesAsync(string symbol, int depth, Action<DataEvent<BitMartFuturesFullOrderBookUpdate>> onMessage, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to order book updates for multiple symbols. First update is the snapshot, after that updates to the snapshot will be pushed
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-depth-all-channel" /></para>
+        /// </summary>
+        /// <param name="symbols">Symbols, for example `ETHUSDT`</param>
+        /// <param name="depth">Depth level, 5, 20 or 50</param>
+        /// <param name="onMessage">The event handler for the received data</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToOrderBookIncrementalUpdatesAsync(IEnumerable<string> symbols, int depth, Action<DataEvent<BitMartFuturesFullOrderBookUpdate>> onMessage, CancellationToken ct = default);
+
+        /// <summary>
         /// Subscribe to kline/candlestick updates for a symbol
         /// <para><a href="https://developer-pro.bitmart.com/en/futures/#public-klinebin-channel" /></para>
         /// </summary>

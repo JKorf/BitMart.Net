@@ -643,6 +643,18 @@
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesOrderBookUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToOrderBookSnapshotUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesFullOrderBookUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToOrderBookSnapshotUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesFullOrderBookUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToOrderBookIncrementalUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesFullOrderBookUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToOrderBookIncrementalUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesFullOrderBookUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToKlineUpdatesAsync(System.String,BitMart.Net.Enums.FuturesStreamKlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesKlineUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -2793,6 +2805,50 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToOrderBookSnapshotUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesFullOrderBookUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to order book updates for a symbol. Pushes the full order book depth with each update
+            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-depth-all-channel" /></para>
+            </summary>
+            <param name="symbol">Symbol, for example `ETHUSDT`</param>
+            <param name="depth">Depth level, 5, 20 or 50</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToOrderBookSnapshotUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesFullOrderBookUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to order book updates for multiple symbols. Pushes the full order book depth with each update
+            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-depth-all-channel" /></para>
+            </summary>
+            <param name="symbols">Symbols, for example `ETHUSDT`</param>
+            <param name="depth">Depth level, 5, 20 or 50</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToOrderBookIncrementalUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesFullOrderBookUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to order book updates for a symbol. First update is the snapshot, after that updates to the snapshot will be pushed
+            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-depth-all-channel" /></para>
+            </summary>
+            <param name="symbol">Symbol, for example `ETHUSDT`</param>
+            <param name="depth">Depth level, 5, 20 or 50</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToOrderBookIncrementalUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesFullOrderBookUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to order book updates for multiple symbols. First update is the snapshot, after that updates to the snapshot will be pushed
+            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-depth-all-channel" /></para>
+            </summary>
+            <param name="symbols">Symbols, for example `ETHUSDT`</param>
+            <param name="depth">Depth level, 5, 20 or 50</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToKlineUpdatesAsync(System.String,BitMart.Net.Enums.FuturesStreamKlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesKlineUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to kline/candlestick updates for a symbol
@@ -3649,6 +3705,41 @@
         <member name="P:BitMart.Net.Objects.Models.BitMartFuturesFeeRate.MakerFeeRateA">
             <summary>
             Maker fee rate
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Objects.Models.BitMartFuturesFullOrderBookUpdate">
+            <summary>
+            Order book
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartFuturesFullOrderBookUpdate.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartFuturesFullOrderBookUpdate.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartFuturesFullOrderBookUpdate.Type">
+            <summary>
+            Update type, only applicable to incremental updates
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartFuturesFullOrderBookUpdate.Version">
+            <summary>
+            Version, only applicable to incremental updates
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartFuturesFullOrderBookUpdate.Asks">
+            <summary>
+            Asks
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartFuturesFullOrderBookUpdate.Bids">
+            <summary>
+            Bids
             </summary>
         </member>
         <member name="T:BitMart.Net.Objects.Models.BitMartFuturesKline">

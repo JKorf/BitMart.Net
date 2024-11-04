@@ -91,6 +91,30 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         }
 
         /// <inheritdoc />
+        public Task<CallResult<UpdateSubscription>> SubscribeToOrderBookSnapshotUpdatesAsync(string symbol, int depth, Action<DataEvent<BitMartFuturesFullOrderBookUpdate>> onMessage, CancellationToken ct = default)
+            => SubscribeToOrderBookSnapshotUpdatesAsync(new[] { symbol }, depth, onMessage, ct);
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookSnapshotUpdatesAsync(IEnumerable<string> symbols, int depth, Action<DataEvent<BitMartFuturesFullOrderBookUpdate>> onMessage, CancellationToken ct = default)
+        {
+            var subscription = new BitMartFuturesSubscription<BitMartFuturesFullOrderBookUpdate>(_logger, symbols.Select(s => $"futures/depthAll{depth}:" + s).ToArray(),
+                update => onMessage(update.WithSymbol(update.Data.Symbol)), false);
+            return await SubscribeAsync(BaseAddress.AppendPath("api?protocol=1.1"), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public Task<CallResult<UpdateSubscription>> SubscribeToOrderBookIncrementalUpdatesAsync(string symbol, int depth, Action<DataEvent<BitMartFuturesFullOrderBookUpdate>> onMessage, CancellationToken ct = default)
+            => SubscribeToOrderBookIncrementalUpdatesAsync(new[] { symbol }, depth, onMessage, ct);
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookIncrementalUpdatesAsync(IEnumerable<string> symbols, int depth, Action<DataEvent<BitMartFuturesFullOrderBookUpdate>> onMessage, CancellationToken ct = default)
+        {
+            var subscription = new BitMartFuturesSubscription<BitMartFuturesFullOrderBookUpdate>(_logger, symbols.Select(s => $"futures/depthIncrease{depth}:" + s).ToArray(),
+                update => onMessage(update.WithSymbol(update.Data.Symbol).WithUpdateType(update.Data.Type == "snapshot" ? SocketUpdateType.Snapshot: SocketUpdateType.Update)), false);
+            return await SubscribeAsync(BaseAddress.AppendPath("api?protocol=1.1"), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
         public Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, FuturesStreamKlineInterval interval, Action<DataEvent<BitMartFuturesKlineUpdate>> onMessage, CancellationToken ct = default)
             => SubscribeToKlineUpdatesAsync(new[] { symbol }, interval, onMessage, ct);
 
