@@ -144,6 +144,12 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 1.6.0 - 04 Nov 2024
+    * Added socketClient.UsdFuturesApi.SubscribeToOrderBookSnapshotUpdatesAsync subscription
+    * Added socketClient.UsdFuturesApi.SubscribeToOrderBookIncrementalUpdatesAsync subscription
+    * Added IOrderBookSocketClient to UsdFuturesApi Shared socket implementations
+    * Added MaxMarketOrderQuantity to BitMartContract response model
+
 * Version 1.5.0 - 28 Oct 2024
     * Updated CryptoExchange.Net to version 8.1.0, see https://github.com/JKorf/CryptoExchange.Net/releases/tag/8.1.0
     * Moved FormatSymbol to BitMartExchange class
