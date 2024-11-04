@@ -3376,6 +3376,11 @@
             Interval of funding in hours
             </summary>
         </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartContract.MaxMarketOrderQuantity">
+            <summary>
+            Maximum market order quantity
+            </summary>
+        </member>
         <member name="T:BitMart.Net.Objects.Models.BitMartDepositAddress">
             <summary>
             Deposit address info

@@ -155,6 +155,11 @@ namespace BitMart.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("funding_interval_hours")]
         public int? FundingIntervalHours { get; set; }
+        /// <summary>
+        /// Maximum market order quantity
+        /// </summary>
+        [JsonPropertyName("market_max_volume")]
+        public decimal MaxMarketOrderQuantity { get; set; }
     }
 
 
