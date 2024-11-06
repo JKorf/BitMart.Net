@@ -174,7 +174,7 @@ namespace BitMart.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        protected override Query? GetAuthenticationRequest(SocketConnection connection) 
+        protected override Task<Query?> GetAuthenticationRequestAsync(SocketConnection connection)
         {
             var timestamp = DateTimeConverter.ConvertToMilliseconds(DateTime.UtcNow).ToString();
             var authProvider = (BitMartAuthenticationProvider)AuthenticationProvider!;
@@ -182,7 +182,7 @@ namespace BitMart.Net.Clients.SpotApi
             var memo = authProvider.GetMemo();
             var sign = authProvider.Sign($"{timestamp}#{memo}#bitmart.WebSocket");
 
-            return new BitMartLoginQuery(key, timestamp, sign);
+            return Task.FromResult<Query?>(new BitMartLoginQuery(key, timestamp, sign));
         }
 
         /// <inheritdoc />
