@@ -9,6 +9,7 @@ using BitMart.Net.Interfaces.Clients.UsdFuturesApi;
 using BitMart.Net.Interfaces.Clients.SpotApi;
 using BitMart.Net.Clients.UsdFuturesApi;
 using BitMart.Net.Clients.SpotApi;
+using Microsoft.Extensions.Options;
 
 namespace BitMart.Net.Clients
 {
@@ -31,25 +32,23 @@ namespace BitMart.Net.Clients
         /// Create a new instance of the BitMartRestClient using provided options
         /// </summary>
         /// <param name="optionsDelegate">Option configuration delegate</param>
-        public BitMartRestClient(Action<BitMartRestOptions>? optionsDelegate = null) : this(null, null, optionsDelegate)
+        public BitMartRestClient(Action<BitMartRestOptions>? optionsDelegate = null)
+            : this(null, null, Options.Create(ApplyOptionsDelegate(optionsDelegate)))
         {
         }
 
         /// <summary>
         /// Create a new instance of the BitMartRestClient using provided options
         /// </summary>
-        /// <param name="optionsDelegate">Option configuration delegate</param>
+        /// <param name="options">Option configuration</param>
         /// <param name="loggerFactory">The logger factory</param>
         /// <param name="httpClient">Http client for this client</param>
-        public BitMartRestClient(HttpClient? httpClient, ILoggerFactory? loggerFactory, Action<BitMartRestOptions>? optionsDelegate = null) : base(loggerFactory, "BitMart")
+        public BitMartRestClient(HttpClient? httpClient, ILoggerFactory? loggerFactory, IOptions<BitMartRestOptions> options) : base(loggerFactory, "BitMart")
         {
-            var options = BitMartRestOptions.Default.Copy();
-            if (optionsDelegate != null)
-                optionsDelegate(options);
-            Initialize(options);
+            Initialize(options.Value);
 
-            UsdFuturesApi = AddApiClient(new BitMartRestClientUsdFuturesApi(_logger, this, httpClient, options));
-            SpotApi = AddApiClient(new BitMartRestClientSpotApi(_logger, httpClient, options));
+            UsdFuturesApi = AddApiClient(new BitMartRestClientUsdFuturesApi(_logger, this, httpClient, options.Value));
+            SpotApi = AddApiClient(new BitMartRestClientSpotApi(_logger, httpClient, options.Value));
         }
 
         #endregion
@@ -60,9 +59,7 @@ namespace BitMart.Net.Clients
         /// <param name="optionsDelegate">Option configuration delegate</param>
         public static void SetDefaultOptions(Action<BitMartRestOptions> optionsDelegate)
         {
-            var options = BitMartRestOptions.Default.Copy();
-            optionsDelegate(options);
-            BitMartRestOptions.Default = options;
+            BitMartRestOptions.Default = ApplyOptionsDelegate(optionsDelegate);
         }
 
         /// <inheritdoc />

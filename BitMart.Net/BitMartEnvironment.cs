@@ -42,6 +42,26 @@ namespace BitMart.Net
         }
 
         /// <summary>
+        /// ctor for DI, use <see cref="CreateCustom"/> for creating a custom environment
+        /// </summary>
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+        public BitMartEnvironment() : base(TradeEnvironmentNames.Live)
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+        { }
+
+        /// <summary>
+        /// Get the BitMart environment by name
+        /// </summary>
+        public static BitMartEnvironment? GetEnvironmentByName(string? name)
+         => name switch
+         {
+             TradeEnvironmentNames.Live => Live,
+             "" => Live,
+             null => Live,
+             _ => default
+         };
+
+        /// <summary>
         /// Live environment, using Futures V2 API
         /// </summary>
         public static BitMartEnvironment Live { get; }

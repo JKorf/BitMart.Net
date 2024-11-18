@@ -29,6 +29,16 @@
             Socket Perpetual Futures API address
             </summary>
         </member>
+        <member name="M:BitMart.Net.BitMartEnvironment.#ctor">
+            <summary>
+            ctor for DI, use <see cref="M:BitMart.Net.BitMartEnvironment.CreateCustom(System.String,System.String,System.String,System.String,System.String)"/> for creating a custom environment
+            </summary>
+        </member>
+        <member name="M:BitMart.Net.BitMartEnvironment.GetEnvironmentByName(System.String)">
+            <summary>
+            Get the BitMart environment by name
+            </summary>
+        </member>
         <member name="P:BitMart.Net.BitMartEnvironment.Live">
             <summary>
             Live environment, using Futures V2 API
@@ -130,11 +140,11 @@
             </summary>
             <param name="optionsDelegate">Option configuration delegate</param>
         </member>
-        <member name="M:BitMart.Net.Clients.BitMartRestClient.#ctor(System.Net.Http.HttpClient,Microsoft.Extensions.Logging.ILoggerFactory,System.Action{BitMart.Net.Objects.Options.BitMartRestOptions})">
+        <member name="M:BitMart.Net.Clients.BitMartRestClient.#ctor(System.Net.Http.HttpClient,Microsoft.Extensions.Logging.ILoggerFactory,Microsoft.Extensions.Options.IOptions{BitMart.Net.Objects.Options.BitMartRestOptions})">
             <summary>
             Create a new instance of the BitMartRestClient using provided options
             </summary>
-            <param name="optionsDelegate">Option configuration delegate</param>
+            <param name="options">Option configuration</param>
             <param name="loggerFactory">The logger factory</param>
             <param name="httpClient">Http client for this client</param>
         </member>
@@ -156,24 +166,18 @@
         <member name="P:BitMart.Net.Clients.BitMartSocketClient.SpotApi">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Clients.BitMartSocketClient.#ctor(Microsoft.Extensions.Logging.ILoggerFactory)">
-            <summary>
-            Create a new instance of BitMartSocketClient
-            </summary>
-            <param name="loggerFactory">The logger factory</param>
-        </member>
         <member name="M:BitMart.Net.Clients.BitMartSocketClient.#ctor(System.Action{BitMart.Net.Objects.Options.BitMartSocketOptions})">
             <summary>
             Create a new instance of BitMartSocketClient
             </summary>
             <param name="optionsDelegate">Option configuration delegate</param>
         </member>
-        <member name="M:BitMart.Net.Clients.BitMartSocketClient.#ctor(System.Action{BitMart.Net.Objects.Options.BitMartSocketOptions},Microsoft.Extensions.Logging.ILoggerFactory)">
+        <member name="M:BitMart.Net.Clients.BitMartSocketClient.#ctor(Microsoft.Extensions.Options.IOptions{BitMart.Net.Objects.Options.BitMartSocketOptions},Microsoft.Extensions.Logging.ILoggerFactory)">
             <summary>
             Create a new instance of BitMartSocketClient
             </summary>
             <param name="loggerFactory">The logger factory</param>
-            <param name="optionsDelegate">Option configuration delegate</param>
+            <param name="options">Option configuration</param>
         </member>
         <member name="M:BitMart.Net.Clients.BitMartSocketClient.SetDefaultOptions(System.Action{BitMart.Net.Objects.Options.BitMartSocketOptions})">
             <summary>
@@ -2998,9 +3002,9 @@
         <member name="T:BitMart.Net.Objects.BitMartApiCredentials">
             <inheritdoc />
         </member>
-        <member name="P:BitMart.Net.Objects.BitMartApiCredentials.Memo">
+        <member name="P:BitMart.Net.Objects.BitMartApiCredentials.PassPhrase">
             <summary>
-            Memo
+            API key memo/passphrase
             </summary>
         </member>
         <member name="M:BitMart.Net.Objects.BitMartApiCredentials.#ctor(System.String,System.String,System.String)">
@@ -3009,7 +3013,7 @@
             </summary>
             <param name="key">The API key</param>
             <param name="secret">The API secret</param>
-            <param name="memo">API key memo</param>
+            <param name="passPhrase">API key memo/passphrase</param>
         </member>
         <member name="M:BitMart.Net.Objects.BitMartApiCredentials.Copy">
             <summary>
@@ -5982,6 +5986,36 @@
             Submission time
             </summary>
         </member>
+        <member name="T:BitMart.Net.Objects.Options.BitMartOptions">
+            <summary>
+            BitMart options
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Options.BitMartOptions.Rest">
+            <summary>
+            Rest client options
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Options.BitMartOptions.Socket">
+            <summary>
+            Socket client options
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Options.BitMartOptions.Environment">
+            <summary>
+            Trade environment. Contains info about URL's to use to connect to the API. Use `BitMartEnvironment` to swap environment, for example `Environment = BitMartEnvironment.Live`
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Options.BitMartOptions.ApiCredentials">
+            <summary>
+            The api credentials used for signing requests.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Options.BitMartOptions.SocketClientLifeTime">
+            <summary>
+            The DI service lifetime for the IBitMartSocketClient
+            </summary>
+        </member>
         <member name="T:BitMart.Net.Objects.Options.BitMartOrderBookOptions">
             <summary>
             Options for the BitMart SymbolOrderBook
@@ -6012,6 +6046,11 @@
             Default options for new clients
             </summary>
         </member>
+        <member name="M:BitMart.Net.Objects.Options.BitMartRestOptions.#ctor">
+            <summary>
+            ctor
+            </summary>
+        </member>
         <member name="P:BitMart.Net.Objects.Options.BitMartRestOptions.BrokerId">
             <summary>
             Set a broker id which will be send in the request headers
@@ -6035,6 +6074,11 @@
         <member name="P:BitMart.Net.Objects.Options.BitMartSocketOptions.Default">
             <summary>
             Default options for new clients
+            </summary>
+        </member>
+        <member name="M:BitMart.Net.Objects.Options.BitMartSocketOptions.#ctor">
+            <summary>
+            ctor
             </summary>
         </member>
         <member name="P:BitMart.Net.Objects.Options.BitMartSocketOptions.UsdFuturesOptions">
@@ -6221,15 +6265,26 @@
             Extensions for DI
             </summary>
         </member>
-        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddBitMart(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{BitMart.Net.Objects.Options.BitMartRestOptions},System.Action{BitMart.Net.Objects.Options.BitMartSocketOptions},System.Nullable{Microsoft.Extensions.DependencyInjection.ServiceLifetime})">
+        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddBitMart(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
             <summary>
-            Add the IBitMartRestClient and IBitMartSocketClient to the sevice collection so they can be injected
+            Add services such as the IBitMartRestClient and IBitMartSocketClient. Configures the services based on the provided configuration.
             </summary>
             <param name="services">The service collection</param>
-            <param name="defaultRestOptionsDelegate">Set default options for the rest client</param>
-            <param name="defaultSocketOptionsDelegate">Set default options for the socket client</param>
-            <param name="socketClientLifeTime">The lifetime of the IBitMartSocketClient for the service collection. Defaults to Singleton.</param>
+            <param name="configuration">The configuration(section) containing the options</param>
             <returns></returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddBitMart(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{BitMart.Net.Objects.Options.BitMartOptions})">
+            <summary>
+            Add services such as the IBitMartRestClient and IBitMartSocketClient. Services will be configured based on the provided options.
+            </summary>
+            <param name="services">The service collection</param>
+            <param name="optionsDelegate">Set options for the BitMart services</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddBitMart(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{BitMart.Net.Objects.Options.BitMartRestOptions},System.Action{BitMart.Net.Objects.Options.BitMartSocketOptions},System.Nullable{Microsoft.Extensions.DependencyInjection.ServiceLifetime})">
+            <summary>
+            DEPRECATED; use <see cref="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddBitMart(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{BitMart.Net.Objects.Options.BitMartOptions})" /> instead
+            </summary>
         </member>
     </members>
 </doc>
