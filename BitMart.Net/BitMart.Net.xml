@@ -70,6 +70,16 @@
             Exchange name
             </summary>
         </member>
+        <member name="P:BitMart.Net.BitMartExchange.DisplayName">
+            <summary>
+            Exchange name
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.BitMartExchange.ImageUrl">
+            <summary>
+            Url to exchange image
+            </summary>
+        </member>
         <member name="P:BitMart.Net.BitMartExchange.Url">
             <summary>
             Url to the main website

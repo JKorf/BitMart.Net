@@ -21,6 +21,16 @@ namespace BitMart.Net
         public static string ExchangeName => "BitMart";
 
         /// <summary>
+        /// Exchange name
+        /// </summary>
+        public static string DisplayName => "BitMart";
+
+        /// <summary>
+        /// Url to exchange image
+        /// </summary>
+        public static string ImageUrl { get; } = "https://raw.githubusercontent.com/JKorf/BitMart.Net/master/BitMart.Net/Icon/icon.png";
+
+        /// <summary>
         /// Url to the main website
         /// </summary>
         public static string Url { get; } = "https://www.bitmart.com";

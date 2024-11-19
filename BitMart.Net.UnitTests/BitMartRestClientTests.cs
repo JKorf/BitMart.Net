@@ -119,10 +119,10 @@ namespace BitMart.Net.UnitTests
                 {
                     { "ApiCredentials:Key", "123" },
                     { "ApiCredentials:Secret", "456" },
-                    { "ApiCredentials:Memo", "000" },
+                    { "ApiCredentials:Passphrase", "000" },
                     { "Socket:ApiCredentials:Key", "456" },
                     { "Socket:ApiCredentials:Secret", "789" },
-                    { "Socket:ApiCredentials:Memo", "xxx" },
+                    { "Socket:ApiCredentials:Passphrase", "xxx" },
                     { "Rest:OutputOriginalData", "true" },
                     { "Socket:OutputOriginalData", "false" },
                     { "Rest:Proxy:Host", "host" },

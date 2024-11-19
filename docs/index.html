@@ -191,8 +191,14 @@
           
 		  <p>BitMart.Net can be configured using Dotnet dependency injection, after which the clients can be injected into your services. It also correctly configures logging and HttpClient usage.</p>
 		  
-		  <pre><code>builder.Services.AddBitMart(options => {
-  // Options can be configured here, for example:
+		  <pre><code>// Configure options from config file
+// see https://github.com/JKorf/CryptoExchange.Net/tree/master/Examples/example-config.json for an example
+builder.Services.AddBitMart(builder.Configuration.GetSection("BitMart"));
+		  
+// OR
+		  
+ builder.Services.AddBitMart(options => {
+  // Configure options in code
   options.ApiCredentials = new BitMartApiCredentials("APIKEY", "APISECRET", "MEMO");
 });</code></pre>
 		  
