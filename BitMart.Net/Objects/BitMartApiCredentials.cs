@@ -8,19 +8,19 @@ namespace BitMart.Net.Objects
     public class BitMartApiCredentials : ApiCredentials
     {
         /// <summary>
-        /// Memo
+        /// API key memo/passphrase
         /// </summary>
-        public string Memo { get; set; }
+        public string PassPhrase { get; set; }
 
         /// <summary>
         /// ctor
         /// </summary>
         /// <param name="key">The API key</param>
         /// <param name="secret">The API secret</param>
-        /// <param name="memo">API key memo</param>
-        public BitMartApiCredentials(string key, string secret, string memo) : base(key, secret)
+        /// <param name="passPhrase">API key memo/passphrase</param>
+        public BitMartApiCredentials(string key, string secret, string passPhrase) : base(key, secret)
         {
-            Memo = memo;
+            PassPhrase = passPhrase;
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace BitMart.Net.Objects
         /// <returns></returns>
         public override ApiCredentials Copy()
         {
-            return new BitMartApiCredentials(Key, Secret, Memo);
+            return new BitMartApiCredentials(Key, Secret, PassPhrase);
         }
     }
 }

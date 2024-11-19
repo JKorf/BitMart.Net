@@ -10,6 +10,9 @@ using BitMart.Net.Objects.Options;
 using BitMart.Net.SymbolOrderBooks;
 using CryptoExchange.Net;
 using BitMart.Net;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Configuration;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -18,47 +21,114 @@ namespace Microsoft.Extensions.DependencyInjection
     /// </summary>
     public static class ServiceCollectionExtensions
     {
+
         /// <summary>
-        /// Add the IBitMartRestClient and IBitMartSocketClient to the sevice collection so they can be injected
+        /// Add services such as the IBitMartRestClient and IBitMartSocketClient. Configures the services based on the provided configuration.
         /// </summary>
         /// <param name="services">The service collection</param>
-        /// <param name="defaultRestOptionsDelegate">Set default options for the rest client</param>
-        /// <param name="defaultSocketOptionsDelegate">Set default options for the socket client</param>
-        /// <param name="socketClientLifeTime">The lifetime of the IBitMartSocketClient for the service collection. Defaults to Singleton.</param>
+        /// <param name="configuration">The configuration(section) containing the options</param>
         /// <returns></returns>
         public static IServiceCollection AddBitMart(
             this IServiceCollection services,
-            Action<BitMartRestOptions>? defaultRestOptionsDelegate = null,
-            Action<BitMartSocketOptions>? defaultSocketOptionsDelegate = null,
+            IConfiguration configuration)
+        {
+            var options = new BitMartOptions();
+            // Reset environment so we know if theyre overriden
+            options.Rest.Environment = null!;
+            options.Socket.Environment = null!;
+            configuration.Bind(options);
+
+            if (options.Rest == null || options.Socket == null)
+                throw new ArgumentException("Options null");
+
+            var restEnvName = options.Rest.Environment?.Name ?? options.Environment?.Name ?? BitMartEnvironment.Live.Name;
+            var socketEnvName = options.Socket.Environment?.Name ?? options.Environment?.Name ?? BitMartEnvironment.Live.Name;
+            options.Rest.Environment = BitMartEnvironment.GetEnvironmentByName(restEnvName) ?? options.Rest.Environment!;
+            options.Rest.ApiCredentials = options.Rest.ApiCredentials ?? options.ApiCredentials;
+            options.Socket.Environment = BitMartEnvironment.GetEnvironmentByName(socketEnvName) ?? options.Socket.Environment!;
+            options.Socket.ApiCredentials = options.Socket.ApiCredentials ?? options.ApiCredentials;
+
+
+            services.AddSingleton(x => Options.Options.Create(options.Rest));
+            services.AddSingleton(x => Options.Options.Create(options.Socket));
+
+            return AddBitMartCore(services, options.SocketClientLifeTime);
+        }
+
+        /// <summary>
+        /// Add services such as the IBitMartRestClient and IBitMartSocketClient. Services will be configured based on the provided options.
+        /// </summary>
+        /// <param name="services">The service collection</param>
+        /// <param name="optionsDelegate">Set options for the BitMart services</param>
+        /// <returns></returns>
+        public static IServiceCollection AddBitMart(
+            this IServiceCollection services,
+            Action<BitMartOptions>? optionsDelegate = null)
+        {
+            var options = new BitMartOptions();
+            // Reset environment so we know if theyre overriden
+            options.Rest.Environment = null!;
+            options.Socket.Environment = null!;
+            optionsDelegate?.Invoke(options);
+            if (options.Rest == null || options.Socket == null)
+                throw new ArgumentException("Options null");
+
+            options.Rest.Environment = options.Rest.Environment ?? options.Environment ?? BitMartEnvironment.Live;
+            options.Rest.ApiCredentials = options.Rest.ApiCredentials ?? options.ApiCredentials;
+            options.Socket.Environment = options.Socket.Environment ?? options.Environment ?? BitMartEnvironment.Live;
+            options.Socket.ApiCredentials = options.Socket.ApiCredentials ?? options.ApiCredentials;
+
+            services.AddSingleton(x => Options.Options.Create(options.Rest));
+            services.AddSingleton(x => Options.Options.Create(options.Socket));
+
+            return AddBitMartCore(services, options.SocketClientLifeTime);
+        }
+
+        /// <summary>
+        /// DEPRECATED; use <see cref="AddBitMart(IServiceCollection, Action{BitMartOptions}?)" /> instead
+        /// </summary>
+        public static IServiceCollection AddBitMart(
+            this IServiceCollection services,
+            Action<BitMartRestOptions> restDelegate,
+            Action<BitMartSocketOptions>? socketDelegate = null,
             ServiceLifetime? socketClientLifeTime = null)
         {
-            var restOptions = BitMartRestOptions.Default.Copy();
+            services.Configure<BitMartRestOptions>((x) => { restDelegate?.Invoke(x); });
+            services.Configure<BitMartSocketOptions>((x) => { socketDelegate?.Invoke(x); });
 
-            if (defaultRestOptionsDelegate != null)
-            {
-                defaultRestOptionsDelegate(restOptions);
-                BitMartRestClient.SetDefaultOptions(defaultRestOptionsDelegate);
-            }
+            return AddBitMartCore(services, socketClientLifeTime);
+        }
 
-            if (defaultSocketOptionsDelegate != null)
-                BitMartSocketClient.SetDefaultOptions(defaultSocketOptionsDelegate);
-
-            services.AddHttpClient<IBitMartRestClient, BitMartRestClient>(options =>
+        private static IServiceCollection AddBitMartCore(
+            this IServiceCollection services,
+            ServiceLifetime? socketClientLifeTime = null)
+        {
+            services.AddHttpClient<IBitMartRestClient, BitMartRestClient>((client, serviceProvider) =>
             {
-                options.Timeout = restOptions.RequestTimeout;
-            }).ConfigurePrimaryHttpMessageHandler(() =>
-            {
+                var options = serviceProvider.GetRequiredService<IOptions<BitMartRestOptions>>().Value;
+                client.Timeout = options.RequestTimeout;
+                return new BitMartRestClient(client, serviceProvider.GetRequiredService<ILoggerFactory>(), serviceProvider.GetRequiredService<IOptions<BitMartRestOptions>>());
+            }).ConfigurePrimaryHttpMessageHandler((serviceProvider) => {
                 var handler = new HttpClientHandler();
-                if (restOptions.Proxy != null)
+                try
+                {
+                    handler.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
+                }
+                catch (PlatformNotSupportedException)
+                { }
+
+                var options = serviceProvider.GetRequiredService<IOptions<BitMartRestOptions>>().Value;
+                if (options.Proxy != null)
                 {
                     handler.Proxy = new WebProxy
                     {
-                        Address = new Uri($"{restOptions.Proxy.Host}:{restOptions.Proxy.Port}"),
-                        Credentials = restOptions.Proxy.Password == null ? null : new NetworkCredential(restOptions.Proxy.Login, restOptions.Proxy.Password)
+                        Address = new Uri($"{options.Proxy.Host}:{options.Proxy.Port}"),
+                        Credentials = options.Proxy.Password == null ? null : new NetworkCredential(options.Proxy.Login, options.Proxy.Password)
                     };
                 }
                 return handler;
             });
+            services.Add(new ServiceDescriptor(typeof(IBitMartSocketClient), x => { return new BitMartSocketClient(x.GetRequiredService<IOptions<BitMartSocketOptions>>(), x.GetRequiredService<ILoggerFactory>()); }, socketClientLifeTime ?? ServiceLifetime.Singleton));
 
             services.AddTransient<ICryptoRestClient, CryptoRestClient>();
             services.AddSingleton<ICryptoSocketClient, CryptoSocketClient>();
@@ -70,11 +140,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IBitMartSocketClient>().SpotApi.SharedClient);
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IBitMartRestClient>().UsdFuturesApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IBitMartSocketClient>().UsdFuturesApi.SharedClient);
-
-            if (socketClientLifeTime == null)
-                services.AddSingleton<IBitMartSocketClient, BitMartSocketClient>();
-            else
-                services.Add(new ServiceDescriptor(typeof(IBitMartSocketClient), typeof(BitMartSocketClient), socketClientLifeTime.Value));
+            
             return services;
         }
     }

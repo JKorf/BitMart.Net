@@ -10,29 +10,37 @@ namespace BitMart.Net.Objects.Options
         /// <summary>
         /// Default options for new clients
         /// </summary>
-        public static BitMartSocketOptions Default { get; set; } = new BitMartSocketOptions()
+        internal static BitMartSocketOptions Default { get; set; } = new BitMartSocketOptions()
         {
             Environment = BitMartEnvironment.Live,
             SocketSubscriptionsCombineTarget = 10,
             MaxSocketConnections = 20
         };
 
-         /// <summary>
+        /// <summary>
+        /// ctor
+        /// </summary>
+        public BitMartSocketOptions()
+        {
+            Default?.Set(this);
+        }
+
+        /// <summary>
         /// UsdFutures API options
         /// </summary>
-        public SocketApiOptions UsdFuturesOptions { get; private set; } = new SocketApiOptions();
+        public SocketApiOptions<BitMartApiCredentials> UsdFuturesOptions { get; private set; } = new SocketApiOptions<BitMartApiCredentials>();
 
          /// <summary>
         /// Spot API options
         /// </summary>
-        public SocketApiOptions SpotOptions { get; private set; } = new SocketApiOptions();
+        public SocketApiOptions<BitMartApiCredentials> SpotOptions { get; private set; } = new SocketApiOptions<BitMartApiCredentials>();
 
-        internal BitMartSocketOptions Copy()
+        internal BitMartSocketOptions Set(BitMartSocketOptions targetOptions)
         {
-            var options = Copy<BitMartSocketOptions>();
-            options.UsdFuturesOptions = UsdFuturesOptions.Copy<SocketApiOptions>();
-            options.SpotOptions = SpotOptions.Copy<SocketApiOptions>();
-            return options;
+            targetOptions = base.Set<BitMartSocketOptions>(targetOptions);
+            targetOptions.UsdFuturesOptions = UsdFuturesOptions.Set(targetOptions.UsdFuturesOptions);
+            targetOptions.SpotOptions = UsdFuturesOptions.Set(targetOptions.UsdFuturesOptions);
+            return targetOptions;
         }
     }
 }

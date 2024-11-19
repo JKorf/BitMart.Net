@@ -10,12 +10,20 @@ namespace BitMart.Net.Objects.Options
         /// <summary>
         /// Default options for new clients
         /// </summary>
-        public static BitMartRestOptions Default { get; set; } = new BitMartRestOptions()
+        internal static BitMartRestOptions Default { get; set; } = new BitMartRestOptions()
         {
             Environment = BitMartEnvironment.Live,
             AutoTimestamp = true
         };
-        
+
+        /// <summary>
+        /// ctor
+        /// </summary>
+        public BitMartRestOptions()
+        {
+            Default?.Set(this);
+        }
+
         /// <summary>
         /// Set a broker id which will be send in the request headers
         /// </summary>
@@ -24,21 +32,20 @@ namespace BitMart.Net.Objects.Options
          /// <summary>
         /// UsdFutures API options
         /// </summary>
-        public RestApiOptions UsdFuturesOptions { get; private set; } = new RestApiOptions();
+        public RestApiOptions<BitMartApiCredentials> UsdFuturesOptions { get; private set; } = new RestApiOptions<BitMartApiCredentials>();
 
          /// <summary>
         /// Spot API options
         /// </summary>
-        public RestApiOptions SpotOptions { get; private set; } = new RestApiOptions();
+        public RestApiOptions<BitMartApiCredentials> SpotOptions { get; private set; } = new RestApiOptions<BitMartApiCredentials>();
 
-
-        internal BitMartRestOptions Copy()
+        internal BitMartRestOptions Set(BitMartRestOptions targetOptions)
         {
-            var options = Copy<BitMartRestOptions>();
-            options.BrokerId = BrokerId;
-            options.UsdFuturesOptions = UsdFuturesOptions.Copy<RestApiOptions>();
-            options.SpotOptions = SpotOptions.Copy<RestApiOptions>();
-            return options;
+            targetOptions = base.Set<BitMartRestOptions>(targetOptions);
+            targetOptions.BrokerId = BrokerId;
+            targetOptions.UsdFuturesOptions = UsdFuturesOptions.Set(targetOptions.UsdFuturesOptions);
+            targetOptions.SpotOptions = SpotOptions.Set(targetOptions.SpotOptions);
+            return targetOptions;
         }
     }
 }

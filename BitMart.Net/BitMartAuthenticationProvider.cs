@@ -14,7 +14,7 @@ namespace BitMart.Net
     internal class BitMartAuthenticationProvider : AuthenticationProvider<BitMartApiCredentials>
     {
         private static IMessageSerializer _serializer = new SystemTextJsonMessageSerializer();
-        public string GetMemo() => _credentials.Memo;
+        public string GetMemo() => _credentials.PassPhrase;
 
         public BitMartAuthenticationProvider(BitMartApiCredentials credentials) : base(credentials)
         {

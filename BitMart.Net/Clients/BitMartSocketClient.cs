@@ -8,6 +8,7 @@ using BitMart.Net.Interfaces.Clients.UsdFuturesApi;
 using BitMart.Net.Interfaces.Clients.SpotApi;
 using BitMart.Net.Clients.SpotApi;
 using BitMart.Net.Clients.UsdFuturesApi;
+using Microsoft.Extensions.Options;
 
 namespace BitMart.Net.Clients
 {
@@ -28,19 +29,13 @@ namespace BitMart.Net.Clients
         #endregion
 
         #region constructor/destructor
-        /// <summary>
-        /// Create a new instance of BitMartSocketClient
-        /// </summary>
-        /// <param name="loggerFactory">The logger factory</param>
-        public BitMartSocketClient(ILoggerFactory? loggerFactory = null) : this((x) => { }, loggerFactory)
-        {
-        }
 
         /// <summary>
         /// Create a new instance of BitMartSocketClient
         /// </summary>
         /// <param name="optionsDelegate">Option configuration delegate</param>
-        public BitMartSocketClient(Action<BitMartSocketOptions> optionsDelegate) : this(optionsDelegate, null)
+        public BitMartSocketClient(Action<BitMartSocketOptions>? optionsDelegate = null)
+            : this(Options.Create(ApplyOptionsDelegate(optionsDelegate)), null)
         {
         }
 
@@ -48,15 +43,13 @@ namespace BitMart.Net.Clients
         /// Create a new instance of BitMartSocketClient
         /// </summary>
         /// <param name="loggerFactory">The logger factory</param>
-        /// <param name="optionsDelegate">Option configuration delegate</param>
-        public BitMartSocketClient(Action<BitMartSocketOptions>? optionsDelegate, ILoggerFactory? loggerFactory = null) : base(loggerFactory, "BitMart")
+        /// <param name="options">Option configuration</param>
+        public BitMartSocketClient(IOptions<BitMartSocketOptions> options, ILoggerFactory? loggerFactory = null) : base(loggerFactory, "BitMart")
         {
-            var options = BitMartSocketOptions.Default.Copy();
-            optionsDelegate?.Invoke(options);
-            Initialize(options);
+            Initialize(options.Value);
 
-            UsdFuturesApi = AddApiClient(new BitMartSocketClientUsdFuturesApi(_logger, options));
-            SpotApi = AddApiClient(new BitMartSocketClientSpotApi(_logger, options));
+            UsdFuturesApi = AddApiClient(new BitMartSocketClientUsdFuturesApi(_logger, options.Value));
+            SpotApi = AddApiClient(new BitMartSocketClientSpotApi(_logger, options.Value));
         }
         #endregion
 
@@ -66,9 +59,7 @@ namespace BitMart.Net.Clients
         /// <param name="optionsDelegate">Option configuration delegate</param>
         public static void SetDefaultOptions(Action<BitMartSocketOptions> optionsDelegate)
         {
-            var options = BitMartSocketOptions.Default.Copy();
-            optionsDelegate(options);
-            BitMartSocketOptions.Default = options;
+            BitMartSocketOptions.Default = ApplyOptionsDelegate(optionsDelegate);
         }
 
         /// <inheritdoc />

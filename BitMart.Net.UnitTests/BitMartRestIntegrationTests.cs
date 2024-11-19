@@ -1,7 +1,9 @@
 ﻿using BitMart.Net.Clients;
 using BitMart.Net.Objects;
+using BitMart.Net.Objects.Options;
 using CryptoExchange.Net.Testing;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -27,11 +29,11 @@ namespace BitMart.Net.UnitTests
             var pass = Environment.GetEnvironmentVariable("APIPASS");
 
             Authenticated = key != null && sec != null;
-            return new BitMartRestClient(null, loggerFactory, opts =>
+            return new BitMartRestClient(null, loggerFactory, Options.Create(new BitMartRestOptions
             {
-                opts.OutputOriginalData = true;
-                opts.ApiCredentials = Authenticated ? new BitMartApiCredentials(key, sec, pass) : null;
-            });
+                OutputOriginalData = true,
+                ApiCredentials = Authenticated ? new BitMartApiCredentials(key, sec, pass) : null
+            }));
         }
 
         [Test]
