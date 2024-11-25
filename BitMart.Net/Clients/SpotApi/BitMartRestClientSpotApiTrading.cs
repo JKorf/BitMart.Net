@@ -177,7 +177,7 @@ namespace BitMart.Net.Clients.SpotApi
             parameters.AddOptionalString("notional", quoteQuantity);
             parameters.AddOptional("client_order_id", clientOrderId);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/spot/v1/margin/submit_order", BitMartExchange.RateLimiter.BitMart, 1, true,
-                new SingleLimitGuard(1, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
+                new SingleLimitGuard(20, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartOrderId>(request, parameters, ct, additionalHeaders: new Dictionary<string, string>
             {
                 { "X-BM-BROKER-ID", _baseClient._brokerId }
