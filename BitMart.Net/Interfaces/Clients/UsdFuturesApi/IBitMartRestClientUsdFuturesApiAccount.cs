@@ -15,14 +15,14 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
     {
         /// <summary>
         /// Get account balances
-        /// <para><a href="https://developer-pro.bitmart.com/en/futures/#get-contract-assets-keyed" /></para>
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-contract-assets-keyed" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<IEnumerable<BitMartFuturesBalance>>> GetBalancesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get account transfer history
-        /// <para><a href="https://developer-pro.bitmart.com/en/futures/#get-transfer-list-signed" /></para>
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-transfer-list-signed" /></para>
         /// </summary>
         /// <param name="asset">Filter by asset, for example `USDT`</param>
         /// <param name="startTime">Filter by start time</param>
@@ -34,7 +34,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Transfer between futures and spot account
-        /// <para><a href="https://developer-pro.bitmart.com/en/futures/#transfer-signed" /></para>
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#transfer-signed" /></para>
         /// </summary>
         /// <param name="asset">The asset, for example `USDT`</param>
         /// <param name="quantity">Quantity to transfer</param>
@@ -44,7 +44,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Set leverage
-        /// <para><a href="https://developer-pro.bitmart.com/en/futures/#submit-leverage-signed" /></para>
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#submit-leverage-signed" /></para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="leverage">Leverage</param>

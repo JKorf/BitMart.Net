@@ -16,7 +16,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
     {
         /// <summary>
         /// Get an order by id
-        /// <para><a href="https://developer-pro.bitmart.com/en/futures/#get-order-detail-keyed" /></para>
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-order-detail-keyed" /></para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="orderId">Order id</param>
@@ -25,7 +25,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Get order history
-        /// <para><a href="https://developer-pro.bitmart.com/en/futures/#get-order-history-keyed" /></para>
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-order-history-keyed" /></para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="startTime">Filter by start time</param>
@@ -35,7 +35,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Get open orders
-        /// <para><a href="https://developer-pro.bitmart.com/en/futures/#get-all-open-orders-keyed" /></para>
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-all-open-orders-keyed" /></para>
         /// </summary>
         /// <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
         /// <param name="orderType">Filter by order type</param>
@@ -46,7 +46,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Get open trigger orders
-        /// <para><a href="https://developer-pro.bitmart.com/en/futures/#get-all-current-plan-orders-keyed" /></para>
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-all-current-plan-orders-keyed" /></para>
         /// </summary>
         /// <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
         /// <param name="type">Filter by order type</param>
@@ -57,7 +57,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Get current positions
-        /// <para><a href="https://developer-pro.bitmart.com/en/futures/#get-current-position-keyed" /></para>
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-current-position-keyed" /></para>
         /// </summary>
         /// <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -65,7 +65,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Get position risk
-        /// <para><a href="https://developer-pro.bitmart.com/en/futures/#get-current-position-risk-details-keyed" /></para>
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-current-position-risk-details-keyed" /></para>
         /// </summary>
         /// <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -73,7 +73,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Get user trades
-        /// <para><a href="https://developer-pro.bitmart.com/en/futures/#get-order-trade-keyed" /></para>
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-order-trade-keyed" /></para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="startTime">Filter by start time</param>
@@ -83,7 +83,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Place a new order
-        /// <para><a href="https://developer-pro.bitmart.com/en/futures/#submit-order-signed" /></para>
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#submit-order-signed" /></para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="side">Order side</param>
@@ -106,7 +106,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Cancel an active order
-        /// <para><a href="https://developer-pro.bitmart.com/en/futures/#cancel-order-signed" /></para>
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#cancel-order-signed" /></para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="orderId">The order id, either this or clientOrderId should be provided</param>
@@ -116,7 +116,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Cancel all orders on a symbol
-        /// <para><a href="https://developer-pro.bitmart.com/en/futures/#cancel-all-orders-signed" /></para>
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#cancel-all-orders-signed" /></para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -124,7 +124,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Place a new trigger order
-        /// <para><a href="https://developer-pro.bitmart.com/en/futures/#submit-plan-order-signed" /></para>
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#submit-plan-order-signed" /></para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="orderType">The order type</param>
@@ -147,7 +147,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Cancel a trigger order
-        /// <para><a href="https://developer-pro.bitmart.com/en/futures/#cancel-plan-order-signed" /></para>
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#cancel-plan-order-signed" /></para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="orderId">The order id, either this or clientOrderId should be provided</param>

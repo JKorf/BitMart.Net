@@ -15,7 +15,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
     {
         /// <summary>
         /// Get contracts
-        /// <para><a href="https://developer-pro.bitmart.com/en/futures/#get-contract-details" /></para>
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-contract-details" /></para>
         /// </summary>
         /// <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -23,7 +23,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Get the current order book
-        /// <para><a href="https://developer-pro.bitmart.com/en/futures/#get-market-depth" /></para>
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-market-depth" /></para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -31,7 +31,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Get open interest for a symbol
-        /// <para><a href="https://developer-pro.bitmart.com/en/futures/#get-futures-openinterest" /></para>
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-futures-openinterest" /></para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -39,7 +39,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Get the current funding rate for a symbol
-        /// <para><a href="https://developer-pro.bitmart.com/en/futures/#get-current-funding-rate" /></para>
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-current-funding-rate" /></para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -47,7 +47,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Get kline/candlestick data
-        /// <para><a href="https://developer-pro.bitmart.com/en/futures/#get-k-line" /></para>
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-k-line" /></para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="klineInterval">Kline interval</param>
