@@ -25,14 +25,8 @@ namespace BitMart.Net.SymbolOrderBooks
         {
             _serviceProvider = serviceProvider;
                         
-            UsdFutures = new OrderBookFactory<BitMartOrderBookOptions>(
-                CreateUsdFutures,
-                (sharedSymbol, options) => CreateUsdFutures(BitMartExchange.FormatSymbol(sharedSymbol.BaseAsset, sharedSymbol.QuoteAsset, sharedSymbol.TradingMode, sharedSymbol.DeliverTime), options));
-
-            Spot = new OrderBookFactory<BitMartOrderBookOptions>(
-                CreateSpot,
-                (sharedSymbol, options) => CreateSpot(BitMartExchange.FormatSymbol(sharedSymbol.BaseAsset, sharedSymbol.QuoteAsset, sharedSymbol.TradingMode, sharedSymbol.DeliverTime), options));
-
+            UsdFutures = new OrderBookFactory<BitMartOrderBookOptions>(CreateUsdFutures, Create);
+            Spot = new OrderBookFactory<BitMartOrderBookOptions>(CreateSpot, Create);
         }
 
          /// <inheritdoc />
@@ -44,7 +38,7 @@ namespace BitMart.Net.SymbolOrderBooks
         /// <inheritdoc />
         public ISymbolOrderBook Create(SharedSymbol symbol, Action<BitMartOrderBookOptions>? options = null)
         {
-            var symbolName = BitMartExchange.FormatSymbol(symbol.BaseAsset, symbol.QuoteAsset, symbol.TradingMode, symbol.DeliverTime);
+            var symbolName = symbol.GetSymbol(BitMartExchange.FormatSymbol);
             if (symbol.TradingMode == TradingMode.Spot)
                 return CreateSpot(symbolName, options);
 
