@@ -178,14 +178,13 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="orderId">Order id, either this or clientOrderId should be provided</param>
-        /// <param name="clientOrderId">Client order id, either this or orderId should be provided</param>
         /// <param name="triggerPrice">Trigger price</param>
         /// <param name="executionPrice">Execution price</param>
         /// <param name="priceType">Price type</param>
         /// <param name="planCategory">Plan category</param>
         /// <param name="orderType">Order type</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartOrderId>> EditTpSlOrderAsync(string symbol, decimal triggerPrice, TriggerPriceType priceType, PlanCategory planCategory, OrderType orderType, string? orderId = null, string? clientOrderId = null, decimal? executionPrice = null, CancellationToken ct = default);
+        Task<WebCallResult<BitMartOrderId>> EditTpSlOrderAsync(string symbol, decimal triggerPrice, TriggerPriceType priceType, PlanCategory planCategory, OrderType orderType, string? orderId = null, decimal? executionPrice = null, CancellationToken ct = default);
 
         /// <summary>
         /// Edit an existing plan order

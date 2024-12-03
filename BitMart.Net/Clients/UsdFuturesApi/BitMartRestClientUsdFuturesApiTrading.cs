@@ -287,7 +287,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         #region Edit Tp Sl Order
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMartOrderId>> EditTpSlOrderAsync(string symbol, decimal triggerPrice, TriggerPriceType priceType, PlanCategory planCategory, OrderType orderType, string? orderId = null, string? clientOrderId = null, decimal? executionPrice = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BitMartOrderId>> EditTpSlOrderAsync(string symbol, decimal triggerPrice, TriggerPriceType priceType, PlanCategory planCategory, OrderType orderType, string? orderId = null, decimal? executionPrice = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("symbol", symbol);
@@ -296,7 +296,6 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             parameters.AddEnumAsInt("plan_category", planCategory);
             parameters.AddEnum("category", orderType);
             parameters.AddOptional("orderId", orderId);
-            parameters.AddOptional("client_order_id", clientOrderId);
             parameters.AddOptionalString("executive_price", executionPrice);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/contract/private/modify-tp-sl-order", BitMartExchange.RateLimiter.BitMart, 1, true);
             var result = await _baseClient.SendAsync<BitMartOrderId>(request, parameters, ct).ConfigureAwait(false);
