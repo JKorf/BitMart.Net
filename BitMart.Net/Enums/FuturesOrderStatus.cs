@@ -13,7 +13,7 @@ namespace BitMart.Net.Enums
         /// <summary>
         /// Approval
         /// </summary>
-        [Map("status_approval")]
+        [Map("status_approval", "1")]
         Approval,
         /// <summary>
         /// Check
