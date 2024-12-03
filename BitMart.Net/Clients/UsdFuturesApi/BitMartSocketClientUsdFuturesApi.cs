@@ -67,6 +67,18 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         }
 
         /// <inheritdoc />
+        public Task<CallResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(string symbol, Action<DataEvent<BitMartFundingRateUpdate>> onMessage, CancellationToken ct = default)
+            => SubscribeToFundingRateUpdatesAsync(new[] { symbol }, onMessage, ct);
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMartFundingRateUpdate>> onMessage, CancellationToken ct = default)
+        {
+            var subscription = new BitMartFuturesSubscription<BitMartFundingRateUpdate>(_logger, symbols.Select(s => "futures/fundingRate:" + s).ToArray(),
+                update => onMessage(update.WithSymbol(update.Data.Symbol)), false);
+            return await SubscribeAsync(BaseAddress.AppendPath("api?protocol=1.1"), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
         public Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<IEnumerable<BitMartFuturesTradeUpdate>>> onMessage, CancellationToken ct = default)
             => SubscribeToTradeUpdatesAsync(new[] { symbol }, onMessage, ct);
 

@@ -645,6 +645,12 @@
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToTickerUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesTickerUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToFundingRateUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFundingRateUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToFundingRateUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFundingRateUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMart.Net.Objects.Models.BitMartFuturesTradeUpdate}}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -2796,6 +2802,26 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToFundingRateUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFundingRateUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to funding rate updates for a symbol
+            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-funding-rate-channel" /></para>
+            </summary>
+            <param name="symbol">Symbol, for example `ETHUSDT`</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToFundingRateUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFundingRateUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to funding rate updates for multiple symbols
+            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-funding-rate-channel" /></para>
+            </summary>
+            <param name="symbols">Symbols, for example `ETHUSDT`</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesOrderBookUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to order book updates for a symbol
@@ -3636,6 +3662,51 @@
             </summary>
         </member>
         <member name="P:BitMart.Net.Objects.Models.BitMartFundingRate.FundingLowerLimit">
+            <summary>
+            Lower limit of funding rate for this symbol
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Objects.Models.BitMartFundingRateUpdate">
+            <summary>
+            Funding rate info
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartFundingRateUpdate.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartFundingRateUpdate.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartFundingRateUpdate.FundingRate">
+            <summary>
+            Current funding rate
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartFundingRateUpdate.ExpectedFundingRate">
+            <summary>
+            Expected funding rate of next period
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartFundingRateUpdate.FundingTime">
+            <summary>
+            Timestamp of funding rate calculation
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartFundingRateUpdate.NextFundingTime">
+            <summary>
+            Forecasted funding time for the next period
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartFundingRateUpdate.FundingUpperLimit">
+            <summary>
+            Upper limit of funding rate for this symbol
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartFundingRateUpdate.FundingLowerLimit">
             <summary>
             Lower limit of funding rate for this symbol
             </summary>

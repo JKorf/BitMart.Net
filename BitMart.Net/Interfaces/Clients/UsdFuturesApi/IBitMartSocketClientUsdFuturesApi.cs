@@ -50,6 +50,26 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<IEnumerable<BitMartFuturesTradeUpdate>>> onMessage, CancellationToken ct = default);
 
         /// <summary>
+        /// Subscribe to funding rate updates for a symbol
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-funding-rate-channel" /></para>
+        /// </summary>
+        /// <param name="symbol">Symbol, for example `ETHUSDT`</param>
+        /// <param name="onMessage">The event handler for the received data</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(string symbol, Action<DataEvent<BitMartFundingRateUpdate>> onMessage, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to funding rate updates for multiple symbols
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-funding-rate-channel" /></para>
+        /// </summary>
+        /// <param name="symbols">Symbols, for example `ETHUSDT`</param>
+        /// <param name="onMessage">The event handler for the received data</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMartFundingRateUpdate>> onMessage, CancellationToken ct = default);
+
+        /// <summary>
         /// Subscribe to order book updates for a symbol
         /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-depth-channel" /></para>
         /// </summary>
