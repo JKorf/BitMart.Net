@@ -25,7 +25,7 @@ namespace BitMart.Net.Objects.Models
         /// <summary>
         /// Client order id
         /// </summary>
-        [JsonPropertyName("client_order_id"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        [JsonPropertyName("clientOrderId"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string? ClientOrderId { get; set; }
         /// <summary>
         /// Quantity
