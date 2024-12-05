@@ -146,6 +146,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 1.10.1 - 05 Dec 2024
+    * Fixed clientOrderId parameter serialization in restClient.SpotApi.Trading.PlaceMultipleOrdersAsync
+
 * Version 1.10.0 - 03 Dec 2024
     * Updated CryptoExchange.Net to version 8.4.3, see https://github.com/JKorf/CryptoExchange.Net/releases/
     * Added socketClient.UsdFuturesApi.SubscribeToFundingRateUpdatesAsync stream
