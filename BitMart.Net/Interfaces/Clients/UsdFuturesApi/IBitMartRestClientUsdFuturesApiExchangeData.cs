@@ -56,5 +56,13 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<IEnumerable<BitMartFuturesKline>>> GetKlinesAsync(string symbol, FuturesKlineInterval klineInterval, DateTime startTime, DateTime endTime, CancellationToken ct = default);
 
+        /// <summary>
+        /// Get funding rate history
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-funding-rate-history" /></para>
+        /// </summary>
+        /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
+        /// <param name="limit">Max number of results, max 100</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<IEnumerable<BitMartFundingRateHistory>>> GetFundingRateHistoryAsync(string symbol, int? limit = null, CancellationToken ct = default);
     }
 }

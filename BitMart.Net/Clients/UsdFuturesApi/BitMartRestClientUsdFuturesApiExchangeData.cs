@@ -84,6 +84,22 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
         #endregion
 
+        #region Get Current Funding Rate
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<BitMartFundingRateHistory>>> GetFundingRateHistoryAsync(string symbol, int? limit = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("symbol", symbol);
+            parameters.AddOptional("limit", limit);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/public/funding-rate-history", BitMartExchange.RateLimiter.BitMart, 1, false,
+                new SingleLimitGuard(2, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var result = await _baseClient.SendAsync<BitMartFundingRateHistoryWrapper>(request, parameters, ct).ConfigureAwait(false);
+            return result.As<IEnumerable<BitMartFundingRateHistory>>(result.Data?.History);
+        }
+
+        #endregion
+
         #region Get Klines
 
         /// <inheritdoc />

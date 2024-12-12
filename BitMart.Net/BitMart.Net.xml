@@ -554,6 +554,9 @@
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiExchangeData.GetCurrentFundingRateAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiExchangeData.GetFundingRateHistoryAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiExchangeData.GetKlinesAsync(System.String,BitMart.Net.Enums.FuturesKlineInterval,System.DateTime,System.DateTime,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -2502,6 +2505,15 @@
             <param name="endTime">Filter by end time</param>
             <param name="ct">Cancellation token</param>
         </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiExchangeData.GetFundingRateHistoryAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get funding rate history
+            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-funding-rate-history" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `ETHUSDT`</param>
+            <param name="limit">Max number of results, max 100</param>
+            <param name="ct">Cancellation token</param>
+        </member>
         <member name="T:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiSubAccount">
             <summary>
             BitMart UsdFutures sub-account endpoints
@@ -3723,6 +3735,26 @@
         <member name="P:BitMart.Net.Objects.Models.BitMartFundingRate.FundingLowerLimit">
             <summary>
             Lower limit of funding rate for this symbol
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Objects.Models.BitMartFundingRateHistory">
+            <summary>
+            Funding rate history
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartFundingRateHistory.Symbol">
+            <summary>
+            Symbol name
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartFundingRateHistory.FundingRate">
+            <summary>
+            Funding rate
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartFundingRateHistory.FundingTime">
+            <summary>
+            Funding time
             </summary>
         </member>
         <member name="T:BitMart.Net.Objects.Models.BitMartFundingRateUpdate">
