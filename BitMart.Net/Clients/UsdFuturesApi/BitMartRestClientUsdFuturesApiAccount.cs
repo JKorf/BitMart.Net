@@ -107,5 +107,23 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         }
 
         #endregion
+
+        #region Get Transaction History
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<BitMartFuturesTransaction>>> GetTransactionHistoryAsync(string? symbol = null, FlowType? flowType = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptional("symbol", symbol);
+            parameters.AddOptionalEnum("flow_type", flowType);
+            parameters.AddOptionalMillisecondsString("time_start", startTime);
+            parameters.AddOptionalMillisecondsString("time_end", endTime);
+            parameters.AddOptional("page_size", limit);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/private/transaction-history", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(6, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
+            return await _baseClient.SendAsync<IEnumerable<BitMartFuturesTransaction>>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
     }
 }

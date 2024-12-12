@@ -60,5 +60,18 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<BitMartFuturesFeeRate>> GetSymbolTradeFeeAsync(string symbol, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get transaction history
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-transaction-history-keyed" /></para>
+        /// </summary>
+        /// <param name="symbol">Filter by symbol, for Example `ETHUSDT`</param>
+        /// <param name="flowType">Filter by type</param>
+        /// <param name="startTime">Filter by start time</param>
+        /// <param name="endTime">Filter by end time</param>
+        /// <param name="limit">Max number of results, max 1000</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<IEnumerable<BitMartFuturesTransaction>>> GetTransactionHistoryAsync(string? symbol = null, FlowType? flowType = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
     }
 }
