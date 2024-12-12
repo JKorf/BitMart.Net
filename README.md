@@ -146,6 +146,11 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 1.11.0 - 12 Dec 2024
+    * Added socketClient.UsdFuturesApi.SubscribeToBookTickerUpdatesAsync stream subscription
+    * Added restClient.UsdFuturesApi.ExchangeData.GetFundingRateHistoryAsync endpoint
+    * Added restClient.UsdFuturesApi.Account.GetTransactionHistoryAsync endpoint
+
 * Version 1.10.1 - 05 Dec 2024
     * Fixed clientOrderId parameter serialization in restClient.SpotApi.Trading.PlaceMultipleOrdersAsync
 
