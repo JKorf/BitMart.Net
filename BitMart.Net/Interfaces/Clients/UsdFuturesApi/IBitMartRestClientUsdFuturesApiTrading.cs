@@ -94,15 +94,47 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="leverage">Leverage</param>
         /// <param name="marginType">Margin type</param>
         /// <param name="orderMode">Order mode</param>
-        /// <param name="triggerPrice">Trigger price</param>
-        /// <param name="callbackRate">Trailing order callback rate</param>
-        /// <param name="triggerPriceType">Trigger price type</param>
         /// <param name="presetTakeProfitPriceType">Take profit price type</param>
         /// <param name="presetStopLossPriceType">Stop loss price type</param>
         /// <param name="presetTakeProfitPrice">Take profit price</param>
         /// <param name="presetStopLossPrice">Stop loss price</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartFuturesOrderResponse>> PlaceOrderAsync(string symbol, FuturesSide side, FuturesOrderType type, int quantity, decimal? price = null, string? clientOrderId = null, decimal? leverage = null, MarginType? marginType = null, OrderMode? orderMode = null, decimal? triggerPrice = null, decimal? callbackRate = null, TriggerPriceType? triggerPriceType = null, TriggerPriceType? presetTakeProfitPriceType = null, TriggerPriceType? presetStopLossPriceType = null, decimal? presetTakeProfitPrice = null, decimal? presetStopLossPrice = null, CancellationToken ct = default);
+        Task<WebCallResult<BitMartFuturesOrderResponse>> PlaceOrderAsync(string symbol, FuturesSide side, FuturesOrderType type, int quantity, decimal? price = null, string? clientOrderId = null, decimal? leverage = null, MarginType? marginType = null, OrderMode? orderMode = null, TriggerPriceType? presetTakeProfitPriceType = null, TriggerPriceType? presetStopLossPriceType = null, decimal? presetTakeProfitPrice = null, decimal? presetStopLossPrice = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Place a new trailling stop order
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#submit-trail-order-signed" /></para>
+        /// </summary>
+        /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
+        /// <param name="side">Order side</param>
+        /// <param name="quantity">Quantity in number of contracts</param>
+        /// <param name="leverage">Leverage</param>
+        /// <param name="marginType">Margin type</param>
+        /// <param name="triggerPrice">Trigger price</param>
+        /// <param name="callbackRate">Trailing order callback rate</param>
+        /// <param name="triggerPriceType">Trigger price type</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<BitMartOrderId>> PlaceTrailingOrderAsync(
+            string symbol,
+            FuturesSide side,
+            int quantity,
+            decimal leverage,
+            MarginType marginType,
+            decimal triggerPrice,
+            decimal callbackRate,
+            TriggerPriceType triggerPriceType,
+            CancellationToken ct = default);
+
+        /// <summary>
+        /// Cancel a trailing stop order
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#cancel-trail-order-signed" /></para>
+        /// </summary>
+        /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
+        /// <param name="orderId">Order id</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult> CancelTrailingOrderAsync(string symbol, string orderId, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel an active order

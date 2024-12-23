@@ -146,7 +146,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         #region Place Order
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMartFuturesOrderResponse>> PlaceOrderAsync(string symbol, FuturesSide side, FuturesOrderType type, int quantity, decimal? price = null, string? clientOrderId = null, decimal? leverage = null, MarginType? marginType = null, OrderMode? orderMode = null, decimal? triggerPrice = null, decimal? callbackRate = null, TriggerPriceType? triggerPriceType = null, TriggerPriceType? presetTakeProfitPriceType = null, TriggerPriceType? presetStopLossPriceType = null, decimal? presetTakeProfitPrice = null, decimal? presetStopLossPrice = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BitMartFuturesOrderResponse>> PlaceOrderAsync(string symbol, FuturesSide side, FuturesOrderType type, int quantity, decimal? price = null, string? clientOrderId = null, decimal? leverage = null, MarginType? marginType = null, OrderMode? orderMode = null, TriggerPriceType? presetTakeProfitPriceType = null, TriggerPriceType? presetStopLossPriceType = null, decimal? presetTakeProfitPrice = null, decimal? presetStopLossPrice = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("symbol", symbol);
@@ -158,9 +158,6 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             parameters.AddOptionalString("leverage", leverage);
             parameters.AddOptionalEnum("open_type", marginType);
             parameters.AddOptionalEnumAsInt("mode", orderMode);
-            parameters.AddOptionalString("activation_price", triggerPrice);
-            parameters.AddOptionalString("callback_rate", callbackRate);
-            parameters.AddOptionalEnum("activation_price_type", triggerPriceType);
             parameters.AddOptionalEnum("preset_take_profit_price_type", presetTakeProfitPriceType);
             parameters.AddOptionalEnum("preset_stop_loss_price_type", presetStopLossPriceType);
             parameters.AddOptionalString("preset_take_profit_price", presetTakeProfitPrice);
@@ -171,6 +168,56 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             {
                 { "X-BM-BROKER-ID", _baseClient._brokerId }
             }).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Place Trailing Order
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<BitMartOrderId>> PlaceTrailingOrderAsync(
+            string symbol,
+            FuturesSide side,
+            int quantity,
+            decimal leverage,
+            MarginType marginType,
+            decimal triggerPrice,
+            decimal callbackRate,
+            TriggerPriceType triggerPriceType,
+            CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("symbol", symbol);
+            parameters.AddEnumAsInt("side", side);
+            parameters.AddOptionalString("leverage", leverage);
+            parameters.AddOptionalEnum("open_type", marginType);
+            parameters.Add("size", quantity);
+            parameters.AddOptionalString("activation_price", triggerPrice);
+            parameters.AddOptionalString("callback_rate", callbackRate);
+            parameters.AddOptionalEnum("activation_price_type", triggerPriceType);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/contract/private/submit-trail-order", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(24, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
+            var result = await _baseClient.SendAsync<BitMartOrderId>(request, parameters, ct, additionalHeaders: new Dictionary<string, string>
+            {
+                { "X-BM-BROKER-ID", _baseClient._brokerId }
+            }).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Cancel Trailing Order
+
+        /// <inheritdoc />
+        public async Task<WebCallResult> CancelTrailingOrderAsync(string symbol, string orderId, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("symbol", symbol);
+            parameters.Add("order_id", orderId);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/contract/private/cancel-trail-order", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(40, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
+            var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
