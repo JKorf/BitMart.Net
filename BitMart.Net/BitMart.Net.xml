@@ -158,6 +158,9 @@
             <param name="loggerFactory">The logger factory</param>
             <param name="httpClient">Http client for this client</param>
         </member>
+        <member name="M:BitMart.Net.Clients.BitMartRestClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
+            <inheritdoc />
+        </member>
         <member name="M:BitMart.Net.Clients.BitMartRestClient.SetDefaultOptions(System.Action{BitMart.Net.Objects.Options.BitMartRestOptions})">
             <summary>
             Set the default options to be used when creating new clients
@@ -188,6 +191,9 @@
             </summary>
             <param name="loggerFactory">The logger factory</param>
             <param name="options">Option configuration</param>
+        </member>
+        <member name="M:BitMart.Net.Clients.BitMartSocketClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
+            <inheritdoc />
         </member>
         <member name="M:BitMart.Net.Clients.BitMartSocketClient.SetDefaultOptions(System.Action{BitMart.Net.Objects.Options.BitMartSocketOptions})">
             <summary>
@@ -1701,6 +1707,12 @@
             Spot API endpoints
             </summary>
         </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.IBitMartRestClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
+            <summary>
+            Update specific options
+            </summary>
+            <param name="options">Options to update. Only specific options are changable after the client has been created</param>
+        </member>
         <member name="M:BitMart.Net.Interfaces.Clients.IBitMartRestClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
             <summary>
             Set the API credentials for this client. All Api clients in this client will use the new credentials, regardless of earlier set options.
@@ -1721,6 +1733,12 @@
             <summary>
             Spot API endpoints
             </summary>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.IBitMartSocketClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
+            <summary>
+            Update specific options
+            </summary>
+            <param name="options">Options to update. Only specific options are changable after the client has been created</param>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.IBitMartSocketClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
             <summary>

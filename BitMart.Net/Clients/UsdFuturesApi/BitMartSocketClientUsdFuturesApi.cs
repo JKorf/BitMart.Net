@@ -45,7 +45,19 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         {
             KeepAliveInterval = TimeSpan.Zero;
 
-            RegisterPeriodicQuery("ping", TimeSpan.FromSeconds(15), x => new FuturesPingQuery(), null);
+            RegisterPeriodicQuery(
+                "ping",
+                TimeSpan.FromSeconds(15),
+                x => new FuturesPingQuery(),
+                (connection, result) =>
+                {
+                    if (result.Error?.Message.Equals("Query timeout") == true)
+                    {
+                        // Ping timeout, reconnect
+                        _logger.LogWarning("[Sckt {SocketId}] Ping response timeout, reconnecting", connection.SocketId);
+                        _ = connection.TriggerReconnectAsync();
+                    }
+                });
         }
         #endregion
 

@@ -46,7 +46,19 @@ namespace BitMart.Net.Clients.SpotApi
             base(logger, options.Environment.SocketClientSpotAddress!, options, options.SpotOptions)
         {
             KeepAliveInterval = TimeSpan.Zero;
-            RegisterPeriodicQuery("ping", TimeSpan.FromSeconds(15), x => new PingQuery(), null);
+            RegisterPeriodicQuery(
+                "ping",
+                TimeSpan.FromSeconds(15),
+                x => new PingQuery(),
+                (connection, result) =>
+                {
+                    if (result.Error?.Message.Equals("Query timeout") == true)
+                    {
+                        // Ping timeout, reconnect
+                        _logger.LogWarning("[Sckt {SocketId}] Ping response timeout, reconnecting", connection.SocketId);
+                        _ = connection.TriggerReconnectAsync();
+                    }
+                });
             RateLimiter = BitMartExchange.RateLimiter.SocketLimits;
         }
         #endregion 

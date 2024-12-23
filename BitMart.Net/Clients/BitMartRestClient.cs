@@ -10,6 +10,7 @@ using BitMart.Net.Interfaces.Clients.SpotApi;
 using BitMart.Net.Clients.UsdFuturesApi;
 using BitMart.Net.Clients.SpotApi;
 using Microsoft.Extensions.Options;
+using CryptoExchange.Net.Objects.Options;
 
 namespace BitMart.Net.Clients
 {
@@ -52,6 +53,13 @@ namespace BitMart.Net.Clients
         }
 
         #endregion
+
+        /// <inheritdoc />
+        public void SetOptions(UpdateOptions options)
+        {
+            SpotApi.SetOptions(options);
+            UsdFuturesApi.SetOptions(options);
+        }
 
         /// <summary>
         /// Set the default options to be used when creating new clients

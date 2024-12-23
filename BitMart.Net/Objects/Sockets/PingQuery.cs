@@ -1,4 +1,5 @@
 ﻿using CryptoExchange.Net.Sockets;
+using System;
 using System.Collections.Generic;
 
 namespace BitMart.Net.Objects.Sockets
@@ -7,6 +8,8 @@ namespace BitMart.Net.Objects.Sockets
     {
         public override HashSet<string> ListenerIdentifiers { get; set; } = new HashSet<string> { "pong" };
 
-        public PingQuery() : base("ping", false) { }
+        public PingQuery() : base("ping", false) {
+            RequestTimeout = TimeSpan.FromSeconds(5);
+        }
     }
 }
