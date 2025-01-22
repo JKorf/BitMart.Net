@@ -38,5 +38,10 @@ namespace BitMart.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("trade_id")]
         public long TradeId { get; set; }
+        /// <summary>
+        /// Whether the buyer was the maker
+        /// </summary>
+        [JsonPropertyName("m")]
+        public bool BuyerIsMaker { get; set; }
     }
 }

@@ -4495,6 +4495,11 @@
             Trade id
             </summary>
         </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartFuturesTradeUpdate.BuyerIsMaker">
+            <summary>
+            Whether the buyer was the maker
+            </summary>
+        </member>
         <member name="T:BitMart.Net.Objects.Models.BitMartFuturesTransaction">
             <summary>
             Transaction info
