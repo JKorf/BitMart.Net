@@ -21,7 +21,7 @@ namespace BitMart.Net
         public static string ExchangeName => "BitMart";
 
         /// <summary>
-        /// Exchange name
+        /// Display exchange name
         /// </summary>
         public static string DisplayName => "BitMart";
 
