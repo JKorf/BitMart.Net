@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace BitMart.Net.UnitTests
 {
     [NonParallelizable]
-    internal class BitMartRestIntegrationTests : RestIntergrationTest<BitMartRestClient>
+    internal class BitMartRestIntegrationTests : RestIntegrationTest<BitMartRestClient>
     {
         public override bool Run { get; set; }
 

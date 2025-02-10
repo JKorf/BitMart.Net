@@ -72,7 +72,7 @@
         </member>
         <member name="P:BitMart.Net.BitMartExchange.DisplayName">
             <summary>
-            Exchange name
+            Display exchange name
             </summary>
         </member>
         <member name="P:BitMart.Net.BitMartExchange.ImageUrl">

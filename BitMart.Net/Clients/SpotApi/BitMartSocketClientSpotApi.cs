@@ -80,7 +80,10 @@ namespace BitMart.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMartTickerUpdate>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMartSubscription<IEnumerable<BitMartTickerUpdate>>(_logger, symbols.Select(s => "spot/ticker:" + s).ToArray(), update => onMessage(update.WithSymbol(update.Data.First().Symbol).As(update.Data.First())), false);
+            var subscription = new BitMartSubscription<IEnumerable<BitMartTickerUpdate>>(_logger, symbols.Select(s => "spot/ticker:" + s).ToArray(), update => onMessage(update
+                .As(update.Data.First())
+                .WithSymbol(update.Data.First().Symbol)
+                .WithDataTimestamp(update.Data.Max(x => x.Timestamp))), false);
             return await SubscribeAsync(BaseAddress.AppendPath("api?protocol=1.1"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -92,7 +95,8 @@ namespace BitMart.Net.Clients.SpotApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(IEnumerable<string> symbols, KlineStreamInterval interval, Action<DataEvent<IEnumerable<BitMartKlineUpdate>>> onMessage, CancellationToken ct = default)
         {
             var intervalStr = EnumConverter.GetString(interval);
-            var subscription = new BitMartSubscription<IEnumerable<BitMartKlineUpdate>>(_logger, symbols.Select(s => $"spot/kline{intervalStr}:" + s).ToArray(), update => onMessage(update.WithSymbol(update.Data.First().Symbol)), false);
+            var subscription = new BitMartSubscription<IEnumerable<BitMartKlineUpdate>>(_logger, symbols.Select(s => $"spot/kline{intervalStr}:" + s).ToArray(), update => onMessage(update
+                .WithSymbol(update.Data.First().Symbol)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("api?protocol=1.1"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -105,7 +109,10 @@ namespace BitMart.Net.Clients.SpotApi
         {
             depth.ValidateIntValues(nameof(depth), 5, 20, 50);
 
-            var subscription = new BitMartSubscription<IEnumerable<BitMartOrderBookUpdate>>(_logger, symbols.Select(s => $"spot/depth{depth}:" + s).ToArray(), update => onMessage(update.WithSymbol(update.Data.First().Symbol).As(update.Data.First())), false);
+            var subscription = new BitMartSubscription<IEnumerable<BitMartOrderBookUpdate>>(_logger, symbols.Select(s => $"spot/depth{depth}:" + s).ToArray(), update => onMessage(update
+                .As(update.Data.First())
+                .WithSymbol(update.Data.First().Symbol)
+                .WithDataTimestamp(update.Data.Max(x => x.Timestamp))), false);
             return await SubscribeAsync(BaseAddress.AppendPath("api?protocol=1.1"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -117,7 +124,11 @@ namespace BitMart.Net.Clients.SpotApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMartOrderBookIncrementalUpdate>> onMessage, CancellationToken ct = default)
         {
             var subscription = new BitMartSubscription<IEnumerable<BitMartOrderBookIncrementalUpdate>>(_logger, symbols.Select(s => $"spot/depth/increase100:" + s).ToArray(), 
-                update => onMessage(update.WithSymbol(update.Data.First().Symbol).WithUpdateType(update.Data.First().Type == "snapshot"? SocketUpdateType.Snapshot: SocketUpdateType.Update).As(update.Data.First()))
+                update => onMessage(update
+                    .As(update.Data.First())
+                    .WithSymbol(update.Data.First().Symbol)
+                    .WithUpdateType(update.Data.First().Type == "snapshot"? SocketUpdateType.Snapshot: SocketUpdateType.Update)
+                    .WithDataTimestamp(update.Data.Max(x => x.Timestamp)))
                 , false);
             return await SubscribeAsync(BaseAddress.AppendPath("api?protocol=1.1"), subscription, ct).ConfigureAwait(false);
         }
@@ -130,7 +141,9 @@ namespace BitMart.Net.Clients.SpotApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<IEnumerable<BitMartTradeUpdate>>> onMessage, CancellationToken ct = default)
         {
             var subscription = new BitMartSubscription<IEnumerable<BitMartTradeUpdate>>(_logger, symbols.Select(s => $"spot/trade:" + s).ToArray(),
-                update => onMessage(update.WithSymbol(update.Data.First().Symbol)), false);
+                update => onMessage(update
+                .WithSymbol(update.Data.First().Symbol)
+                .WithDataTimestamp(update.Data.Max(x => x.Timestamp))), false);
             return await SubscribeAsync(BaseAddress.AppendPath("api?protocol=1.1"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -138,7 +151,10 @@ namespace BitMart.Net.Clients.SpotApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<BitMartOrderUpdate>> onMessage, CancellationToken ct = default)
         {
             var subscription = new BitMartSubscription<IEnumerable<BitMartOrderUpdate>>(_logger, new[] { "spot/user/orders:ALL_SYMBOLS" },
-                update => onMessage(update.WithSymbol(update.Data.First().Symbol).As(update.Data.First())), true);
+                update => onMessage(update
+                .As(update.Data.First())
+                .WithSymbol(update.Data.First().Symbol)
+                .WithDataTimestamp(update.Data.Max(x => x.UpdateTime))), true);
             return await SubscribeAsync(BaseAddress.AppendPath("user?protocol=1.1"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -146,7 +162,9 @@ namespace BitMart.Net.Clients.SpotApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(Action<DataEvent<BitMartBalanceUpdate>> onMessage, CancellationToken ct = default)
         {
             var subscription = new BitMartSubscription<IEnumerable<BitMartBalanceUpdate>>(_logger, new[] { "spot/user/balance:BALANCE_UPDATE" },
-                update => onMessage(update.As(update.Data.First())), true);
+                update => onMessage(update
+                .As(update.Data.First())
+                .WithDataTimestamp(update.Data.Max(x => x.Timestamp))), true);
             return await SubscribeAsync(BaseAddress.AppendPath("user?protocol=1.1"), subscription, ct).ConfigureAwait(false);
         }
 
