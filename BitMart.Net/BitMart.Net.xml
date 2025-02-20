@@ -716,6 +716,12 @@
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToKlineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},BitMart.Net.Enums.FuturesStreamKlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesKlineUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToMarkKlineUpdatesAsync(System.String,BitMart.Net.Enums.FuturesStreamKlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesKlineUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToMarkKlineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},BitMart.Net.Enums.FuturesStreamKlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesKlineUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesBalanceUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
@@ -3093,6 +3099,28 @@
             <summary>
             Subscribe to kline/candlestick updates for multiple symbols
             <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-klinebin-channel" /></para>
+            </summary>
+            <param name="symbols">Symbols, for example `ETHUSDT`</param>
+            <param name="interval">Kline interval</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToMarkKlineUpdatesAsync(System.String,BitMart.Net.Enums.FuturesStreamKlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesKlineUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe mark price kline/candlestick updates for multiple symbols
+            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-markprice-klinebin-channel" /></para>
+            </summary>
+            <param name="symbol">Symbol, for example `ETHUSDT`</param>
+            <param name="interval">Kline interval</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToMarkKlineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},BitMart.Net.Enums.FuturesStreamKlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesKlineUpdate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe mark price kline/candlestick updates for multiple symbols
+            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-markprice-klinebin-channel" /></para>
             </summary>
             <param name="symbols">Symbols, for example `ETHUSDT`</param>
             <param name="interval">Kline interval</param>

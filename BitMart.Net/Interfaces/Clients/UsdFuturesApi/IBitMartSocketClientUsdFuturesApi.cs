@@ -176,6 +176,28 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(IEnumerable<string> symbols, FuturesStreamKlineInterval interval, Action<DataEvent<BitMartFuturesKlineUpdate>> onMessage, CancellationToken ct = default);
 
         /// <summary>
+        /// Subscribe mark price kline/candlestick updates for multiple symbols
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-markprice-klinebin-channel" /></para>
+        /// </summary>
+        /// <param name="symbol">Symbol, for example `ETHUSDT`</param>
+        /// <param name="interval">Kline interval</param>
+        /// <param name="onMessage">The event handler for the received data</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToMarkKlineUpdatesAsync(string symbol, FuturesStreamKlineInterval interval, Action<DataEvent<BitMartFuturesKlineUpdate>> onMessage, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe mark price kline/candlestick updates for multiple symbols
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-markprice-klinebin-channel" /></para>
+        /// </summary>
+        /// <param name="symbols">Symbols, for example `ETHUSDT`</param>
+        /// <param name="interval">Kline interval</param>
+        /// <param name="onMessage">The event handler for the received data</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToMarkKlineUpdatesAsync(IEnumerable<string> symbols, FuturesStreamKlineInterval interval, Action<DataEvent<BitMartFuturesKlineUpdate>> onMessage, CancellationToken ct = default);
+
+        /// <summary>
         /// Subscribe to balance updates
         /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#private-assets-channel" /></para>
         /// </summary>

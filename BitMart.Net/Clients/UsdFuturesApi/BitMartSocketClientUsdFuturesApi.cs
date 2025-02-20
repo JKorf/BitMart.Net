@@ -179,6 +179,20 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         }
 
         /// <inheritdoc />
+        public Task<CallResult<UpdateSubscription>> SubscribeToMarkKlineUpdatesAsync(string symbol, FuturesStreamKlineInterval interval, Action<DataEvent<BitMartFuturesKlineUpdate>> onMessage, CancellationToken ct = default)
+            => SubscribeToMarkKlineUpdatesAsync(new[] { symbol }, interval, onMessage, ct);
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToMarkKlineUpdatesAsync(IEnumerable<string> symbols, FuturesStreamKlineInterval interval, Action<DataEvent<BitMartFuturesKlineUpdate>> onMessage, CancellationToken ct = default)
+        {
+            var intervalStr = EnumConverter.GetString(interval);
+            var subscription = new BitMartFuturesSubscription<BitMartFuturesKlineUpdate>(_logger, symbols.Select(s => $"futures/markPriceKlineBin{intervalStr}:" + s).ToArray(),
+                update => onMessage(update
+                .WithSymbol(update.Data.Symbol)), false);
+            return await SubscribeAsync(BaseAddress.AppendPath("api?protocol=1.1"), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(Action<DataEvent<BitMartFuturesBalanceUpdate>> onMessage, CancellationToken ct = default)
         {
             var subscription = new BitMartFuturesSubscription<BitMartFuturesBalanceUpdate>(_logger, new[] { "futures/asset:USDT", "futures/asset:BTC", "futures/asset:ETH" }, onMessage, true);
