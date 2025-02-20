@@ -24,10 +24,11 @@ namespace BitMart.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<BitMartBalance>>> GetFundingBalancesAsync(string? asset = null, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<BitMartBalance>>> GetFundingBalancesAsync(string? asset = null, bool? needUsdValuation = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("currency", asset);
+            parameters.AddOptional("needUsdValuation", needUsdValuation);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/account/v1/wallet", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(12, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartBalanceWrapper>(request, parameters, ct).ConfigureAwait(false);

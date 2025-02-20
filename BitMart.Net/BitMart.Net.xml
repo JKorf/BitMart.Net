@@ -273,7 +273,7 @@
         <member name="T:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount.GetFundingBalancesAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount.GetFundingBalancesAsync(System.String,System.Nullable{System.Boolean},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount.GetSpotBalancesAsync(System.Threading.CancellationToken)">
@@ -1825,12 +1825,13 @@
             BitMart Spot account endpoints. Account endpoints include balance info, withdraw/deposit info and requesting and account settings
             </summary>
         </member>
-        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiAccount.GetFundingBalancesAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiAccount.GetFundingBalancesAsync(System.String,System.Nullable{System.Boolean},System.Threading.CancellationToken)">
             <summary>
             Get funding account balances
             <para><a href="https://developer-pro.bitmart.com/en/spot/#get-account-balance-keyed" /></para>
             </summary>
             <param name="asset">Filter on asset, for example `ETH`</param>
+            <param name="needUsdValuation">Include USD valuation</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiAccount.GetSpotBalancesAsync(System.Threading.CancellationToken)">
@@ -3413,6 +3414,11 @@
         <member name="P:BitMart.Net.Objects.Models.BitMartBalance.Available">
             <summary>
             Available
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartBalance.AvailableUsdValuation">
+            <summary>
+            USD valuation
             </summary>
         </member>
         <member name="P:BitMart.Net.Objects.Models.BitMartBalance.Frozen">

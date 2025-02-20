@@ -542,7 +542,7 @@ namespace BitMart.Net.Clients.SpotApi
             });
         }
 
-        GetDepositsOptions IDepositRestClient.GetDepositsOptions { get; } = new GetDepositsOptions(SharedPaginationSupport.Descending, true, 100);
+        GetDepositsOptions IDepositRestClient.GetDepositsOptions { get; } = new GetDepositsOptions(SharedPaginationSupport.Descending, true, 1000);
         async Task<ExchangeWebResult<IEnumerable<SharedDeposit>>> IDepositRestClient.GetDepositsAsync(GetDepositsRequest request, INextPageToken? pageToken, CancellationToken ct)
         {
             var validationError = ((IDepositRestClient)this).GetDepositsOptions.ValidateRequest(Exchange, request, TradingMode.Spot, SupportedTradingModes);
@@ -552,7 +552,9 @@ namespace BitMart.Net.Clients.SpotApi
             // Get data
             var deposits = await Account.GetDepositHistoryAsync(
                 asset: request.Asset,
-                limit: request.Limit ?? 100,
+                startTime: request.StartTime,
+                endTime: request.EndTime,
+                limit: request.Limit ?? 1000,
                 ct: ct).ConfigureAwait(false);
             if (!deposits)
                 return deposits.AsExchangeResult<IEnumerable<SharedDeposit>>(Exchange, null, default);
@@ -590,7 +592,7 @@ namespace BitMart.Net.Clients.SpotApi
 
         #region Withdrawal client
 
-        GetWithdrawalsOptions IWithdrawalRestClient.GetWithdrawalsOptions { get; } = new GetWithdrawalsOptions(SharedPaginationSupport.Descending, true, 100);
+        GetWithdrawalsOptions IWithdrawalRestClient.GetWithdrawalsOptions { get; } = new GetWithdrawalsOptions(SharedPaginationSupport.Descending, true, 1000);
         async Task<ExchangeWebResult<IEnumerable<SharedWithdrawal>>> IWithdrawalRestClient.GetWithdrawalsAsync(GetWithdrawalsRequest request, INextPageToken? pageToken, CancellationToken ct)
         {
             var validationError = ((IWithdrawalRestClient)this).GetWithdrawalsOptions.ValidateRequest(Exchange, request, TradingMode.Spot, SupportedTradingModes);
@@ -600,7 +602,9 @@ namespace BitMart.Net.Clients.SpotApi
             // Get data
             var withdrawals = await Account.GetWithdrawalHistoryAsync(
                 asset: request.Asset,
-                limit: request.Limit ?? 100,
+                limit: request.Limit ?? 1000,
+                startTime: request.StartTime,
+                endTime: request.EndTime,
                 ct: ct).ConfigureAwait(false);
             if (!withdrawals)
                 return withdrawals.AsExchangeResult<IEnumerable<SharedWithdrawal>>(Exchange, null, default);

@@ -9,7 +9,7 @@ namespace BitMart.Net.Objects.Models
     internal record BitMartWithdrawalAddressesWrapper
     {
         [JsonPropertyName("list")]
-        public IEnumerable<BitMartWithdrawalAddress> List { get; set; }
+        public IEnumerable<BitMartWithdrawalAddress> List { get; set; } = [];
     }
 
     /// <summary>

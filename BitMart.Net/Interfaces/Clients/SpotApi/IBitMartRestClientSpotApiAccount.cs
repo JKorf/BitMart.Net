@@ -18,8 +18,9 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-account-balance-keyed" /></para>
         /// </summary>
         /// <param name="asset">Filter on asset, for example `ETH`</param>
+        /// <param name="needUsdValuation">Include USD valuation</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<IEnumerable<BitMartBalance>>> GetFundingBalancesAsync(string? asset = null, CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<BitMartBalance>>> GetFundingBalancesAsync(string? asset = null, bool? needUsdValuation = null, CancellationToken ct = default);
         
         /// <summary>
         /// Get spot account balances
