@@ -85,12 +85,14 @@ namespace BitMart.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<BitMartDepositWithdrawal>>> GetDepositHistoryAsync(string? asset = null, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<BitMartDepositWithdrawal>>> GetDepositHistoryAsync(string? asset = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("operation_type", "deposit");
             parameters.Add("N", limit ?? 100);
             parameters.AddOptional("currency", asset);
+            parameters.AddOptionalMilliseconds("startTime", startTime);
+            parameters.AddOptionalMilliseconds("endTime", endTime);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "account/v2/deposit-withdraw/history", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(8, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartDepositWithdrawalHistoryWrapper>(request, parameters, ct).ConfigureAwait(false);
@@ -98,12 +100,14 @@ namespace BitMart.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<BitMartDepositWithdrawal>>> GetWithdrawalHistoryAsync(string? asset = null, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<BitMartDepositWithdrawal>>> GetWithdrawalHistoryAsync(string? asset = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("operation_type", "withdraw");
             parameters.Add("N", limit ?? 100);
             parameters.AddOptional("currency", asset);
+            parameters.AddOptionalMilliseconds("startTime", startTime);
+            parameters.AddOptionalMilliseconds("endTime", endTime);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "account/v2/deposit-withdraw/history", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(8, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartDepositWithdrawalHistoryWrapper>(request, parameters, ct).ConfigureAwait(false);

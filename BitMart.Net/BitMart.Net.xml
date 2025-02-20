@@ -288,10 +288,10 @@
         <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount.WithdrawAsync(System.String,System.Decimal,System.String,System.String,System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount.GetDepositHistoryAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount.GetDepositHistoryAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount.GetWithdrawalHistoryAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount.GetWithdrawalHistoryAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount.GetDepositWithdrawalAsync(System.String,System.Threading.CancellationToken)">
@@ -1871,23 +1871,27 @@
             <param name="areaCode">Area phone code</param>
             <param name="ct">Cancellation token</param>
         </member>
-        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiAccount.GetDepositHistoryAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiAccount.GetDepositHistoryAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get deposit history
             <para><a href="https://developer-pro.bitmart.com/en/spot/#get-deposit-and-withdraw-history-keyed" /></para>
             </summary>
             <param name="asset">Filter by asset</param>
-            <param name="limit">Max number of results</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="limit">Max number of results, max 1000</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiAccount.GetWithdrawalHistoryAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiAccount.GetWithdrawalHistoryAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get withdrawal history
             <para><a href="https://developer-pro.bitmart.com/en/spot/#get-deposit-and-withdraw-history-keyed" /></para>
             </summary>
             <param name="asset">Filter by asset</param>
-            <param name="limit">Max number of results</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="limit">Max number of results, max 1000</param>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
