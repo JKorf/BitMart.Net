@@ -309,6 +309,9 @@
         <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount.GetSymbolTradeFeeAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount.GetWithdrawalAddressesAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData">
             <inheritdoc />
         </member>
@@ -1698,6 +1701,26 @@
             Fair price
             </summary>
         </member>
+        <member name="T:BitMart.Net.Enums.WithdrawalAddressType">
+            <summary>
+            Withdrawal address type
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.WithdrawalAddressType.Standard">
+            <summary>
+            Standard address
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.WithdrawalAddressType.Universal">
+            <summary>
+            Universal address
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.WithdrawalAddressType.Evm">
+            <summary>
+            EVM address
+            </summary>
+        </member>
         <member name="T:BitMart.Net.ExtensionMethods.BitMartExtensionMethods">
             <summary>
             Extension methods specific to using the BitMart API
@@ -1906,6 +1929,14 @@
             <summary>
             Get trading fees for a specific symbol
             <para><a href="https://developer-pro.bitmart.com/en/spot/#get-actual-trade-fee-rate-keyed" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `ETH_USDT`</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiAccount.GetWithdrawalAddressesAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get withdrawal addresses
+            <para><a href="https://developer-pro.bitmart.com/en/spot/#withdraw-address-keyed" /></para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="ct">Cancellation token</param>
@@ -6038,6 +6069,46 @@
         <member name="P:BitMart.Net.Objects.Models.BitMartUserTrade.UpdateTime">
             <summary>
             Update time
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Objects.Models.BitMartWithdrawalAddress">
+            <summary>
+            Withdrawal address
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartWithdrawalAddress.Asset">
+            <summary>
+            Asset name
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartWithdrawalAddress.Network">
+            <summary>
+            Network name
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartWithdrawalAddress.Address">
+            <summary>
+            Address
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartWithdrawalAddress.Memo">
+            <summary>
+            Memo
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartWithdrawalAddress.Remark">
+            <summary>
+            Remark
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartWithdrawalAddress.Type">
+            <summary>
+            Address type
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartWithdrawalAddress.Verified">
+            <summary>
+            Is verified
             </summary>
         </member>
         <member name="T:BitMart.Net.Objects.Models.BitMartWithdrawalQuota">

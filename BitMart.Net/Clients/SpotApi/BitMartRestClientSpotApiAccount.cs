@@ -167,5 +167,15 @@ namespace BitMart.Net.Clients.SpotApi
             return result;
         }
 
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<BitMartWithdrawalAddress>>> GetWithdrawalAddressesAsync(CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/account/v1/withdraw/address/list", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(2, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
+            var result = await _baseClient.SendAsync<BitMartWithdrawalAddressesWrapper>(request, parameters, ct).ConfigureAwait(false);
+            return result.As<IEnumerable<BitMartWithdrawalAddress>>(result.Data?.List);
+        }
+
     }
 }
