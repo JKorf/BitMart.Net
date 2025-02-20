@@ -40,7 +40,6 @@ namespace BitMart.Net.Clients.SpotApi
         public async Task<WebCallResult<IEnumerable<BitMartAsset>>> GetAssetsAsync(CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-
             var request = _definitions.GetOrCreate(HttpMethod.Get, "spot/v1/currencies", BitMartExchange.RateLimiter.BitMart, 1, false, 
                 new SingleLimitGuard(8, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<BitMartAssetWrapper>(request, parameters, ct).ConfigureAwait(false);
@@ -91,9 +90,10 @@ namespace BitMart.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<BitMartAssetDepositWithdrawInfo>>> GetAssetDepositWithdrawInfoAsync(CancellationToken ct = default)
+        public async Task<WebCallResult<IEnumerable<BitMartAssetDepositWithdrawInfo>>> GetAssetDepositWithdrawInfoAsync(string? asset = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
+            parameters.AddOptional("currencies", asset);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/account/v1/currencies", BitMartExchange.RateLimiter.BitMart, 1, false,
                 new SingleLimitGuard(2, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<BitMartAssetDepositWithdrawInfoWrapper>(request, parameters, ct).ConfigureAwait(false);

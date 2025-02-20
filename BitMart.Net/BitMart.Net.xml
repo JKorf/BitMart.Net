@@ -333,7 +333,7 @@
         <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetTickersAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetAssetDepositWithdrawInfoAsync(System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetAssetDepositWithdrawInfoAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetServerStatusAsync(System.Threading.CancellationToken)">
@@ -2005,9 +2005,10 @@
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
-        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiExchangeData.GetAssetDepositWithdrawInfoAsync(System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiExchangeData.GetAssetDepositWithdrawInfoAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get deposit and withdrawal info for assets
+            <param name="asset">Filter by asset. Can specify up to 20 assets comma separated</param>
             <para><a href="https://developer-pro.bitmart.com/en/spot/#get-currencies" /></para>
             </summary>
         </member>

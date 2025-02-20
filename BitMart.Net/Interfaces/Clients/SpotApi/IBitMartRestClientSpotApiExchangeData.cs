@@ -41,7 +41,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<BitMartSymbol>>> GetSymbolsAsync(CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<BitMartSymbol>>> GetSymbolsAsync( CancellationToken ct = default);
 
         /// <summary>
         /// Get a list of supported symbol names
@@ -69,9 +69,10 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get deposit and withdrawal info for assets
+        /// <param name="asset">Filter by asset. Can specify up to 20 assets comma separated</param>
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-currencies" /></para>
         /// </summary>
-        Task<WebCallResult<IEnumerable<BitMartAssetDepositWithdrawInfo>>> GetAssetDepositWithdrawInfoAsync(CancellationToken ct = default);
+        Task<WebCallResult<IEnumerable<BitMartAssetDepositWithdrawInfo>>> GetAssetDepositWithdrawInfoAsync(string? asset = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get kline/candlesticks
