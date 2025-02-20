@@ -130,7 +130,6 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// Get withdrawal addresses
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#withdraw-address-keyed" /></para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<IEnumerable<BitMartWithdrawalAddress>>> GetWithdrawalAddressesAsync(CancellationToken ct = default);
     }

@@ -69,9 +69,10 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get deposit and withdrawal info for assets
-        /// <param name="asset">Filter by asset. Can specify up to 20 assets comma separated</param>
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-currencies" /></para>
         /// </summary>
+        /// <param name="asset">Filter by asset. Can specify up to 20 assets comma separated</param>
+        /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<IEnumerable<BitMartAssetDepositWithdrawInfo>>> GetAssetDepositWithdrawInfoAsync(string? asset = null, CancellationToken ct = default);
 
         /// <summary>
