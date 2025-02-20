@@ -16,9 +16,29 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
     public interface IBitMartSocketClientUsdFuturesApi : ISocketApiClient, IDisposable
     {
         /// <summary>
-        /// Get the shared socket subscription client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
+        /// Get the shared socket subscription client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
         /// </summary>
         IBitMartSocketClientUsdFuturesApiShared SharedClient { get; }
+
+        /// <summary>
+        /// Subscribe to ticker updates
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-ticker-channel" /></para>
+        /// </summary>
+        /// <param name="symbol">Symbol to subscribe</param>
+        /// <param name="onMessage">The event handler for the received data</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<BitMartFuturesTickerUpdate>> onMessage, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to ticker updates
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-ticker-channel" /></para>
+        /// </summary>
+        /// <param name="symbols">Symbols to subscribe</param>
+        /// <param name="onMessage">The event handler for the received data</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMartFuturesTickerUpdate>> onMessage, CancellationToken ct = default);
 
         /// <summary>
         /// Subscribe to ticker updates

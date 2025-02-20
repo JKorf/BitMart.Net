@@ -71,6 +71,18 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
             => new BitMartAuthenticationProvider((BitMartApiCredentials)credentials);
 
+
+        public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<BitMartFuturesTickerUpdate>> onMessage, CancellationToken ct = default)
+            => await SubscribeToTickerUpdatesAsync([symbol], onMessage, ct).ConfigureAwait(false);
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMartFuturesTickerUpdate>> onMessage, CancellationToken ct = default)
+        {
+            var subscription = new BitMartFuturesSubscription<BitMartFuturesTickerUpdate>(_logger, symbols.Select(x => "futures/ticker:" + x).ToArray(), update => onMessage(update
+                .WithSymbol(update.Data.Symbol)), false);
+            return await SubscribeAsync(BaseAddress.AppendPath("api?protocol=1.1"), subscription, ct).ConfigureAwait(false);
+        }
+
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(Action<DataEvent<BitMartFuturesTickerUpdate>> onMessage, CancellationToken ct = default)
         {
