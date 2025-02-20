@@ -51,7 +51,7 @@ namespace BitMart.Net.UnitTests
         [Test]
         public async Task TestSpotAccount()
         {
-            await RunAndCheckResult(client => client.SpotApi.Account.GetFundingBalancesAsync(default, default), true);
+            await RunAndCheckResult(client => client.SpotApi.Account.GetFundingBalancesAsync(default, default, default), true);
             await RunAndCheckResult(client => client.SpotApi.Account.GetSpotBalancesAsync(default), true);
             await RunAndCheckResult(client => client.SpotApi.Account.GetWithdrawalQuotaAsync("ETH", default), true);
             await RunAndCheckResult(client => client.SpotApi.Account.GetBaseTradeFeesAsync(default), true);
@@ -78,7 +78,7 @@ namespace BitMart.Net.UnitTests
             await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetSymbolNamesAsync(default), false);
             await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetTickerAsync("ETH_USDT", default), false);
             await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetTickersAsync(default), false);
-            await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetAssetDepositWithdrawInfoAsync(default), false);
+            await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetAssetDepositWithdrawInfoAsync(default, default), false);
             await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetServerStatusAsync(default), false);
             await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetKlinesAsync("ETH_USDT", Enums.KlineInterval.OneDay, default, default, default, default), false);
             await RunAndCheckResult(client => client.SpotApi.ExchangeData.GetKlineHistoryAsync("ETH_USDT", Enums.KlineInterval.OneDay, default, default, default, default), false);
