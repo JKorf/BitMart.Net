@@ -148,6 +148,15 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 1.14.0 - 20 Feb 2025
+    * Added restClient.SpotApi.Account.GetWithdrawalAddressesAsync endpoint
+    * Added startTime/endTime filter to restClient.SpotApi.Account.GetDepositHistoryAsync and GetWithdrawalHistoryAsync
+    * Added needUsdValuation to restClient.SpotApi.Account.GetFundingBalancesAsync endpoint
+    * Added asset parameter to restClient.SpotApi.ExchangeData.GetAssetDepositWithdrawInfoAsync endpoint
+    * Added restClient.UsdFuturesApi.ExchangeData.GetMarkKlinesAsync endpoint
+    * Added socketClient.UsdFuturesApi.SubscribeToMarkKlineUpdatesAsync subscription
+    * Added symbol specific overloads for socketClient.UsdFuturesApi.SubscribeToTickerUpdatesAsync subscription
+
 * Version 1.13.0 - 11 Feb 2025
     * Updated CryptoExchange.Net to version 8.8.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
     * Added support for more SharedKlineInterval values
