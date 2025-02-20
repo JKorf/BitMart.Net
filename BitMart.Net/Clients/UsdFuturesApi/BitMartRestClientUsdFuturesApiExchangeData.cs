@@ -118,5 +118,22 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
         #endregion
 
+        #region Get Mark Klines
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<IEnumerable<BitMartFuturesKline>>> GetMarkKlinesAsync(string symbol, FuturesKlineInterval klineInterval, DateTime startTime, DateTime endTime, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("symbol", symbol);
+            parameters.AddEnum("step", klineInterval);
+            parameters.AddSeconds("start_time", startTime);
+            parameters.AddSeconds("end_time", endTime);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/public/markprice-kline", BitMartExchange.RateLimiter.BitMart, 1, false,
+                new SingleLimitGuard(12, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var result = await _baseClient.SendAsync<IEnumerable<BitMartFuturesKline>>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
     }
 }

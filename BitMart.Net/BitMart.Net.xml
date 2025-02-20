@@ -577,6 +577,9 @@
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiExchangeData.GetKlinesAsync(System.String,BitMart.Net.Enums.FuturesKlineInterval,System.DateTime,System.DateTime,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiExchangeData.GetMarkKlinesAsync(System.String,BitMart.Net.Enums.FuturesKlineInterval,System.DateTime,System.DateTime,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiSubAccount">
             <inheritdoc />
         </member>
@@ -2615,6 +2618,17 @@
             <summary>
             Get kline/candlestick data
             <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-k-line" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `ETHUSDT`</param>
+            <param name="klineInterval">Kline interval</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiExchangeData.GetMarkKlinesAsync(System.String,BitMart.Net.Enums.FuturesKlineInterval,System.DateTime,System.DateTime,System.Threading.CancellationToken)">
+            <summary>
+            Get mark price klines
+            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-markprice-k-line" /></para>
             </summary>
             <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="klineInterval">Kline interval</param>

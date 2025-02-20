@@ -57,6 +57,17 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         Task<WebCallResult<IEnumerable<BitMartFuturesKline>>> GetKlinesAsync(string symbol, FuturesKlineInterval klineInterval, DateTime startTime, DateTime endTime, CancellationToken ct = default);
 
         /// <summary>
+        /// Get mark price klines
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-markprice-k-line" /></para>
+        /// </summary>
+        /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
+        /// <param name="klineInterval">Kline interval</param>
+        /// <param name="startTime">Filter by start time</param>
+        /// <param name="endTime">Filter by end time</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<IEnumerable<BitMartFuturesKline>>> GetMarkKlinesAsync(string symbol, FuturesKlineInterval klineInterval, DateTime startTime, DateTime endTime, CancellationToken ct = default);
+
+        /// <summary>
         /// Get funding rate history
         /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-funding-rate-history" /></para>
         /// </summary>
