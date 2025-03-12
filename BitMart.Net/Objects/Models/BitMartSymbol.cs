@@ -1,4 +1,5 @@
-﻿using BitMart.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using BitMart.Net.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,18 +7,20 @@ using System.Text.Json.Serialization;
 
 namespace BitMart.Net.Objects.Models
 {
+    [SerializationModel]
     internal record BitMartSymbolWrapper
     {
         /// <summary>
         /// Symbols
         /// </summary>
         [JsonPropertyName("symbols")]
-        public IEnumerable<BitMartSymbol> Symbols { get; set; } = Array.Empty<BitMartSymbol>();
+        public BitMartSymbol[] Symbols { get; set; } = Array.Empty<BitMartSymbol>();
     }
 
     /// <summary>
     /// Symbol info
     /// </summary>
+    [SerializationModel]
     public record BitMartSymbol
     {
         /// <summary>

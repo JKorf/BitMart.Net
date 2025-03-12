@@ -1,4 +1,5 @@
-﻿using BitMart.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using BitMart.Net.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +10,7 @@ namespace BitMart.Net.Objects.Models
     /// <summary>
     /// Balance update
     /// </summary>
+    [SerializationModel]
     public record BitMartBalanceUpdate
     {
         /// <summary>
@@ -27,12 +29,13 @@ namespace BitMart.Net.Objects.Models
         /// Updated balances
         /// </summary>
         [JsonPropertyName("balance_details")]
-        public IEnumerable<BitMartBalanceUpdateDetails> Balances { get; set; } = Array.Empty<BitMartBalanceUpdateDetails>();
+        public BitMartBalanceUpdateDetails[] Balances { get; set; } = Array.Empty<BitMartBalanceUpdateDetails>();
     }
 
     /// <summary>
     /// Asset info
     /// </summary>
+    [SerializationModel]
     public record BitMartBalanceUpdateDetails
     {
         /// <summary>

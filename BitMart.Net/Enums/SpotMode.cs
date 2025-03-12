@@ -1,13 +1,13 @@
-﻿using CryptoExchange.Net.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Attributes;
 
 namespace BitMart.Net.Enums
 {
     /// <summary>
     /// Spot mode
     /// </summary>
+    [JsonConverter(typeof(EnumConverter<SpotMode>))]
     public enum SpotMode
     {
         /// <summary>

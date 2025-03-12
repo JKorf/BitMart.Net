@@ -1,17 +1,19 @@
-﻿using CryptoExchange.Net.Converters;
+using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
 using BitMart.Net.Enums;
+using BitMart.Net.Converters;
 
 namespace BitMart.Net.Objects.Models
 {
     /// <summary>
     /// Trade info
     /// </summary>
-    [JsonConverter(typeof(ArrayConverter))]
+    [JsonConverter(typeof(ArrayConverter<BitMartTrade, BitMartSourceGenerationContext>))]
+    [SerializationModel]
     public record BitMartTrade
     {
         /// <summary>
@@ -37,7 +39,7 @@ namespace BitMart.Net.Objects.Models
         /// <summary>
         /// Side
         /// </summary>
-        [ArrayProperty(4), JsonConverter(typeof(EnumConverter))]
+        [ArrayProperty(4)]
         public OrderSide Side { get; set; }
     }
 }

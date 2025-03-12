@@ -46,7 +46,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         #region Get Closed Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<BitMartFuturesOrder>>> GetClosedOrdersAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BitMartFuturesOrder[]>> GetClosedOrdersAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("symbol", symbol);
@@ -54,7 +54,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             parameters.AddOptionalSeconds("end_time", endTime);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/private/order-history", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(6, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            var result = await _baseClient.SendAsync<IEnumerable<BitMartFuturesOrder>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<BitMartFuturesOrder[]>(request, parameters, ct).ConfigureAwait(false);
             return result.As(result.Data ?? Array.Empty<BitMartFuturesOrder>());
         }
 
@@ -63,7 +63,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         #region Get Open Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<BitMartFuturesOrder>>> GetOpenOrdersAsync(string? symbol = null, FuturesOrderType? orderType = null, OrderStatusQuery? status = null, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BitMartFuturesOrder[]>> GetOpenOrdersAsync(string? symbol = null, FuturesOrderType? orderType = null, OrderStatusQuery? status = null, int? limit = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("symbol", symbol);
@@ -72,7 +72,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             parameters.AddOptional("limit", limit);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/private/get-open-orders", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(50, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            var result = await _baseClient.SendAsync<IEnumerable<BitMartFuturesOrder>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<BitMartFuturesOrder[]>(request, parameters, ct).ConfigureAwait(false);
             return result.As(result.Data ?? Array.Empty<BitMartFuturesOrder>());
         }
 
@@ -81,7 +81,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         #region Get Trigger Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<BitMartTriggerOrder>>> GetTriggerOrdersAsync(string? symbol = null, OrderType? type = null, int? limit = null, TriggerPlanType? planType = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BitMartTriggerOrder[]>> GetTriggerOrdersAsync(string? symbol = null, OrderType? type = null, int? limit = null, TriggerPlanType? planType = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("symbol", symbol);
@@ -90,7 +90,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             parameters.AddOptionalEnum("plan_type", planType);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/private/current-plan-order", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(50, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            var result = await _baseClient.SendAsync<IEnumerable<BitMartTriggerOrder>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<BitMartTriggerOrder[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -99,13 +99,13 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         #region Get Positions
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<BitMartPosition>>> GetPositionsAsync(string? symbol = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BitMartPosition[]>> GetPositionsAsync(string? symbol = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("symbol", symbol);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/private/position", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(6, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            var result = await _baseClient.SendAsync<IEnumerable<BitMartPosition>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<BitMartPosition[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -114,13 +114,13 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         #region Get Position Risk
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<BitMartPositionRisk>>> GetPositionRiskAsync(string? symbol = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BitMartPositionRisk[]>> GetPositionRiskAsync(string? symbol = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("symbol", symbol);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/private/position-risk", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(24, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            var result = await _baseClient.SendAsync<IEnumerable<BitMartPositionRisk>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<BitMartPositionRisk[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -129,7 +129,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         #region Get User Trades
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<BitMartFuturesUserTrade>>> GetUserTradesAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BitMartFuturesUserTrade[]>> GetUserTradesAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("symbol", symbol);
@@ -137,7 +137,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             parameters.AddOptionalSeconds("end_time", endTime);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/private/trades", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(6, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            var result = await _baseClient.SendAsync<IEnumerable<BitMartFuturesUserTrade>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<BitMartFuturesUserTrade[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 

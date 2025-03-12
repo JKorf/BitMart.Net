@@ -1,4 +1,5 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -8,18 +9,20 @@ namespace BitMart.Net.Objects.Models
     /// <summary>
     /// 
     /// </summary>
+    [SerializationModel]
     internal record BitMartAssetWrapper
     {
         /// <summary>
         /// Currencies
         /// </summary>
         [JsonPropertyName("currencies")]
-        public IEnumerable<BitMartAsset> Currencies { get; set; } = Array.Empty<BitMartAsset>();
+        public BitMartAsset[] Currencies { get; set; } = Array.Empty<BitMartAsset>();
     }
 
     /// <summary>
     /// Asset information
     /// </summary>
+    [SerializationModel]
     public record BitMartAsset
     {
         /// <summary>

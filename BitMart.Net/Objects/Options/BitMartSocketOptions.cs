@@ -5,7 +5,7 @@ namespace BitMart.Net.Objects.Options
     /// <summary>
     /// Options for the BitMartSocketClient
     /// </summary>
-    public class BitMartSocketOptions : SocketExchangeOptions<BitMartEnvironment, BitMartApiCredentials>
+    public class BitMartSocketOptions : SocketExchangeOptions<BitMartEnvironment>
     {
         /// <summary>
         /// Default options for new clients
@@ -28,12 +28,12 @@ namespace BitMart.Net.Objects.Options
         /// <summary>
         /// UsdFutures API options
         /// </summary>
-        public SocketApiOptions<BitMartApiCredentials> UsdFuturesOptions { get; private set; } = new SocketApiOptions<BitMartApiCredentials>();
+        public SocketApiOptions UsdFuturesOptions { get; private set; } = new SocketApiOptions();
 
          /// <summary>
         /// Spot API options
         /// </summary>
-        public SocketApiOptions<BitMartApiCredentials> SpotOptions { get; private set; } = new SocketApiOptions<BitMartApiCredentials>();
+        public SocketApiOptions SpotOptions { get; private set; } = new SocketApiOptions();
 
         internal BitMartSocketOptions Set(BitMartSocketOptions targetOptions)
         {

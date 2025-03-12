@@ -1,22 +1,25 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
 
 namespace BitMart.Net.Objects.Models
 {
+    [SerializationModel]
     internal record BitMartBalanceWrapper
     {
         /// <summary>
         /// Wallet
         /// </summary>
         [JsonPropertyName("wallet")]
-        public IEnumerable<BitMartBalance> Wallet { get; set; } = Array.Empty<BitMartBalance>();
+        public BitMartBalance[] Wallet { get; set; } = Array.Empty<BitMartBalance>();
     }
 
     /// <summary>
     /// Balance info
     /// </summary>
+    [SerializationModel]
     public record BitMartBalance
     {
         /// <summary>

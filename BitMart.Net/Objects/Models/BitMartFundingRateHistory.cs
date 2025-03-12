@@ -1,19 +1,22 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
 
 namespace BitMart.Net.Objects.Models
 {
+    [SerializationModel]
     internal record BitMartFundingRateHistoryWrapper
     {
         [JsonPropertyName("list")]
-        public IEnumerable<BitMartFundingRateHistory> History { get; set; } = [];
+        public BitMartFundingRateHistory[] History { get; set; } = [];
     }
 
     /// <summary>
     /// Funding rate history
     /// </summary>
+    [SerializationModel]
     public record BitMartFundingRateHistory
     {
         /// <summary>

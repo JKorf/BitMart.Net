@@ -1,4 +1,5 @@
-﻿using BitMart.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using BitMart.Net.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,18 +7,20 @@ using System.Text.Json.Serialization;
 
 namespace BitMart.Net.Objects.Models
 {
+    [SerializationModel]
     internal record BitMartFuturesTransferWrapper
     {
         /// <summary>
         /// Records
         /// </summary>
         [JsonPropertyName("records")]
-        public IEnumerable<BitMartFuturesTransfer> Records { get; set; } = Array.Empty<BitMartFuturesTransfer>();
+        public BitMartFuturesTransfer[] Records { get; set; } = Array.Empty<BitMartFuturesTransfer>();
     }
 
     /// <summary>
     /// Futures transfer record
     /// </summary>
+    [SerializationModel]
     public record BitMartFuturesTransfer
     {
         /// <summary>

@@ -1,13 +1,13 @@
-﻿using CryptoExchange.Net.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Attributes;
 
 namespace BitMart.Net.Enums
 {
     /// <summary>
     /// Fee rate type
     /// </summary>
+    [JsonConverter(typeof(EnumConverter<FeeRateType>))]
     public enum FeeRateType
     {
         /// <summary>

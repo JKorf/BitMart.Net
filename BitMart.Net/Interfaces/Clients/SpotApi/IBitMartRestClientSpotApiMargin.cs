@@ -43,7 +43,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// <param name="endTime">Filter by end time</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<IEnumerable<BorrowRecord>>> GetBorrowHistoryAsync(string symbol, string? borrowId = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
+        Task<WebCallResult<BorrowRecord[]>> GetBorrowHistoryAsync(string symbol, string? borrowId = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get repayment history
@@ -56,7 +56,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// <param name="endTime">Filter by end time</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<IEnumerable<RepayRecord>>> GetRepayHistoryAsync(string symbol, string? asset = null, string? repayId = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
+        Task<WebCallResult<RepayRecord[]>> GetRepayHistoryAsync(string symbol, string? asset = null, string? repayId = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get borrow rate and quantity info
@@ -64,7 +64,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<IEnumerable<BorrowInfo>>> GetBorrowInfoAsync(string? symbol = null, CancellationToken ct = default);
+        Task<WebCallResult<BorrowInfo[]>> GetBorrowInfoAsync(string? symbol = null, CancellationToken ct = default);
 
     }
 }

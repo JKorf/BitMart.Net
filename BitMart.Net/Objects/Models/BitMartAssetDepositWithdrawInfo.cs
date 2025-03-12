@@ -1,22 +1,25 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
 
 namespace BitMart.Net.Objects.Models
 {
+    [SerializationModel]
     internal record BitMartAssetDepositWithdrawInfoWrapper
     {
         /// <summary>
         /// Currencies
         /// </summary>
         [JsonPropertyName("currencies")]
-        public IEnumerable<BitMartAssetDepositWithdrawInfo> Currencies { get; set; } = Array.Empty<BitMartAssetDepositWithdrawInfo>();
+        public BitMartAssetDepositWithdrawInfo[] Currencies { get; set; } = Array.Empty<BitMartAssetDepositWithdrawInfo>();
     }
 
     /// <summary>
     /// Deposit/withdrawal info
     /// </summary>
+    [SerializationModel]
     public record BitMartAssetDepositWithdrawInfo
     {
         /// <summary>

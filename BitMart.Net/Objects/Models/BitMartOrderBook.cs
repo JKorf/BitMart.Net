@@ -1,4 +1,5 @@
-﻿using CryptoExchange.Net.Converters;
+using BitMart.Net.Converters;
+using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Interfaces;
 using System;
@@ -11,6 +12,7 @@ namespace BitMart.Net.Objects.Models
     /// <summary>
     /// Order book
     /// </summary>
+    [SerializationModel]
     public record BitMartOrderBook
     {
         /// <summary>
@@ -32,18 +34,19 @@ namespace BitMart.Net.Objects.Models
         /// Asks
         /// </summary>
         [JsonPropertyName("asks")]
-        public IEnumerable<BitMartOrderBookEntry> Asks { get; set; } = Array.Empty<BitMartOrderBookEntry>();
+        public BitMartOrderBookEntry[] Asks { get; set; } = Array.Empty<BitMartOrderBookEntry>();
         /// <summary>
         /// Bids
         /// </summary>
         [JsonPropertyName("bids")]
-        public IEnumerable<BitMartOrderBookEntry> Bids { get; set; } = Array.Empty<BitMartOrderBookEntry>();
+        public BitMartOrderBookEntry[] Bids { get; set; } = Array.Empty<BitMartOrderBookEntry>();
     }
 
     /// <summary>
     /// Order book entry
     /// </summary>
-    [JsonConverter(typeof(ArrayConverter))]
+    [JsonConverter(typeof(ArrayConverter<BitMartOrderBookEntry, BitMartSourceGenerationContext>))]
+    [SerializationModel]
     public record BitMartOrderBookEntry : ISymbolOrderBookEntry
     {
         /// <summary>

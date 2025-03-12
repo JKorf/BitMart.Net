@@ -1,4 +1,4 @@
-﻿using BitMart.Net.Enums;
+using BitMart.Net.Enums;
 using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Interfaces;
@@ -12,6 +12,7 @@ namespace BitMart.Net.Objects.Models
     /// <summary>
     /// Order book
     /// </summary>
+    [SerializationModel]
     public record BitMartFuturesOrderBookUpdate
     {
         /// <summary>
@@ -33,12 +34,13 @@ namespace BitMart.Net.Objects.Models
         /// Depths, can either be bids or asks, check Side to see which
         /// </summary>
         [JsonPropertyName("depths")]
-        public IEnumerable<BitMartFuturesOrderBookEntry> Depths { get; set; } = Array.Empty<BitMartFuturesOrderBookEntry>();
+        public BitMartFuturesOrderBookEntry[] Depths { get; set; } = Array.Empty<BitMartFuturesOrderBookEntry>();
     }
 
     /// <summary>
     /// Order book entry
     /// </summary>
+    [SerializationModel]
     public record BitMartFuturesOrderBookEntry : ISymbolOrderBookEntry
     {
         /// <summary>

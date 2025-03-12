@@ -1,4 +1,5 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -8,6 +9,7 @@ namespace BitMart.Net.Objects.Models
     /// <summary>
     /// Kline data
     /// </summary>
+    [SerializationModel]
     public record BitMartFuturesKlineUpdate
     {
         /// <summary>
@@ -19,12 +21,13 @@ namespace BitMart.Net.Objects.Models
         /// Kline items
         /// </summary>
         [JsonPropertyName("items")]
-        public IEnumerable<BitMartFuturesKlineItem> Klines { get; set; } = Array.Empty<BitMartFuturesKlineItem>();
+        public BitMartFuturesKlineItem[] Klines { get; set; } = Array.Empty<BitMartFuturesKlineItem>();
     }
 
     /// <summary>
     /// Kline data
     /// </summary>
+    [SerializationModel]
     public record BitMartFuturesKlineItem
     {
         /// <summary>

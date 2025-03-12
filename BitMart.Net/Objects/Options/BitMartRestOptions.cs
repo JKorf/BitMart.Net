@@ -5,7 +5,7 @@ namespace BitMart.Net.Objects.Options
     /// <summary>
     /// Options for the BitMartRestClient
     /// </summary>
-    public class BitMartRestOptions : RestExchangeOptions<BitMartEnvironment, BitMartApiCredentials>
+    public class BitMartRestOptions : RestExchangeOptions<BitMartEnvironment>
     {
         /// <summary>
         /// Default options for new clients
@@ -32,12 +32,12 @@ namespace BitMart.Net.Objects.Options
          /// <summary>
         /// UsdFutures API options
         /// </summary>
-        public RestApiOptions<BitMartApiCredentials> UsdFuturesOptions { get; private set; } = new RestApiOptions<BitMartApiCredentials>();
+        public RestApiOptions UsdFuturesOptions { get; private set; } = new RestApiOptions();
 
          /// <summary>
         /// Spot API options
         /// </summary>
-        public RestApiOptions<BitMartApiCredentials> SpotOptions { get; private set; } = new RestApiOptions<BitMartApiCredentials>();
+        public RestApiOptions SpotOptions { get; private set; } = new RestApiOptions();
 
         internal BitMartRestOptions Set(BitMartRestOptions targetOptions)
         {

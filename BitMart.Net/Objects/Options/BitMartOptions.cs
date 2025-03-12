@@ -1,4 +1,5 @@
-﻿using CryptoExchange.Net.Objects.Options;
+﻿using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Objects.Options;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace BitMart.Net.Objects.Options
     /// <summary>
     /// BitMart options
     /// </summary>
-    public class BitMartOptions : LibraryOptions<BitMartRestOptions, BitMartSocketOptions, BitMartApiCredentials, BitMartEnvironment>
+    public class BitMartOptions : LibraryOptions<BitMartRestOptions, BitMartSocketOptions, ApiCredentials, BitMartEnvironment>
     {
     }
 }

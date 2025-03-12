@@ -1,4 +1,5 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -8,6 +9,7 @@ namespace BitMart.Net.Objects.Models
     /// <summary>
     /// Transfer history
     /// </summary>
+    [SerializationModel]
     public record SubAccountTransferHistory
     {
         /// <summary>
@@ -19,12 +21,13 @@ namespace BitMart.Net.Objects.Models
         /// History list
         /// </summary>
         [JsonPropertyName("historyList")]
-        public IEnumerable<SubAccountTransfer> HistoryList { get; set; } = Array.Empty<SubAccountTransfer>();
+        public SubAccountTransfer[] HistoryList { get; set; } = Array.Empty<SubAccountTransfer>();
     }
 
     /// <summary>
     /// Transfer info
     /// </summary>
+    [SerializationModel]
     public record SubAccountTransfer
     {
         /// <summary>

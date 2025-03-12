@@ -1,4 +1,5 @@
-﻿using CryptoExchange.Net.Converters;
+using BitMart.Net.Converters;
+using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using System;
 using System.Text.Json.Serialization;
@@ -8,7 +9,8 @@ namespace BitMart.Net.Objects.Models
     /// <summary>
     /// Ticker/price statistics
     /// </summary>
-    [JsonConverter(typeof(ArrayConverter))]
+    [JsonConverter(typeof(ArrayConverter<BitMartArrayTicker, BitMartSourceGenerationContext>))]
+    [SerializationModel]
     public record BitMartArrayTicker
     {
         /// <summary>

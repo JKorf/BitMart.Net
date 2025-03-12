@@ -1,4 +1,5 @@
-﻿using BitMart.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using BitMart.Net.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +10,7 @@ namespace BitMart.Net.Objects.Models
     /// <summary>
     /// Order update event
     /// </summary>
+    [SerializationModel]
     public record BitMartFuturesOrderUpdateEvent
     {
         /// <summary>
@@ -26,6 +28,7 @@ namespace BitMart.Net.Objects.Models
     /// <summary>
     /// Order update
     /// </summary>
+    [SerializationModel]
     public record BitMartFuturesOrderUpdate
     {
         /// <summary>
@@ -113,6 +116,7 @@ namespace BitMart.Net.Objects.Models
     /// <summary>
     /// Order trade info
     /// </summary>
+    [SerializationModel]
     public record BitMartFuturesOrderTrade
     {
         /// <summary>

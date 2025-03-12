@@ -1,22 +1,25 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
 
 namespace BitMart.Net.Objects.Models
 {
+    [SerializationModel]
     internal record BorrowInfoWrapper
     {
         /// <summary>
         /// Symbols
         /// </summary>
         [JsonPropertyName("symbols")]
-        public IEnumerable<BorrowInfo> Symbols { get; set; } = Array.Empty<BorrowInfo>();
+        public BorrowInfo[] Symbols { get; set; } = Array.Empty<BorrowInfo>();
     }
 
     /// <summary>
     /// Borrow rate and quantity info
     /// </summary>
+    [SerializationModel]
     public record BorrowInfo
     {
         /// <summary>
@@ -49,6 +52,7 @@ namespace BitMart.Net.Objects.Models
     /// <summary>
     /// Asset info
     /// </summary>
+    [SerializationModel]
     public record BorrowInfoAsset
     {
         /// <summary>
