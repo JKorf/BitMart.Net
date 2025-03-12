@@ -112,7 +112,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMartFuturesTradeUpdate[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMartFuturesSubscription<IEnumerable<BitMartFuturesTradeUpdate>>(_logger, symbols.Select(s => "futures/trade:" + s).ToArray(), 
+            var subscription = new BitMartFuturesSubscription<BitMartFuturesTradeUpdate[]>(_logger, symbols.Select(s => "futures/trade:" + s).ToArray(), 
                 update => onMessage(update
                 .WithSymbol(update.Data.First().Symbol)
                 .WithDataTimestamp(update.Data.Max(x => x.Timestamp))), false);
@@ -214,7 +214,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(Action<DataEvent<BitMartPositionUpdate[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMartFuturesSubscription<IEnumerable<BitMartPositionUpdate>>(_logger, new[] { "futures/position" }, x => onMessage(
+            var subscription = new BitMartFuturesSubscription<BitMartPositionUpdate[]>(_logger, new[] { "futures/position" }, x => onMessage(
                 x.WithSymbol(x.Data.First().Symbol)
                 .WithDataTimestamp(x.Data.Max(x => x.UpdateTime))), true);
             return await SubscribeAsync(BaseAddress.AppendPath("user?protocol=1.1"), subscription, ct).ConfigureAwait(false);
@@ -223,7 +223,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<BitMartFuturesOrderUpdateEvent[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMartFuturesSubscription<IEnumerable<BitMartFuturesOrderUpdateEvent>>(_logger, new[] { "futures/order" }, x => onMessage(
+            var subscription = new BitMartFuturesSubscription<BitMartFuturesOrderUpdateEvent[]>(_logger, new[] { "futures/order" }, x => onMessage(
                 x.WithSymbol(x.Data.First().Order.Symbol)
                 .WithDataTimestamp(x.Data.Max(x => x.Order.UpdateTime))), true);
             return await SubscribeAsync(BaseAddress.AppendPath("user?protocol=1.1"), subscription, ct).ConfigureAwait(false);

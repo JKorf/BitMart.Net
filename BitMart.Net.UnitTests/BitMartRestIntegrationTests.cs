@@ -1,6 +1,7 @@
 ﻿using BitMart.Net.Clients;
 using BitMart.Net.Objects;
 using BitMart.Net.Objects.Options;
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Testing;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -32,7 +33,7 @@ namespace BitMart.Net.UnitTests
             return new BitMartRestClient(null, loggerFactory, Options.Create(new BitMartRestOptions
             {
                 OutputOriginalData = true,
-                ApiCredentials = Authenticated ? new BitMartApiCredentials(key, sec, pass) : null
+                ApiCredentials = Authenticated ? new ApiCredentials(key, sec, pass) : null
             }));
         }
 

@@ -22,7 +22,7 @@ namespace BitMart.Net.Objects.Models
         public DateTime Timestamp { get; set; }
 
         [JsonInclude, JsonPropertyName("ts")]
-        private DateTime TimestampSpot { set => Timestamp = value; }
+        internal DateTime TimestampSpot { set => Timestamp = value; }
 
         /// <summary>
         /// Symbol

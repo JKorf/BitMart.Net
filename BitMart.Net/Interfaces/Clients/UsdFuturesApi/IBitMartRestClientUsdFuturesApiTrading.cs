@@ -144,7 +144,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="orderId">The order id, either this or clientOrderId should be provided</param>
         /// <param name="clientOrderId">The client order id, either this or orderId should be provided</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> CancelOrderAsync(string symbol, string orderId, string? clientOrderId = null, CancellationToken ct = default);
+        Task<WebCallResult> CancelOrderAsync(string symbol, string? orderId = null, string? clientOrderId = null, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel all orders on a symbol

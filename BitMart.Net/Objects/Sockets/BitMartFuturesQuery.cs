@@ -15,7 +15,7 @@ namespace BitMart.Net.Objects.Sockets
         public BitMartFuturesQuery(string operation, IEnumerable<string> parameters, bool authenticated, int weight = 1) : base(new BitMartFuturesSocketOperation
         {
             Operation = operation,
-            Parameters = parameters,
+            Parameters = parameters.ToArray(),
         }, authenticated, weight)
         {
             ListenerIdentifiers = new HashSet<string>(parameters.Select(p => operation + "-" + p));

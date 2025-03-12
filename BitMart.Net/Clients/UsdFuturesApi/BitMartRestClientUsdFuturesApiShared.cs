@@ -132,13 +132,41 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 PriceStep = s.PricePrecision,
                 QuantityStep = s.QuantityPrecision,
                 ContractSize = s.ContractQuantity,
-                MaxTradeQuantity = s.MaxQuantity
+                MaxTradeQuantity = s.MaxQuantity,
+                MaxLongLeverage = s.MaxLeverage,
+                MaxShortLeverage = s.MaxLeverage
             }).ToArray());
 
             ExchangeSymbolCache.UpdateSymbolInfo(_topicId, response.Data);
             return response;
         }
 
+        #endregion
+
+        #region Futures Client Id Order Client
+
+        EndpointOptions<GetOrderRequest> IFuturesOrderClientIdClient.GetFuturesOrderByClientOrderIdOptions { get; } = new EndpointOptions<GetOrderRequest>(true)
+        {
+            Supported = false
+        };
+        async Task<ExchangeWebResult<SharedFuturesOrder>> IFuturesOrderClientIdClient.GetFuturesOrderByClientOrderIdAsync(GetOrderRequest request, CancellationToken ct)
+        {
+            return new ExchangeWebResult<SharedFuturesOrder>(Exchange, new InvalidOperationError("Getting order by client order id not supported by BitMart API"));
+        }
+
+        EndpointOptions<CancelOrderRequest> IFuturesOrderClientIdClient.CancelFuturesOrderByClientOrderIdOptions { get; } = new EndpointOptions<CancelOrderRequest>(true);
+        async Task<ExchangeWebResult<SharedId>> IFuturesOrderClientIdClient.CancelFuturesOrderByClientOrderIdAsync(CancelOrderRequest request, CancellationToken ct)
+        {
+            var validationError = ((IFuturesOrderRestClient)this).CancelFuturesOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedId>(Exchange, validationError);
+
+            var order = await Trading.CancelOrderAsync(request.Symbol.GetSymbol(FormatSymbol), clientOrderId: request.OrderId, ct: ct).ConfigureAwait(false);
+            if (!order)
+                return order.AsExchangeResult<SharedId>(Exchange, null, default);
+
+            return order.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedId(request.OrderId));
+        }
         #endregion
 
         #region Klines client
