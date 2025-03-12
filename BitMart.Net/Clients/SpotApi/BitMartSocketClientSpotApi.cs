@@ -63,15 +63,15 @@ namespace BitMart.Net.Clients.SpotApi
         }
         #endregion 
 
-        protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor();
+        protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(BitMartExchange.SerializerContext));
 
-        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer();
+        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(BitMartExchange.SerializerContext));
 
         public IBitMartSocketClientSpotApiShared SharedClient => this;
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
-            => new BitMartAuthenticationProvider((BitMartApiCredentials)credentials);
+            => new BitMartAuthenticationProvider(credentials);
 
         /// <inheritdoc />
         public Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<BitMartTickerUpdate>> onMessage, CancellationToken ct = default)
@@ -209,7 +209,7 @@ namespace BitMart.Net.Clients.SpotApi
             var timestamp = DateTimeConverter.ConvertToMilliseconds(DateTime.UtcNow).ToString();
             var authProvider = (BitMartAuthenticationProvider)AuthenticationProvider!;
             var key = authProvider.ApiKey;
-            var memo = authProvider.GetMemo();
+            var memo = authProvider.Pass;
             var sign = authProvider.Sign($"{timestamp}#{memo}#bitmart.WebSocket");
 
             return Task.FromResult<Query?>(new BitMartLoginQuery(key, timestamp, sign));

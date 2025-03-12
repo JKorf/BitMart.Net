@@ -46,15 +46,6 @@ namespace BitMart.Net.Clients.SpotApi
             {
                 { "X-BM-BROKER-ID", _baseClient._brokerId }
             }).ConfigureAwait(false);
-            if (result)
-            {
-                _baseClient.InvokeOrderPlaced(new CryptoExchange.Net.CommonObjects.OrderId
-                {
-                    Id = result.Data.OrderId,
-                    SourceObject = result.Data
-                });
-            }
-
             return result;
         }
 
@@ -80,16 +71,6 @@ namespace BitMart.Net.Clients.SpotApi
             if (result.Data.Code != 0)
                 return result.AsError<BitMartOrderIds>(new ServerError(result.Data.Code, result.Data.Message));
 
-
-            foreach (var order in result.Data.Data.OrderIds)
-            {
-                _baseClient.InvokeOrderPlaced(new CryptoExchange.Net.CommonObjects.OrderId
-                {
-                    Id = order,
-                    SourceObject = order
-                });
-            }
-
             return result.As(result.Data.Data);
         }
 
@@ -107,14 +88,6 @@ namespace BitMart.Net.Clients.SpotApi
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/spot/v3/cancel_order", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(60, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartResult>(request, parameters, ct).ConfigureAwait(false);
-            if (result)
-            {
-                _baseClient.InvokeOrderCanceled(new CryptoExchange.Net.CommonObjects.OrderId
-                {
-                    Id = orderId ?? clientOrderId!,
-                    SourceObject = result.Data
-                });
-            }
             return result.AsDataless();
         }
 
@@ -132,17 +105,6 @@ namespace BitMart.Net.Clients.SpotApi
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/spot/v4/cancel_orders", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartCancelOrdersResult>(request, parameters, ct).ConfigureAwait(false);
-            if (result)
-            {
-                foreach (var order in result.Data.SuccessIds)
-                {
-                    _baseClient.InvokeOrderCanceled(new CryptoExchange.Net.CommonObjects.OrderId
-                    {
-                        Id = order,
-                        SourceObject = order
-                    });
-                }
-            }
             return result;
         }
 

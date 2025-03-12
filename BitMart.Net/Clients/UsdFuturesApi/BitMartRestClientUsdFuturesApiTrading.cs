@@ -191,11 +191,11 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             parameters.Add("symbol", symbol);
             parameters.AddEnumAsInt("side", side);
             parameters.AddOptionalString("leverage", leverage);
-            parameters.AddOptionalEnum("open_type", marginType);
+            parameters.AddEnum("open_type", marginType);
             parameters.Add("size", quantity);
             parameters.AddOptionalString("activation_price", triggerPrice);
             parameters.AddOptionalString("callback_rate", callbackRate);
-            parameters.AddOptionalEnum("activation_price_type", triggerPriceType);
+            parameters.AddEnum("activation_price_type", triggerPriceType);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/contract/private/submit-trail-order", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(24, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartOrderId>(request, parameters, ct, additionalHeaders: new Dictionary<string, string>

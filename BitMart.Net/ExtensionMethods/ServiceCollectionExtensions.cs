@@ -135,7 +135,6 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<ICryptoSocketClient, CryptoSocketClient>();
             services.AddTransient<IBitMartOrderBookFactory, BitMartOrderBookFactory>();
             services.AddTransient<IBitMartTrackerFactory, BitMartTrackerFactory>();
-            services.AddTransient(x => x.GetRequiredService<IBitMartRestClient>().SpotApi.CommonSpotClient);
 
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IBitMartRestClient>().SpotApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IBitMartSocketClient>().SpotApi.SharedClient);

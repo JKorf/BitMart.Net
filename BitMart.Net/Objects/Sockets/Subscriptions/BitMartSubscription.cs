@@ -51,7 +51,7 @@ namespace BitMart.Net.Objects.Sockets.Subscriptions
         {
             var data = (BitMartUpdate<T>)message.Data;
             _handler.Invoke(message.As(data.Data, data.Table, null, SocketUpdateType.Update));
-            return new CallResult(null);
+            return CallResult.SuccessResult;
         }
     }
 }

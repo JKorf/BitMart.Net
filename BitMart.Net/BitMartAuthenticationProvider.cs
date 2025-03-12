@@ -11,13 +11,14 @@ using CryptoExchange.Net.Objects;
 
 namespace BitMart.Net
 {
-    internal class BitMartAuthenticationProvider : AuthenticationProvider<BitMartApiCredentials>
+    internal class BitMartAuthenticationProvider : AuthenticationProvider
     {
-        private static IMessageSerializer _serializer = new SystemTextJsonMessageSerializer();
-        public string GetMemo() => _credentials.PassPhrase;
+        private static IMessageSerializer _serializer = new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(BitMartExchange.SerializerContext));
 
-        public BitMartAuthenticationProvider(BitMartApiCredentials credentials) : base(credentials)
+        public BitMartAuthenticationProvider(ApiCredentials credentials) : base(credentials)
         {
+            if (string.IsNullOrEmpty(credentials.Pass))
+                throw new ArgumentNullException(nameof(ApiCredentials.Pass), "Passphrase is required for BitMart authentication");
         }
 
         public override void AuthenticateRequest(
@@ -42,7 +43,7 @@ namespace BitMart.Net
             if (bodyParameters != null)
                 paramStr += _serializer.Serialize(bodyParameters);
 
-            var signStr = $"{timestamp}#{GetMemo()}#{paramStr}";
+            var signStr = $"{timestamp}#{_credentials.Pass}#{paramStr}";
 
             headers ??= new Dictionary<string, string>();
             headers.Add("X-BM-KEY", ApiKey);

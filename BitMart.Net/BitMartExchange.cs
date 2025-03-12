@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using CryptoExchange.Net.SharedApis;
+using System.Text.Json.Serialization;
+using BitMart.Net.Converters;
 
 namespace BitMart.Net
 {
@@ -46,6 +48,8 @@ namespace BitMart.Net
         /// Type of exchange
         /// </summary>
         public static ExchangeType Type { get; } = ExchangeType.CEX;
+
+        internal static JsonSerializerContext SerializerContext = new BitMartSourceGenerationContext();
 
         /// <summary>
         /// Format a base and quote asset to a BitMart recognized symbol 

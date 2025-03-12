@@ -74,7 +74,7 @@ namespace BitMart.Net.Clients.SpotApi
             parameters.AddOptional("address", targetAddress);
             parameters.AddOptional("address_memo", memo);
             parameters.AddOptional("destination", remark);
-            parameters.AddOptionalEnum("type", accountDestType);
+            parameters.AddOptional("type", accountDestType);
             parameters.AddOptional("value", targetAccount);
             parameters.AddOptional("areaCode", areaCode);
             parameters.Add("currency", asset);
