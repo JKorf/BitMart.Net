@@ -263,7 +263,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             var memo = authProvider.Pass;
             var sign = authProvider.Sign($"{timestamp}#{memo}#bitmart.WebSocket");
 
-            return Task.FromResult<Query?>(new BitMartFuturesLoginQuery(key, timestamp, sign));
+            return Task.FromResult<Query?>(new BitMartFuturesLoginQuery(key, timestamp!, sign));
         }
 
         /// <inheritdoc />

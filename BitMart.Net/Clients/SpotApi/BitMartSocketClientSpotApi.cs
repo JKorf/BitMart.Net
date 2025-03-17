@@ -212,7 +212,7 @@ namespace BitMart.Net.Clients.SpotApi
             var memo = authProvider.Pass;
             var sign = authProvider.Sign($"{timestamp}#{memo}#bitmart.WebSocket");
 
-            return Task.FromResult<Query?>(new BitMartLoginQuery(key, timestamp, sign));
+            return Task.FromResult<Query?>(new BitMartLoginQuery(key, timestamp!, sign));
         }
 
         /// <inheritdoc />

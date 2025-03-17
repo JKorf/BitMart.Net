@@ -149,9 +149,9 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         {
             Supported = false
         };
-        async Task<ExchangeWebResult<SharedFuturesOrder>> IFuturesOrderClientIdClient.GetFuturesOrderByClientOrderIdAsync(GetOrderRequest request, CancellationToken ct)
+        Task<ExchangeWebResult<SharedFuturesOrder>> IFuturesOrderClientIdClient.GetFuturesOrderByClientOrderIdAsync(GetOrderRequest request, CancellationToken ct)
         {
-            return new ExchangeWebResult<SharedFuturesOrder>(Exchange, new InvalidOperationError("Getting order by client order id not supported by BitMart API"));
+            return Task.FromResult(new ExchangeWebResult<SharedFuturesOrder>(Exchange, new InvalidOperationError("Getting order by client order id not supported by BitMart API")));
         }
 
         EndpointOptions<CancelOrderRequest> IFuturesOrderClientIdClient.CancelFuturesOrderByClientOrderIdOptions { get; } = new EndpointOptions<CancelOrderRequest>(true);
@@ -202,7 +202,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
             var limit = request.Limit ?? 1000;
             DateTime startTime = request.StartTime ?? endTime.AddSeconds(-((int)interval) * limit);
-            if (startTime == null || startTime < endTime)
+            if (startTime < endTime)
             {
                 var offset = (int)interval * (limit - 1);
                 startTime = endTime.AddSeconds(-offset);
