@@ -231,8 +231,8 @@ namespace BitMart.Net.Clients.SpotApi
                 request.Symbol.GetSymbol(FormatSymbol),
                 request.Side == SharedOrderSide.Buy ? OrderSide.Buy : OrderSide.Sell,
                 GetOrderType(request.OrderType, request.TimeInForce),
-                quantity: request.Quantity,
-                quoteQuantity: request.QuoteQuantity,
+                quantity: request.Quantity?.QuantityInBaseAsset,
+                quoteQuantity: request.Quantity?.QuantityInQuoteAsset,
                 price: request.Price,
                 clientOrderId: request.ClientOrderId,
                 ct: ct).ConfigureAwait(false);
@@ -265,10 +265,8 @@ namespace BitMart.Net.Clients.SpotApi
             {
                 ClientOrderId = order.Data.ClientOrderId,
                 OrderPrice = order.Data.Price == 0 ? null : order.Data.Price,
-                Quantity = order.Data.Quantity,
-                QuantityFilled = order.Data.QuantityFilled,
-                QuoteQuantity = order.Data.QuoteQuantity,
-                QuoteQuantityFilled = order.Data.QuoteQuantityFilled,
+                OrderQuantity = new SharedOrderQuantity(order.Data.Quantity, order.Data.QuoteQuantity),
+                QuantityFilled = new SharedOrderQuantity(order.Data.QuantityFilled, order.Data.QuoteQuantityFilled),
                 AveragePrice = order.Data.PriceAverage == 0 ? null : order.Data.PriceAverage,
                 UpdateTime = order.Data.UpdateTime,
                 TimeInForce = ParseTimeInForce(order.Data.OrderType)
@@ -298,10 +296,8 @@ namespace BitMart.Net.Clients.SpotApi
             {
                 ClientOrderId = x.ClientOrderId,
                 OrderPrice = x.Price == 0 ? null : x.Price,
-                Quantity = x.Quantity,
-                QuantityFilled = x.QuantityFilled,
-                QuoteQuantity = x.QuoteQuantity,
-                QuoteQuantityFilled = x.QuoteQuantityFilled,
+                OrderQuantity = new SharedOrderQuantity(x.Quantity, x.QuoteQuantity),
+                QuantityFilled = new SharedOrderQuantity(x.QuantityFilled, x.QuoteQuantityFilled),
                 AveragePrice = x.PriceAverage == 0 ? null : x.PriceAverage,
                 UpdateTime = x.UpdateTime,
                 TimeInForce = ParseTimeInForce(x.OrderType)
@@ -346,10 +342,8 @@ namespace BitMart.Net.Clients.SpotApi
             {
                 ClientOrderId = x.ClientOrderId,
                 OrderPrice = x.Price == 0 ? null : x.Price,
-                Quantity = x.Quantity,
-                QuantityFilled = x.QuantityFilled,
-                QuoteQuantity = x.QuoteQuantity,
-                QuoteQuantityFilled = x.QuoteQuantityFilled,
+                OrderQuantity = new SharedOrderQuantity(x.Quantity, x.QuoteQuantity),
+                QuantityFilled = new SharedOrderQuantity(x.QuantityFilled, x.QuoteQuantityFilled),
                 AveragePrice = x.PriceAverage == 0 ? null : x.PriceAverage,
                 UpdateTime = x.UpdateTime,
                 TimeInForce = ParseTimeInForce(x.OrderType)
@@ -499,10 +493,8 @@ namespace BitMart.Net.Clients.SpotApi
             {
                 ClientOrderId = order.Data.ClientOrderId,
                 OrderPrice = order.Data.Price == 0 ? null : order.Data.Price,
-                Quantity = order.Data.Quantity,
-                QuantityFilled = order.Data.QuantityFilled,
-                QuoteQuantity = order.Data.QuoteQuantity,
-                QuoteQuantityFilled = order.Data.QuoteQuantityFilled,
+                OrderQuantity = new SharedOrderQuantity(order.Data.Quantity, order.Data.QuoteQuantity),
+                QuantityFilled = new SharedOrderQuantity(order.Data.QuantityFilled, order.Data.QuoteQuantityFilled),
                 AveragePrice = order.Data.PriceAverage == 0 ? null : order.Data.PriceAverage,
                 UpdateTime = order.Data.UpdateTime,
                 TimeInForce = ParseTimeInForce(order.Data.OrderType)

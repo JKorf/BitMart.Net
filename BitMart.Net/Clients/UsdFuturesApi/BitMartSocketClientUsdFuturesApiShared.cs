@@ -158,8 +158,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                         x.Order.CreateTime)
                     {
                         ClientOrderId = x.Order.ClientOrderId?.ToString(),
-                        Quantity = x.Order.Quantity,
-                        QuantityFilled = x.Order.QuantityFilled,
+                        OrderQuantity = new SharedOrderQuantity(contractQuantity: x.Order.Quantity),
+                        QuantityFilled = new SharedOrderQuantity(contractQuantity: x.Order.QuantityFilled),
                         AveragePrice = x.Order.AveragePrice == 0 ? null : x.Order.AveragePrice,
                         UpdateTime = x.Order.UpdateTime,
                         OrderPrice = x.Order.Price,

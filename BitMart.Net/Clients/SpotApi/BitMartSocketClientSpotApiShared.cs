@@ -109,10 +109,8 @@ namespace BitMart.Net.Clients.SpotApi
                         update.Data.CreateTime)
                     {
                         ClientOrderId = update.Data.ClientOrderId?.ToString(),
-                        Quantity = update.Data.Quantity == 0 ? null : update.Data.Quantity,
-                        QuantityFilled = update.Data.QuantityFilled,
-                        QuoteQuantity = update.Data.QuoteQuantity,
-                        QuoteQuantityFilled = update.Data.QuoteQuantityFilled,
+                        OrderQuantity = new SharedOrderQuantity(update.Data.Quantity == 0 ? null :update.Data.Quantity, update.Data.QuoteQuantity),
+                        QuantityFilled = new SharedOrderQuantity(update.Data.QuantityFilled, update.Data.QuoteQuantityFilled),
                         TimeInForce = update.Data.EntrustType == Enums.EntrustType.ImmediateOrCancel ? SharedTimeInForce.ImmediateOrCancel : SharedTimeInForce.GoodTillCanceled,
                         UpdateTime = update.Data.UpdateTime,
                         OrderPrice = update.Data.Price == 0 ? null : update.Data.Price,
