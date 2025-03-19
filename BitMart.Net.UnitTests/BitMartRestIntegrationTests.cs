@@ -1,6 +1,7 @@
 ﻿using BitMart.Net.Clients;
 using BitMart.Net.Objects;
 using BitMart.Net.Objects.Options;
+using BitMart.Net.SymbolOrderBooks;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Testing;
 using Microsoft.Extensions.Logging;
@@ -121,6 +122,13 @@ namespace BitMart.Net.UnitTests
             await RunAndCheckResult(client => client.UsdFuturesApi.Trading.GetPositionsAsync(default, default), true);
             await RunAndCheckResult(client => client.UsdFuturesApi.Trading.GetPositionRiskAsync(default, default), true);
             await RunAndCheckResult(client => client.UsdFuturesApi.Trading.GetUserTradesAsync("ETHUSDT", default, default, default), true);
+        }
+
+        [Test]
+        public async Task TestOrderBooks()
+        {
+            await TestOrderBook(new BitMartSpotSymbolOrderBook("ETH_USDT"));
+            await TestOrderBook(new BitMartUsdFuturesSymbolOrderBook("ETHUSDT"));
         }
     }
 }
