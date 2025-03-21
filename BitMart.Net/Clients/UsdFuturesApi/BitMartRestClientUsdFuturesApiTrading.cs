@@ -296,7 +296,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             var parameters = new ParameterCollection();
             parameters.Add("symbol", symbol);
             parameters.AddOptional("order_id", orderId);
-            parameters.AddOptional("client_order_id", orderId);
+            parameters.AddOptional("client_order_id", clientOrderId);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/contract/private/cancel-plan-order", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(40, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);

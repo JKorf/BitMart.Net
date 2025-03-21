@@ -661,6 +661,108 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         }
         #endregion
 
+        #region Trigger Order Client
+        //EndpointOptions<GetFeeRequest> IFeeRestClient.GetFeeOptions { get; } = new EndpointOptions<GetFeeRequest>(true);
+        //{
+        //};
+        async Task<ExchangeWebResult<SharedId>> IFuturesTriggerOrderRestClient.PlaceFuturesTriggerOrderAsync(PlaceFuturesTriggerOrderRequest request, CancellationToken ct)
+        {
+            //var validationError = ((IFuturesTriggerOrderRestClient)this).GetFeeOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            //if (validationError != null)
+            //    return new ExchangeWebResult<SharedFee>(Exchange, validationError);
+
+            var result = await Trading.PlaceTriggerOrderAsync(
+                request.Symbol.GetSymbol(FormatSymbol),
+                request.OrderPrice == null ? OrderType.Market : OrderType.Limit,
+                GetFuturesSide(request),
+                quantity: (int)(request.Quantity?.QuantityInContracts ?? 0),
+                request.Leverage ?? 1,
+                request.MarginMode == SharedMarginMode.Isolated ? MarginType.IsolatedMargin : MarginType.CrossMargin,
+                request.TriggerPrice,
+
+#warning check
+                request.PriceDirection == SharedTriggerPriceDirection.PriceAbove ? PriceDirection.LongDirection : PriceDirection.ShortDirection,
+                request.TriggerPriceType == null || request.TriggerPriceType == SharedTriggerPriceType.LastPrice ? TriggerPriceType.LastPrice: TriggerPriceType.FairPrice,
+                orderPrice: request.OrderPrice,
+                ct: ct).ConfigureAwait(false);
+            if (!result)
+                return result.AsExchangeResult<SharedId>(Exchange, null, default);
+
+            // Return
+            return result.AsExchangeResult(Exchange, TradingMode.Spot, new SharedId(result.Data.OrderId.ToString()));
+        }
+
+        EndpointOptions<GetOrderRequest> IFuturesTriggerOrderRestClient.GetFuturesTriggerOrderOptions { get; } = new EndpointOptions<GetOrderRequest>(true)
+        {
+            RequestNotes = "Only pending trigger orders can be requested, executed trigger orders are not available in the API"
+        };
+        async Task<ExchangeWebResult<SharedFuturesTriggerOrder>> IFuturesTriggerOrderRestClient.GetFuturesTriggerOrderAsync(GetOrderRequest request, CancellationToken ct)
+        {
+            var validationError = ((IFuturesTriggerOrderRestClient)this).GetFuturesTriggerOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedFuturesTriggerOrder>(Exchange, validationError);
+
+            var orders = await Trading.GetTriggerOrdersAsync(
+                request.Symbol.GetSymbol(FormatSymbol),
+                planType: TriggerPlanType.Plan,
+                ct: ct).ConfigureAwait(false);
+            if (!orders)
+                return orders.AsExchangeResult<SharedFuturesTriggerOrder>(Exchange, null, default);
+
+            var order = orders.Data.SingleOrDefault(x => x.OrderId == request.OrderId);
+            if (order == null)
+                return orders.AsExchangeError<SharedFuturesTriggerOrder>(Exchange, new ServerError("Order not found"));
+
+            return orders.AsExchangeResult(Exchange, TradingMode.Spot, new SharedFuturesTriggerOrder(
+                ExchangeSymbolCache.ParseSymbol(_topicId, order.Symbol),
+                order.Symbol,
+                order.OrderId.ToString(),
+                order.OrderPrice == null ? SharedOrderType.Market : SharedOrderType.Limit,
+                order.Side == FuturesSide.BuyOpenLong || order.Side == FuturesSide.SellOpenShort ? SharedTriggerOrderDirection.Enter: SharedTriggerOrderDirection.Exit,
+                SharedOrderStatus.Open,
+                order.TriggerPrice,
+                order.Side == FuturesSide.SellCloseLong || order.Side == FuturesSide.BuyOpenLong ? SharedPositionSide.Long : SharedPositionSide.Short,
+                order.CreateTime)
+            {
+                OrderPrice = order.OrderPrice,
+                OrderQuantity = new SharedOrderQuantity(contractQuantity: order.Quantity),
+                QuantityFilled = new SharedOrderQuantity(contractQuantity: 0),
+                UpdateTime = order.UpdateTime,
+            });
+        }
+
+        EndpointOptions<CancelOrderRequest> IFuturesTriggerOrderRestClient.CancelFuturesTriggerOrderOptions { get; } = new EndpointOptions<CancelOrderRequest>(true);
+        async Task<ExchangeWebResult<SharedId>> IFuturesTriggerOrderRestClient.CancelFuturesTriggerOrderAsync(CancelOrderRequest request, CancellationToken ct)
+        {
+            var validationError = ((IFuturesTriggerOrderRestClient)this).CancelFuturesTriggerOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedId>(Exchange, validationError);
+
+            var order = await Trading.CancelTriggerOrderAsync(
+                request.Symbol.GetSymbol(FormatSymbol),
+                request.OrderId,
+                ct: ct).ConfigureAwait(false);
+            if (!order)
+                return order.AsExchangeResult<SharedId>(Exchange, null, default);
+
+            return order.AsExchangeResult(Exchange, TradingMode.Spot, new SharedId(request.OrderId));
+        }
+
+        private FuturesSide GetFuturesSide(PlaceFuturesTriggerOrderRequest request)
+        {
+            if (request.OrderDirection == SharedTriggerOrderDirection.Enter)
+            {
+                if (request.PositionSide == SharedPositionSide.Long)
+                    return FuturesSide.BuyOpenLong;
+                return FuturesSide.SellOpenShort;
+            }
+
+            if (request.PositionSide == SharedPositionSide.Long)
+                return FuturesSide.SellCloseLong;
+            return FuturesSide.BuyCloseShort;
+        }
+        #endregion
+
         public static DateTime RoundDown(DateTime dt, TimeSpan d)
         {
             var delta = dt.Ticks % d.Ticks;
