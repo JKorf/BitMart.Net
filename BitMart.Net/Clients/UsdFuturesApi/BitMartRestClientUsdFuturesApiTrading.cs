@@ -146,7 +146,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         #region Place Order
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMartFuturesOrderResponse>> PlaceOrderAsync(string symbol, FuturesSide side, FuturesOrderType type, int quantity, decimal? price = null, string? clientOrderId = null, decimal? leverage = null, MarginType? marginType = null, OrderMode? orderMode = null, TriggerPriceType? presetTakeProfitPriceType = null, TriggerPriceType? presetStopLossPriceType = null, decimal? presetTakeProfitPrice = null, decimal? presetStopLossPrice = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BitMartFuturesOrderResponse>> PlaceOrderAsync(string symbol, FuturesSide side, FuturesOrderType type, int quantity, decimal? price = null, string? clientOrderId = null, decimal? leverage = null, MarginType? marginType = null, OrderMode? orderMode = null, TriggerPriceType? presetTakeProfitPriceType = null, TriggerPriceType? presetStopLossPriceType = null, decimal? presetTakeProfitPrice = null, decimal? presetStopLossPrice = null, StpMode? stpMode = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("symbol", symbol);
@@ -162,6 +162,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             parameters.AddOptionalEnum("preset_stop_loss_price_type", presetStopLossPriceType);
             parameters.AddOptionalString("preset_take_profit_price", presetTakeProfitPrice);
             parameters.AddOptionalString("preset_stop_loss_price", presetStopLossPrice);
+            parameters.AddOptionalEnum("stp_mode", stpMode);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/contract/private/submit-order", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(24, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartFuturesOrderResponse>(request, parameters, ct, additionalHeaders:new Dictionary<string, string>
