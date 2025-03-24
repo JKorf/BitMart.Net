@@ -206,6 +206,19 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         Task<WebCallResult<BitMartOrderId>> PlaceTpSlOrderAsync(string symbol, TplSlOrderType tpSlType, FuturesSide orderSide, decimal triggerPrice, TriggerPriceType priceType, PlanCategory planCategory, decimal? executionPrice = null, int? quantity = null, string? clientOrderId = null, OrderType? triggerOrderType = null, CancellationToken ct = default);
 
         /// <summary>
+        /// Edit an open limit order
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#modify-limit-order-signed" /></para>
+        /// </summary>
+        /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
+        /// <param name="orderId">Order id, either this or clientOrderId should be provided</param>
+        /// <param name="clientOrderId">Client order id, either this or orderId should be provided</param>
+        /// <param name="price">New price</param>
+        /// <param name="quantity">New quantity</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<BitMartOrderId>> EditOrderAsync(string symbol, long? orderId = null, string? clientOrderId = null, decimal? price = null, decimal? quantity = null, CancellationToken ct = default);
+
+        /// <summary>
         /// Edit an existing tp/sl order
         /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#modify-tp-sl-order-signed" /></para>
         /// </summary>

@@ -332,6 +332,24 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
         #endregion
 
+
+        #region Edit Order
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<BitMartOrderId>> EditOrderAsync(string symbol, long? orderId = null, string? clientOrderId = null, decimal? price = null, decimal? quantity = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("symbol", symbol);
+            parameters.AddOptional("orderId", orderId);
+            parameters.AddOptional("client_order_id", clientOrderId);
+            parameters.AddOptionalString("price", price);
+            parameters.AddOptionalString("size", quantity);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/contract/private/modify-limit-order", BitMartExchange.RateLimiter.BitMart, 1, true);
+            var result = await _baseClient.SendAsync<BitMartOrderId>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
         #region Edit Tp Sl Order
 
         /// <inheritdoc />
