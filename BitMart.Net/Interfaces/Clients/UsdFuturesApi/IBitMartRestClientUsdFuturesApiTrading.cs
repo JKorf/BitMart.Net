@@ -98,11 +98,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="presetStopLossPriceType">Stop loss price type</param>
         /// <param name="presetTakeProfitPrice">Take profit price</param>
         /// <param name="presetStopLossPrice">Stop loss price</param>
+        /// <param name="stpMode">Self trade prevention mode</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartFuturesOrderResponse>> PlaceOrderAsync(string symbol, FuturesSide side, FuturesOrderType type, int quantity, decimal? price = null, string? clientOrderId = null, decimal? leverage = null, MarginType? marginType = null, OrderMode? orderMode = null, TriggerPriceType? presetTakeProfitPriceType = null, TriggerPriceType? presetStopLossPriceType = null, decimal? presetTakeProfitPrice = null, decimal? presetStopLossPrice = null, CancellationToken ct = default);
+        Task<WebCallResult<BitMartFuturesOrderResponse>> PlaceOrderAsync(string symbol, FuturesSide side, FuturesOrderType type, int quantity, decimal? price = null, string? clientOrderId = null, decimal? leverage = null, MarginType? marginType = null, OrderMode? orderMode = null, TriggerPriceType? presetTakeProfitPriceType = null, TriggerPriceType? presetStopLossPriceType = null, decimal? presetTakeProfitPrice = null, decimal? presetStopLossPrice = null, StpMode? stpMode = null, CancellationToken ct = default);
 
         /// <summary>
-        /// Place a new trailling stop order
+        /// Place a new trailing stop order
         /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#submit-trail-order-signed" /></para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
@@ -203,6 +204,19 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="triggerOrderType">Type of order to place when triggered</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BitMartOrderId>> PlaceTpSlOrderAsync(string symbol, TplSlOrderType tpSlType, FuturesSide orderSide, decimal triggerPrice, TriggerPriceType priceType, PlanCategory planCategory, decimal? executionPrice = null, int? quantity = null, string? clientOrderId = null, OrderType? triggerOrderType = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Edit an open limit order
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#modify-limit-order-signed" /></para>
+        /// </summary>
+        /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
+        /// <param name="orderId">Order id, either this or clientOrderId should be provided</param>
+        /// <param name="clientOrderId">Client order id, either this or orderId should be provided</param>
+        /// <param name="price">New price</param>
+        /// <param name="quantity">New quantity</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<BitMartOrderId>> EditOrderAsync(string symbol, long? orderId = null, string? clientOrderId = null, decimal? price = null, decimal? quantity = null, CancellationToken ct = default);
 
         /// <summary>
         /// Edit an existing tp/sl order

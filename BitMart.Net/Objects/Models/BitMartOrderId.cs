@@ -15,7 +15,7 @@ namespace BitMart.Net.Objects.Models
         /// <summary>
         /// Order id
         /// </summary>
-        [JsonPropertyName("order_id")]
+        [JsonPropertyName("order_id"), JsonConverter(typeof(NumberStringConverter))]
         public string OrderId { get; set; } = string.Empty;
         /// <summary>
         /// Client order id

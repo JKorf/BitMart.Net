@@ -612,7 +612,7 @@
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.GetUserTradesAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.PlaceOrderAsync(System.String,BitMart.Net.Enums.FuturesSide,BitMart.Net.Enums.FuturesOrderType,System.Int32,System.Nullable{System.Decimal},System.String,System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.MarginType},System.Nullable{BitMart.Net.Enums.OrderMode},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.PlaceOrderAsync(System.String,BitMart.Net.Enums.FuturesSide,BitMart.Net.Enums.FuturesOrderType,System.Int32,System.Nullable{System.Decimal},System.String,System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.MarginType},System.Nullable{BitMart.Net.Enums.OrderMode},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.StpMode},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.PlaceTrailingOrderAsync(System.String,BitMart.Net.Enums.FuturesSide,System.Int32,System.Decimal,BitMart.Net.Enums.MarginType,System.Decimal,System.Decimal,BitMart.Net.Enums.TriggerPriceType,System.Threading.CancellationToken)">
@@ -634,6 +634,9 @@
             <inheritdoc />
         </member>
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.PlaceTpSlOrderAsync(System.String,BitMart.Net.Enums.TplSlOrderType,BitMart.Net.Enums.FuturesSide,System.Decimal,BitMart.Net.Enums.TriggerPriceType,BitMart.Net.Enums.PlanCategory,System.Nullable{System.Decimal},System.Nullable{System.Int32},System.String,System.Nullable{BitMart.Net.Enums.OrderType},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.EditOrderAsync(System.String,System.Nullable{System.Int64},System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.EditTpSlOrderAsync(System.String,System.Decimal,BitMart.Net.Enums.TriggerPriceType,BitMart.Net.Enums.PlanCategory,BitMart.Net.Enums.OrderType,System.String,System.Nullable{System.Decimal},System.Threading.CancellationToken)">
@@ -3259,6 +3262,26 @@
             Isolated margin
             </summary>
         </member>
+        <member name="T:BitMart.Net.Enums.StpMode">
+            <summary>
+            Self trade prevention mode
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.StpMode.CancelMaker">
+            <summary>
+            Cancel maker order
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.StpMode.CancelTaker">
+            <summary>
+            Cancel taker order
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.StpMode.CancelBoth">
+            <summary>
+            Cancel both orders
+            </summary>
+        </member>
         <member name="T:BitMart.Net.Enums.SubAccountStatus">
             <summary>
             Sub account status
@@ -4480,7 +4503,7 @@
             <param name="endTime">Filter by end time</param>
             <param name="ct">Cancellation token</param>
         </member>
-        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.PlaceOrderAsync(System.String,BitMart.Net.Enums.FuturesSide,BitMart.Net.Enums.FuturesOrderType,System.Int32,System.Nullable{System.Decimal},System.String,System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.MarginType},System.Nullable{BitMart.Net.Enums.OrderMode},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.PlaceOrderAsync(System.String,BitMart.Net.Enums.FuturesSide,BitMart.Net.Enums.FuturesOrderType,System.Int32,System.Nullable{System.Decimal},System.String,System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.MarginType},System.Nullable{BitMart.Net.Enums.OrderMode},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.StpMode},System.Threading.CancellationToken)">
             <summary>
             Place a new order
             <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#submit-order-signed" /></para>
@@ -4498,11 +4521,12 @@
             <param name="presetStopLossPriceType">Stop loss price type</param>
             <param name="presetTakeProfitPrice">Take profit price</param>
             <param name="presetStopLossPrice">Stop loss price</param>
+            <param name="stpMode">Self trade prevention mode</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.PlaceTrailingOrderAsync(System.String,BitMart.Net.Enums.FuturesSide,System.Int32,System.Decimal,BitMart.Net.Enums.MarginType,System.Decimal,System.Decimal,BitMart.Net.Enums.TriggerPriceType,System.Threading.CancellationToken)">
             <summary>
-            Place a new trailling stop order
+            Place a new trailing stop order
             <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#submit-trail-order-signed" /></para>
             </summary>
             <param name="symbol">The symbol, for example `ETHUSDT`</param>
@@ -4593,6 +4617,19 @@
             <param name="clientOrderId">Client order id</param>
             <param name="triggerOrderType">Type of order to place when triggered</param>
             <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.EditOrderAsync(System.String,System.Nullable{System.Int64},System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+            <summary>
+            Edit an open limit order
+            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#modify-limit-order-signed" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `ETHUSDT`</param>
+            <param name="orderId">Order id, either this or clientOrderId should be provided</param>
+            <param name="clientOrderId">Client order id, either this or orderId should be provided</param>
+            <param name="price">New price</param>
+            <param name="quantity">New quantity</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.EditTpSlOrderAsync(System.String,System.Decimal,BitMart.Net.Enums.TriggerPriceType,BitMart.Net.Enums.PlanCategory,BitMart.Net.Enums.OrderType,System.String,System.Nullable{System.Decimal},System.Threading.CancellationToken)">
             <summary>
