@@ -149,6 +149,10 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 1.15.0 - 24 Mar 2025
+    * Added stpMode parameter to restClient.UsdFuturesApi.Trading.PlaceOrderAsync endpoint
+    * Added restClient.UsdFuturesApi.Trading.EditOrderAsync endpoint
+
 * Version 1.14.0 - 20 Feb 2025
     * Added restClient.SpotApi.Account.GetWithdrawalAddressesAsync endpoint
     * Added startTime/endTime filter to restClient.SpotApi.Account.GetDepositHistoryAsync and GetWithdrawalHistoryAsync
