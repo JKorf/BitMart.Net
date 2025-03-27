@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net;
 using BitMart.Net.Objects.Models;
+using System.Drawing;
 
 namespace BitMart.Net.Clients.UsdFuturesApi
 {
@@ -662,25 +663,25 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         #endregion
 
         #region Trigger Order Client
-        //EndpointOptions<GetFeeRequest> IFeeRestClient.GetFeeOptions { get; } = new EndpointOptions<GetFeeRequest>(true);
-        //{
-        //};
+        PlaceFuturesTriggerOrderOptions IFuturesTriggerOrderRestClient.PlaceFuturesTriggerOrderOptions { get; } = new PlaceFuturesTriggerOrderOptions(false)
+        {
+        };
+
         async Task<ExchangeWebResult<SharedId>> IFuturesTriggerOrderRestClient.PlaceFuturesTriggerOrderAsync(PlaceFuturesTriggerOrderRequest request, CancellationToken ct)
         {
-            //var validationError = ((IFuturesTriggerOrderRestClient)this).GetFeeOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
-            //if (validationError != null)
-            //    return new ExchangeWebResult<SharedFee>(Exchange, validationError);
+            var side = GetFuturesSide(request);
+            var validationError = ((IFuturesTriggerOrderRestClient)this).PlaceFuturesTriggerOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes, (side == FuturesSide.BuyCloseShort || side == FuturesSide.BuyOpenLong) ? SharedOrderSide.Buy : SharedOrderSide.Sell, ((IFuturesOrderRestClient)this).FuturesSupportedOrderQuantity);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
             var result = await Trading.PlaceTriggerOrderAsync(
                 request.Symbol.GetSymbol(FormatSymbol),
                 request.OrderPrice == null ? OrderType.Market : OrderType.Limit,
-                GetFuturesSide(request),
+                side,
                 quantity: (int)(request.Quantity?.QuantityInContracts ?? 0),
                 request.Leverage ?? 1,
                 request.MarginMode == SharedMarginMode.Isolated ? MarginType.IsolatedMargin : MarginType.CrossMargin,
                 request.TriggerPrice,
-
-#warning check
                 request.PriceDirection == SharedTriggerPriceDirection.PriceAbove ? PriceDirection.LongDirection : PriceDirection.ShortDirection,
                 request.TriggerPriceType == null || request.TriggerPriceType == SharedTriggerPriceType.LastPrice ? TriggerPriceType.LastPrice: TriggerPriceType.FairPrice,
                 orderPrice: request.OrderPrice,
@@ -719,15 +720,17 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 order.OrderId.ToString(),
                 order.OrderPrice == null ? SharedOrderType.Market : SharedOrderType.Limit,
                 order.Side == FuturesSide.BuyOpenLong || order.Side == FuturesSide.SellOpenShort ? SharedTriggerOrderDirection.Enter: SharedTriggerOrderDirection.Exit,
-                SharedOrderStatus.Open,
+                SharedTriggerOrderStatus.Active,
                 order.TriggerPrice,
                 order.Side == FuturesSide.SellCloseLong || order.Side == FuturesSide.BuyOpenLong ? SharedPositionSide.Long : SharedPositionSide.Short,
                 order.CreateTime)
             {
+                PlacedOrderId = order.OrderId.ToString(),
                 OrderPrice = order.OrderPrice,
                 OrderQuantity = new SharedOrderQuantity(contractQuantity: order.Quantity),
                 QuantityFilled = new SharedOrderQuantity(contractQuantity: 0),
                 UpdateTime = order.UpdateTime,
+                ClientOrderId = order.ClientOrderId
             });
         }
 
