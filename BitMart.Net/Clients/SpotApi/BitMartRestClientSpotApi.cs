@@ -82,6 +82,13 @@ namespace BitMart.Net.Clients.SpotApi
 
         internal async Task<WebCallResult> SendToAddressAsync(string baseAddress, RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null, Dictionary<string, string>? additionalHeaders = null)
         {
+            if (Authenticated)
+            {
+                var window = (int?)((BitMartRestOptions)ClientOptions).ReceiveWindow?.TotalMilliseconds;
+                parameters ??= new ParameterCollection();
+                parameters.AddOptional("recvWindow", window);
+            }
+
             var result = await base.SendAsync<BitMartResponse>(baseAddress, definition, parameters, cancellationToken, additionalHeaders, weight).ConfigureAwait(false);
             if (!result)
                 return result.AsDataless();
@@ -97,6 +104,13 @@ namespace BitMart.Net.Clients.SpotApi
 
         internal async Task<WebCallResult<T>> SendToAddressAsync<T>(string baseAddress, RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null, Dictionary<string, string>? additionalHeaders = null) where T : class
         {
+            if (Authenticated)
+            {
+                var window = (int?)((BitMartRestOptions)ClientOptions).ReceiveWindow?.TotalMilliseconds;
+                parameters ??= new ParameterCollection();
+                parameters.AddOptional("recvWindow", window);
+            }
+
             var result = await base.SendAsync<BitMartResponse<T>>(baseAddress, definition, parameters, cancellationToken, additionalHeaders, weight).ConfigureAwait(false);
             if (!result)
                 return result.As<T>(default);

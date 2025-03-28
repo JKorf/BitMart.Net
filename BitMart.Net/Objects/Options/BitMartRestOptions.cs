@@ -1,4 +1,5 @@
 using CryptoExchange.Net.Objects.Options;
+using System;
 
 namespace BitMart.Net.Objects.Options
 {
@@ -28,6 +29,11 @@ namespace BitMart.Net.Objects.Options
         /// Set a broker id which will be send in the request headers
         /// </summary>
         public string? BrokerId { get; set; }
+
+        /// <summary>
+        /// The receive window for requests
+        /// </summary>
+        public TimeSpan? ReceiveWindow { get; set; }
 
          /// <summary>
         /// UsdFutures API options
