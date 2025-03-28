@@ -149,6 +149,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 1.15.1 - 28 Mar 2025
+    * Added ReceiveWindow Rest client option for signed requests
+
 * Version 1.15.0 - 24 Mar 2025
     * Added stpMode parameter to restClient.UsdFuturesApi.Trading.PlaceOrderAsync endpoint
     * Added restClient.UsdFuturesApi.Trading.EditOrderAsync endpoint
