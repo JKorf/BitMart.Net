@@ -8198,6 +8198,11 @@
             Set a broker id which will be send in the request headers
             </summary>
         </member>
+        <member name="P:BitMart.Net.Objects.Options.BitMartRestOptions.ReceiveWindow">
+            <summary>
+            The receive window for requests
+            </summary>
+        </member>
         <member name="P:BitMart.Net.Objects.Options.BitMartRestOptions.UsdFuturesOptions">
             <summary>
             UsdFutures API options
