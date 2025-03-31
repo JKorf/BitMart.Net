@@ -336,7 +336,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
         string IFuturesOrderRestClient.GenerateClientOrderId() => ExchangeHelpers.RandomString(32);
 
-        PlaceFuturesOrderOptions IFuturesOrderRestClient.PlaceFuturesOrderOptions { get; } = new PlaceFuturesOrderOptions();
+        PlaceFuturesOrderOptions IFuturesOrderRestClient.PlaceFuturesOrderOptions { get; } = new PlaceFuturesOrderOptions(true);
         async Task<ExchangeWebResult<SharedId>> IFuturesOrderRestClient.PlaceFuturesOrderAsync(PlaceFuturesOrderRequest request, CancellationToken ct)
         {
             var validationError = ((IFuturesOrderRestClient)this).PlaceFuturesOrderOptions.ValidateRequest(
@@ -363,6 +363,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 marginType: request.MarginMode == null ? null : request.MarginMode == SharedMarginMode.Isolated ? MarginType.IsolatedMargin : MarginType.CrossMargin,
                 orderMode: GetOrderMode(request.OrderType, request.TimeInForce),
                 clientOrderId: request.ClientOrderId,
+                presetTakeProfitPrice: request.TakeProfitPrice,
+                presetStopLossPrice: request.StopLossPrice,
                 ct: ct).ConfigureAwait(false);
 
             if (!result)
@@ -399,6 +401,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 Leverage = order.Data.Leverage,
                 UpdateTime = order.Data.UpdateTime,
                 PositionSide = (order.Data.Side == FuturesSide.SellCloseLong || order.Data.Side == FuturesSide.BuyOpenLong) ? SharedPositionSide.Long : SharedPositionSide.Short,
+                TakeProfitPrice = order.Data.PresetTakeProfitPrice,
+                StopLossPrice = order.Data.PresetStopLossPrice
             });
         }
 
@@ -431,6 +435,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 Leverage = x.Leverage,
                 UpdateTime = x.UpdateTime,
                 PositionSide = (x.Side == FuturesSide.SellCloseLong || x.Side == FuturesSide.BuyOpenLong) ? SharedPositionSide.Long : SharedPositionSide.Short,
+                TakeProfitPrice = x.PresetTakeProfitPrice,
+                StopLossPrice = x.PresetStopLossPrice
             }).ToArray());
         }
 
@@ -467,6 +473,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 UpdateTime = x.UpdateTime,
                 Leverage = x.Leverage,
                 PositionSide = (x.Side == FuturesSide.SellCloseLong || x.Side == FuturesSide.BuyOpenLong) ? SharedPositionSide.Long : SharedPositionSide.Short,
+                TakeProfitPrice = x.PresetTakeProfitPrice,
+                StopLossPrice = x.PresetStopLossPrice
             }).ToArray());
         }
 
@@ -764,6 +772,64 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 return FuturesSide.SellCloseLong;
             return FuturesSide.BuyCloseShort;
         }
+        #endregion
+
+        #region Tp/SL Client
+        EndpointOptions<SetTpSlRequest> IFuturesTpSlRestClient.SetTpSlOptions { get; } = new EndpointOptions<SetTpSlRequest>(true)
+        {
+            RequiredOptionalParameters = new List<ParameterDescription>
+            {
+                new ParameterDescription(nameof(PlaceFuturesTriggerOrderRequest.PositionMode), typeof(SharedPositionMode), "PositionMode the account is in", SharedPositionMode.OneWay)
+            }
+        };
+
+        async Task<ExchangeWebResult<SharedId>> IFuturesTpSlRestClient.SetTpSlAsync(SetTpSlRequest request, CancellationToken ct)
+        {
+            var validationError = ((IFuturesTpSlRestClient)this).SetTpSlOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedId>(Exchange, validationError);
+
+            var result = await Trading.PlaceTpSlOrderAsync(
+                request.Symbol.GetSymbol(FormatSymbol),
+                request.TpSlSide == SharedTpSlSide.TakeProfit ? TplSlOrderType.TakeProfit : TplSlOrderType.StopLoss,
+                request.PositionSide == SharedPositionSide.Long ? FuturesSide.SellCloseLong : FuturesSide.BuyCloseShort,
+                request.TriggerPrice,
+                priceType: TriggerPriceType.FairPrice,
+                planCategory: PlanCategory.PositionTpSl,
+                ct: ct).ConfigureAwait(false);
+
+            if (!result)
+                return result.AsExchangeResult<SharedId>(Exchange, null, default);
+
+            // Return
+            return result.AsExchangeResult(Exchange, TradingMode.Spot, new SharedId(result.Data.OrderId.ToString()));
+        }
+
+        EndpointOptions<CancelTpSlRequest> IFuturesTpSlRestClient.CancelTpSlOptions { get; } = new EndpointOptions<CancelTpSlRequest>(true)
+        {
+            RequiredOptionalParameters = new List<ParameterDescription>
+            {
+                new ParameterDescription(nameof(CancelTpSlRequest.OrderId), typeof(string), "Id of the tp/sl order", "123123")
+            }
+        };
+
+        async Task<ExchangeWebResult<bool>> IFuturesTpSlRestClient.CancelTpSlAsync(CancelTpSlRequest request, CancellationToken ct)
+        {
+            var validationError = ((IFuturesTpSlRestClient)this).CancelTpSlOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<bool>(Exchange, validationError);
+
+            var result = await Trading.CancelTriggerOrderAsync(
+                symbol: request.Symbol.GetSymbol(FormatSymbol),
+                orderId: request.OrderId!,
+                ct: ct).ConfigureAwait(false);
+            if (!result)
+                return result.AsExchangeResult<bool>(Exchange, null, default);
+
+            // Return
+            return result.AsExchangeResult(Exchange, request.Symbol.TradingMode, true);
+        }
+
         #endregion
 
         public static DateTime RoundDown(DateTime dt, TimeSpan d)
