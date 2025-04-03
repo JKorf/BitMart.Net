@@ -152,7 +152,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                         ExchangeSymbolCache.ParseSymbol(_topicId, x.Order.Symbol),
                         x.Order.Symbol,
                         x.Order.OrderId.ToString(),
-                        ParseOrderType(x.Order.OrderType),
+                        ParseOrderType(x.Order.OrderType, x.Order.Price),
                         (x.Order.Side == Enums.FuturesSide.BuyCloseShort || x.Order.Side == Enums.FuturesSide.BuyOpenLong) ? SharedOrderSide.Buy : SharedOrderSide.Sell,
                         ParseOrderStatus(x.Order.Status, x.Order.Quantity - x.Order.QuantityFilled),
                         x.Order.CreateTime)
@@ -164,6 +164,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                         UpdateTime = x.Order.UpdateTime,
                         OrderPrice = x.Order.Price,
                         Leverage = x.Order.Leverage,
+                        TriggerPrice = x.Order.TriggerPrice,
+                        IsTriggerOrder = x.Order.TriggerPrice > 0,
                         PositionSide = (x.Order.Side == Enums.FuturesSide.SellCloseLong || x.Order.Side == Enums.FuturesSide.BuyOpenLong) ? SharedPositionSide.Long : SharedPositionSide.Short,
                         LastTrade = x.Order.LastTrade == null ? null : new SharedUserTrade(ExchangeSymbolCache.ParseSymbol(_topicId, x.Order.Symbol), x.Order.Symbol, x.Order.OrderId, x.Order.LastTrade.TradeId.ToString(), (x.Order.Side == Enums.FuturesSide.BuyCloseShort || x.Order.Side == Enums.FuturesSide.BuyOpenLong) ? SharedOrderSide.Buy : SharedOrderSide.Sell, x.Order.LastTrade.Quantity, x.Order.LastTrade.Price, x.Order.UpdateTime!.Value)
                         {
@@ -184,11 +186,11 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             return SharedOrderStatus.Filled;
         }
 
-        private SharedOrderType ParseOrderType(Enums.FuturesOrderType type)
+        private SharedOrderType ParseOrderType(Enums.FuturesOrderType type, decimal? orderPrice)
         {
             if (type == Enums.FuturesOrderType.Market) return SharedOrderType.Market;
             if (type == Enums.FuturesOrderType.Limit) return SharedOrderType.Limit;
-
+            if (type == Enums.FuturesOrderType.PlanOrder) return orderPrice > 0 ? SharedOrderType.Limit : SharedOrderType.Market;
             return SharedOrderType.Other;
         }
         #endregion

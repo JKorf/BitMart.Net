@@ -39,6 +39,11 @@ namespace BitMart.Net.Enums
         /// Trailing
         /// </summary>
         [Map("trailing")]
-        Trailing
+        Trailing,
+        /// <summary>
+        /// Plan order
+        /// </summary>
+        [Map("plan_order")]
+        PlanOrder
     }
 }

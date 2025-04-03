@@ -17,7 +17,8 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         IFeeRestClient,
         IFuturesOrderClientIdClient,
         IFuturesTriggerOrderRestClient,
-        IFuturesTpSlRestClient
+        IFuturesTpSlRestClient,
+        IBookTickerRestClient
     {
     }
 }

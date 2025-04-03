@@ -2722,6 +2722,11 @@
             Trailing
             </summary>
         </member>
+        <member name="F:BitMart.Net.Enums.FuturesOrderType.PlanOrder">
+            <summary>
+            Plan order
+            </summary>
+        </member>
         <member name="T:BitMart.Net.Enums.FuturesSide">
             <summary>
             Futures order side
@@ -6196,6 +6201,36 @@
         <member name="P:BitMart.Net.Objects.Models.BitMartFuturesOrderUpdate.LastTrade">
             <summary>
             Last trade info
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartFuturesOrderUpdate.TriggerPrice">
+            <summary>
+            Trigger price
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartFuturesOrderUpdate.TriggerPriceType">
+            <summary>
+            Trigger price type
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartFuturesOrderUpdate.ExecutionPrice">
+            <summary>
+            Execution price of trigger order
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartFuturesOrderUpdate.ActivationPrice">
+            <summary>
+            Activation price
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartFuturesOrderUpdate.ActivationPriceType">
+            <summary>
+            Activation price type
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartFuturesOrderUpdate.CallbackRate">
+            <summary>
+            Callback rate
             </summary>
         </member>
         <member name="T:BitMart.Net.Objects.Models.BitMartFuturesOrderTrade">

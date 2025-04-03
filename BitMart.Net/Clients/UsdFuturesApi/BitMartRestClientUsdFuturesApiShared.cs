@@ -104,6 +104,30 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
         #endregion
 
+        #region Book Ticker client
+
+        EndpointOptions<GetBookTickerRequest> IBookTickerRestClient.GetBookTickerOptions { get; } = new EndpointOptions<GetBookTickerRequest>(false);
+        async Task<ExchangeWebResult<SharedBookTicker>> IBookTickerRestClient.GetBookTickerAsync(GetBookTickerRequest request, CancellationToken ct)
+        {
+            var validationError = ((IBookTickerRestClient)this).GetBookTickerOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedBookTicker>(Exchange, validationError);
+
+            var resultTicker = await ExchangeData.GetOrderBookAsync(request.Symbol.GetSymbol(FormatSymbol), ct: ct).ConfigureAwait(false);
+            if (!resultTicker)
+                return resultTicker.AsExchangeResult<SharedBookTicker>(Exchange, null, default);
+
+            return resultTicker.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedBookTicker(
+                ExchangeSymbolCache.ParseSymbol(_topicId, resultTicker.Data.Symbol),
+                resultTicker.Data.Symbol,
+                resultTicker.Data.Asks[0].Price,
+                resultTicker.Data.Asks[0].Quantity,
+                resultTicker.Data.Bids[0].Price,
+                resultTicker.Data.Bids[0].Quantity));
+        }
+
+        #endregion
+
         #region Futures Symbol client
 
         EndpointOptions<GetSymbolsRequest> IFuturesSymbolRestClient.GetFuturesSymbolsOptions { get; } = new EndpointOptions<GetSymbolsRequest>(false);
@@ -323,7 +347,6 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
         #region Futures Order Client
 
-
         SharedFeeAssetType IFuturesOrderRestClient.FuturesFeeAssetType => SharedFeeAssetType.QuoteAsset;
         SharedFeeDeductionType IFuturesOrderRestClient.FuturesFeeDeductionType => SharedFeeDeductionType.AddToCost;
         SharedOrderType[] IFuturesOrderRestClient.FuturesSupportedOrderTypes { get; } = new[] { SharedOrderType.Limit, SharedOrderType.Market };
@@ -402,7 +425,9 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 UpdateTime = order.Data.UpdateTime,
                 PositionSide = (order.Data.Side == FuturesSide.SellCloseLong || order.Data.Side == FuturesSide.BuyOpenLong) ? SharedPositionSide.Long : SharedPositionSide.Short,
                 TakeProfitPrice = order.Data.PresetTakeProfitPrice,
-                StopLossPrice = order.Data.PresetStopLossPrice
+                StopLossPrice = order.Data.PresetStopLossPrice,
+                TriggerPrice = order.Data.TriggerPrice,
+                IsTriggerOrder = order.Data.TriggerPrice > 0
             });
         }
 
@@ -436,7 +461,9 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 UpdateTime = x.UpdateTime,
                 PositionSide = (x.Side == FuturesSide.SellCloseLong || x.Side == FuturesSide.BuyOpenLong) ? SharedPositionSide.Long : SharedPositionSide.Short,
                 TakeProfitPrice = x.PresetTakeProfitPrice,
-                StopLossPrice = x.PresetStopLossPrice
+                StopLossPrice = x.PresetStopLossPrice,
+                TriggerPrice = x.TriggerPrice,
+                IsTriggerOrder = x.TriggerPrice > 0
             }).ToArray());
         }
 
@@ -474,7 +501,9 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 Leverage = x.Leverage,
                 PositionSide = (x.Side == FuturesSide.SellCloseLong || x.Side == FuturesSide.BuyOpenLong) ? SharedPositionSide.Long : SharedPositionSide.Short,
                 TakeProfitPrice = x.PresetTakeProfitPrice,
-                StopLossPrice = x.PresetStopLossPrice
+                StopLossPrice = x.PresetStopLossPrice,
+                TriggerPrice = x.TriggerPrice,
+                IsTriggerOrder = x.TriggerPrice > 0
             }).ToArray());
         }
 
@@ -726,15 +755,14 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 ExchangeSymbolCache.ParseSymbol(_topicId, order.Symbol),
                 order.Symbol,
                 order.OrderId.ToString(),
-                order.OrderPrice == null ? SharedOrderType.Market : SharedOrderType.Limit,
+                order.OrderPrice > 0 ? SharedOrderType.Limit : SharedOrderType.Market,
                 order.Side == FuturesSide.BuyOpenLong || order.Side == FuturesSide.SellOpenShort ? SharedTriggerOrderDirection.Enter: SharedTriggerOrderDirection.Exit,
                 SharedTriggerOrderStatus.Active,
                 order.TriggerPrice,
                 order.Side == FuturesSide.SellCloseLong || order.Side == FuturesSide.BuyOpenLong ? SharedPositionSide.Long : SharedPositionSide.Short,
                 order.CreateTime)
             {
-                PlacedOrderId = order.OrderId.ToString(),
-                OrderPrice = order.OrderPrice,
+                OrderPrice = order.OrderPrice == 0 ? null : order.OrderPrice,
                 OrderQuantity = new SharedOrderQuantity(contractQuantity: order.Quantity),
                 QuantityFilled = new SharedOrderQuantity(contractQuantity: 0),
                 UpdateTime = order.UpdateTime,

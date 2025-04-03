@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
+using BitMart.Net.Converters;
 
 namespace BitMart.Net.Objects.Models
 {
@@ -80,7 +81,7 @@ namespace BitMart.Net.Objects.Models
         /// Open type
         /// </summary>
         [JsonPropertyName("open_type")]
-        public MarginType MarginType { get; set; }
+        public MarginType? MarginType { get; set; }
         /// <summary>
         /// Average price
         /// </summary>
@@ -111,6 +112,37 @@ namespace BitMart.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("last_trade")]
         public BitMartFuturesOrderTrade? LastTrade { get; set; }
+        /// <summary>
+        /// Trigger price
+        /// </summary>
+        [JsonPropertyName("trigger_price")]
+        public decimal? TriggerPrice { get; set; }
+        /// <summary>
+        /// Trigger price type
+        /// </summary>
+        [JsonPropertyName("trigger_price_type")]
+        public TriggerPriceType? TriggerPriceType { get; set; }
+        /// <summary>
+        /// Execution price of trigger order
+        /// </summary>
+        [JsonPropertyName("execution_price")]
+        [JsonConverter(typeof(MarketPriceConverter))]
+        public decimal? ExecutionPrice { get; set; }
+        /// <summary>
+        /// Activation price
+        /// </summary>
+        [JsonPropertyName("activation_price")]
+        public decimal? ActivationPrice { get; set; }
+        /// <summary>
+        /// Activation price type
+        /// </summary>
+        [JsonPropertyName("activation_price_type")]
+        public TriggerPriceType? ActivationPriceType { get; set; }
+        /// <summary>
+        /// Callback rate
+        /// </summary>
+        [JsonPropertyName("callback_rate")]
+        public decimal? CallbackRate { get; set; }
     }
 
     /// <summary>
