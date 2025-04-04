@@ -208,7 +208,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 {
                     AverageOpenPrice = x.AverageOpenPrice,
                     PositionSide = x.PositionSide == Enums.PositionSide.Short ? SharedPositionSide.Short : SharedPositionSide.Long,
-                    LiquidationPrice = x.LiquidationPrice
+                    LiquidationPrice = x.LiquidationPrice == 0 ? null : x.LiquidationPrice
                 }).ToArray())),
                 ct: ct).ConfigureAwait(false);
 

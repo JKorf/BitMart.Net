@@ -17,6 +17,9 @@ namespace BitMart.Net.Converters
                 return reader.GetDecimal();
 
             var str = reader.GetString();
+            if (string.IsNullOrEmpty(str))
+                return null;
+
             if (str == "market")
                 return null;
 

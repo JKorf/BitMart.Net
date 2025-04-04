@@ -822,8 +822,10 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 request.TpSlSide == SharedTpSlSide.TakeProfit ? TplSlOrderType.TakeProfit : TplSlOrderType.StopLoss,
                 request.PositionSide == SharedPositionSide.Long ? FuturesSide.SellCloseLong : FuturesSide.BuyCloseShort,
                 request.TriggerPrice,
+                executionPrice: request.TriggerPrice,
                 priceType: TriggerPriceType.FairPrice,
                 planCategory: PlanCategory.PositionTpSl,
+                triggerOrderType: OrderType.Market,
                 ct: ct).ConfigureAwait(false);
 
             if (!result)

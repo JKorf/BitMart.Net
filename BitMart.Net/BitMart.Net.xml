@@ -2727,6 +2727,16 @@
             Plan order
             </summary>
         </member>
+        <member name="F:BitMart.Net.Enums.FuturesOrderType.StopLoss">
+            <summary>
+            Stop loss
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.FuturesOrderType.TakeProfit">
+            <summary>
+            Take profit
+            </summary>
+        </member>
         <member name="T:BitMart.Net.Enums.FuturesSide">
             <summary>
             Futures order side
@@ -8462,11 +8472,6 @@
             <param name="services">The service collection</param>
             <param name="optionsDelegate">Set options for the BitMart services</param>
             <returns></returns>
-        </member>
-        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddBitMart(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{BitMart.Net.Objects.Options.BitMartRestOptions},System.Action{BitMart.Net.Objects.Options.BitMartSocketOptions},System.Nullable{Microsoft.Extensions.DependencyInjection.ServiceLifetime})">
-            <summary>
-            DEPRECATED; use <see cref="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddBitMart(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{BitMart.Net.Objects.Options.BitMartOptions})" /> instead
-            </summary>
         </member>
     </members>
 </doc>
