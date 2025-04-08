@@ -3481,17 +3481,19 @@
             <summary>
             UsdFutures API endpoints
             </summary>
+            <see cref="T:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApi"/>
         </member>
         <member name="P:BitMart.Net.Interfaces.Clients.IBitMartRestClient.SpotApi">
             <summary>
             Spot API endpoints
             </summary>
+            <see cref="T:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApi"/>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.IBitMartRestClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
             <summary>
             Update specific options
             </summary>
-            <param name="options">Options to update. Only specific options are changable after the client has been created</param>
+            <param name="options">Options to update. Only specific options are changeable after the client has been created</param>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.IBitMartRestClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
             <summary>
@@ -3508,17 +3510,19 @@
             <summary>
             UsdFutures API endpoints
             </summary>
+            <see cref="T:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi"/>
         </member>
         <member name="P:BitMart.Net.Interfaces.Clients.IBitMartSocketClient.SpotApi">
             <summary>
             Spot API endpoints
             </summary>
+            <see cref="T:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartSocketClientSpotApi"/>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.IBitMartSocketClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
             <summary>
             Update specific options
             </summary>
-            <param name="options">Options to update. Only specific options are changable after the client has been created</param>
+            <param name="options">Options to update. Only specific options are changeable after the client has been created</param>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.IBitMartSocketClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
             <summary>
@@ -3535,26 +3539,31 @@
             <summary>
             Endpoints related to account settings, info or actions
             </summary>
+            <see cref="T:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiAccount"/>
         </member>
         <member name="P:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApi.ExchangeData">
             <summary>
             Endpoints related to retrieving market and system data
             </summary>
+            <see cref="T:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiExchangeData"/>
         </member>
         <member name="P:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApi.Margin">
             <summary>
             Endpoints related to margin borrow and repayment
             </summary>
+            <see cref="T:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiMargin"/>
         </member>
         <member name="P:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApi.SubAccount">
             <summary>
             Endpoints related to sub account management
             </summary>
+            <see cref="T:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiSubAccount"/>
         </member>
         <member name="P:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApi.Trading">
             <summary>
             Endpoints related to orders and trades
             </summary>
+            <see cref="T:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiTrading"/>
         </member>
         <member name="P:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApi.SharedClient">
             <summary>
@@ -4084,7 +4093,7 @@
         </member>
         <member name="P:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartSocketClientSpotApi.SharedClient">
             <summary>
-            Get the shared socket subscription client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
+            Get the shared socket subscription client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
             </summary>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartSocketClientSpotApi.SubscribeToTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartTickerUpdate}},System.Threading.CancellationToken)">
@@ -4228,25 +4237,29 @@
             <summary>
             Endpoints related to account settings, info or actions
             </summary>
+            <see cref="T:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiAccount"/>
         </member>
         <member name="P:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApi.SubAccount">
             <summary>
             Endpoints related to sub account management
             </summary>
+            <see cref="T:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiSubAccount"/>
         </member>
         <member name="P:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApi.ExchangeData">
             <summary>
             Endpoints related to retrieving market and system data
+            <see cref="T:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiExchangeData"/>
             </summary>
         </member>
         <member name="P:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApi.Trading">
             <summary>
             Endpoints related to orders and trades
             </summary>
+            <see cref="T:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading"/>
         </member>
         <member name="P:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApi.SharedClient">
             <summary>
-            Get the shared rest requests client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
+            Get the shared rest requests client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
             </summary>
         </member>
         <member name="T:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiAccount">
