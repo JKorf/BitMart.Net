@@ -125,5 +125,34 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         }
 
         #endregion
+
+        #region Set Position Mode
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<BitMartPositionMode>> SetPositionModeAsync(PositionMode positionMode, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddEnum("position_mode", positionMode);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/contract/private/set-position-mode", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(2, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
+            var result = await _baseClient.SendAsync<BitMartPositionMode>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Get Position Mode
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<BitMartPositionMode>> GetPositionModeAsync(CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/private/get-position-mode", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(2, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
+            var result = await _baseClient.SendAsync<BitMartPositionMode>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
     }
 }

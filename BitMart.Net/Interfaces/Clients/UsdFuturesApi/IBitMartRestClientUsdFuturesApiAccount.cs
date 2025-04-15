@@ -73,5 +73,22 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<BitMartFuturesTransaction[]>> GetTransactionHistoryAsync(string? symbol = null, FlowType? flowType = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Set the position mode of the account
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#set-position-mode-signed" /></para>
+        /// </summary>
+        /// <param name="positionMode">Position mode</param>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<BitMartPositionMode>> SetPositionModeAsync(PositionMode positionMode, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get the current position  mode of the account
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-position-mode-keyed" /></para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        /// <returns></returns>
+        Task<WebCallResult<BitMartPositionMode>> GetPositionModeAsync(CancellationToken ct = default);
     }
 }

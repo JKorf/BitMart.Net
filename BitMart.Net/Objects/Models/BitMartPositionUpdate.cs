@@ -73,5 +73,10 @@ namespace BitMart.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("update_time")]
         public DateTime? UpdateTime { get; set; }
+        /// <summary>
+        /// Position mode
+        /// </summary>
+        [JsonPropertyName("position_mode")]
+        public PositionMode? PositionMode { get; set; }
     }
 }

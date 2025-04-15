@@ -125,6 +125,8 @@ namespace BitMart.Net.UnitTests
             await tester.ValidateAsync(client => client.UsdFuturesApi.Account.GetTransferHistoryAsync(), "GetTransferHistory", nestedJsonProperty: "data.records");
             await tester.ValidateAsync(client => client.UsdFuturesApi.Account.TransferAsync("123", 0.1m, FuturesTransferType.ContractToSpot), "Transfer", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UsdFuturesApi.Account.SetLeverageAsync("123", 0.1m, MarginType.CrossMargin), "SetLeverage", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UsdFuturesApi.Account.GetPositionModeAsync(), "GetPositionMode", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UsdFuturesApi.Account.SetPositionModeAsync(PositionMode.HedgeMode), "SetPositionMode", nestedJsonProperty: "data");
         }
 
         [Test]

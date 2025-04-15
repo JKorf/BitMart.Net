@@ -143,6 +143,11 @@ namespace BitMart.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("callback_rate")]
         public decimal? CallbackRate { get; set; }
+        /// <summary>
+        /// Position mode
+        /// </summary>
+        [JsonPropertyName("position_mode")]
+        public PositionMode? PositionMode { get; set; }
     }
 
     /// <summary>
