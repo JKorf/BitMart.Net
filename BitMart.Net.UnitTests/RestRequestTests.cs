@@ -187,6 +187,7 @@ namespace BitMart.Net.UnitTests
             await tester.ValidateAsync(client => client.UsdFuturesApi.Trading.EditTpSlOrderAsync("123", 0.1m, TriggerPriceType.FairPrice, PlanCategory.PositionTpSl, OrderType.Market), "EditTpSlOrder", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UsdFuturesApi.Trading.EditTriggerOrderAsync("123", 0.1m, TriggerPriceType.FairPrice, OrderType.Market), "EditPlanOrder", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UsdFuturesApi.Trading.EditPresetTriggerOrderAsync("123", "123", TriggerPriceType.FairPrice, TriggerPriceType.FairPrice, 0.1m, 0.1m), "EditPresetPlanOrder", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UsdFuturesApi.Trading.CancelAllAfterAsync("ETHUSDT", TimeSpan.Zero), "CancelAllAfter", nestedJsonProperty: "data");
         }
 
         private bool IsAuthenticated(WebCallResult result)

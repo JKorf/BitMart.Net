@@ -648,6 +648,9 @@
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.EditPresetTriggerOrderAsync(System.String,System.String,BitMart.Net.Enums.TriggerPriceType,BitMart.Net.Enums.TriggerPriceType,System.Decimal,System.Decimal,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.CancelAllAfterAsync(System.String,System.TimeSpan,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi">
             <summary>
             Client providing access to the BitMart UsdFutures websocket Api
@@ -1054,6 +1057,11 @@
             </summary>
         </member>
         <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartBorrowId">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartCancelAfter">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -1479,6 +1487,11 @@
             </summary>
         </member>
         <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartBorrowIdArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartCancelAfter">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -4700,6 +4713,14 @@
             <param name="stopLossPrice">Stop loss price</param>
             <param name="ct">Cancellation token</param>
         </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.CancelAllAfterAsync(System.String,System.TimeSpan,System.Threading.CancellationToken)">
+            <summary>
+            Cancel all orders for a symbol after a certain timeout
+            </summary>
+            <param name="symbol">The symbol, for example `ETHUSDT`</param>
+            <param name="timespan">TimeSpan after which to cancel. TimeSpan.Zero to cancel the countdown</param>
+            <param name="ct">Cancellation token</param>
+        </member>
         <member name="T:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi">
             <summary>
             BitMart UsdFutures streams
@@ -5309,6 +5330,26 @@
         <member name="P:BitMart.Net.Objects.Models.BitMartBorrowId.BorrowId">
             <summary>
             Borrow id
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Objects.Models.BitMartCancelAfter">
+            <summary>
+            Cancel after info
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartCancelAfter.Result">
+            <summary>
+            Result
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartCancelAfter.SetTime">
+            <summary>
+            Time of setting
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartCancelAfter.CancelTime">
+            <summary>
+            Time of cancelling
             </summary>
         </member>
         <member name="T:BitMart.Net.Objects.Models.BitMartCancelOrdersResult">

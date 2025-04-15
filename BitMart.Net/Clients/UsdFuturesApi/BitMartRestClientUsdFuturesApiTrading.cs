@@ -332,7 +332,6 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
         #endregion
 
-
         #region Edit Order
 
         /// <inheritdoc />
@@ -350,6 +349,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         }
 
         #endregion
+
         #region Edit Tp Sl Order
 
         /// <inheritdoc />
@@ -404,6 +404,22 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             parameters.AddString("preset_stop_loss_price", stopLossPrice);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/contract/private/modify-preset-plan-order", BitMartExchange.RateLimiter.BitMart, 1, true);
             var result = await _baseClient.SendAsync<BitMartOrderId>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Cancel All After
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<BitMartCancelAfter>> CancelAllAfterAsync(string symbol, TimeSpan timespan, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("symbol", symbol);
+            parameters.Add("timeout", (int)timespan.TotalSeconds);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/contract/private/cancel-all-after", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(4, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
+            var result = await _baseClient.SendAsync<BitMartCancelAfter>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 

@@ -6,6 +6,7 @@ using System.Text.Json.Serialization;
 
 namespace BitMart.Net.Converters
 {
+    [JsonSerializable(typeof(BitMartResponse<BitMartCancelAfter>))]
     [JsonSerializable(typeof(BitMartResponse<BitMartArrayTicker[]>))]
     [JsonSerializable(typeof(BitMartResponse<BitMartKline[]>))]
     [JsonSerializable(typeof(BitMartResponse<BitMartTrade[]>))]

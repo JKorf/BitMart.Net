@@ -259,5 +259,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BitMartOrderId>> EditPresetTriggerOrderAsync(string symbol, string orderId, TriggerPriceType takeProfitPriceType, TriggerPriceType stopLossPriceType, decimal takeProfitPrice, decimal stopLossPrice, CancellationToken ct = default);
 
+        /// <summary>
+        /// Cancel all orders for a symbol after a certain timeout
+        /// </summary>
+        /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
+        /// <param name="timespan">TimeSpan after which to cancel. TimeSpan.Zero to cancel the countdown</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<BitMartCancelAfter>> CancelAllAfterAsync(string symbol, TimeSpan timespan, CancellationToken ct = default);
     }
 }
