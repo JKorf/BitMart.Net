@@ -13,7 +13,7 @@ namespace BitMart.Net
 {
     internal class BitMartAuthenticationProvider : AuthenticationProvider
     {
-        private static IMessageSerializer _serializer = new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(BitMartExchange.SerializerContext));
+        private static IMessageSerializer _serializer = new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(BitMartExchange._serializerContext));
 
         public BitMartAuthenticationProvider(ApiCredentials credentials) : base(credentials)
         {

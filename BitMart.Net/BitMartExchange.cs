@@ -49,7 +49,7 @@ namespace BitMart.Net
         /// </summary>
         public static ExchangeType Type { get; } = ExchangeType.CEX;
 
-        internal static JsonSerializerContext SerializerContext = new BitMartSourceGenerationContext();
+        internal static JsonSerializerContext _serializerContext = new BitMartSourceGenerationContext();
 
         /// <summary>
         /// Format a base and quote asset to a BitMart recognized symbol 
@@ -83,6 +83,11 @@ namespace BitMart.Net
         /// </summary>
         public event Action<RateLimitEvent> RateLimitTriggered;
 
+        /// <summary>
+        /// Event when the rate limit is updated. Note that it's only updated when a request is send, so there are no specific updates when the current usage is decaying.
+        /// </summary>
+        public event Action<RateLimitUpdateEvent> RateLimitUpdated;
+
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         internal BitMartRateLimiters()
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
@@ -93,10 +98,12 @@ namespace BitMart.Net
         private void Initialize()
         {
             BitMart = new RateLimitGate("BitMart IP");
-            BitMart.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
             SocketLimits = new RateLimitGate("Socket limits")
                 .AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, new LimitItemTypeFilter(RateLimitItemType.Connection), 100, TimeSpan.FromSeconds(60), RateLimitWindowType.Sliding, connectionWeight: 1));
+            BitMart.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            BitMart.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
             SocketLimits.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            SocketLimits.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
         }
 
 
