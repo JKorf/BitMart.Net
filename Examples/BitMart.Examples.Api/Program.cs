@@ -12,13 +12,10 @@ builder.Services.AddBitMart();
 
 // OR to provide API credentials for accessing private endpoints, or setting other options:
 /*
-builder.Services.AddBitMart(restOptions =>
-{
-    restOptions.ApiCredentials = new BitMartApiCredentials("<APIKEY>", "<APISECRET>", "<APIMEMO>");
-    restOptions.RequestTimeout = TimeSpan.FromSeconds(5);
-}, socketOptions =>
-{
-    socketOptions.ApiCredentials = new BitMartApiCredentials("<APIKEY>", "<APISECRET>", "<APIMEMO>");
+builder.Services.AddBitMart(options =>
+{    
+   options.ApiCredentials = new ApiCredentials("<APIKEY>", "<APISECRET>", "<MEMO>");
+   options.Rest.RequestTimeout = TimeSpan.FromSeconds(5);
 });
 */
 
