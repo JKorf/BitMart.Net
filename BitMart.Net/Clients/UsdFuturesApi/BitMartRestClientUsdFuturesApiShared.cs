@@ -695,7 +695,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 return result.AsExchangeResult<SharedFee>(Exchange, null, default);
 
             // Return
-            return result.AsExchangeResult(Exchange, TradingMode.Spot, new SharedFee(result.Data.MakerFeeRateA, result.Data.TakerFeeRateA));
+            return result.AsExchangeResult(Exchange, SupportedTradingModes, new SharedFee(result.Data.MakerFeeRateA, result.Data.TakerFeeRateA));
         }
         #endregion
 
@@ -727,7 +727,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 return result.AsExchangeResult<SharedId>(Exchange, null, default);
 
             // Return
-            return result.AsExchangeResult(Exchange, TradingMode.Spot, new SharedId(result.Data.OrderId.ToString()));
+            return result.AsExchangeResult(Exchange, SupportedTradingModes, new SharedId(result.Data.OrderId.ToString()));
         }
 
         EndpointOptions<GetOrderRequest> IFuturesTriggerOrderRestClient.GetFuturesTriggerOrderOptions { get; } = new EndpointOptions<GetOrderRequest>(true)
@@ -751,7 +751,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             if (order == null)
                 return orders.AsExchangeError<SharedFuturesTriggerOrder>(Exchange, new ServerError("Order not found"));
 
-            return orders.AsExchangeResult(Exchange, TradingMode.Spot, new SharedFuturesTriggerOrder(
+            return orders.AsExchangeResult(Exchange, SupportedTradingModes, new SharedFuturesTriggerOrder(
                 ExchangeSymbolCache.ParseSymbol(_topicId, order.Symbol),
                 order.Symbol,
                 order.OrderId.ToString(),
@@ -784,7 +784,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             if (!order)
                 return order.AsExchangeResult<SharedId>(Exchange, null, default);
 
-            return order.AsExchangeResult(Exchange, TradingMode.Spot, new SharedId(request.OrderId));
+            return order.AsExchangeResult(Exchange, SupportedTradingModes, new SharedId(request.OrderId));
         }
 
         private FuturesSide GetFuturesSide(PlaceFuturesTriggerOrderRequest request)
@@ -832,7 +832,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 return result.AsExchangeResult<SharedId>(Exchange, null, default);
 
             // Return
-            return result.AsExchangeResult(Exchange, TradingMode.Spot, new SharedId(result.Data.OrderId.ToString()));
+            return result.AsExchangeResult(Exchange, SupportedTradingModes, new SharedId(result.Data.OrderId.ToString()));
         }
 
         EndpointOptions<CancelTpSlRequest> IFuturesTpSlRestClient.CancelFuturesTpSlOptions { get; } = new EndpointOptions<CancelTpSlRequest>(true)

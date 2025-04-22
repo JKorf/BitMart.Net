@@ -23,8 +23,8 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Endpoints related to retrieving market and system data
-        /// <see cref="IBitMartRestClientUsdFuturesApiExchangeData"/>
         /// </summary>
+        /// <see cref="IBitMartRestClientUsdFuturesApiExchangeData"/>
         public IBitMartRestClientUsdFuturesApiExchangeData ExchangeData { get; }
 
         /// <summary>

@@ -4307,8 +4307,8 @@
         <member name="P:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApi.ExchangeData">
             <summary>
             Endpoints related to retrieving market and system data
-            <see cref="T:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiExchangeData"/>
             </summary>
+            <see cref="T:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiExchangeData"/>
         </member>
         <member name="P:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApi.Trading">
             <summary>
