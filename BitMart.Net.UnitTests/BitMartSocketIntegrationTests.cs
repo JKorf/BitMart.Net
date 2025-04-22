@@ -23,12 +23,13 @@ namespace BitMart.Net.UnitTests
         {
             var key = Environment.GetEnvironmentVariable("APIKEY");
             var sec = Environment.GetEnvironmentVariable("APISECRET");
+            var pass = Environment.GetEnvironmentVariable("APIPASS");
 
             Authenticated = key != null && sec != null;
             return new BitMartSocketClient(Options.Create(new BitMartSocketOptions
             {
                 OutputOriginalData = true,
-                ApiCredentials = Authenticated ? new CryptoExchange.Net.Authentication.ApiCredentials(key, sec) : null
+                ApiCredentials = Authenticated ? new CryptoExchange.Net.Authentication.ApiCredentials(key, sec, pass) : null
             }), loggerFactory);
         }
 
