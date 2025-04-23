@@ -138,7 +138,10 @@ namespace BitMart.Net.Clients.SpotApi
             if (!result)
                 return result.AsExchangeResult<SharedSpotTicker>(Exchange, null, default);
 
-            return result.AsExchangeResult(Exchange, TradingMode.Spot, new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, result.Data.Symbol), result.Data.Symbol, result.Data.LastPrice, result.Data.HighPrice, result.Data.LowPrice, result.Data.Volume24h, result.Data.Change * 100));
+            return result.AsExchangeResult(Exchange, TradingMode.Spot, new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, result.Data.Symbol), result.Data.Symbol, result.Data.LastPrice, result.Data.HighPrice, result.Data.LowPrice, result.Data.Volume24h, result.Data.Change * 100)
+            {
+                QuoteVolume = result.Data.QuoteVolume24h
+            });
         }
 
         EndpointOptions<GetTickersRequest> ISpotTickerRestClient.GetSpotTickersOptions { get; } = new EndpointOptions<GetTickersRequest>(false);
@@ -152,7 +155,10 @@ namespace BitMart.Net.Clients.SpotApi
             if (!result)
                 return result.AsExchangeResult<SharedSpotTicker[]>(Exchange, null, default);
 
-            return result.AsExchangeResult<SharedSpotTicker[]>(Exchange, TradingMode.Spot, result.Data.Select(x => new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), x.Symbol, x.LastPrice, x.HighPrice, x.LowPrice, x.Volume24h, x.Change * 100)).ToArray());
+            return result.AsExchangeResult<SharedSpotTicker[]>(Exchange, TradingMode.Spot, result.Data.Select(x => new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), x.Symbol, x.LastPrice, x.HighPrice, x.LowPrice, x.Volume24h, x.Change * 100)
+            {
+                QuoteVolume = x.QuoteVolume24h
+            }).ToArray());
         }
 
         #endregion
@@ -495,8 +501,8 @@ namespace BitMart.Net.Clients.SpotApi
 
         #region Spot Client Id Order Client
 
-        EndpointOptions<GetOrderRequest> ISpotOrderClientIdClient.GetSpotOrderByClientOrderIdOptions { get; } = new EndpointOptions<GetOrderRequest>(true);
-        async Task<ExchangeWebResult<SharedSpotOrder>> ISpotOrderClientIdClient.GetSpotOrderByClientOrderIdAsync(GetOrderRequest request, CancellationToken ct)
+        EndpointOptions<GetOrderRequest> ISpotOrderClientIdRestClient.GetSpotOrderByClientOrderIdOptions { get; } = new EndpointOptions<GetOrderRequest>(true);
+        async Task<ExchangeWebResult<SharedSpotOrder>> ISpotOrderClientIdRestClient.GetSpotOrderByClientOrderIdAsync(GetOrderRequest request, CancellationToken ct)
         {
             var validationError = ((ISpotOrderRestClient)this).GetSpotOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
             if (validationError != null)
@@ -525,8 +531,8 @@ namespace BitMart.Net.Clients.SpotApi
             });
         }
 
-        EndpointOptions<CancelOrderRequest> ISpotOrderClientIdClient.CancelSpotOrderByClientOrderIdOptions { get; } = new EndpointOptions<CancelOrderRequest>(true);
-        async Task<ExchangeWebResult<SharedId>> ISpotOrderClientIdClient.CancelSpotOrderByClientOrderIdAsync(CancelOrderRequest request, CancellationToken ct)
+        EndpointOptions<CancelOrderRequest> ISpotOrderClientIdRestClient.CancelSpotOrderByClientOrderIdOptions { get; } = new EndpointOptions<CancelOrderRequest>(true);
+        async Task<ExchangeWebResult<SharedId>> ISpotOrderClientIdRestClient.CancelSpotOrderByClientOrderIdAsync(CancelOrderRequest request, CancellationToken ct)
         {
             var validationError = ((ISpotOrderRestClient)this).CancelSpotOrderOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
             if (validationError != null)
