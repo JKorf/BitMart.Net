@@ -39,14 +39,15 @@
             Get the BitMart environment by name
             </summary>
         </member>
+        <member name="P:BitMart.Net.BitMartEnvironment.All">
+            <summary>
+            Available environment names
+            </summary>
+            <returns></returns>
+        </member>
         <member name="P:BitMart.Net.BitMartEnvironment.Live">
             <summary>
             Live environment, using Futures V2 API
-            </summary>
-        </member>
-        <member name="P:BitMart.Net.BitMartEnvironment.LiveFuturesV1">
-            <summary>
-            Live environment, using Futures V1 API
             </summary>
         </member>
         <member name="M:BitMart.Net.BitMartEnvironment.CreateCustom(System.String,System.String,System.String,System.String,System.String)">
