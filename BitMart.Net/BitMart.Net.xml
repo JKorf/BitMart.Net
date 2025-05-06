@@ -257,7 +257,7 @@
         <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.ParseErrorResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor)">
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.ParseErrorResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor,System.Exception)">
             <inheritdoc />
         </member>
         <member name="P:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.SharedClient">
@@ -525,7 +525,7 @@
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.ParseErrorResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor)">
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.ParseErrorResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor,System.Exception)">
             <inheritdoc />
         </member>
         <member name="T:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiAccount">

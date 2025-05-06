@@ -115,20 +115,20 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 => BitMartExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
 
         /// <inheritdoc />
-        protected override Error ParseErrorResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor)
+        protected override Error ParseErrorResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor, Exception? exception)
         {
             if (!accessor.IsJson)
-                return new ServerError(accessor.GetOriginalString());
+                return new ServerError(null, "Unknown request error", exception: exception);
 
             var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));
             var msg = accessor.GetValue<string>(MessagePath.Get().Property("message"));
             if (msg == null)
-                return new ServerError(accessor.GetOriginalString());
+                return new ServerError(null, "Unknown request error", exception: exception);
 
             if (code == null)
-                return new ServerError(msg);
+                return new ServerError(null, msg, exception);
 
-            return new ServerError(code.Value, msg);
+            return new ServerError(code.Value, msg, exception);
         }
     }
 }
