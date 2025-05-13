@@ -20,14 +20,14 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// <param name="asset">Filter on asset, for example `ETH`</param>
         /// <param name="needUsdValuation">Include USD valuation</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<IEnumerable<BitMartBalance>>> GetFundingBalancesAsync(string? asset = null, bool? needUsdValuation = null, CancellationToken ct = default);
+        Task<WebCallResult<BitMartBalance[]>> GetFundingBalancesAsync(string? asset = null, bool? needUsdValuation = null, CancellationToken ct = default);
         
         /// <summary>
         /// Get spot account balances
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-spot-wallet-balance-keyed" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<IEnumerable<BitMartSpotBalance>>> GetSpotBalancesAsync(CancellationToken ct = default);
+        Task<WebCallResult<BitMartSpotBalance[]>> GetSpotBalancesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get deposit address
@@ -70,7 +70,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">Max number of results, max 1000</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<BitMartDepositWithdrawal>>> GetDepositHistoryAsync(string? asset = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
+        Task<WebCallResult<BitMartDepositWithdrawal[]>> GetDepositHistoryAsync(string? asset = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get withdrawal history
@@ -82,7 +82,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">Max number of results, max 1000</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<IEnumerable<BitMartDepositWithdrawal>>> GetWithdrawalHistoryAsync(string? asset = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
+        Task<WebCallResult<BitMartDepositWithdrawal[]>> GetWithdrawalHistoryAsync(string? asset = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get a specific withdrawal or deposit
@@ -98,7 +98,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<IEnumerable<BitMartIsolatedMarginAccount>>> GetIsolatedMarginAccountsAsync(string? symbol = null, CancellationToken ct = default);
+        Task<WebCallResult<BitMartIsolatedMarginAccount[]>> GetIsolatedMarginAccountsAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Transfer asset between Spot and Isolated Margin account
@@ -131,6 +131,6 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#withdraw-address-keyed" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<IEnumerable<BitMartWithdrawalAddress>>> GetWithdrawalAddressesAsync(CancellationToken ct = default);
+        Task<WebCallResult<BitMartWithdrawalAddress[]>> GetWithdrawalAddressesAsync(CancellationToken ct = default);
     }
 }

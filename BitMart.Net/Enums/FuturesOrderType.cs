@@ -1,13 +1,13 @@
-﻿using CryptoExchange.Net.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Attributes;
 
 namespace BitMart.Net.Enums
 {
     /// <summary>
     /// Futures order type
     /// </summary>
+    [JsonConverter(typeof(EnumConverter<FuturesOrderType>))]
     public enum FuturesOrderType
     {
         /// <summary>
@@ -39,6 +39,21 @@ namespace BitMart.Net.Enums
         /// Trailing
         /// </summary>
         [Map("trailing")]
-        Trailing
+        Trailing,
+        /// <summary>
+        /// Plan order
+        /// </summary>
+        [Map("plan_order")]
+        PlanOrder,
+        /// <summary>
+        /// Stop loss
+        /// </summary>
+        [Map("stop_loss")]
+        StopLoss,
+        /// <summary>
+        /// Take profit
+        /// </summary>
+        [Map("take_profit")]
+        TakeProfit
     }
 }

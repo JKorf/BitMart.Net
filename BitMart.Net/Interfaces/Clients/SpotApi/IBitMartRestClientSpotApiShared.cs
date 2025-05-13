@@ -17,7 +17,9 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         ISpotTickerRestClient,
         IWithdrawalRestClient,
         IWithdrawRestClient,
-        IFeeRestClient
+        IFeeRestClient,
+        ISpotOrderClientIdRestClient,
+        IBookTickerRestClient
     {
     }
 }

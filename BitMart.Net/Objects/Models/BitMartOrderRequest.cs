@@ -1,4 +1,4 @@
-﻿using BitMart.Net.Enums;
+using BitMart.Net.Enums;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using System;
 using System.Collections.Generic;
@@ -10,17 +10,18 @@ namespace BitMart.Net.Objects.Models
     /// <summary>
     /// Order request
     /// </summary>
+    [SerializationModel]
     public record BitMartOrderRequest
     {
         /// <summary>
         /// Order side
         /// </summary>
-        [JsonPropertyName("side"), JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("side")]
         public OrderSide Side { get; set; }
         /// <summary>
         /// Order type
         /// </summary>
-        [JsonPropertyName("type"), JsonConverter(typeof(EnumConverter))]
+        [JsonPropertyName("type")]
         public OrderType Type { get; set; }
         /// <summary>
         /// Client order id

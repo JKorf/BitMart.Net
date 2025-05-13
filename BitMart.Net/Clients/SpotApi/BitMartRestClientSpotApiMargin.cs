@@ -60,7 +60,7 @@ namespace BitMart.Net.Clients.SpotApi
         #region Get Borrow History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<BorrowRecord>>> GetBorrowHistoryAsync(string symbol, string? borrowId = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BorrowRecord[]>> GetBorrowHistoryAsync(string symbol, string? borrowId = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("symbol", symbol);
@@ -71,7 +71,7 @@ namespace BitMart.Net.Clients.SpotApi
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/v1/margin/isolated/borrow_record", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(60, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BorrowRecordWrapper>(request, parameters, ct).ConfigureAwait(false);
-            return result.As<IEnumerable<BorrowRecord>>(result.Data?.Records);
+            return result.As<BorrowRecord[]>(result.Data?.Records);
         }
 
         #endregion
@@ -79,7 +79,7 @@ namespace BitMart.Net.Clients.SpotApi
         #region Get Repay History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<RepayRecord>>> GetRepayHistoryAsync(string symbol, string? asset = null, string? repayId = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<RepayRecord[]>> GetRepayHistoryAsync(string symbol, string? asset = null, string? repayId = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("symbol", symbol);
@@ -91,7 +91,7 @@ namespace BitMart.Net.Clients.SpotApi
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/v1/margin/isolated/repay_record", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(60, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<RepayRecordWrapper>(request, parameters, ct).ConfigureAwait(false);
-            return result.As<IEnumerable<RepayRecord>>(result.Data?.Records);
+            return result.As<RepayRecord[]>(result.Data?.Records);
         }
 
         #endregion
@@ -99,14 +99,14 @@ namespace BitMart.Net.Clients.SpotApi
         #region Get Borrow Info
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<BorrowInfo>>> GetBorrowInfoAsync(string? symbol = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BorrowInfo[]>> GetBorrowInfoAsync(string? symbol = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("symbol", symbol);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/v1/margin/isolated/pairs", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(2, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BorrowInfoWrapper>(request, parameters, ct).ConfigureAwait(false);
-            return result.As<IEnumerable<BorrowInfo>>(result.Data?.Symbols);
+            return result.As<BorrowInfo[]>(result.Data?.Symbols);
         }
 
         #endregion

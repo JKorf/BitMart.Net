@@ -1,4 +1,5 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -8,18 +9,19 @@ namespace BitMart.Net.Objects.Models
     /// <summary>
     /// Cancel orders result
     /// </summary>
+    [SerializationModel]
     public record BitMartCancelOrdersResult
     {
         /// <summary>
         /// Success ids
         /// </summary>
         [JsonPropertyName("successIds")]
-        public IEnumerable<string> SuccessIds { get; set; } = Array.Empty<string>();
+        public string[] SuccessIds { get; set; } = Array.Empty<string>();
         /// <summary>
         /// Fail ids
         /// </summary>
         [JsonPropertyName("failIds")]
-        public IEnumerable<string> FailIds { get; set; } = Array.Empty<string>();
+        public string[] FailIds { get; set; } = Array.Empty<string>();
         /// <summary>
         /// Total count
         /// </summary>

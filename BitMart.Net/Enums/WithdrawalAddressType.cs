@@ -1,13 +1,13 @@
-﻿using CryptoExchange.Net.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Attributes;
 
 namespace BitMart.Net.Enums
 {
     /// <summary>
     /// Withdrawal address type
     /// </summary>
+    [JsonConverter(typeof(EnumConverter<WithdrawalAddressType>))]
     public enum WithdrawalAddressType
     {
         /// <summary>

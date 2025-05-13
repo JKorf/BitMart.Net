@@ -82,14 +82,14 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// <param name="subAccount">Sub account name</param>
         /// <param name="asset">Filter by asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<IEnumerable<BitMartSubAccountBalance>>> GetSubAcccountBalanceAsync(string subAccount, string? asset = null, CancellationToken ct = default);
+        Task<WebCallResult<BitMartSubAccountBalance[]>> GetSubAcccountBalanceAsync(string subAccount, string? asset = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get list of sub accounts
         /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-sub-account-list-for-main-account-keyed" /></para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<IEnumerable<BitMartSubAccount>>> GetSubAccountListAsync(CancellationToken ct = default);
+        Task<WebCallResult<BitMartSubAccount[]>> GetSubAccountListAsync(CancellationToken ct = default);
 
     }
 }

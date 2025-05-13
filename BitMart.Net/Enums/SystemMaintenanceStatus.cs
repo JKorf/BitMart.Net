@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Attributes;
 
 namespace BitMart.Net.Enums
@@ -5,6 +7,7 @@ namespace BitMart.Net.Enums
     /// <summary>
     /// System status
     /// </summary>
+    [JsonConverter(typeof(EnumConverter<SystemMaintenanceStatus>))]
     public enum SystemMaintenanceStatus
     {
         /// <summary>

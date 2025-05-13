@@ -1,4 +1,5 @@
-﻿using CryptoExchange.Net.Converters;
+using BitMart.Net.Converters;
+using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,8 @@ namespace BitMart.Net.Objects.Models
     /// <summary>
     /// 
     /// </summary>
-    [JsonConverter(typeof(ArrayConverter))]
+    [JsonConverter(typeof(ArrayConverter<BitMartKline>))]
+    [SerializationModel]
     public record BitMartKline
     {
         /// <summary>

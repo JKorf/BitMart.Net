@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Converters.SystemTextJson;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +9,7 @@ namespace BitMart.Net.Objects.Models
     /// <summary>
     /// Order id
     /// </summary>
+    [SerializationModel]
     public record BitMartOrderId
     {
         /// <summary>

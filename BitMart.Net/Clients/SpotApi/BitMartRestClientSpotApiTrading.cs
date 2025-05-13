@@ -46,15 +46,6 @@ namespace BitMart.Net.Clients.SpotApi
             {
                 { "X-BM-BROKER-ID", _baseClient._brokerId }
             }).ConfigureAwait(false);
-            if (result)
-            {
-                _baseClient.InvokeOrderPlaced(new CryptoExchange.Net.CommonObjects.OrderId
-                {
-                    Id = result.Data.OrderId,
-                    SourceObject = result.Data
-                });
-            }
-
             return result;
         }
 
@@ -80,16 +71,6 @@ namespace BitMart.Net.Clients.SpotApi
             if (result.Data.Code != 0)
                 return result.AsError<BitMartOrderIds>(new ServerError(result.Data.Code, result.Data.Message));
 
-
-            foreach (var order in result.Data.Data.OrderIds)
-            {
-                _baseClient.InvokeOrderPlaced(new CryptoExchange.Net.CommonObjects.OrderId
-                {
-                    Id = order,
-                    SourceObject = order
-                });
-            }
-
             return result.As(result.Data.Data);
         }
 
@@ -107,14 +88,6 @@ namespace BitMart.Net.Clients.SpotApi
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/spot/v3/cancel_order", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(60, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartResult>(request, parameters, ct).ConfigureAwait(false);
-            if (result)
-            {
-                _baseClient.InvokeOrderCanceled(new CryptoExchange.Net.CommonObjects.OrderId
-                {
-                    Id = orderId ?? clientOrderId!,
-                    SourceObject = result.Data
-                });
-            }
             return result.AsDataless();
         }
 
@@ -132,17 +105,6 @@ namespace BitMart.Net.Clients.SpotApi
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/spot/v4/cancel_orders", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartCancelOrdersResult>(request, parameters, ct).ConfigureAwait(false);
-            if (result)
-            {
-                foreach (var order in result.Data.SuccessIds)
-                {
-                    _baseClient.InvokeOrderCanceled(new CryptoExchange.Net.CommonObjects.OrderId
-                    {
-                        Id = order,
-                        SourceObject = order
-                    });
-                }
-            }
             return result;
         }
 
@@ -222,7 +184,7 @@ namespace BitMart.Net.Clients.SpotApi
         #region Get Open Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<BitMartOrder>>> GetOpenOrdersAsync(string? symbol = null, SpotMode? spotOrderMode = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BitMartOrder[]>> GetOpenOrdersAsync(string? symbol = null, SpotMode? spotOrderMode = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("symbol", symbol);
@@ -232,7 +194,7 @@ namespace BitMart.Net.Clients.SpotApi
             parameters.AddOptional("limit", limit);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/spot/v4/query/open-orders", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(12, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            var result = await _baseClient.SendAsync<IEnumerable<BitMartOrder>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<BitMartOrder[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -241,7 +203,7 @@ namespace BitMart.Net.Clients.SpotApi
         #region Get Closed Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<BitMartOrder>>> GetClosedOrdersAsync(string? symbol = null, SpotMode? spotOrderMode = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BitMartOrder[]>> GetClosedOrdersAsync(string? symbol = null, SpotMode? spotOrderMode = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("symbol", symbol);
@@ -251,7 +213,7 @@ namespace BitMart.Net.Clients.SpotApi
             parameters.AddOptional("limit", limit);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/spot/v4/query/history-orders", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(12, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            var result = await _baseClient.SendAsync<IEnumerable<BitMartOrder>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<BitMartOrder[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -260,7 +222,7 @@ namespace BitMart.Net.Clients.SpotApi
         #region Get User Trades
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<BitMartUserTrade>>> GetUserTradesAsync(string? symbol = null, SpotMode? spotOrderMode = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BitMartUserTrade[]>> GetUserTradesAsync(string? symbol = null, SpotMode? spotOrderMode = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("symbol", symbol);
@@ -270,7 +232,7 @@ namespace BitMart.Net.Clients.SpotApi
             parameters.AddOptional("limit", limit);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/spot/v4/query/trades", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(12, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            var result = await _baseClient.SendAsync<IEnumerable<BitMartUserTrade>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<BitMartUserTrade[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -279,13 +241,13 @@ namespace BitMart.Net.Clients.SpotApi
         #region Get Order Trades
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<BitMartUserTrade>>> GetOrderTradesAsync(string orderId, CancellationToken ct = default)
+        public async Task<WebCallResult<BitMartUserTrade[]>> GetOrderTradesAsync(string orderId, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("orderId", orderId);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "spot/v4/query/order-trades", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(12, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            var result = await _baseClient.SendAsync<IEnumerable<BitMartUserTrade>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<BitMartUserTrade[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 

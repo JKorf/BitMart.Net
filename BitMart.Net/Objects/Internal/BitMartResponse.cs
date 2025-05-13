@@ -1,10 +1,12 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
 
 namespace BitMart.Net.Objects.Internal
 {
+    [SerializationModel]
     internal record BitMartResponse
     {
         [JsonPropertyName("code")]
@@ -17,6 +19,7 @@ namespace BitMart.Net.Objects.Internal
         public string Message { get; set; } = string.Empty;
     }
 
+    [SerializationModel]
     internal record BitMartResponse<T> : BitMartResponse
     {
         [JsonPropertyName("data")]

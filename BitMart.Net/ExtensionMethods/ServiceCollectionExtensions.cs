@@ -33,7 +33,7 @@ namespace Microsoft.Extensions.DependencyInjection
             IConfiguration configuration)
         {
             var options = new BitMartOptions();
-            // Reset environment so we know if theyre overriden
+            // Reset environment so we know if they're overridden
             options.Rest.Environment = null!;
             options.Socket.Environment = null!;
             configuration.Bind(options);
@@ -66,7 +66,7 @@ namespace Microsoft.Extensions.DependencyInjection
             Action<BitMartOptions>? optionsDelegate = null)
         {
             var options = new BitMartOptions();
-            // Reset environment so we know if theyre overriden
+            // Reset environment so we know if they're overridden
             options.Rest.Environment = null!;
             options.Socket.Environment = null!;
             optionsDelegate?.Invoke(options);
@@ -82,21 +82,6 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton(x => Options.Options.Create(options.Socket));
 
             return AddBitMartCore(services, options.SocketClientLifeTime);
-        }
-
-        /// <summary>
-        /// DEPRECATED; use <see cref="AddBitMart(IServiceCollection, Action{BitMartOptions}?)" /> instead
-        /// </summary>
-        public static IServiceCollection AddBitMart(
-            this IServiceCollection services,
-            Action<BitMartRestOptions> restDelegate,
-            Action<BitMartSocketOptions>? socketDelegate = null,
-            ServiceLifetime? socketClientLifeTime = null)
-        {
-            services.Configure<BitMartRestOptions>((x) => { restDelegate?.Invoke(x); });
-            services.Configure<BitMartSocketOptions>((x) => { socketDelegate?.Invoke(x); });
-
-            return AddBitMartCore(services, socketClientLifeTime);
         }
 
         private static IServiceCollection AddBitMartCore(
@@ -135,7 +120,6 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<ICryptoSocketClient, CryptoSocketClient>();
             services.AddTransient<IBitMartOrderBookFactory, BitMartOrderBookFactory>();
             services.AddTransient<IBitMartTrackerFactory, BitMartTrackerFactory>();
-            services.AddTransient(x => x.GetRequiredService<IBitMartRestClient>().SpotApi.CommonSpotClient);
 
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IBitMartRestClient>().SpotApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IBitMartSocketClient>().SpotApi.SharedClient);

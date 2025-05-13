@@ -129,7 +129,7 @@ namespace BitMart.Net.Clients.SpotApi
         #region Get Sub Acccount Balance
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<BitMartSubAccountBalance>>> GetSubAcccountBalanceAsync(string subAccount, string? asset = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BitMartSubAccountBalance[]>> GetSubAcccountBalanceAsync(string subAccount, string? asset = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("subAccount", subAccount);
@@ -137,7 +137,7 @@ namespace BitMart.Net.Clients.SpotApi
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/account/sub-account/main/v1/wallet", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(12, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartSubAccountBalanceWrapper>(request, parameters, ct).ConfigureAwait(false);
-            return result.As<IEnumerable<BitMartSubAccountBalance>>(result.Data?.Wallet);
+            return result.As<BitMartSubAccountBalance[]>(result.Data?.Wallet);
         }
 
         #endregion
@@ -145,13 +145,13 @@ namespace BitMart.Net.Clients.SpotApi
         #region Get Sub Account List
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<BitMartSubAccount>>> GetSubAccountListAsync(CancellationToken ct = default)
+        public async Task<WebCallResult<BitMartSubAccount[]>> GetSubAccountListAsync(CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/account/sub-account/main/v1/subaccount-list", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(8, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartSubAccountWrapper>(request, parameters, ct).ConfigureAwait(false);
-            return result.As<IEnumerable<BitMartSubAccount>>(result.Data?.SubAccountList);
+            return result.As<BitMartSubAccount[]>(result.Data?.SubAccountList);
         }
 
         #endregion

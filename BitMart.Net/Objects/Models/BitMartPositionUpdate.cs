@@ -1,4 +1,5 @@
-﻿using BitMart.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using BitMart.Net.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +10,7 @@ namespace BitMart.Net.Objects.Models
     /// <summary>
     /// Position update
     /// </summary>
+    [SerializationModel]
     public record BitMartPositionUpdate
     {
         /// <summary>
@@ -71,5 +73,10 @@ namespace BitMart.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("update_time")]
         public DateTime? UpdateTime { get; set; }
+        /// <summary>
+        /// Position mode
+        /// </summary>
+        [JsonPropertyName("position_mode")]
+        public PositionMode? PositionMode { get; set; }
     }
 }

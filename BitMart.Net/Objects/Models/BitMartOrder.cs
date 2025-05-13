@@ -1,4 +1,5 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -9,6 +10,7 @@ namespace BitMart.Net.Objects.Models
     /// <summary>
     /// Order info
     /// </summary>
+    [SerializationModel]
     public record BitMartOrder
     {
         /// <summary>
@@ -86,6 +88,11 @@ namespace BitMart.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("updateTime")]
         public DateTime? UpdateTime { get; set; }
+        /// <summary>
+        /// Cancel source
+        /// </summary>
+        [JsonPropertyName("cancelSource")]
+        public string? CancelSource { get; set; }
     }
 
 

@@ -1,15 +1,14 @@
-using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
-using CryptoExchange.Net.Converters.JsonNet;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Net.Http;
 using BitMart.Net.Clients;
-using BitMart.Net.Objects;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using CryptoExchange.Net.Objects;
 using BitMart.Net.Interfaces.Clients;
+using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Converters.SystemTextJson;
 
 namespace BitMart.Net.UnitTests
 {
@@ -19,7 +18,7 @@ namespace BitMart.Net.UnitTests
         [Test]
         public void CheckSignatureExample1()
         {
-            var authProvider = new BitMartAuthenticationProvider(new BitMartApiCredentials("XXX", "XXX", "XXX"));
+            var authProvider = new BitMartAuthenticationProvider(new ApiCredentials("XXX", "XXX", "XXX"));
             var client = (RestApiClient)new BitMartRestClient().SpotApi;
 
             CryptoExchange.Net.Testing.TestHelpers.CheckSignature(
@@ -36,7 +35,7 @@ namespace BitMart.Net.UnitTests
                 {
                     { "symbol", "LTCBTC" },
                 },
-                DateTimeConverter.ParseFromLong(1499827319559),
+                DateTimeConverter.ParseFromDouble(1499827319559),
                 true,
                 false);
         }
@@ -119,10 +118,10 @@ namespace BitMart.Net.UnitTests
                 {
                     { "ApiCredentials:Key", "123" },
                     { "ApiCredentials:Secret", "456" },
-                    { "ApiCredentials:Passphrase", "000" },
+                    { "ApiCredentials:Pass", "000" },
                     { "Socket:ApiCredentials:Key", "456" },
                     { "Socket:ApiCredentials:Secret", "789" },
-                    { "Socket:ApiCredentials:Passphrase", "xxx" },
+                    { "Socket:ApiCredentials:Pass", "xxx" },
                     { "Rest:OutputOriginalData", "true" },
                     { "Socket:OutputOriginalData", "false" },
                     { "Rest:Proxy:Host", "host" },

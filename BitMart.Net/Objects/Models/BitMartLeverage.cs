@@ -1,4 +1,5 @@
-﻿using BitMart.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using BitMart.Net.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +10,7 @@ namespace BitMart.Net.Objects.Models
     /// <summary>
     /// Leverage info
     /// </summary>
+    [SerializationModel]
     public record BitMartLeverage
     {
         /// <summary>

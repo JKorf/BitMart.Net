@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Converters;
+using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using System;
 using System.Collections.Generic;
@@ -11,6 +11,7 @@ namespace BitMart.Net.Objects.Models
     /// <summary>
     /// Trade update
     /// </summary>
+    [SerializationModel]
     public record BitMartFuturesTradeUpdate
     {
         /// <summary>

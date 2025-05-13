@@ -1,4 +1,5 @@
-﻿using BitMart.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using BitMart.Net.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,15 +7,17 @@ using System.Text.Json.Serialization;
 
 namespace BitMart.Net.Objects.Models
 {
+    [SerializationModel]
     internal record BitMartWithdrawalAddressesWrapper
     {
         [JsonPropertyName("list")]
-        public IEnumerable<BitMartWithdrawalAddress> List { get; set; } = [];
+        public BitMartWithdrawalAddress[] List { get; set; } = [];
     }
 
     /// <summary>
     /// Withdrawal address
     /// </summary>
+    [SerializationModel]
     public record BitMartWithdrawalAddress
     {
         /// <summary>

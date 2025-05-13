@@ -27,13 +27,13 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         #region Get Balances
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<BitMartFuturesBalance>>> GetBalancesAsync(CancellationToken ct = default)
+        public async Task<WebCallResult<BitMartFuturesBalance[]>> GetBalancesAsync(CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/private/assets-detail", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(12, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             
-            return await _baseClient.SendAsync<IEnumerable<BitMartFuturesBalance>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<BitMartFuturesBalance[]>(request, parameters, ct).ConfigureAwait(false);
         }
 
         #endregion
@@ -41,7 +41,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         #region Get Transfer History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<BitMartFuturesTransfer>>> GetTransferHistoryAsync(string? asset = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BitMartFuturesTransfer[]>> GetTransferHistoryAsync(string? asset = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? limit = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("currency", asset);
@@ -52,7 +52,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/account/v1/transfer-contract-list", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(1, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartFuturesTransferWrapper>(request, parameters, ct).ConfigureAwait(false);
-            return result.As<IEnumerable<BitMartFuturesTransfer>>(result.Data?.Records);
+            return result.As<BitMartFuturesTransfer[]>(result.Data?.Records);
         }
 
         #endregion
@@ -111,7 +111,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         #region Get Transaction History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<BitMartFuturesTransaction>>> GetTransactionHistoryAsync(string? symbol = null, FlowType? flowType = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BitMartFuturesTransaction[]>> GetTransactionHistoryAsync(string? symbol = null, FlowType? flowType = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("symbol", symbol);
@@ -121,7 +121,36 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             parameters.AddOptional("page_size", limit);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/private/transaction-history", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(6, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            return await _baseClient.SendAsync<IEnumerable<BitMartFuturesTransaction>>(request, parameters, ct).ConfigureAwait(false);
+            return await _baseClient.SendAsync<BitMartFuturesTransaction[]>(request, parameters, ct).ConfigureAwait(false);
+        }
+
+        #endregion
+
+        #region Set Position Mode
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<BitMartPositionMode>> SetPositionModeAsync(PositionMode positionMode, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddEnum("position_mode", positionMode);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/contract/private/set-position-mode", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(2, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
+            var result = await _baseClient.SendAsync<BitMartPositionMode>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Get Position Mode
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<BitMartPositionMode>> GetPositionModeAsync(CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/private/get-position-mode", BitMartExchange.RateLimiter.BitMart, 1, true,
+                new SingleLimitGuard(2, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
+            var result = await _baseClient.SendAsync<BitMartPositionMode>(request, parameters, ct).ConfigureAwait(false);
+            return result;
         }
 
         #endregion

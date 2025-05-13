@@ -79,7 +79,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         #region Get Sub Acccount Balance
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<BitMartSubAccountBalance>>> GetSubAcccountBalanceAsync(string subAccount, string? asset = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BitMartSubAccountBalance[]>> GetSubAcccountBalanceAsync(string subAccount, string? asset = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("subAccount", subAccount);
@@ -87,7 +87,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/account/contract/sub-account/main/v1/wallet", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(12, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartSubAccountBalanceWrapper>(request, parameters, ct).ConfigureAwait(false);
-            return result.As<IEnumerable<BitMartSubAccountBalance>>(result.Data?.Wallet);
+            return result.As<BitMartSubAccountBalance[]>(result.Data?.Wallet);
         }
 
         #endregion
@@ -95,14 +95,14 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         #region Get Sub Account Transfer History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<SubAccountTransfer>>> GetSubAccountTransferHistoryForMainAsync(string subAccount, int limit, CancellationToken ct = default)
+        public async Task<WebCallResult<SubAccountTransfer[]>> GetSubAccountTransferHistoryForMainAsync(string subAccount, int limit, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("subAccount", subAccount);
             parameters.Add("limit", limit);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/account/contract/sub-account/main/v1/transfer-list", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(8, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            var result = await _baseClient.SendAsync<IEnumerable<SubAccountTransfer>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<SubAccountTransfer[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -111,13 +111,13 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         #region Get Sub Account Transfer History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<SubAccountTransfer>>> GetSubAccountTransferHistoryAsync(int limit, CancellationToken ct = default)
+        public async Task<WebCallResult<SubAccountTransfer[]>> GetSubAccountTransferHistoryAsync(int limit, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("limit", limit);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/account/contract/sub-account/v1/transfer-history", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(8, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
-            var result = await _baseClient.SendAsync<IEnumerable<SubAccountTransfer>>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<SubAccountTransfer[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 

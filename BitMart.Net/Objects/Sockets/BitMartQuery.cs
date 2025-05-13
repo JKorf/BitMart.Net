@@ -15,7 +15,7 @@ namespace BitMart.Net.Objects.Sockets
         public BitMartQuery(string operation, IEnumerable<string> parameters, bool authenticated, int weight = 1) : base(new BitMartSocketOperation
         {
             Operation = operation,
-            Parameters = parameters,
+            Parameters = parameters.ToArray(),
         }, authenticated, weight)
         {
             ListenerIdentifiers = new HashSet<string>(parameters.Select(p => operation + ":" + p));

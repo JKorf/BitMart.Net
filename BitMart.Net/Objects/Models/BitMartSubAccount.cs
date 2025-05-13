@@ -1,4 +1,5 @@
-﻿using BitMart.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using BitMart.Net.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,18 +7,20 @@ using System.Text.Json.Serialization;
 
 namespace BitMart.Net.Objects.Models
 {
+    [SerializationModel]
     internal record BitMartSubAccountWrapper
     {
         /// <summary>
         /// Sub account list
         /// </summary>
         [JsonPropertyName("subAccountList")]
-        public IEnumerable<BitMartSubAccount> SubAccountList { get; set; } = Array.Empty<BitMartSubAccount>();
+        public BitMartSubAccount[] SubAccountList { get; set; } = Array.Empty<BitMartSubAccount>();
     }
 
     /// <summary>
     /// Sub account info
     /// </summary>
+    [SerializationModel]
     public record BitMartSubAccount
     {
         /// <summary>

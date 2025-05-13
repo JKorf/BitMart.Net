@@ -1,10 +1,12 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
 
 namespace BitMart.Net.Objects.Models
 {
+    [SerializationModel]
     internal record BitMartOrderIdsWrapper
     {
         [JsonPropertyName("code")]
@@ -18,12 +20,13 @@ namespace BitMart.Net.Objects.Models
     /// <summary>
     /// Order ids
     /// </summary>
+    [SerializationModel]
     public record BitMartOrderIds
     {
         /// <summary>
         /// Order ids of the placed orders
         /// </summary>
         [JsonPropertyName("orderIds")]
-        public IEnumerable<string> OrderIds { get; set; } = Array.Empty<string>();
+        public string[] OrderIds { get; set; } = Array.Empty<string>();
     }
 }

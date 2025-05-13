@@ -1,22 +1,25 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
 
 namespace BitMart.Net.Objects.Models
 {
+    [SerializationModel]
     internal record BitMartIsolatedMarginAccountWrapper
     {
         /// <summary>
         /// Symbols
         /// </summary>
         [JsonPropertyName("symbols")]
-        public IEnumerable<BitMartIsolatedMarginAccount> Symbols { get; set; } = Array.Empty<BitMartIsolatedMarginAccount>();
+        public BitMartIsolatedMarginAccount[] Symbols { get; set; } = Array.Empty<BitMartIsolatedMarginAccount>();
     }
 
     /// <summary>
     /// Account info
     /// </summary>
+    [SerializationModel]
     public record BitMartIsolatedMarginAccount
     {
         /// <summary>
@@ -69,6 +72,7 @@ namespace BitMart.Net.Objects.Models
     /// <summary>
     /// Account asset info
     /// </summary>
+    [SerializationModel]
     public record BitMartIsolatedMarginAccountAsset
     {
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using System;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -9,6 +10,7 @@ namespace BitMart.Net.Objects.Models
     /// <summary>
     /// Position info
     /// </summary>
+    [SerializationModel]
     public record BitMartPosition
     {
         /// <summary>
@@ -101,6 +103,11 @@ namespace BitMart.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("position_type")]
         public PositionSide? PositionSide { get; set; }
+        /// <summary>
+        /// Position mode
+        /// </summary>
+        [JsonPropertyName("position_mode")]
+        public PositionMode? PositionMode { get; set; }
     }
 
 

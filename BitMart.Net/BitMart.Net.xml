@@ -39,14 +39,15 @@
             Get the BitMart environment by name
             </summary>
         </member>
+        <member name="P:BitMart.Net.BitMartEnvironment.All">
+            <summary>
+            Available environment names
+            </summary>
+            <returns></returns>
+        </member>
         <member name="P:BitMart.Net.BitMartEnvironment.Live">
             <summary>
             Live environment, using Futures V2 API
-            </summary>
-        </member>
-        <member name="P:BitMart.Net.BitMartEnvironment.LiveFuturesV1">
-            <summary>
-            Live environment, using Futures V1 API
             </summary>
         </member>
         <member name="M:BitMart.Net.BitMartEnvironment.CreateCustom(System.String,System.String,System.String,System.String,System.String)">
@@ -118,6 +119,11 @@
         <member name="E:BitMart.Net.BitMartRateLimiters.RateLimitTriggered">
             <summary>
             Event for when a rate limit is triggered
+            </summary>
+        </member>
+        <member name="E:BitMart.Net.BitMartRateLimiters.RateLimitUpdated">
+            <summary>
+            Event when the rate limit is updated. Note that it's only updated when a request is send, so there are no specific updates when the current usage is decaying.
             </summary>
         </member>
         <member name="T:BitMart.Net.BitMartTrackerFactory">
@@ -230,16 +236,6 @@
         <member name="P:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.ExchangeName">
             <inheritdoc />
         </member>
-        <member name="E:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.OnOrderPlaced">
-            <summary>
-            Event triggered when an order is placed via this client. Only available for Spot orders
-            </summary>
-        </member>
-        <member name="E:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.OnOrderCanceled">
-            <summary>
-            Event triggered when an order is canceled via this client. Note that this does not trigger when using CancelAllOrdersAsync. Only available for Spot orders
-            </summary>
-        </member>
         <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.CreateAccessor">
             <inheritdoc />
         </member>
@@ -261,13 +257,10 @@
         <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.ParseErrorResponse(System.Int32,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.Collections.Generic.IEnumerable{System.String}}},CryptoExchange.Net.Interfaces.IMessageAccessor)">
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.ParseErrorResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor,System.Exception)">
             <inheritdoc />
         </member>
-        <member name="P:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.CommonSpotClient">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.GetSymbolName(System.String,System.String)">
+        <member name="P:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.SharedClient">
             <inheritdoc />
         </member>
         <member name="T:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount">
@@ -454,10 +447,10 @@
         <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartTickerUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToKlineUpdatesAsync(System.String,BitMart.Net.Enums.KlineStreamInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMart.Net.Objects.Models.BitMartKlineUpdate}}},System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToKlineUpdatesAsync(System.String,BitMart.Net.Enums.KlineStreamInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartKlineUpdate[]}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToKlineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},BitMart.Net.Enums.KlineStreamInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMart.Net.Objects.Models.BitMartKlineUpdate}}},System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToKlineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},BitMart.Net.Enums.KlineStreamInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartKlineUpdate[]}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToPartialOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartOrderBookUpdate}},System.Threading.CancellationToken)">
@@ -472,10 +465,10 @@
         <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartOrderBookIncrementalUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMart.Net.Objects.Models.BitMartTradeUpdate}}},System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartTradeUpdate[]}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMart.Net.Objects.Models.BitMartTradeUpdate}}},System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartTradeUpdate[]}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartOrderUpdate}},System.Threading.CancellationToken)">
@@ -532,7 +525,7 @@
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.ParseErrorResponse(System.Int32,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.Collections.Generic.IEnumerable{System.String}}},CryptoExchange.Net.Interfaces.IMessageAccessor)">
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.ParseErrorResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor,System.Exception)">
             <inheritdoc />
         </member>
         <member name="T:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiAccount">
@@ -554,6 +547,12 @@
             <inheritdoc />
         </member>
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiAccount.GetTransactionHistoryAsync(System.String,System.Nullable{BitMart.Net.Enums.FlowType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiAccount.SetPositionModeAsync(BitMart.Net.Enums.PositionMode,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiAccount.GetPositionModeAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="T:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiExchangeData">
@@ -661,6 +660,9 @@
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.EditPresetTriggerOrderAsync(System.String,System.String,BitMart.Net.Enums.TriggerPriceType,BitMart.Net.Enums.TriggerPriceType,System.Decimal,System.Decimal,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.CancelAllAfterAsync(System.String,System.TimeSpan,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi">
             <summary>
             Client providing access to the BitMart UsdFutures websocket Api
@@ -686,10 +688,10 @@
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToFundingRateUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFundingRateUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMart.Net.Objects.Models.BitMartFuturesTradeUpdate}}},System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesTradeUpdate[]}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToTradeUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMart.Net.Objects.Models.BitMartFuturesTradeUpdate}}},System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToTradeUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesTradeUpdate[]}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesOrderBookUpdate}},System.Threading.CancellationToken)">
@@ -731,10 +733,10 @@
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesBalanceUpdate}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToPositionUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMart.Net.Objects.Models.BitMartPositionUpdate}}},System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToPositionUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartPositionUpdate[]}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMart.Net.Objects.Models.BitMartFuturesOrderUpdateEvent}}},System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesOrderUpdateEvent[]}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
@@ -745,6 +747,1745 @@
         </member>
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <inheritdoc />
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.Boolean">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.NullableBoolean">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.Decimal">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.NullableDecimal">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BalanceUpdateType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.ContractType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.DepositWithdrawalStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.EntrustType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.FeeRateType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.NullableFeeRateType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.FlowType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.FuturesOrderStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.FuturesOrderType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.FuturesSide">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.NullableFuturesSide">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.FuturesTransferStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.FuturesTransferType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.NullableFuturesTransferType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.MarginType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.NullableMarginType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.OperationType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.OrderBookSide">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.OrderEvent">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.OrderMode">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.OrderSide">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.OrderStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.OrderType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.PlanCategory">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.PositionMode">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.NullablePositionMode">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.PositionSide">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.NullablePositionSide">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.ServiceType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.NullableServiceType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.SpotMode">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.SubAccountStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.SymbolStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.NullableSymbolStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.SystemMaintenanceStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.NullableSystemMaintenanceStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.TradeRole">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.NullableTradeRole">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.TriggerOrderType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.TriggerPriceType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.NullableTriggerPriceType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.WithdrawalAddressType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesLoginResponse">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesSocketOperation">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesUpdateBitMartBookTicker">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesUpdateBitMartFundingRateUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesUpdateBitMartFuturesBalanceUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesUpdateBitMartFuturesFullOrderBookUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesUpdateBitMartFuturesKlineUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesUpdateBitMartFuturesOrderBookUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesUpdateBitMartFuturesOrderUpdateEventArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesUpdateBitMartFuturesTickerUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesUpdateBitMartFuturesTradeUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesUpdateBitMartPositionUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesUpdateString">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponse">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartResult">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartArrayTickerArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartAssetDepositWithdrawInfoWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartAssetWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartBalanceWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartBorrowId">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartCancelAfter">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartCancelOrdersResult">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartContractWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartDepositAddress">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartDepositWithdrawalHistoryWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartDepositWithdrawalWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartFeeRate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartFundingRate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartFundingRateHistoryWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartFuturesBalanceArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartFuturesFeeRate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartFuturesKlineArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartFuturesOrderArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartFuturesOrder">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartFuturesOrderId">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartFuturesOrderResponse">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartFuturesTransactionArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartFuturesTransferWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartFuturesUserTradeArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartIsolatedMarginAccountWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartKlineArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartLeverage">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartOpenInterest">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartOrderArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartOrder">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartOrderBook">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartOrderId">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartOrderIdsWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartPositionArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartPositionMode">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartPositionRiskArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartRepayId">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartSpotBalanceWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartStatusWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartSubAccountBalanceWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartSubAccountWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartSymbolNamesWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartSymbolTradeFee">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartSymbolWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartTicker">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartTime">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartTradeArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartTransferId">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartTransferResult">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartTriggerOrderArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartUserTradeArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartWithdrawalAddressesWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartWithdrawalQuota">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartWithdrawId">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBorrowInfoWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBorrowRecordWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseRepayRecordWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseSubAccountTransferArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseSubAccountTransferHistory">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResult">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResultArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartSocketOperation">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartSocketResponse">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartUpdateBitMartBalanceUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartUpdateBitMartKlineUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartUpdateBitMartOrderBookIncrementalUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartUpdateBitMartOrderBookUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartUpdateBitMartOrderUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartUpdateBitMartTickerUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartUpdateBitMartTradeUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartArrayTicker">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartArrayTickerArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartAsset">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartAssetArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartAssetDepositWithdrawInfo">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartAssetDepositWithdrawInfoArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartAssetDepositWithdrawInfoWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartAssetDepositWithdrawInfoWrapperArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartAssetWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartAssetWrapperArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartBalance">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartBalanceArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartBalanceUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartBalanceUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartBalanceUpdateDetails">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartBalanceUpdateDetailsArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartBalanceWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartBalanceWrapperArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartBookTicker">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartBookTickerArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartBorrowId">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartBorrowIdArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartCancelAfter">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartCancelOrdersResult">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartCancelOrdersResultArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartContract">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartContractArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartContractWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartContractWrapperArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartDepositAddress">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartDepositAddressArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartDepositWithdrawal">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartDepositWithdrawalArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartDepositWithdrawalHistoryWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartDepositWithdrawalHistoryWrapperArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartDepositWithdrawalWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartDepositWithdrawalWrapperArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFeeRate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFeeRateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFundingRate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFundingRateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFundingRateHistory">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFundingRateHistoryArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFundingRateHistoryWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFundingRateHistoryWrapperArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFundingRateUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFundingRateUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesBalance">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesBalanceArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesBalanceUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesBalanceUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesBalanceWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesBalanceWrapperArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesFeeRate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesFeeRateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesFullOrderBookUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesFullOrderBookUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesKline">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesKlineArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesKlineItem">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesKlineItemArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesKlineUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesKlineUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesOrder">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesOrderArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesOrderBookEntry">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesOrderBookEntryArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesOrderBookUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesOrderBookUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesOrderId">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesOrderIdArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesOrderResponse">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesOrderResponseArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesOrderTrade">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesOrderTradeArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesOrderUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesOrderUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesOrderUpdateEvent">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesOrderUpdateEventArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesTickerUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesTickerUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesTradeUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesTradeUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesTransaction">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesTransactionArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesTransfer">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesTransferArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesTransferWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesTransferWrapperArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesUserTrade">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesUserTradeArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartIsolatedMarginAccount">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartIsolatedMarginAccountArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartIsolatedMarginAccountAsset">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartIsolatedMarginAccountAssetArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartIsolatedMarginAccountWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartIsolatedMarginAccountWrapperArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartKline">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartKlineArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartKlineUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartKlineUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartLeverage">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartLeverageArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartOpenInterest">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartOpenInterestArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartOrder">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartOrderArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartOrderBook">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartOrderBookArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartOrderBookEntry">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartOrderBookEntryArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartOrderBookIncrementalUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartOrderBookIncrementalUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartOrderBookUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartOrderBookUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartOrderId">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartOrderIdArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartOrderIds">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartOrderIdsArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartOrderIdsWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartOrderIdsWrapperArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartOrderRequest">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartOrderRequestArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartOrderUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartOrderUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartPosition">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartPositionArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartPositionMode">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartPositionRisk">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartPositionRiskArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartPositionUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartPositionUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartRepayId">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartRepayIdArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartSpotBalance">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartSpotBalanceArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartSpotBalanceWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartSpotBalanceWrapperArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartStatusArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartStatusWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartStatusWrapperArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartSubAccount">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartSubAccountArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartSubAccountBalance">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartSubAccountBalanceArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartSubAccountBalanceWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartSubAccountBalanceWrapperArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartSubAccountWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartSubAccountWrapperArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartSymbol">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartSymbolArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartSymbolNamesWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartSymbolNamesWrapperArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartSymbolTradeFee">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartSymbolTradeFeeArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartSymbolWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartSymbolWrapperArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartTicker">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartTickerArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartTickerUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartTickerUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartTime">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartTimeArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartTrade">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartTradeArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartTradeUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartTradeUpdateArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartTransferId">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartTransferIdArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartTransferResult">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartTransferResultArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartTriggerOrder">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartTriggerOrderArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartUserTrade">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartUserTradeArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartWithdrawalAddress">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartWithdrawalAddressArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartWithdrawalAddressesWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartWithdrawalAddressesWrapperArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartWithdrawalQuota">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartWithdrawalQuotaArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartWithdrawId">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartWithdrawIdArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BorrowInfo">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BorrowInfoArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BorrowInfoAsset">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BorrowInfoAssetArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BorrowInfoWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BorrowInfoWrapperArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BorrowRecord">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BorrowRecordArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BorrowRecordWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BorrowRecordWrapperArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.RepayRecord">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.RepayRecordArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.RepayRecordWrapper">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.RepayRecordWrapperArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.SubAccountTransfer">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.SubAccountTransferArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.SubAccountTransferHistory">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.SubAccountTransferHistoryArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.IDictionaryStringObject">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.DateTime">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.NullableDateTime">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.Int32">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.NullableInt32">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.Int64">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.NullableInt64">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.Object">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.String">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.StringArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.Default">
+            <summary>
+            The default <see cref="T:System.Text.Json.Serialization.JsonSerializerContext"/> associated with a default <see cref="T:System.Text.Json.JsonSerializerOptions"/> instance.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.GeneratedSerializerOptions">
+            <summary>
+            The source-generated options associated with this context.
+            </summary>
+        </member>
+        <member name="M:BitMart.Net.Converters.BitMartSourceGenerationContext.#ctor">
+            <inheritdoc/>
+        </member>
+        <member name="M:BitMart.Net.Converters.BitMartSourceGenerationContext.#ctor(System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc/>
+        </member>
+        <member name="M:BitMart.Net.Converters.BitMartSourceGenerationContext.GetTypeInfo(System.Type)">
+            <inheritdoc/>
         </member>
         <member name="T:BitMart.Net.Enums.BalanceUpdateType">
             <summary>
@@ -1024,6 +2765,21 @@
         <member name="F:BitMart.Net.Enums.FuturesOrderType.Trailing">
             <summary>
             Trailing
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.FuturesOrderType.PlanOrder">
+            <summary>
+            Plan order
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.FuturesOrderType.StopLoss">
+            <summary>
+            Stop loss
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.FuturesOrderType.TakeProfit">
+            <summary>
+            Take profit
             </summary>
         </member>
         <member name="T:BitMart.Net.Enums.FuturesSide">
@@ -1501,6 +3257,21 @@
             Position Take profit / Stop loss
             </summary>
         </member>
+        <member name="T:BitMart.Net.Enums.PositionMode">
+            <summary>
+            Position mode
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.PositionMode.HedgeMode">
+            <summary>
+            Hedge mode
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.PositionMode.OneWayMode">
+            <summary>
+            One way mode
+            </summary>
+        </member>
         <member name="T:BitMart.Net.Enums.PositionSide">
             <summary>
             Position side
@@ -1770,17 +3541,19 @@
             <summary>
             UsdFutures API endpoints
             </summary>
+            <see cref="T:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApi"/>
         </member>
         <member name="P:BitMart.Net.Interfaces.Clients.IBitMartRestClient.SpotApi">
             <summary>
             Spot API endpoints
             </summary>
+            <see cref="T:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApi"/>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.IBitMartRestClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
             <summary>
             Update specific options
             </summary>
-            <param name="options">Options to update. Only specific options are changable after the client has been created</param>
+            <param name="options">Options to update. Only specific options are changeable after the client has been created</param>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.IBitMartRestClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
             <summary>
@@ -1797,17 +3570,19 @@
             <summary>
             UsdFutures API endpoints
             </summary>
+            <see cref="T:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi"/>
         </member>
         <member name="P:BitMart.Net.Interfaces.Clients.IBitMartSocketClient.SpotApi">
             <summary>
             Spot API endpoints
             </summary>
+            <see cref="T:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartSocketClientSpotApi"/>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.IBitMartSocketClient.SetOptions(CryptoExchange.Net.Objects.Options.UpdateOptions)">
             <summary>
             Update specific options
             </summary>
-            <param name="options">Options to update. Only specific options are changable after the client has been created</param>
+            <param name="options">Options to update. Only specific options are changeable after the client has been created</param>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.IBitMartSocketClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
             <summary>
@@ -1824,35 +3599,35 @@
             <summary>
             Endpoints related to account settings, info or actions
             </summary>
+            <see cref="T:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiAccount"/>
         </member>
         <member name="P:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApi.ExchangeData">
             <summary>
             Endpoints related to retrieving market and system data
             </summary>
+            <see cref="T:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiExchangeData"/>
         </member>
         <member name="P:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApi.Margin">
             <summary>
             Endpoints related to margin borrow and repayment
             </summary>
+            <see cref="T:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiMargin"/>
         </member>
         <member name="P:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApi.SubAccount">
             <summary>
             Endpoints related to sub account management
             </summary>
+            <see cref="T:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiSubAccount"/>
         </member>
         <member name="P:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApi.Trading">
             <summary>
             Endpoints related to orders and trades
             </summary>
-        </member>
-        <member name="P:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApi.CommonSpotClient">
-            <summary>
-            DEPRECATED; use <see cref="T:CryptoExchange.Net.SharedApis.ISharedClient" /> instead for common/shared functionality. See <see href="https://jkorf.github.io/CryptoExchange.Net/docs/index.html#shared" /> for more info.
-            </summary>
+            <see cref="T:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiTrading"/>
         </member>
         <member name="P:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApi.SharedClient">
             <summary>
-            Get the shared rest requests client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
+            Get the shared rest requests client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
             </summary>
         </member>
         <member name="T:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiAccount">
@@ -2378,7 +4153,7 @@
         </member>
         <member name="P:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartSocketClientSpotApi.SharedClient">
             <summary>
-            Get the shared socket subscription client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
+            Get the shared socket subscription client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
             </summary>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartSocketClientSpotApi.SubscribeToTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartTickerUpdate}},System.Threading.CancellationToken)">
@@ -2401,7 +4176,7 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
-        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartSocketClientSpotApi.SubscribeToKlineUpdatesAsync(System.String,BitMart.Net.Enums.KlineStreamInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMart.Net.Objects.Models.BitMartKlineUpdate}}},System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartSocketClientSpotApi.SubscribeToKlineUpdatesAsync(System.String,BitMart.Net.Enums.KlineStreamInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartKlineUpdate[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to kline/candlestick updates for a symbol
             <para><a href="https://developer-pro.bitmart.com/en/spot/#public-kline-channel" /></para>
@@ -2412,7 +4187,7 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
-        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartSocketClientSpotApi.SubscribeToKlineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},BitMart.Net.Enums.KlineStreamInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMart.Net.Objects.Models.BitMartKlineUpdate}}},System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartSocketClientSpotApi.SubscribeToKlineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},BitMart.Net.Enums.KlineStreamInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartKlineUpdate[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to kline/candlestick updates for multiple symbols
             <para><a href="https://developer-pro.bitmart.com/en/spot/#public-kline-channel" /></para>
@@ -2465,7 +4240,7 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
-        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMart.Net.Objects.Models.BitMartTradeUpdate}}},System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartTradeUpdate[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to trade updates for a symbol
             <para><a href="https://developer-pro.bitmart.com/en/spot/#public-trade-channel" /></para>
@@ -2475,7 +4250,7 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
-        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMart.Net.Objects.Models.BitMartTradeUpdate}}},System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartTradeUpdate[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to trade updates for multiple symbols
             <para><a href="https://developer-pro.bitmart.com/en/spot/#public-trade-channel" /></para>
@@ -2522,25 +4297,29 @@
             <summary>
             Endpoints related to account settings, info or actions
             </summary>
+            <see cref="T:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiAccount"/>
         </member>
         <member name="P:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApi.SubAccount">
             <summary>
             Endpoints related to sub account management
             </summary>
+            <see cref="T:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiSubAccount"/>
         </member>
         <member name="P:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApi.ExchangeData">
             <summary>
             Endpoints related to retrieving market and system data
             </summary>
+            <see cref="T:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiExchangeData"/>
         </member>
         <member name="P:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApi.Trading">
             <summary>
             Endpoints related to orders and trades
             </summary>
+            <see cref="T:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading"/>
         </member>
         <member name="P:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApi.SharedClient">
             <summary>
-            Get the shared rest requests client. This interface is shared with other exhanges to allow for a common implementation for different exchanges.
+            Get the shared rest requests client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.
             </summary>
         </member>
         <member name="T:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiAccount">
@@ -2606,6 +4385,23 @@
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
             <param name="limit">Max number of results, max 1000</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiAccount.SetPositionModeAsync(BitMart.Net.Enums.PositionMode,System.Threading.CancellationToken)">
+            <summary>
+            Set the position mode of the account
+            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#set-position-mode-signed" /></para>
+            </summary>
+            <param name="positionMode">Position mode</param>
+            <param name="ct">Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiAccount.GetPositionModeAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get the current position  mode of the account
+            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-position-mode-keyed" /></para>
+            </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
         </member>
@@ -2981,6 +4777,14 @@
             <param name="stopLossPrice">Stop loss price</param>
             <param name="ct">Cancellation token</param>
         </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.CancelAllAfterAsync(System.String,System.TimeSpan,System.Threading.CancellationToken)">
+            <summary>
+            Cancel all orders for a symbol after a certain timeout
+            </summary>
+            <param name="symbol">The symbol, for example `ETHUSDT`</param>
+            <param name="timespan">TimeSpan after which to cancel. TimeSpan.Zero to cancel the countdown</param>
+            <param name="ct">Cancellation token</param>
+        </member>
         <member name="T:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi">
             <summary>
             BitMart UsdFutures streams
@@ -3020,7 +4824,7 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
-        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMart.Net.Objects.Models.BitMartFuturesTradeUpdate}}},System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesTradeUpdate[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to trade updates for a symbol
             <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-trade-channel" /></para>
@@ -3030,7 +4834,7 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
-        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToTradeUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMart.Net.Objects.Models.BitMartFuturesTradeUpdate}}},System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToTradeUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesTradeUpdate[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to trade updates for multiple symbols
             <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-trade-channel" /></para>
@@ -3197,7 +5001,7 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
-        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToPositionUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMart.Net.Objects.Models.BitMartPositionUpdate}}},System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToPositionUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartPositionUpdate[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to position updates
             <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#private-position-channel" /></para>
@@ -3206,7 +5010,7 @@
             <param name="ct">Cancellation token for closing this subscription</param>
             <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         </member>
-        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{System.Collections.Generic.IEnumerable{BitMart.Net.Objects.Models.BitMartFuturesOrderUpdateEvent}}},System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesOrderUpdateEvent[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to order updates
             <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#private-order-channel" /></para>
@@ -3311,28 +5115,6 @@
             <summary>
             Production environment, but uses Futures V1 instead of Futures V2.
             </summary>
-        </member>
-        <member name="T:BitMart.Net.Objects.BitMartApiCredentials">
-            <inheritdoc />
-        </member>
-        <member name="P:BitMart.Net.Objects.BitMartApiCredentials.PassPhrase">
-            <summary>
-            API key memo/passphrase
-            </summary>
-        </member>
-        <member name="M:BitMart.Net.Objects.BitMartApiCredentials.#ctor(System.String,System.String,System.String)">
-            <summary>
-            ctor
-            </summary>
-            <param name="key">The API key</param>
-            <param name="secret">The API secret</param>
-            <param name="passPhrase">API key memo/passphrase</param>
-        </member>
-        <member name="M:BitMart.Net.Objects.BitMartApiCredentials.Copy">
-            <summary>
-            Copy
-            </summary>
-            <returns></returns>
         </member>
         <member name="P:BitMart.Net.Objects.Internal.BitMartResult.Result">
             <summary>
@@ -3612,6 +5394,26 @@
         <member name="P:BitMart.Net.Objects.Models.BitMartBorrowId.BorrowId">
             <summary>
             Borrow id
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Objects.Models.BitMartCancelAfter">
+            <summary>
+            Cancel after info
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartCancelAfter.Result">
+            <summary>
+            Result
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartCancelAfter.SetTime">
+            <summary>
+            Time of setting
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartCancelAfter.CancelTime">
+            <summary>
+            Time of cancelling
             </summary>
         </member>
         <member name="T:BitMart.Net.Objects.Models.BitMartCancelOrdersResult">
@@ -4364,6 +6166,11 @@
             Order id of the executed trigger order
             </summary>
         </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartFuturesOrder.PositionMode">
+            <summary>
+            Position mode
+            </summary>
+        </member>
         <member name="T:BitMart.Net.Objects.Models.BitMartFuturesOrderBookUpdate">
             <summary>
             Order book
@@ -4527,6 +6334,41 @@
         <member name="P:BitMart.Net.Objects.Models.BitMartFuturesOrderUpdate.LastTrade">
             <summary>
             Last trade info
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartFuturesOrderUpdate.TriggerPrice">
+            <summary>
+            Trigger price
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartFuturesOrderUpdate.TriggerPriceType">
+            <summary>
+            Trigger price type
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartFuturesOrderUpdate.ExecutionPrice">
+            <summary>
+            Execution price of trigger order
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartFuturesOrderUpdate.ActivationPrice">
+            <summary>
+            Activation price
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartFuturesOrderUpdate.ActivationPriceType">
+            <summary>
+            Activation price type
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartFuturesOrderUpdate.CallbackRate">
+            <summary>
+            Callback rate
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartFuturesOrderUpdate.PositionMode">
+            <summary>
+            Position mode
             </summary>
         </member>
         <member name="T:BitMart.Net.Objects.Models.BitMartFuturesOrderTrade">
@@ -5074,6 +6916,11 @@
             Update time
             </summary>
         </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartOrder.CancelSource">
+            <summary>
+            Cancel source
+            </summary>
+        </member>
         <member name="T:BitMart.Net.Objects.Models.BitMartOrderBook">
             <summary>
             Order book
@@ -5414,6 +7261,21 @@
             Position side
             </summary>
         </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartPosition.PositionMode">
+            <summary>
+            Position mode
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Objects.Models.BitMartPositionMode">
+            <summary>
+            Position mode
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartPositionMode.PositionMode">
+            <summary>
+            The position mode of the account
+            </summary>
+        </member>
         <member name="T:BitMart.Net.Objects.Models.BitMartPositionRisk">
             <summary>
             Position risk
@@ -5542,6 +7404,11 @@
         <member name="P:BitMart.Net.Objects.Models.BitMartPositionUpdate.UpdateTime">
             <summary>
             Update time
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartPositionUpdate.PositionMode">
+            <summary>
+            Position mode
             </summary>
         </member>
         <member name="T:BitMart.Net.Objects.Models.BitMartRepayId">
@@ -6102,6 +7969,11 @@
         <member name="P:BitMart.Net.Objects.Models.BitMartTriggerOrder.PresetStopLossPrice">
             <summary>
             Pre-set StopLoss price
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartTriggerOrder.PositionMode">
+            <summary>
+            Position mode
             </summary>
         </member>
         <member name="T:BitMart.Net.Objects.Models.BitMartUserTrade">
@@ -6758,11 +8630,6 @@
             <param name="services">The service collection</param>
             <param name="optionsDelegate">Set options for the BitMart services</param>
             <returns></returns>
-        </member>
-        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddBitMart(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{BitMart.Net.Objects.Options.BitMartRestOptions},System.Action{BitMart.Net.Objects.Options.BitMartSocketOptions},System.Nullable{Microsoft.Extensions.DependencyInjection.ServiceLifetime})">
-            <summary>
-            DEPRECATED; use <see cref="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddBitMart(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{BitMart.Net.Objects.Options.BitMartOptions})" /> instead
-            </summary>
         </member>
     </members>
 </doc>

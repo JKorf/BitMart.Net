@@ -62,6 +62,12 @@ namespace BitMart.Net
          };
 
         /// <summary>
+        /// Available environment names
+        /// </summary>
+        /// <returns></returns>
+        public static string[] All => [Live.Name];
+
+        /// <summary>
         /// Live environment, using Futures V2 API
         /// </summary>
         public static BitMartEnvironment Live { get; }
@@ -70,16 +76,6 @@ namespace BitMart.Net
                                      BitMartApiAddresses.Default.RestFuturesClientAddress,
                                      BitMartApiAddresses.Default.SocketSpotClientAddress,
                                      BitMartApiAddresses.Default.SocketPerpetualFuturesClientAddress);
-
-        /// <summary>
-        /// Live environment, using Futures V1 API
-        /// </summary>
-        public static BitMartEnvironment LiveFuturesV1 { get; }
-            = new BitMartEnvironment(TradeEnvironmentNames.Live,
-                                     BitMartApiAddresses.Default.RestSpotClientAddress,
-                                     BitMartApiAddresses.FuturesV1.RestFuturesClientAddress,
-                                     BitMartApiAddresses.Default.SocketSpotClientAddress,
-                                     BitMartApiAddresses.FuturesV1.SocketPerpetualFuturesClientAddress);
 
         /// <summary>
         /// Create a custom environment

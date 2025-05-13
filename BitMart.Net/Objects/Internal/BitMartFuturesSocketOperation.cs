@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -10,6 +10,6 @@ namespace BitMart.Net.Objects.Internal
         [JsonPropertyName("action")]
         public string Operation { get; set; } = string.Empty;
         [JsonPropertyName("args")]
-        public IEnumerable<string> Parameters { get; set; } = Array.Empty<string>();
+        public string[] Parameters { get; set; } = Array.Empty<string>();
     }
 }

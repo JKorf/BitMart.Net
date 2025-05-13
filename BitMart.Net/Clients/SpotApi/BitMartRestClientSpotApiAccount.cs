@@ -24,7 +24,7 @@ namespace BitMart.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<BitMartBalance>>> GetFundingBalancesAsync(string? asset = null, bool? needUsdValuation = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BitMartBalance[]>> GetFundingBalancesAsync(string? asset = null, bool? needUsdValuation = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("currency", asset);
@@ -32,17 +32,17 @@ namespace BitMart.Net.Clients.SpotApi
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/account/v1/wallet", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(12, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartBalanceWrapper>(request, parameters, ct).ConfigureAwait(false);
-            return result.As<IEnumerable<BitMartBalance>>(result.Data?.Wallet);
+            return result.As<BitMartBalance[]>(result.Data?.Wallet);
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<BitMartSpotBalance>>> GetSpotBalancesAsync(CancellationToken ct = default)
+        public async Task<WebCallResult<BitMartSpotBalance[]>> GetSpotBalancesAsync(CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/v1/wallet", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(12, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartSpotBalanceWrapper>(request, parameters, ct).ConfigureAwait(false);
-            return result.As<IEnumerable<BitMartSpotBalance>>(result.Data?.Wallet);
+            return result.As<BitMartSpotBalance[]>(result.Data?.Wallet);
         }
 
         /// <inheritdoc />
@@ -74,7 +74,7 @@ namespace BitMart.Net.Clients.SpotApi
             parameters.AddOptional("address", targetAddress);
             parameters.AddOptional("address_memo", memo);
             parameters.AddOptional("destination", remark);
-            parameters.AddOptionalEnum("type", accountDestType);
+            parameters.AddOptional("type", accountDestType);
             parameters.AddOptional("value", targetAccount);
             parameters.AddOptional("areaCode", areaCode);
             parameters.Add("currency", asset);
@@ -86,7 +86,7 @@ namespace BitMart.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<BitMartDepositWithdrawal>>> GetDepositHistoryAsync(string? asset = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BitMartDepositWithdrawal[]>> GetDepositHistoryAsync(string? asset = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("operation_type", "deposit");
@@ -97,11 +97,11 @@ namespace BitMart.Net.Clients.SpotApi
             var request = _definitions.GetOrCreate(HttpMethod.Get, "account/v2/deposit-withdraw/history", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(8, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartDepositWithdrawalHistoryWrapper>(request, parameters, ct).ConfigureAwait(false);
-            return result.As<IEnumerable<BitMartDepositWithdrawal>>(result.Data?.Records);
+            return result.As<BitMartDepositWithdrawal[]>(result.Data?.Records);
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<BitMartDepositWithdrawal>>> GetWithdrawalHistoryAsync(string? asset = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BitMartDepositWithdrawal[]>> GetWithdrawalHistoryAsync(string? asset = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("operation_type", "withdraw");
@@ -112,7 +112,7 @@ namespace BitMart.Net.Clients.SpotApi
             var request = _definitions.GetOrCreate(HttpMethod.Get, "account/v2/deposit-withdraw/history", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(8, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartDepositWithdrawalHistoryWrapper>(request, parameters, ct).ConfigureAwait(false);
-            return result.As<IEnumerable<BitMartDepositWithdrawal>>(result.Data?.Records);
+            return result.As<BitMartDepositWithdrawal[]>(result.Data?.Records);
         }
 
         /// <inheritdoc />
@@ -127,14 +127,14 @@ namespace BitMart.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<BitMartIsolatedMarginAccount>>> GetIsolatedMarginAccountsAsync(string? symbol = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BitMartIsolatedMarginAccount[]>> GetIsolatedMarginAccountsAsync(string? symbol = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("symbol", symbol);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/v1/margin/isolated/account", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(12, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartIsolatedMarginAccountWrapper>(request, parameters, ct).ConfigureAwait(false);
-            return result.As<IEnumerable<BitMartIsolatedMarginAccount>>(result.Data?.Symbols);
+            return result.As<BitMartIsolatedMarginAccount[]>(result.Data?.Symbols);
         }
 
         /// <inheritdoc />
@@ -173,13 +173,13 @@ namespace BitMart.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<IEnumerable<BitMartWithdrawalAddress>>> GetWithdrawalAddressesAsync(CancellationToken ct = default)
+        public async Task<WebCallResult<BitMartWithdrawalAddress[]>> GetWithdrawalAddressesAsync(CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/account/v1/withdraw/address/list", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(2, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartWithdrawalAddressesWrapper>(request, parameters, ct).ConfigureAwait(false);
-            return result.As<IEnumerable<BitMartWithdrawalAddress>>(result.Data?.List);
+            return result.As<BitMartWithdrawalAddress[]>(result.Data?.List);
         }
 
     }
