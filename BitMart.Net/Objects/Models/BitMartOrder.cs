@@ -88,6 +88,11 @@ namespace BitMart.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("updateTime")]
         public DateTime? UpdateTime { get; set; }
+        /// <summary>
+        /// Cancel source
+        /// </summary>
+        [JsonPropertyName("cancelSource")]
+        public string? CancelSource { get; set; }
     }
 
 

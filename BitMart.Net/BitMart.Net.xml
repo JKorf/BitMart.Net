@@ -6916,6 +6916,11 @@
             Update time
             </summary>
         </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartOrder.CancelSource">
+            <summary>
+            Cancel source
+            </summary>
+        </member>
         <member name="T:BitMart.Net.Objects.Models.BitMartOrderBook">
             <summary>
             Order book
