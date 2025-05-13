@@ -9,7 +9,7 @@ namespace BitMart.Net.Objects.Models
     /// <summary>
     /// Ticker/price statistics
     /// </summary>
-    [JsonConverter(typeof(ArrayConverter<BitMartArrayTicker, BitMartSourceGenerationContext>))]
+    [JsonConverter(typeof(ArrayConverter<BitMartArrayTicker>))]
     [SerializationModel]
     public record BitMartArrayTicker
     {

@@ -11,7 +11,7 @@ namespace BitMart.Net.Objects.Models
     /// <summary>
     /// 
     /// </summary>
-    [JsonConverter(typeof(ArrayConverter<BitMartKline, BitMartSourceGenerationContext>))]
+    [JsonConverter(typeof(ArrayConverter<BitMartKline>))]
     [SerializationModel]
     public record BitMartKline
     {

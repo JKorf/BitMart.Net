@@ -12,7 +12,7 @@ namespace BitMart.Net.Objects.Models
     /// <summary>
     /// Trade info
     /// </summary>
-    [JsonConverter(typeof(ArrayConverter<BitMartTrade, BitMartSourceGenerationContext>))]
+    [JsonConverter(typeof(ArrayConverter<BitMartTrade>))]
     [SerializationModel]
     public record BitMartTrade
     {

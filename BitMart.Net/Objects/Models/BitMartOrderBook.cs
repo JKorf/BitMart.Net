@@ -45,7 +45,7 @@ namespace BitMart.Net.Objects.Models
     /// <summary>
     /// Order book entry
     /// </summary>
-    [JsonConverter(typeof(ArrayConverter<BitMartOrderBookEntry, BitMartSourceGenerationContext>))]
+    [JsonConverter(typeof(ArrayConverter<BitMartOrderBookEntry>))]
     [SerializationModel]
     public record BitMartOrderBookEntry : ISymbolOrderBookEntry
     {
