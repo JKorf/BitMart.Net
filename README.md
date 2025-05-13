@@ -150,6 +150,38 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 2.0.0 - 13 May 2025
+    * Updated CryptoExchange.Net to version 9.0.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
+    * Added support for Native AOT compilation
+    * Added RateLimitUpdated event
+    * Added SharedSymbol response property to all Shared interfaces response models returning a symbol name
+    * Added GenerateClientOrderId method to UsdFutures and Spot Shared clients
+    * Added OptionalExchangeParameters and Supported properties to EndpointOptions
+    * Added IBookTickerRestClient implementation to UsdFutures and Spot Shared clients
+    * Added ISpotOrderClientIdClient implementation to Spot Shared client
+    * Added IFuturesOrderClientIdClient implementation to UsdFutures Shared client
+    * Added IFuturesTriggerOrderRestClient implementation to UsdFutures Shared client
+    * Added IPositionModeRestClient implementation to UsdFutures Shared client
+    * Added IFuturesTpSlRestClient implementation to UsdFutures Shared client
+    * Added MaxLongLeverage and MaxShortLeverage to SharedFuturesSymbol response model
+    * Added takeProfitPrice and stopLossPrice support to Shared UsdFutures PlaceOrderAsync method
+    * Added TakeProfitPrice, StopLossPrice, TriggerPrice and IsTriggerOrder to SharedFuturesOrder model
+    * Added QuoteVolume property mapping to SharedSpotTicker response model
+    * Added restClient.UsdFuturesApi.Trading.CancelAllAfterAsync endpoint
+    * Added restClient.UsdFuturesApi.Account.SetPositionModeAsync and GetPositionModeAsync endpoints
+    * Added PositionMode properties to response models
+    * Added All property to retrieve all available environment on BitMartEnvironment
+    * Added CancelSource property to BitMartOrder model
+    * Refactored Shared clients quantity parameters and responses to use Shared Quantity
+    * Updated all IEnumerable response and model types to array response types
+    * Updated BitMartFuturesOrderUpdate response model
+    * Replaced BitMartApiCredentials with ApiCredentials
+    * Fixed incorrect DataTradeMode on certain Shared interface responses
+    * Removed Newtonsoft.Json dependency
+    * Removed legacy ISpotClient implementation
+    * Removed legacy AddBitMart(restOptions, socketOptions) DI overload
+    * Fixed some typos
+
 * Version 2.0.0-beta3 - 01 May 2025
     * Updated CryptoExchange.Net version to 9.0.0-beta5
     * Added property to retrieve all available API environments
