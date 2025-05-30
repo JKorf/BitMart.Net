@@ -215,6 +215,29 @@
         <member name="M:BitMart.Net.Clients.BitMartSocketClient.SetApiCredentials(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
+        <member name="T:BitMart.Net.Clients.BitMartUserClientProvider">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.BitMartUserClientProvider.#ctor(System.Action{BitMart.Net.Objects.Options.BitMartOptions})">
+            <summary>
+            ctor
+            </summary>
+            <param name="optionsDelegate">Options to use for created clients</param>
+        </member>
+        <member name="M:BitMart.Net.Clients.BitMartUserClientProvider.#ctor(System.Net.Http.HttpClient,Microsoft.Extensions.Logging.ILoggerFactory,Microsoft.Extensions.Options.IOptions{BitMart.Net.Objects.Options.BitMartRestOptions},Microsoft.Extensions.Options.IOptions{BitMart.Net.Objects.Options.BitMartSocketOptions})">
+            <summary>
+            ctor
+            </summary>
+        </member>
+        <member name="M:BitMart.Net.Clients.BitMartUserClientProvider.InitializeUserClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BitMart.Net.BitMartEnvironment)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.BitMartUserClientProvider.GetRestClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BitMart.Net.BitMartEnvironment)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.BitMartUserClientProvider.GetSocketClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BitMart.Net.BitMartEnvironment)">
+            <inheritdoc />
+        </member>
         <member name="T:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi">
             <inheritdoc cref="T:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApi" />
         </member>
@@ -3589,6 +3612,35 @@
             Set the API credentials for this client. All Api clients in this client will use the new credentials, regardless of earlier set options.
             </summary>
             <param name="credentials">The credentials to set</param>
+        </member>
+        <member name="T:BitMart.Net.Interfaces.Clients.IBitMartUserClientProvider">
+            <summary>
+            Provider for clients with credentials for specific users
+            </summary>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.IBitMartUserClientProvider.InitializeUserClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BitMart.Net.BitMartEnvironment)">
+            <summary>
+            Initialize a client for the specified user identifier. This can be used so to initialize a client for a user so ApiCredentials do not need to be passed later.
+            </summary>
+            <param name="userIdentifier">The identifier for the user</param>
+            <param name="credentials">The credentials for the user</param>
+            <param name="environment">The environment to use</param>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.IBitMartUserClientProvider.GetRestClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BitMart.Net.BitMartEnvironment)">
+            <summary>
+            Get the Rest client for a specific user. In case the client does not exist yet it will be created and the <paramref name="credentials"/> should be provided, unless <see cref="M:BitMart.Net.Interfaces.Clients.IBitMartUserClientProvider.InitializeUserClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BitMart.Net.BitMartEnvironment)" /> has been called prior for this user.
+            </summary>
+            <param name="userIdentifier">The identifier for user</param>
+            <param name="credentials">The credentials for the user. Required the first time a client is requested for this user unless <see cref="M:BitMart.Net.Interfaces.Clients.IBitMartUserClientProvider.InitializeUserClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BitMart.Net.BitMartEnvironment)" /> has been called prior for this user.</param>
+            <param name="environment">The environment to use</param>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.IBitMartUserClientProvider.GetSocketClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BitMart.Net.BitMartEnvironment)">
+            <summary>
+            Get the Socket client for a specific user. In case the client does not exist yet it will be created and the <paramref name="credentials"/> should be provided, unless <see cref="M:BitMart.Net.Interfaces.Clients.IBitMartUserClientProvider.InitializeUserClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BitMart.Net.BitMartEnvironment)" /> has been called prior for this user.
+            </summary>
+            <param name="userIdentifier">The identifier for user</param>
+            <param name="credentials">The credentials for the user. Required the first time a client is requested for this user unless <see cref="M:BitMart.Net.Interfaces.Clients.IBitMartUserClientProvider.InitializeUserClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BitMart.Net.BitMartEnvironment)" /> has been called prior for this user.</param>
+            <param name="environment">The environment to use</param>
         </member>
         <member name="T:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApi">
             <summary>
