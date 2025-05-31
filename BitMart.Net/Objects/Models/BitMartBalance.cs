@@ -38,6 +38,11 @@ namespace BitMart.Net.Objects.Models
         [JsonPropertyName("available")]
         public decimal Available { get; set; }
         /// <summary>
+        /// Unavailable
+        /// </summary>
+        [JsonPropertyName("unAvailable")]
+        public decimal Unavailable { get; set; }
+        /// <summary>
         /// USD valuation
         /// </summary>
         [JsonPropertyName("available_usd_valuation")]

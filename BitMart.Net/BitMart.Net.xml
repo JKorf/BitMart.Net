@@ -5353,6 +5353,11 @@
             Available
             </summary>
         </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartBalance.Unavailable">
+            <summary>
+            Unavailable
+            </summary>
+        </member>
         <member name="P:BitMart.Net.Objects.Models.BitMartBalance.AvailableUsdValuation">
             <summary>
             USD valuation
@@ -7191,6 +7196,16 @@
         <member name="P:BitMart.Net.Objects.Models.BitMartOrderUpdate.EntrustType">
             <summary>
             Entrust type
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartOrderUpdate.Fee">
+            <summary>
+            Fee
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartOrderUpdate.FeeAsset">
+            <summary>
+            Fee asset
             </summary>
         </member>
         <member name="P:BitMart.Net.Objects.Models.BitMartOrderUpdate.LastTradePrice">

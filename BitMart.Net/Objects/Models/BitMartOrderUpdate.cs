@@ -88,6 +88,16 @@ namespace BitMart.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("entrust_type")]
         public EntrustType EntrustType { get; set; }
+        /// <summary>
+        /// Fee
+        /// </summary>
+        [JsonPropertyName("dealFee")]
+        public decimal Fee { get; set; }
+        /// <summary>
+        /// Fee asset
+        /// </summary>
+        [JsonPropertyName("deal_fee_coin_name")]
+        public string? FeeAsset { get; set; }
 
 
         /// <summary>

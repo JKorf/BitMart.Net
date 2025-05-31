@@ -117,9 +117,12 @@ namespace BitMart.Net.Clients.SpotApi
                         TimeInForce = update.Data.EntrustType == Enums.EntrustType.ImmediateOrCancel ? SharedTimeInForce.ImmediateOrCancel : SharedTimeInForce.GoodTillCanceled,
                         UpdateTime = update.Data.UpdateTime,
                         OrderPrice = update.Data.Price == 0 ? null : update.Data.Price,
+                        FeeAsset = update.Data.FeeAsset,
                         LastTrade = update.Data.LastTradeId == null ? null : new SharedUserTrade(ExchangeSymbolCache.ParseSymbol(_topicId, update.Data.Symbol), update.Data.Symbol, update.Data.OrderId, update.Data.LastTradeId, update.Data.Side == Enums.OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell, update.Data.LastTradeQuantity, update.Data.LastTradePrice, update.Data.LastTradeTime!.Value)
                         {
-                            Role = update.Data.LastTradeRole == Enums.TradeRole.Taker ? SharedRole.Taker : SharedRole.Maker
+                            Role = update.Data.LastTradeRole == Enums.TradeRole.Taker ? SharedRole.Taker : SharedRole.Maker,
+                            Fee = update.Data.Fee,
+                            FeeAsset = update.Data.FeeAsset
                         }
                     }
                 })),
