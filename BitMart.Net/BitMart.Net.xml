@@ -602,6 +602,9 @@
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiExchangeData.GetMarkKlinesAsync(System.String,BitMart.Net.Enums.FuturesKlineInterval,System.DateTime,System.DateTime,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiExchangeData.GetLeverageBracketsAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiSubAccount">
             <inheritdoc />
         </member>
@@ -1291,6 +1294,11 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartSymbolBrackets">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartResponseBitMartSymbolNamesWrapper">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
@@ -1951,6 +1959,16 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartLeverageBracket">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartLeverageBracketArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartOpenInterest">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
@@ -2192,6 +2210,21 @@
             </summary>
         </member>
         <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartSymbolArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartSymbolBracket">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartSymbolBracketArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartSymbolBrackets">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -4545,6 +4578,14 @@
             <param name="limit">Max number of results, max 100</param>
             <param name="ct">Cancellation token</param>
         </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiExchangeData.GetLeverageBracketsAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get leverage bracket info
+            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-current-leverage-risk-limit" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `ETHUSDT`</param>
+            <param name="ct">Cancellation token</param>
+        </member>
         <member name="T:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiSubAccount">
             <summary>
             BitMart UsdFutures sub-account endpoints
@@ -6896,6 +6937,56 @@
         <member name="P:BitMart.Net.Objects.Models.BitMartLeverage.MaxValue">
             <summary>
             Max value
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Objects.Models.BitMartSymbolBracket">
+            <summary>
+            Symbol leverage bracket info
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartSymbolBracket.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartSymbolBracket.Brackets">
+            <summary>
+            Bracket info
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Objects.Models.BitMartLeverageBracket">
+            <summary>
+            Leverage bracket
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartLeverageBracket.Bracket">
+            <summary>
+            Bracket
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartLeverageBracket.InitialLeverage">
+            <summary>
+            Initial leverage
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartLeverageBracket.MaxNotionalValue">
+            <summary>
+            Maximum notional value in this bracket
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartLeverageBracket.MinNotionalValue">
+            <summary>
+            Minimum notional value in this bracket
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartLeverageBracket.MaintenanceMarginRatio">
+            <summary>
+            Maintenance margin ratio
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartLeverageBracket.CumulativeMaintenanceMargin">
+            <summary>
+            Cumulative maintenance margin amount
             </summary>
         </member>
         <member name="T:BitMart.Net.Objects.Models.BitMartOpenInterest">

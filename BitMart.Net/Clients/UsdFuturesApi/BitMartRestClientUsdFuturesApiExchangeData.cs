@@ -135,5 +135,20 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         }
 
         #endregion
+
+        #region Get Leverage Brackets
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<BitMartSymbolBracket[]>> GetLeverageBracketsAsync(string? symbol = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptional("symbol", symbol);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/public/leverage-bracket", BitMartExchange.RateLimiter.BitMart, 1, false,
+                new SingleLimitGuard(12, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var result = await _baseClient.SendAsync<BitMartSymbolBrackets>(request, parameters, ct).ConfigureAwait(false);
+            return result.As(result.Data?.Rules);
+        }
+
+        #endregion
     }
 }

@@ -75,5 +75,13 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="limit">Max number of results, max 100</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BitMartFundingRateHistory[]>> GetFundingRateHistoryAsync(string symbol, int? limit = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get leverage bracket info
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-current-leverage-risk-limit" /></para>
+        /// </summary>
+        /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<BitMartSymbolBracket[]>> GetLeverageBracketsAsync(string? symbol = null, CancellationToken ct = default);
     }
 }
