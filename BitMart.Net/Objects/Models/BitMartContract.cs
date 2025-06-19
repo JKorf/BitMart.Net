@@ -163,6 +163,16 @@ namespace BitMart.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("market_max_volume")]
         public decimal MaxMarketOrderQuantity { get; set; }
+        /// <summary>
+        /// Status
+        /// </summary>
+        [JsonPropertyName("status")]
+        public ContractStatus Status { get; set; }
+        /// <summary>
+        /// Delist time
+        /// </summary>
+        [JsonPropertyName("delist_time")]
+        public DateTime? DelistTime { get; set; }
     }
 
 

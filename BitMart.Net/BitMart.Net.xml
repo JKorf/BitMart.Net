@@ -796,6 +796,11 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.ContractStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.ContractType">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
@@ -2538,6 +2543,21 @@
         <member name="F:BitMart.Net.Enums.BalanceUpdateType.BmxDeduction">
             <summary>
             BMX handling fee deduction
+            </summary>
+        </member>
+        <member name="T:BitMart.Net.Enums.ContractStatus">
+            <summary>
+            Contract status
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.ContractStatus.Trading">
+            <summary>
+            Trading
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.ContractStatus.Delisted">
+            <summary>
+            Delisted
             </summary>
         </member>
         <member name="T:BitMart.Net.Enums.ContractType">
@@ -5651,6 +5671,16 @@
         <member name="P:BitMart.Net.Objects.Models.BitMartContract.MaxMarketOrderQuantity">
             <summary>
             Maximum market order quantity
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartContract.Status">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartContract.DelistTime">
+            <summary>
+            Delist time
             </summary>
         </member>
         <member name="T:BitMart.Net.Objects.Models.BitMartDepositAddress">
