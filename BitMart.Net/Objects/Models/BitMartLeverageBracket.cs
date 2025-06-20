@@ -22,7 +22,7 @@ namespace BitMart.Net.Objects.Models
         /// Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
-        public string Symbol { get; set; }
+        public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// Bracket info
         /// </summary>
