@@ -63,7 +63,7 @@ namespace BitMart.Net.Clients.SpotApi
         }
         #endregion 
 
-        protected override IByteMessageAccessor CreateAccessor() => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(BitMartExchange._serializerContext));
+        protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType type) => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(BitMartExchange._serializerContext));
 
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(BitMartExchange._serializerContext));
 
@@ -171,7 +171,7 @@ namespace BitMart.Net.Clients.SpotApi
         /// <inheritdoc />
         public override string? GetListenerIdentifier(IMessageAccessor message)
         {
-            if (!message.IsJson)
+            if (!message.IsValid)
                 return "pong";
 
             var evnt = message.GetValue<string>(_eventPath);
