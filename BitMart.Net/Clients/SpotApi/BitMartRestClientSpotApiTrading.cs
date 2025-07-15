@@ -30,7 +30,16 @@ namespace BitMart.Net.Clients.SpotApi
         #region Place Order
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMartOrderId>> PlaceOrderAsync(string symbol, OrderSide side, OrderType type, decimal? quantity = null, decimal? price = null, decimal? quoteQuantity = null, string? clientOrderId = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BitMartOrderId>> PlaceOrderAsync(
+            string symbol, 
+            OrderSide side, 
+            OrderType type, 
+            decimal? quantity = null,
+            decimal? price = null,
+            decimal? quoteQuantity = null, 
+            string? clientOrderId = null,
+            SelfTradePreventionMode? stpMode = null,
+            CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("symbol", symbol);
@@ -40,6 +49,7 @@ namespace BitMart.Net.Clients.SpotApi
             parameters.AddOptionalString("price", price);
             parameters.AddOptionalString("notional", quoteQuantity);
             parameters.AddOptional("client_order_id", clientOrderId);
+            parameters.AddOptionalEnum("stpMode", stpMode);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/spot/v2/submit_order", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(60, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartOrderId>(request, parameters, ct, additionalHeaders: new Dictionary<string, string>

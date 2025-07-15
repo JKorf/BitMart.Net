@@ -43,5 +43,10 @@ namespace BitMart.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("notional"), JsonConverter(typeof(DecimalStringWriterConverter)), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public decimal? QuoteQuantity { get; set; }
+        /// <summary>
+        /// Self trade prevention mode
+        /// </summary>
+        [JsonPropertyName("stpMode"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault))]
+        public SelfTradePreventionMode? StpMode { get; set; }
     }
 }

@@ -93,6 +93,11 @@ namespace BitMart.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("cancelSource")]
         public string? CancelSource { get; set; }
+        /// <summary>
+        /// Self trade prevention mode
+        /// </summary>
+        [JsonPropertyName("stpMode")]
+        public SelfTradePreventionMode? StpMode { get; set; }
     }
 
 

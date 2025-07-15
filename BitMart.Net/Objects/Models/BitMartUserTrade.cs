@@ -88,6 +88,12 @@ namespace BitMart.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("updateTime")]
         public DateTime? UpdateTime { get; set; }
+
+        /// <summary>
+        /// Self trade prevention mode
+        /// </summary>
+        [JsonPropertyName("stpMode")]
+        public SelfTradePreventionMode? StpMode { get; set; }
     }
 
 

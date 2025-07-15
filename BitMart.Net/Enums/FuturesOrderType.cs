@@ -43,7 +43,7 @@ namespace BitMart.Net.Enums
         /// <summary>
         /// Plan order
         /// </summary>
-        [Map("plan_order")]
+        [Map("plan_order", "planorder")]
         PlanOrder,
         /// <summary>
         /// Stop loss
