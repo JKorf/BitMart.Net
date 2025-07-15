@@ -83,5 +83,15 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BitMartSymbolBracket[]>> GetLeverageBracketsAsync(string? symbol = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get recent trades
+        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-market-trade" /></para>
+        /// </summary>
+        /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
+        /// <param name="limit">Max number of results</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<BitMartRecentTrade[]>> GetRecentTradesAsync(string symbol, int? limit = null, CancellationToken ct = default);
+
     }
 }

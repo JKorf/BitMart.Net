@@ -128,6 +128,30 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
         #endregion
 
+        #region Recent Trade client
+        GetRecentTradesOptions IRecentTradeRestClient.GetRecentTradesOptions { get; } = new GetRecentTradesOptions(100, false);
+
+        async Task<ExchangeWebResult<SharedTrade[]>> IRecentTradeRestClient.GetRecentTradesAsync(GetRecentTradesRequest request, CancellationToken ct)
+        {
+            var validationError = ((IRecentTradeRestClient)this).GetRecentTradesOptions.ValidateRequest(Exchange, request, request.Symbol.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedTrade[]>(Exchange, validationError);
+
+            var result = await ExchangeData.GetRecentTradesAsync(
+                request.Symbol.GetSymbol(FormatSymbol),
+                limit: request.Limit,
+                ct: ct).ConfigureAwait(false);
+            if (!result)
+                return result.AsExchangeResult<SharedTrade[]>(Exchange, null, default);
+
+            return result.AsExchangeResult<SharedTrade[]>(Exchange, request.Symbol.TradingMode, result.Data.Select(x => new SharedTrade(x.Quantity, x.Price, x.Timestamp)
+            {
+                Side = x.IsBuyerMaker ? SharedOrderSide.Sell : SharedOrderSide.Buy,
+            }).ToArray());
+        }
+
+        #endregion
+
         #region Futures Symbol client
 
         EndpointOptions<GetSymbolsRequest> IFuturesSymbolRestClient.GetFuturesSymbolsOptions { get; } = new EndpointOptions<GetSymbolsRequest>(false);

@@ -76,6 +76,7 @@ namespace BitMart.Net
             }
             else
             {
+                sharedRestClient = restClient.UsdFuturesApi.SharedClient;
                 sharedSocketClient = socketClient.UsdFuturesApi.SharedClient;
             }
 

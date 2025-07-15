@@ -150,5 +150,21 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         }
 
         #endregion
+
+        #region Get Recent Trades
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<BitMartRecentTrade[]>> GetRecentTradesAsync(string symbol, int? limit = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("symbol", symbol);
+            parameters.AddOptional("limit", limit);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "contract/public/market-trade", BitMartExchange.RateLimiter.BitMart, 1, false);
+            var result = await _baseClient.SendAsync<BitMartRecentTrade[]>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
     }
 }

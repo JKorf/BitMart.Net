@@ -143,6 +143,7 @@ namespace BitMart.Net.UnitTests
             await tester.ValidateAsync(client => client.UsdFuturesApi.ExchangeData.GetOpenInterestAsync("123"), "GetOpenInterest", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UsdFuturesApi.ExchangeData.GetCurrentFundingRateAsync("123"), "GetCurrentFundingRate", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UsdFuturesApi.ExchangeData.GetKlinesAsync("123", FuturesKlineInterval.OneDay, DateTime.UtcNow, DateTime.UtcNow), "GetKlines", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.UsdFuturesApi.ExchangeData.GetRecentTradesAsync("123"), "GetRecentTrades", nestedJsonProperty: "data");
         }
 
 
