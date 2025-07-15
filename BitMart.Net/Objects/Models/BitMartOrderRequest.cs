@@ -46,7 +46,7 @@ namespace BitMart.Net.Objects.Models
         /// <summary>
         /// Self trade prevention mode
         /// </summary>
-        [JsonPropertyName("stpMode"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault))]
+        [JsonPropertyName("stpMode"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public SelfTradePreventionMode? StpMode { get; set; }
     }
 }

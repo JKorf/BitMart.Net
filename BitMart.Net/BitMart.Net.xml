@@ -415,7 +415,7 @@
         <member name="T:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiTrading">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiTrading.PlaceOrderAsync(System.String,BitMart.Net.Enums.OrderSide,BitMart.Net.Enums.OrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiTrading.PlaceOrderAsync(System.String,BitMart.Net.Enums.OrderSide,BitMart.Net.Enums.OrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Nullable{BitMart.Net.Enums.SelfTradePreventionMode},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiTrading.PlaceMultipleOrdersAsync(System.String,System.Collections.Generic.IEnumerable{BitMart.Net.Objects.Models.BitMartOrderRequest},System.Threading.CancellationToken)">
@@ -938,6 +938,16 @@
             </summary>
         </member>
         <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.NullablePositionSide">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.SelfTradePreventionMode">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.NullableSelfTradePreventionMode">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -3396,6 +3406,31 @@
             Short direction
             </summary>
         </member>
+        <member name="T:BitMart.Net.Enums.SelfTradePreventionMode">
+            <summary>
+            Self trade prevention mode
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.SelfTradePreventionMode.None">
+            <summary>
+            None
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.SelfTradePreventionMode.CancelMaker">
+            <summary>
+            Cancel maker order
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.SelfTradePreventionMode.CancelTaker">
+            <summary>
+            Cancel taker order
+            </summary>
+        </member>
+        <member name="F:BitMart.Net.Enums.SelfTradePreventionMode.CancelBoth">
+            <summary>
+            Cancel both orders
+            </summary>
+        </member>
         <member name="T:BitMart.Net.Enums.ServiceType">
             <summary>
             System type
@@ -4139,7 +4174,7 @@
             BitMart Spot trading endpoints, placing and managing orders.
             </summary>
         </member>
-        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiTrading.PlaceOrderAsync(System.String,BitMart.Net.Enums.OrderSide,BitMart.Net.Enums.OrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiTrading.PlaceOrderAsync(System.String,BitMart.Net.Enums.OrderSide,BitMart.Net.Enums.OrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Nullable{BitMart.Net.Enums.SelfTradePreventionMode},System.Threading.CancellationToken)">
             <summary>
             Place a new order
             <para><a href="https://developer-pro.bitmart.com/en/spot/#new-order-v2-signed" /></para>
@@ -4151,6 +4186,7 @@
             <param name="price">Limit price</param>
             <param name="quoteQuantity">Quantity in quote asset for market orders</param>
             <param name="clientOrderId">Client order id</param>
+            <param name="stpMode">Self trade prevention mode</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiTrading.PlaceMultipleOrdersAsync(System.String,System.Collections.Generic.IEnumerable{BitMart.Net.Objects.Models.BitMartOrderRequest},System.Threading.CancellationToken)">
@@ -7126,6 +7162,11 @@
             Cancel source
             </summary>
         </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartOrder.StpMode">
+            <summary>
+            Self trade prevention mode
+            </summary>
+        </member>
         <member name="T:BitMart.Net.Objects.Models.BitMartOrderBook">
             <summary>
             Order book
@@ -7264,6 +7305,11 @@
         <member name="P:BitMart.Net.Objects.Models.BitMartOrderRequest.QuoteQuantity">
             <summary>
             Quote quantity for market order
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartOrderRequest.StpMode">
+            <summary>
+            Self trade prevention mode
             </summary>
         </member>
         <member name="T:BitMart.Net.Objects.Models.BitMartOrderUpdate">
@@ -8304,6 +8350,11 @@
         <member name="P:BitMart.Net.Objects.Models.BitMartUserTrade.UpdateTime">
             <summary>
             Update time
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartUserTrade.StpMode">
+            <summary>
+            Self trade prevention mode
             </summary>
         </member>
         <member name="T:BitMart.Net.Objects.Models.BitMartWithdrawalAddress">

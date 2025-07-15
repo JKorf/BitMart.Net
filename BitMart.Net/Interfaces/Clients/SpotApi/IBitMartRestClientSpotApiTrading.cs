@@ -24,8 +24,9 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// <param name="price">Limit price</param>
         /// <param name="quoteQuantity">Quantity in quote asset for market orders</param>
         /// <param name="clientOrderId">Client order id</param>
+        /// <param name="stpMode">Self trade prevention mode</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartOrderId>> PlaceOrderAsync(string symbol, OrderSide side, OrderType type, decimal? quantity = null, decimal? price = null, decimal? quoteQuantity = null, string? clientOrderId = null, CancellationToken ct = default);
+        Task<WebCallResult<BitMartOrderId>> PlaceOrderAsync(string symbol, OrderSide side, OrderType type, decimal? quantity = null, decimal? price = null, decimal? quoteQuantity = null, string? clientOrderId = null, SelfTradePreventionMode? stpMode = null, CancellationToken ct = default);
 
         /// <summary>
         /// Place multiple orders in one call
