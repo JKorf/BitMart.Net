@@ -46,6 +46,8 @@ namespace BitMart.Net.Clients.SpotApi
             base(logger, options.Environment.SocketClientSpotAddress!, options, options.SpotOptions)
         {
             KeepAliveInterval = TimeSpan.Zero;
+            ProcessUnparsableMessages = true;
+
             RegisterPeriodicQuery(
                 "ping",
                 TimeSpan.FromSeconds(15),

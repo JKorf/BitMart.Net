@@ -44,6 +44,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             base(logger, options.Environment.SocketClientPerpetualFuturesAddress!, options, options.UsdFuturesOptions)
         {
             KeepAliveInterval = TimeSpan.Zero;
+            ProcessUnparsableMessages = true;
 
             RegisterPeriodicQuery(
                 "ping",
