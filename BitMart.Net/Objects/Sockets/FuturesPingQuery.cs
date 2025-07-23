@@ -7,10 +7,9 @@ namespace BitMart.Net.Objects.Sockets
 {
     internal class FuturesPingQuery : Query<BitMartFuturesUpdate<string>>
     {
-        public override HashSet<string> ListenerIdentifiers { get; set; } = new HashSet<string> { "pong" };
-
         public FuturesPingQuery() : base("{\"action\":\"ping\"}", false) {
             RequestTimeout = TimeSpan.FromSeconds(5);
+            MessageMatcher = MessageMatcher.Create< BitMartFuturesUpdate<string>>("pong");
         }
     }
 }

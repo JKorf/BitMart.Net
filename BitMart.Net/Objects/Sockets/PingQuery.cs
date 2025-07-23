@@ -6,10 +6,9 @@ namespace BitMart.Net.Objects.Sockets
 {
     internal class PingQuery : Query<string>
     {
-        public override HashSet<string> ListenerIdentifiers { get; set; } = new HashSet<string> { "pong" };
-
         public PingQuery() : base("ping", false) {
             RequestTimeout = TimeSpan.FromSeconds(5);
+            MessageMatcher = MessageMatcher.Create<string>("pong");
         }
     }
 }

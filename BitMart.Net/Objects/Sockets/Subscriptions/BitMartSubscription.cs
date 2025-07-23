@@ -14,17 +14,8 @@ namespace BitMart.Net.Objects.Sockets.Subscriptions
     /// <inheritdoc />
     internal class BitMartSubscription<T> : Subscription<BitMartSocketResponse, BitMartSocketResponse>
     {
-        /// <inheritdoc />
-        public override HashSet<string> ListenerIdentifiers { get; set; }
-
         private readonly Action<DataEvent<T>> _handler;
         private readonly IEnumerable<string> _topics;
-
-        /// <inheritdoc />
-        public override Type? GetMessageType(IMessageAccessor message)
-        {
-            return typeof(BitMartUpdate<T>);
-        }
 
         /// <summary>
         /// ctor
@@ -37,7 +28,8 @@ namespace BitMart.Net.Objects.Sockets.Subscriptions
         {
             _handler = handler;
             _topics = topics;
-            ListenerIdentifiers = new HashSet<string>(topics);
+
+            MessageMatcher = MessageMatcher.Create<BitMartUpdate<T>>(topics, DoHandleMessage);
         }
 
         /// <inheritdoc />
@@ -47,10 +39,9 @@ namespace BitMart.Net.Objects.Sockets.Subscriptions
         public override Query? GetUnsubQuery() => new BitMartQuery("unsubscribe", _topics, Authenticated) { RequiredResponses = _topics.Count() };
 
         /// <inheritdoc />
-        public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<BitMartUpdate<T>> message)
         {
-            var data = (BitMartUpdate<T>)message.Data;
-            _handler.Invoke(message.As(data.Data, data.Table, null, SocketUpdateType.Update));
+            _handler.Invoke(message.As(message.Data.Data, message.Data.Table, null, SocketUpdateType.Update));
             return CallResult.SuccessResult;
         }
     }

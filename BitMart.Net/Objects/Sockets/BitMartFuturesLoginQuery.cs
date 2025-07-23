@@ -10,18 +10,16 @@ namespace BitMart.Net.Objects.Sockets
 {
     internal class BitMartFuturesLoginQuery : Query<BitMartFuturesLoginResponse>
     {
-        public override HashSet<string> ListenerIdentifiers { get; set; }
-
         public BitMartFuturesLoginQuery(string key, string timestamp, string sign) : base(new BitMartFuturesSocketOperation
         {
             Operation = "access",
             Parameters = new[] { key, timestamp, sign, "web" },
         }, false, 1)
         {
-            ListenerIdentifiers = new HashSet<string>() { "access" };
+            MessageMatcher = MessageMatcher.Create<BitMartFuturesLoginResponse>("access", HandleMessage);
         }
 
-        public override CallResult<BitMartFuturesLoginResponse> HandleMessage(SocketConnection connection, DataEvent<BitMartFuturesLoginResponse> message)
+        public CallResult<BitMartFuturesLoginResponse> HandleMessage(SocketConnection connection, DataEvent<BitMartFuturesLoginResponse> message)
         {
             if (message.Data.Success != true)
                 return new CallResult<BitMartFuturesLoginResponse>(new ServerError(message.Data.ErrorMessage!));

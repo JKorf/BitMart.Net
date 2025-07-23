@@ -8745,12 +8745,6 @@
         <member name="T:BitMart.Net.Objects.Sockets.Subscriptions.BitMartFuturesSubscription`1">
             <inheritdoc />
         </member>
-        <member name="P:BitMart.Net.Objects.Sockets.Subscriptions.BitMartFuturesSubscription`1.ListenerIdentifiers">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartFuturesSubscription`1.GetMessageType(CryptoExchange.Net.Interfaces.IMessageAccessor)">
-            <inheritdoc />
-        </member>
         <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartFuturesSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,System.String[],System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}},System.Boolean)">
             <summary>
             ctor
@@ -8766,16 +8760,10 @@
         <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartFuturesSubscription`1.GetUnsubQuery">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartFuturesSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{System.Object})">
+        <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartFuturesSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Internal.BitMartFuturesUpdate{`0}})">
             <inheritdoc />
         </member>
         <member name="T:BitMart.Net.Objects.Sockets.Subscriptions.BitMartSubscription`1">
-            <inheritdoc />
-        </member>
-        <member name="P:BitMart.Net.Objects.Sockets.Subscriptions.BitMartSubscription`1.ListenerIdentifiers">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartSubscription`1.GetMessageType(CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
         <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,System.String[],System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}},System.Boolean)">
@@ -8793,7 +8781,7 @@
         <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartSubscription`1.GetUnsubQuery">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{System.Object})">
+        <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Internal.BitMartUpdate{`0}})">
             <inheritdoc />
         </member>
         <member name="T:BitMart.Net.SymbolOrderBooks.BitMartOrderBookFactory">
