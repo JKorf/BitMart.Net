@@ -11,6 +11,7 @@ using BitMart.Net.Objects.Models;
 using BitMart.Net.Objects.Internal;
 using System.Collections.Generic;
 using CryptoExchange.Net.RateLimiting.Guards;
+using System.Linq;
 
 namespace BitMart.Net.Clients.SpotApi
 {
@@ -68,7 +69,7 @@ namespace BitMart.Net.Clients.SpotApi
         {
             var parameters = new ParameterCollection();
             parameters.Add("symbol", symbol);
-            parameters.Add("orderParams", orders);
+            parameters.Add("orderParams", orders.ToArray());
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/spot/v4/batch_orders", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartOrderIdsWrapper>(request, parameters, ct, additionalHeaders: new Dictionary<string, string>
@@ -110,8 +111,8 @@ namespace BitMart.Net.Clients.SpotApi
         {
             var parameters = new ParameterCollection();
             parameters.Add("symbol", symbol);
-            parameters.AddOptional("orderIds", orderIds);
-            parameters.AddOptional("clientOrderIds", clientOrderIds);
+            parameters.AddOptional("orderIds", orderIds?.ToArray());
+            parameters.AddOptional("clientOrderIds", clientOrderIds?.ToArray());
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/spot/v4/cancel_orders", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartCancelOrdersResult>(request, parameters, ct).ConfigureAwait(false);
