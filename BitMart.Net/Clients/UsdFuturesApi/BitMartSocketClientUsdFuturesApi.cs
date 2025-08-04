@@ -46,6 +46,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             KeepAliveInterval = TimeSpan.Zero;
             ProcessUnparsableMessages = true;
 
+            MessageSendSizeLimit = 2048;
+
             RegisterPeriodicQuery(
                 "ping",
                 TimeSpan.FromSeconds(15),
