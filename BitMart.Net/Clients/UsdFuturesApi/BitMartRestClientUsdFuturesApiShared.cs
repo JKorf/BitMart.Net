@@ -220,7 +220,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
         #region Klines client
 
-        GetKlinesOptions IKlineRestClient.GetKlinesOptions { get; } = new GetKlinesOptions(SharedPaginationSupport.Descending, true, 1000, false,
+        GetKlinesOptions IKlineRestClient.GetKlinesOptions { get; } = new GetKlinesOptions(SharedPaginationSupport.Descending, true, 500, false,
             SharedKlineInterval.OneMinute,
             SharedKlineInterval.FiveMinutes,
             SharedKlineInterval.FifteenMinutes,
@@ -249,7 +249,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             if (pageToken is DateTimeToken dateTimeToken)
                 endTime = dateTimeToken.LastTime;
 
-            var limit = request.Limit ?? 1000;
+            var limit = request.Limit ?? 500;
             DateTime startTime = request.StartTime ?? endTime.AddSeconds(-((int)interval) * limit);
             if (startTime < endTime)
             {
@@ -705,7 +705,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         #endregion
 
         #region Fee Client
-        EndpointOptions<GetFeeRequest> IFeeRestClient.GetFeeOptions { get; } = new EndpointOptions<GetFeeRequest>(false);
+        EndpointOptions<GetFeeRequest> IFeeRestClient.GetFeeOptions { get; } = new EndpointOptions<GetFeeRequest>(true);
 
         async Task<ExchangeWebResult<SharedFee>> IFeeRestClient.GetFeesAsync(GetFeeRequest request, CancellationToken ct)
         {
