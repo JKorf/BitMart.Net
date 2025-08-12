@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using CryptoExchange.Net;
 using BitMart.Net.Objects.Models;
 using System.Drawing;
+using CryptoExchange.Net.Objects.Errors;
 
 namespace BitMart.Net.Clients.UsdFuturesApi
 {
@@ -59,7 +60,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
             var symbol = resultTicker.Result.Data.SingleOrDefault();
             if (symbol == null)
-                return resultTicker.Result.AsExchangeError<SharedFuturesTicker>(Exchange, new ServerError("Symbol not found"));
+                return resultTicker.Result.AsExchangeError<SharedFuturesTicker>(Exchange, new ServerError(new ErrorInfo(ErrorType.UnknownSymbol, "Symbol not found")));
 
             return resultTicker.Result.AsExchangeResult(Exchange, SupportedTradingModes,
                 new SharedFuturesTicker(
@@ -237,7 +238,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         {
             var interval = (Enums.FuturesKlineInterval)request.Interval;
             if (!Enum.IsDefined(typeof(Enums.FuturesKlineInterval), interval))
-                return new ExchangeWebResult<SharedKline[]>(Exchange, new ArgumentError("Interval not supported"));
+                return new ExchangeWebResult<SharedKline[]>(Exchange, ArgumentError.Invalid(nameof(GetKlinesRequest.Interval), "Interval not supported"));
 
             var validationError = ((IKlineRestClient)this).GetKlinesOptions.ValidateRequest(Exchange, request, request.Symbol!.TradingMode, SupportedTradingModes);
             if (validationError != null)
@@ -383,7 +384,13 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
         string IFuturesOrderRestClient.GenerateClientOrderId() => ExchangeHelpers.RandomString(32);
 
-        PlaceFuturesOrderOptions IFuturesOrderRestClient.PlaceFuturesOrderOptions { get; } = new PlaceFuturesOrderOptions(true);
+        PlaceFuturesOrderOptions IFuturesOrderRestClient.PlaceFuturesOrderOptions { get; } = new PlaceFuturesOrderOptions(true)
+        {
+            RequiredOptionalParameters = new List<ParameterDescription>
+            {
+                new ParameterDescription(nameof(PlaceFuturesOrderRequest.PositionSide), typeof(SharedPositionSide), "Position side for the order", SharedPositionSide.Long)
+            }
+        };
         async Task<ExchangeWebResult<SharedId>> IFuturesOrderRestClient.PlaceFuturesOrderAsync(PlaceFuturesOrderRequest request, CancellationToken ct)
         {
             var validationError = ((IFuturesOrderRestClient)this).PlaceFuturesOrderOptions.ValidateRequest(
@@ -396,9 +403,6 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 ((IFuturesOrderRestClient)this).FuturesSupportedOrderQuantity);
             if (validationError != null)
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
-
-            if (request.PositionSide == null)
-                return new ExchangeWebResult<SharedId>(Exchange, new ArgumentError("PositionSide parameter missing"));
 
             var result = await Trading.PlaceOrderAsync(
                 request.Symbol!.GetSymbol(FormatSymbol),
@@ -542,7 +546,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 return new ExchangeWebResult<SharedUserTrade[]>(Exchange, validationError);
 
             if (!long.TryParse(request.OrderId, out var orderId))
-                return new ExchangeWebResult<SharedUserTrade[]>(Exchange, new ArgumentError("Invalid order id"));
+                return new ExchangeWebResult<SharedUserTrade[]>(Exchange, ArgumentError.Invalid(nameof(GetOrderTradesRequest.OrderId), "Invalid order id"));
 
             var orders = await Trading.GetUserTradesAsync(request.Symbol!.GetSymbol(FormatSymbol), ct: ct).ConfigureAwait(false);
             if (!orders)
@@ -773,7 +777,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
             var order = orders.Data.SingleOrDefault(x => x.OrderId == request.OrderId);
             if (order == null)
-                return orders.AsExchangeError<SharedFuturesTriggerOrder>(Exchange, new ServerError("Order not found"));
+                return orders.AsExchangeError<SharedFuturesTriggerOrder>(Exchange, new ServerError(new ErrorInfo(ErrorType.UnknownOrder, "Order not found")));
 
             return orders.AsExchangeResult(Exchange, SupportedTradingModes, new SharedFuturesTriggerOrder(
                 ExchangeSymbolCache.ParseSymbol(_topicId, order.Symbol),

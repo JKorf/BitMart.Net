@@ -22,6 +22,7 @@ using System.Collections.Generic;
 using System.Linq;
 using BitMart.Net.Enums;
 using CryptoExchange.Net.SharedApis;
+using CryptoExchange.Net.Objects.Errors;
 
 namespace BitMart.Net.Clients.UsdFuturesApi
 {
@@ -54,7 +55,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 x => new FuturesPingQuery(),
                 (connection, result) =>
                 {
-                    if (result.Error?.Message.Equals("Query timeout") == true)
+                    if (result.Error?.ErrorType == ErrorType.Timeout)
                     {
                         // Ping timeout, reconnect
                         _logger.LogWarning("[Sckt {SocketId}] Ping response timeout, reconnecting", connection.SocketId);
@@ -81,7 +82,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMartFuturesTickerUpdate>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMartFuturesSubscription<BitMartFuturesTickerUpdate>(_logger, symbols.Select(x => "futures/ticker:" + x).ToArray(), update => onMessage(update
+            var subscription = new BitMartFuturesSubscription<BitMartFuturesTickerUpdate>(_logger, this, symbols.Select(x => "futures/ticker:" + x).ToArray(), update => onMessage(update
                 .WithSymbol(update.Data.Symbol)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("api?protocol=1.1"), subscription, ct).ConfigureAwait(false);
         }
@@ -89,7 +90,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(Action<DataEvent<BitMartFuturesTickerUpdate>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMartFuturesSubscription<BitMartFuturesTickerUpdate>(_logger, new[] { "futures/ticker" } , update => onMessage(update
+            var subscription = new BitMartFuturesSubscription<BitMartFuturesTickerUpdate>(_logger, this, new[] { "futures/ticker" } , update => onMessage(update
                 .WithSymbol(update.Data.Symbol)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("api?protocol=1.1"), subscription, ct).ConfigureAwait(false);
         }
@@ -101,7 +102,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMartFundingRateUpdate>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMartFuturesSubscription<BitMartFundingRateUpdate>(_logger, symbols.Select(s => "futures/fundingRate:" + s).ToArray(),
+            var subscription = new BitMartFuturesSubscription<BitMartFundingRateUpdate>(_logger, this, symbols.Select(s => "futures/fundingRate:" + s).ToArray(),
                 update => onMessage(update
                     .WithSymbol(update.Data.Symbol)
                     .WithDataTimestamp(update.Data.Timestamp)), false);
@@ -115,7 +116,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMartFuturesTradeUpdate[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMartFuturesSubscription<BitMartFuturesTradeUpdate[]>(_logger, symbols.Select(s => "futures/trade:" + s).ToArray(), 
+            var subscription = new BitMartFuturesSubscription<BitMartFuturesTradeUpdate[]>(_logger, this, symbols.Select(s => "futures/trade:" + s).ToArray(), 
                 update => onMessage(update
                 .WithSymbol(update.Data.First().Symbol)
                 .WithDataTimestamp(update.Data.Max(x => x.Timestamp))), false);
@@ -129,7 +130,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(IEnumerable<string> symbols, int depth, Action<DataEvent<BitMartFuturesOrderBookUpdate>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMartFuturesSubscription<BitMartFuturesOrderBookUpdate>(_logger, symbols.Select(s => $"futures/depth{depth}:" + s).ToArray(),
+            var subscription = new BitMartFuturesSubscription<BitMartFuturesOrderBookUpdate>(_logger, this, symbols.Select(s => $"futures/depth{depth}:" + s).ToArray(),
                 update => onMessage(update
                 .WithSymbol(update.Data.Symbol)
                 .WithDataTimestamp(update.Data.Timestamp)), false);
@@ -143,7 +144,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookSnapshotUpdatesAsync(IEnumerable<string> symbols, int depth, Action<DataEvent<BitMartFuturesFullOrderBookUpdate>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMartFuturesSubscription<BitMartFuturesFullOrderBookUpdate>(_logger, symbols.Select(s => $"futures/depthAll{depth}:" + s).ToArray(),
+            var subscription = new BitMartFuturesSubscription<BitMartFuturesFullOrderBookUpdate>(_logger, this, symbols.Select(s => $"futures/depthAll{depth}:" + s).ToArray(),
                 update => onMessage(update
                 .WithSymbol(update.Data.Symbol)
                 .WithDataTimestamp(update.Data.Timestamp)), false);
@@ -157,7 +158,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookIncrementalUpdatesAsync(IEnumerable<string> symbols, int depth, Action<DataEvent<BitMartFuturesFullOrderBookUpdate>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMartFuturesSubscription<BitMartFuturesFullOrderBookUpdate>(_logger, symbols.Select(s => $"futures/depthIncrease{depth}:" + s).ToArray(),
+            var subscription = new BitMartFuturesSubscription<BitMartFuturesFullOrderBookUpdate>(_logger, this, symbols.Select(s => $"futures/depthIncrease{depth}:" + s).ToArray(),
                 update => onMessage(update
                 .WithSymbol(update.Data.Symbol)
                 .WithUpdateType(update.Data.Type == "snapshot" ? SocketUpdateType.Snapshot: SocketUpdateType.Update)
@@ -172,7 +173,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMartBookTicker>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMartFuturesSubscription<BitMartBookTicker>(_logger, symbols.Select(s => $"futures/bookticker:" + s).ToArray(),
+            var subscription = new BitMartFuturesSubscription<BitMartBookTicker>(_logger, this, symbols.Select(s => $"futures/bookticker:" + s).ToArray(),
                 update => onMessage(update
                 .WithSymbol(update.Data.Symbol)
                 .WithDataTimestamp(update.Data.Timestamp)), false);
@@ -187,7 +188,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(IEnumerable<string> symbols, FuturesStreamKlineInterval interval, Action<DataEvent<BitMartFuturesKlineUpdate>> onMessage, CancellationToken ct = default)
         {
             var intervalStr = EnumConverter.GetString(interval);
-            var subscription = new BitMartFuturesSubscription<BitMartFuturesKlineUpdate>(_logger, symbols.Select(s => $"futures/klineBin{intervalStr}:" + s).ToArray(),
+            var subscription = new BitMartFuturesSubscription<BitMartFuturesKlineUpdate>(_logger, this, symbols.Select(s => $"futures/klineBin{intervalStr}:" + s).ToArray(),
                 update => onMessage(update
                 .WithSymbol(update.Data.Symbol)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("api?protocol=1.1"), subscription, ct).ConfigureAwait(false);
@@ -201,7 +202,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         public async Task<CallResult<UpdateSubscription>> SubscribeToMarkKlineUpdatesAsync(IEnumerable<string> symbols, FuturesStreamKlineInterval interval, Action<DataEvent<BitMartFuturesKlineUpdate>> onMessage, CancellationToken ct = default)
         {
             var intervalStr = EnumConverter.GetString(interval);
-            var subscription = new BitMartFuturesSubscription<BitMartFuturesKlineUpdate>(_logger, symbols.Select(s => $"futures/markPriceKlineBin{intervalStr}:" + s).ToArray(),
+            var subscription = new BitMartFuturesSubscription<BitMartFuturesKlineUpdate>(_logger, this, symbols.Select(s => $"futures/markPriceKlineBin{intervalStr}:" + s).ToArray(),
                 update => onMessage(update
                 .WithSymbol(update.Data.Symbol)), false);
             return await SubscribeAsync(BaseAddress.AppendPath("api?protocol=1.1"), subscription, ct).ConfigureAwait(false);
@@ -210,14 +211,14 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(Action<DataEvent<BitMartFuturesBalanceUpdate>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMartFuturesSubscription<BitMartFuturesBalanceUpdate>(_logger, new[] { "futures/asset:USDT", "futures/asset:BTC", "futures/asset:ETH" }, onMessage, true);
+            var subscription = new BitMartFuturesSubscription<BitMartFuturesBalanceUpdate>(_logger, this, new[] { "futures/asset:USDT", "futures/asset:BTC", "futures/asset:ETH" }, onMessage, true);
             return await SubscribeAsync(BaseAddress.AppendPath("user?protocol=1.1"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(Action<DataEvent<BitMartPositionUpdate[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMartFuturesSubscription<BitMartPositionUpdate[]>(_logger, new[] { "futures/position" }, x => onMessage(
+            var subscription = new BitMartFuturesSubscription<BitMartPositionUpdate[]>(_logger, this, new[] { "futures/position" }, x => onMessage(
                 x.WithSymbol(x.Data.First().Symbol)
                 .WithDataTimestamp(x.Data.Max(x => x.UpdateTime))), true);
             return await SubscribeAsync(BaseAddress.AppendPath("user?protocol=1.1"), subscription, ct).ConfigureAwait(false);
@@ -226,7 +227,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<BitMartFuturesOrderUpdateEvent[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new BitMartFuturesSubscription<BitMartFuturesOrderUpdateEvent[]>(_logger, new[] { "futures/order" }, x => onMessage(
+            var subscription = new BitMartFuturesSubscription<BitMartFuturesOrderUpdateEvent[]>(_logger, this, new[] { "futures/order" }, x => onMessage(
                 x.WithSymbol(x.Data.First().Order.Symbol)
                 .WithDataTimestamp(x.Data.Max(x => x.Order.UpdateTime))), true);
             return await SubscribeAsync(BaseAddress.AppendPath("user?protocol=1.1"), subscription, ct).ConfigureAwait(false);

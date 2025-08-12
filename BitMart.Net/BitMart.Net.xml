@@ -8745,14 +8745,10 @@
         <member name="T:BitMart.Net.Objects.Sockets.Subscriptions.BitMartFuturesSubscription`1">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartFuturesSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,System.String[],System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}},System.Boolean)">
+        <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartFuturesSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,CryptoExchange.Net.Clients.SocketApiClient,System.String[],System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}},System.Boolean)">
             <summary>
             ctor
             </summary>
-            <param name="logger"></param>
-            <param name="topics"></param>
-            <param name="handler"></param>
-            <param name="auth"></param>
         </member>
         <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartFuturesSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
@@ -8766,14 +8762,10 @@
         <member name="T:BitMart.Net.Objects.Sockets.Subscriptions.BitMartSubscription`1">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,System.String[],System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}},System.Boolean)">
+        <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,CryptoExchange.Net.Clients.SocketApiClient,System.String[],System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}},System.Boolean)">
             <summary>
             ctor
             </summary>
-            <param name="logger"></param>
-            <param name="topics"></param>
-            <param name="handler"></param>
-            <param name="auth"></param>
         </member>
         <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />

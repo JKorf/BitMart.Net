@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using BitMart.Net.Objects.Models;
 using CryptoExchange.Net;
+using CryptoExchange.Net.Objects.Errors;
 
 namespace BitMart.Net.Clients.SpotApi
 {
@@ -39,7 +40,7 @@ namespace BitMart.Net.Clients.SpotApi
         {
             var interval = (Enums.KlineInterval)request.Interval;
             if (!Enum.IsDefined(typeof(Enums.KlineInterval), interval))
-                return new ExchangeWebResult<SharedKline[]>(Exchange, new ArgumentError("Interval not supported"));
+                return new ExchangeWebResult<SharedKline[]>(Exchange, ArgumentError.Invalid(nameof(GetKlinesRequest.Interval), "Interval not supported"));
 
             var validationError = ((IKlineRestClient)this).GetKlinesOptions.ValidateRequest(Exchange, request, request.Symbol!.TradingMode, SupportedTradingModes);
             if (validationError != null)
@@ -560,7 +561,7 @@ namespace BitMart.Net.Clients.SpotApi
 
             var asset = assets.Data.Where(x => x.Asset.Split(new[] { "-" }, StringSplitOptions.RemoveEmptyEntries)[0].Equals(request.Asset, StringComparison.InvariantCultureIgnoreCase)).ToList();
             if (asset == null)
-                return assets.AsExchangeError<SharedAsset>(Exchange, new ServerError("Asset not found"));
+                return assets.AsExchangeError<SharedAsset>(Exchange, new ServerError(new ErrorInfo(ErrorType.UnknownAsset, "Asset not found")));
 
             return assets.AsExchangeResult(Exchange, TradingMode.Spot, new SharedAsset(request.Asset)
             {
