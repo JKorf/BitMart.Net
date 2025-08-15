@@ -37,35 +37,10 @@ namespace BitMart.Net.Clients.SpotApi
         private static readonly MessagePath _eventPath = MessagePath.Get().Property("event");
         private static readonly MessagePath _symbolPath = MessagePath.Get().Property("data").Index(0).Property("symbol");
 
-        protected override ErrorCollection ErrorMapping { get; } = new ErrorCollection(
-            [
-                new ErrorInfo(ErrorType.Unauthorized, false, "API key error", "91001", "91002", "91003", "91004"),
-                new ErrorInfo(ErrorType.Unauthorized, false, "Signature error", "91010", "91011", "91021"),
-
-                new ErrorInfo(ErrorType.TimestampInvalid, false, "Timestamp error", "91022", "91023"),
-
-                new ErrorInfo(ErrorType.InvalidParameter, false, "Invalid parameter", "90003"),
-                new ErrorInfo(ErrorType.InvalidParameter, false, "Invalid channel", "90004"),
-                new ErrorInfo(ErrorType.InvalidParameter, false, "Invalid subscription", "90009"),
-                new ErrorInfo(ErrorType.InvalidParameter, false, "Too many topics in single subscription", "90005"),
-
-                new ErrorInfo(ErrorType.UnknownSymbol, false, "Symbol invalid", "92001"),
-
-                new ErrorInfo(ErrorType.SubscriptionRateLimited, false, "Too many subscriptions", "90006"),
-
-                new ErrorInfo(ErrorType.RequestRateLimited, false, "Too many subscriptions", "90007"),
-
-                new ErrorInfo(ErrorType.ConnectionRateLimited, false, "Too many connection attempts", "94001"),
-                new ErrorInfo(ErrorType.ConnectionRateLimited, false, "Too many connection", "94002"),
-
-                new ErrorInfo(ErrorType.DuplicateSubscription, false, "Duplicate subscription", "90008"),
-
-                new ErrorInfo(ErrorType.SystemError, true, "Duplicate subscription", "95000"),
-            ]
-        );
+        protected override ErrorCollection ErrorMapping => BitMartErrors.SpotSocketErrors;
         #endregion
 
-            #region constructor/destructor
+        #region constructor/destructor
 
             /// <summary>
             /// ctor

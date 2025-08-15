@@ -48,7 +48,7 @@ namespace BitMart.Net.UnitTests
             var result = await CreateClient().SpotApi.ExchangeData.GetOrderBookAsync("TST_TST", default);
 
             Assert.That(result.Success, Is.False);
-            Assert.That(result.Error.ErrorCode, Is.EqualTo(70002));
+            Assert.That(result.Error.ErrorCode, Is.EqualTo("70002"));
             Assert.That(result.Error.ErrorType, Is.EqualTo(ErrorType.UnknownSymbol));
         }
 

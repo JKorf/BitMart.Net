@@ -34,6 +34,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         #region fields
         private static readonly MessagePath _actionPath = MessagePath.Get().Property("action");
         private static readonly MessagePath _groupPath = MessagePath.Get().Property("group");
+
         #endregion
 
         #region constructor/destructor
