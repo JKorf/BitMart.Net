@@ -8,25 +8,23 @@ using System.Collections.Generic;
 using BitMart.Net.Objects.Models;
 using BitMart.Net.Objects.Internal;
 using System.Linq;
+using CryptoExchange.Net.Clients;
 
 namespace BitMart.Net.Objects.Sockets.Subscriptions
 {
     /// <inheritdoc />
     internal class BitMartFuturesSubscription<T> : Subscription<BitMartSocketResponse, BitMartSocketResponse>
     {
-
+        private readonly SocketApiClient _client;
         private readonly Action<DataEvent<T>> _handler;
         private readonly IEnumerable<string> _topics;
 
         /// <summary>
         /// ctor
         /// </summary>
-        /// <param name="logger"></param>
-        /// <param name="topics"></param>
-        /// <param name="handler"></param>
-        /// <param name="auth"></param>
-        public BitMartFuturesSubscription(ILogger logger, string[] topics, Action<DataEvent<T>> handler, bool auth) : base(logger, auth)
+        public BitMartFuturesSubscription(ILogger logger, SocketApiClient client, string[] topics, Action<DataEvent<T>> handler, bool auth) : base(logger, auth)
         {
+            _client = client;
             _handler = handler;
             _topics = topics;
 
@@ -34,10 +32,10 @@ namespace BitMart.Net.Objects.Sockets.Subscriptions
         }
 
         /// <inheritdoc />
-        public override Query? GetSubQuery(SocketConnection connection) => new BitMartFuturesQuery("subscribe", _topics, Authenticated) { RequiredResponses = _topics.Count() };
+        public override Query? GetSubQuery(SocketConnection connection) => new BitMartFuturesQuery(_client, "subscribe", _topics, Authenticated) { RequiredResponses = _topics.Count() };
 
         /// <inheritdoc />
-        public override Query? GetUnsubQuery() => new BitMartFuturesQuery("unsubscribe", _topics, Authenticated) { RequiredResponses = _topics.Count() };
+        public override Query? GetUnsubQuery() => new BitMartFuturesQuery(_client, "unsubscribe", _topics, Authenticated) { RequiredResponses = _topics.Count() };
 
         /// <inheritdoc />
         public CallResult DoHandleMessage(SocketConnection connection, DataEvent<BitMartFuturesUpdate<T>> message)

@@ -5,24 +5,28 @@ using System.Collections.Generic;
 using BitMart.Net.Objects.Models;
 using BitMart.Net.Objects.Internal;
 using System.Linq;
+using CryptoExchange.Net.Clients;
 
 namespace BitMart.Net.Objects.Sockets
 {
     internal class BitMartLoginQuery : Query<BitMartSocketResponse>
     {
-        public BitMartLoginQuery(string key, string timestamp, string sign) : base(new BitMartSocketOperation
+        private readonly SocketApiClient _client;
+
+        public BitMartLoginQuery(SocketApiClient client, string key, string timestamp, string sign) : base(new BitMartSocketOperation
         {
             Operation = "login",
             Parameters = new[] { key, timestamp, sign },
         }, false, 1)
         {
+            _client = client;
             MessageMatcher = MessageMatcher.Create<BitMartSocketResponse>("login", HandleMessage);
         }
 
         public CallResult<BitMartSocketResponse> HandleMessage(SocketConnection connection, DataEvent<BitMartSocketResponse> message)
         {
             if (message.Data.ErrorCode != null)
-                return new CallResult<BitMartSocketResponse>(new ServerError(message.Data.ErrorCode.Value, message.Data.ErrorMessage!));
+                return new CallResult<BitMartSocketResponse>(new ServerError(message.Data.ErrorCode.Value, _client.GetErrorInfo(message.Data.ErrorCode.Value, message.Data.ErrorMessage!)));
 
             return new CallResult<BitMartSocketResponse>(message.Data, message.OriginalData, null);
         }
