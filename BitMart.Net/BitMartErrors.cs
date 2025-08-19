@@ -9,7 +9,7 @@ namespace BitMart.Net
 {
     internal static class BitMartErrors
     {
-        public static ErrorCollection SpotRestErrors { get; } = new ErrorCollection(
+        public static ErrorMapping SpotRestErrors { get; } = new ErrorMapping(
             [
                 new ErrorInfo(ErrorType.Unauthorized, false, "Deposit not allowed", "60020"),
                 new ErrorInfo(ErrorType.Unauthorized, false, "Withdrawal not allowed", "60021"),
@@ -59,7 +59,7 @@ namespace BitMart.Net
                 new ErrorInfo(ErrorType.UnknownAsset, false, "Asset does not exist", "60002", "51000"),
 
                 new ErrorInfo(ErrorType.UnknownSymbol, false, "Invalid symbol", "70002"),
-                new ErrorInfo(ErrorType.UnknownSymbol, false, "Invalid symbol", "50000"),
+                new ErrorInfo(ErrorType.UnknownSymbol, false, "Invalid symbol", "50001"),
 
                 new ErrorInfo(ErrorType.UnavailableSymbol, false, "Symbol unavailable", "50040"),
 
@@ -88,7 +88,7 @@ namespace BitMart.Net
             ]
         );
 
-        public static ErrorCollection SpotSocketErrors { get; } = new ErrorCollection(
+        public static ErrorMapping SpotSocketErrors { get; } = new ErrorMapping(
             [
                 new ErrorInfo(ErrorType.Unauthorized, false, "API key error", "91001", "91002", "91003", "91004"),
                 new ErrorInfo(ErrorType.Unauthorized, false, "Signature error", "91010", "91011", "91021"),
@@ -115,7 +115,7 @@ namespace BitMart.Net
             ]
         );
 
-        public static ErrorCollection FuturesRestErrors { get; } = new ErrorCollection(
+        public static ErrorMapping FuturesRestErrors { get; } = new ErrorMapping(
             [
                 new ErrorInfo(ErrorType.Unauthorized, false, "API key error", "30003", "30011", "30012"),
                 new ErrorInfo(ErrorType.Unauthorized, false, "IP address error", "30010", "40006"),

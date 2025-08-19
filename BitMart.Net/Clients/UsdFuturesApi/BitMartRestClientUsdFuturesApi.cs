@@ -30,7 +30,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
         internal readonly string _brokerId;
 
-        protected override ErrorCollection ErrorMapping => BitMartErrors.FuturesRestErrors;
+        protected override ErrorMapping ErrorMapping => BitMartErrors.FuturesRestErrors;
         #endregion
 
         #region Api clients

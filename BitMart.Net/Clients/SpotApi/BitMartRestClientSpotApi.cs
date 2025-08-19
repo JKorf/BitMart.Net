@@ -28,7 +28,7 @@ namespace BitMart.Net.Clients.SpotApi
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Spot Api");
         internal readonly string _brokerId;
 
-        protected override ErrorCollection ErrorMapping => BitMartErrors.SpotRestErrors;
+        protected override ErrorMapping ErrorMapping => BitMartErrors.SpotRestErrors;
         #endregion
 
         #region Api clients

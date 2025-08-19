@@ -37,7 +37,7 @@ namespace BitMart.Net.Clients.SpotApi
         private static readonly MessagePath _eventPath = MessagePath.Get().Property("event");
         private static readonly MessagePath _symbolPath = MessagePath.Get().Property("data").Index(0).Property("symbol");
 
-        protected override ErrorCollection ErrorMapping => BitMartErrors.SpotSocketErrors;
+        protected override ErrorMapping ErrorMapping => BitMartErrors.SpotSocketErrors;
         #endregion
 
         #region constructor/destructor
