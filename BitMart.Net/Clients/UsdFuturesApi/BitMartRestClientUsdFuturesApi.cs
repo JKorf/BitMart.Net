@@ -17,6 +17,7 @@ using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Converters.MessageParsing;
 using BitMart.Net.Interfaces.Clients.SpotApi;
 using CryptoExchange.Net.SharedApis;
+using CryptoExchange.Net.Objects.Errors;
 
 namespace BitMart.Net.Clients.UsdFuturesApi
 {
@@ -28,10 +29,12 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         private readonly IBitMartRestClient _baseClient;
 
         internal readonly string _brokerId;
+
+        protected override ErrorMapping ErrorMapping => BitMartErrors.FuturesRestErrors;
         #endregion
 
         #region Api clients
-        /// <inheritdoc />
+            /// <inheritdoc />
         public IBitMartRestClientUsdFuturesApiAccount Account { get; }
         /// <inheritdoc />
         public IBitMartRestClientUsdFuturesApiExchangeData ExchangeData { get; }
@@ -78,7 +81,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 return result.AsDataless();
 
             if (result.Data.Code != 1000)
-                return result.AsDatalessError(new ServerError(result.Data.Code, result.Data.Message));
+                return result.AsDatalessError(new ServerError(result.Data.Code, GetErrorInfo(result.Data.Code, result.Data.Message)));
 
             return result.AsDataless();
         }
@@ -93,7 +96,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 return result.As<T>(default);
 
             if (result.Data.Code != 1000)
-                return result.AsError<T>(new ServerError(result.Data.Code, result.Data.Message));
+                return result.AsError<T>(new ServerError(result.Data.Code, GetErrorInfo(result.Data.Code, result.Data.Message)));
 
             return result.As(result.Data.Data);
         }
@@ -118,17 +121,17 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         protected override Error ParseErrorResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor, Exception? exception)
         {
             if (!accessor.IsValid)
-                return new ServerError(null, "Unknown request error", exception: exception);
+                return new ServerError(ErrorInfo.Unknown, exception: exception);
 
             var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));
             var msg = accessor.GetValue<string>(MessagePath.Get().Property("message"));
             if (msg == null)
-                return new ServerError(null, "Unknown request error", exception: exception);
+                return new ServerError(ErrorInfo.Unknown, exception: exception);
 
             if (code == null)
-                return new ServerError(null, msg, exception);
+                return new ServerError(ErrorInfo.Unknown with { Message = msg }, exception);
 
-            return new ServerError(code.Value, msg, exception);
+            return new ServerError(code.Value, GetErrorInfo(code.Value, msg), exception);
         }
     }
 }

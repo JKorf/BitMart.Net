@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
 using BitMart.Net.Objects;
 using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
@@ -8,6 +5,9 @@ using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
 
 namespace BitMart.Net
 {
@@ -21,34 +21,22 @@ namespace BitMart.Net
                 throw new ArgumentNullException(nameof(ApiCredentials.Pass), "Passphrase is required for BitMart authentication");
         }
 
-        public override void AuthenticateRequest(
-            RestApiClient apiClient,
-            Uri uri,
-            HttpMethod method, 
-            ref IDictionary<string, object>? uriParameters,
-            ref IDictionary<string, object>? bodyParameters, 
-            ref Dictionary<string, string>? headers,
-            bool auth, 
-            ArrayParametersSerialization arraySerialization, 
-            HttpMethodParameterPosition parameterPosition, 
-            RequestBodyFormat requestBodyFormat)
+        public override void ProcessRequest(RestApiClient apiClient, RestRequestConfiguration request)
         {
-            if (!auth)
+            if (!request.Authenticated)
                 return;
 
             var timestamp = GetMillisecondTimestamp(apiClient);
-            var paramStr = string.Empty;
-            if (uriParameters != null)
-                paramStr += uriParameters.ToFormData();
-            if (bodyParameters != null)
-                paramStr += _serializer.Serialize(bodyParameters);
+            var queryParams = request.GetQueryString(false);
+            var bodyParams = GetSerializedBody(_serializer, request.BodyParameters);
+            var signStr = $"{timestamp}#{_credentials.Pass}#{queryParams}{bodyParams}";
 
-            var signStr = $"{timestamp}#{_credentials.Pass}#{paramStr}";
+            request.Headers.Add("X-BM-KEY", ApiKey);
+            request.Headers.Add("X-BM-SIGN", SignHMACSHA256(signStr, SignOutputType.Hex).ToLowerInvariant());
+            request.Headers.Add("X-BM-TIMESTAMP", timestamp);
 
-            headers ??= new Dictionary<string, string>();
-            headers.Add("X-BM-KEY", ApiKey);
-            headers.Add("X-BM-SIGN", SignHMACSHA256(signStr, SignOutputType.Hex).ToLowerInvariant());
-            headers.Add("X-BM-TIMESTAMP", timestamp);
+            request.SetBodyContent(bodyParams);
+            request.SetQueryString(queryParams);
         }
 
         public string Sign(string data) => SignHMACSHA256(data, SignOutputType.Hex).ToLowerInvariant();

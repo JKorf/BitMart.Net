@@ -3,6 +3,7 @@ using BitMart.Net.Objects;
 using BitMart.Net.Objects.Options;
 using BitMart.Net.SymbolOrderBooks;
 using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.Testing;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -47,7 +48,8 @@ namespace BitMart.Net.UnitTests
             var result = await CreateClient().SpotApi.ExchangeData.GetOrderBookAsync("TST_TST", default);
 
             Assert.That(result.Success, Is.False);
-            Assert.That(result.Error.Code, Is.EqualTo(70002));
+            Assert.That(result.Error.ErrorCode, Is.EqualTo("70002"));
+            Assert.That(result.Error.ErrorType, Is.EqualTo(ErrorType.UnknownSymbol));
         }
 
         [Test]
