@@ -46,10 +46,12 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         #region Get Closed Orders
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMartFuturesOrder[]>> GetClosedOrdersAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BitMartFuturesOrder[]>> GetClosedOrdersAsync(string symbol, string? orderId = null, string? clientOrderId = null, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("symbol", symbol);
+            parameters.AddOptional("order_id", orderId);
+            parameters.AddOptional("client_order_id", clientOrderId);
             parameters.AddOptionalSeconds("start_time", startTime);
             parameters.AddOptionalSeconds("end_time", endTime);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/private/order-history", BitMartExchange.RateLimiter.BitMart, 1, true,

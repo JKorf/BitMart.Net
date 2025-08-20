@@ -197,11 +197,43 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
         EndpointOptions<GetOrderRequest> IFuturesOrderClientIdRestClient.GetFuturesOrderByClientOrderIdOptions { get; } = new EndpointOptions<GetOrderRequest>(true)
         {
-            Supported = false
         };
-        Task<ExchangeWebResult<SharedFuturesOrder>> IFuturesOrderClientIdRestClient.GetFuturesOrderByClientOrderIdAsync(GetOrderRequest request, CancellationToken ct)
+        async Task<ExchangeWebResult<SharedFuturesOrder>> IFuturesOrderClientIdRestClient.GetFuturesOrderByClientOrderIdAsync(GetOrderRequest request, CancellationToken ct)
         {
-            return Task.FromResult(new ExchangeWebResult<SharedFuturesOrder>(Exchange, new InvalidOperationError("Getting order by client order id not supported by BitMart API")));
+            var validationError = ((IFuturesOrderRestClient)this).GetFuturesOrderOptions.ValidateRequest(Exchange, request, request.Symbol!.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedFuturesOrder>(Exchange, validationError);
+
+            var orders = await Trading.GetClosedOrdersAsync(request.Symbol!.GetSymbol(FormatSymbol), clientOrderId: request.OrderId, ct: ct).ConfigureAwait(false);
+            if (!orders)
+                return orders.AsExchangeResult<SharedFuturesOrder>(Exchange, null, default);
+
+            var order = orders.Data.FirstOrDefault();
+            if (order == null)
+                return orders.AsExchangeError<SharedFuturesOrder>(Exchange, new ServerError(new ErrorInfo(ErrorType.UnknownOrder, "Order not found")));
+
+            return orders.AsExchangeResult(Exchange, request.Symbol!.TradingMode, new SharedFuturesOrder(
+                ExchangeSymbolCache.ParseSymbol(_topicId, order.Symbol),
+                order.Symbol,
+                order.OrderId,
+                ParseOrderType(order.OrderType),
+                (order.Side == FuturesSide.BuyCloseShort || order.Side == FuturesSide.BuyOpenLong) ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                ParseOrderStatus(order.Status, order.Quantity - order.QuantityFilled),
+                order.CreateTime)
+            {
+                ClientOrderId = order.ClientOrderId,
+                AveragePrice = order.AveragePrice == 0 ? null : order.AveragePrice,
+                OrderPrice = order.Price,
+                OrderQuantity = new SharedOrderQuantity(contractQuantity: order.Quantity),
+                QuantityFilled = new SharedOrderQuantity(contractQuantity: order.QuantityFilled),
+                Leverage = order.Leverage,
+                UpdateTime = order.UpdateTime,
+                PositionSide = (order.Side == FuturesSide.SellCloseLong || order.Side == FuturesSide.BuyOpenLong) ? SharedPositionSide.Long : SharedPositionSide.Short,
+                TakeProfitPrice = order.PresetTakeProfitPrice,
+                StopLossPrice = order.PresetStopLossPrice,
+                TriggerPrice = order.TriggerPrice,
+                IsTriggerOrder = order.TriggerPrice > 0
+            });
         }
 
         EndpointOptions<CancelOrderRequest> IFuturesOrderClientIdRestClient.CancelFuturesOrderByClientOrderIdOptions { get; } = new EndpointOptions<CancelOrderRequest>(true);

@@ -635,7 +635,7 @@
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.GetOrderAsync(System.String,System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.GetClosedOrdersAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.GetClosedOrdersAsync(System.String,System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.GetOpenOrdersAsync(System.String,System.Nullable{BitMart.Net.Enums.FuturesOrderType},System.Nullable{BitMart.Net.Enums.OrderStatusQuery},System.Nullable{System.Int32},System.Threading.CancellationToken)">
@@ -4726,12 +4726,14 @@
             <param name="orderId">Order id</param>
             <param name="ct">Cancellation token</param>
         </member>
-        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.GetClosedOrdersAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.GetClosedOrdersAsync(System.String,System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
             <summary>
             Get order history
             <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-order-history-keyed" /></para>
             </summary>
             <param name="symbol">The symbol, for example `ETHUSDT`</param>
+            <param name="orderId">Filter by order id</param>
+            <param name="clientOrderId">Filter by client order id</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
             <param name="ct">Cancellation token</param>

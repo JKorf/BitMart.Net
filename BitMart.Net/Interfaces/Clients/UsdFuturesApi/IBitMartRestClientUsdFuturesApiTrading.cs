@@ -28,10 +28,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-order-history-keyed" /></para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
+        /// <param name="orderId">Filter by order id</param>
+        /// <param name="clientOrderId">Filter by client order id</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartFuturesOrder[]>> GetClosedOrdersAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
+        Task<WebCallResult<BitMartFuturesOrder[]>> GetClosedOrdersAsync(string symbol, string? orderId = null, string? clientOrderId = null, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get open orders
