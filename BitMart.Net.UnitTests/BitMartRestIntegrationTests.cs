@@ -118,7 +118,7 @@ namespace BitMart.Net.UnitTests
         [Test]
         public async Task TestUsdFuturesTrading()
         {
-            await RunAndCheckResult(client => client.UsdFuturesApi.Trading.GetClosedOrdersAsync("ETHUSDT", default, default, default), true);
+            await RunAndCheckResult(client => client.UsdFuturesApi.Trading.GetClosedOrdersAsync("ETHUSDT", default, default, default, default, default), true);
             await RunAndCheckResult(client => client.UsdFuturesApi.Trading.GetOpenOrdersAsync(default, default, default, default, default), true);
             await RunAndCheckResult(client => client.UsdFuturesApi.Trading.GetTriggerOrdersAsync(default, default, default, default, default), true);
             await RunAndCheckResult(client => client.UsdFuturesApi.Trading.GetPositionsAsync(default, default), true);
