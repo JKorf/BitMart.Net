@@ -124,7 +124,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 return new ServerError(ErrorInfo.Unknown, exception: exception);
 
             var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));
-            var msg = accessor.GetValue<string>(MessagePath.Get().Property("message"));
+            var msg = accessor.GetValue<string>(MessagePath.Get().Property("message")) ?? accessor.GetValue<string>(MessagePath.Get().Property("msg"));
             if (msg == null)
                 return new ServerError(ErrorInfo.Unknown, exception: exception);
 

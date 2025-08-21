@@ -11,6 +11,14 @@ namespace BitMart.Net
     {
         public static ErrorMapping SpotRestErrors { get; } = new ErrorMapping(
             [
+                new ErrorInfo(ErrorType.Unauthorized, false, "API key error", "30002", "30003", "30011", "30012"),
+                new ErrorInfo(ErrorType.Unauthorized, false, "IP address error", "30010", "40006"),
+                new ErrorInfo(ErrorType.Unauthorized, false, "Insufficient permissions", "30019"),
+                new ErrorInfo(ErrorType.Unauthorized, false, "Restricted based on region", "40047"),
+                new ErrorInfo(ErrorType.Unauthorized, false, "Signature invalid", "30005"),
+
+                new ErrorInfo(ErrorType.InvalidTimestamp, false, "Timestamp invalid", "30007", "30008", "40008"),
+
                 new ErrorInfo(ErrorType.Unauthorized, false, "Deposit not allowed", "60020"),
                 new ErrorInfo(ErrorType.Unauthorized, false, "Withdrawal not allowed", "60021"),
                 new ErrorInfo(ErrorType.Unauthorized, false, "Withdrawal not allowed for 24 hours", "60022"),
@@ -117,7 +125,7 @@ namespace BitMart.Net
 
         public static ErrorMapping FuturesRestErrors { get; } = new ErrorMapping(
             [
-                new ErrorInfo(ErrorType.Unauthorized, false, "API key error", "30003", "30011", "30012"),
+                new ErrorInfo(ErrorType.Unauthorized, false, "API key error", "30002", "30003", "30011", "30012"),
                 new ErrorInfo(ErrorType.Unauthorized, false, "IP address error", "30010", "40006"),
                 new ErrorInfo(ErrorType.Unauthorized, false, "Insufficient permissions", "30019"),
                 new ErrorInfo(ErrorType.Unauthorized, false, "Restricted based on region", "40047"),
