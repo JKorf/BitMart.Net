@@ -232,6 +232,9 @@
         <member name="M:BitMart.Net.Clients.BitMartUserClientProvider.InitializeUserClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BitMart.Net.BitMartEnvironment)">
             <inheritdoc />
         </member>
+        <member name="M:BitMart.Net.Clients.BitMartUserClientProvider.ClearUserClients(System.String)">
+            <inheritdoc />
+        </member>
         <member name="M:BitMart.Net.Clients.BitMartUserClientProvider.GetRestClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BitMart.Net.BitMartEnvironment)">
             <inheritdoc />
         </member>
@@ -3731,6 +3734,11 @@
             <param name="userIdentifier">The identifier for the user</param>
             <param name="credentials">The credentials for the user</param>
             <param name="environment">The environment to use</param>
+        </member>
+        <member name="M:BitMart.Net.Interfaces.Clients.IBitMartUserClientProvider.ClearUserClients(System.String)">
+            <summary>
+            Reset the cached clients for a user. This can be useful when a user changes API credentials.
+            </summary>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.IBitMartUserClientProvider.GetRestClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BitMart.Net.BitMartEnvironment)">
             <summary>
@@ -8755,7 +8763,7 @@
         <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartFuturesSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartFuturesSubscription`1.GetUnsubQuery">
+        <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartFuturesSubscription`1.GetUnsubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
         </member>
         <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartFuturesSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Internal.BitMartFuturesUpdate{`0}})">
@@ -8772,7 +8780,7 @@
         <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartSubscription`1.GetUnsubQuery">
+        <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartSubscription`1.GetUnsubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
         </member>
         <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Internal.BitMartUpdate{`0}})">
