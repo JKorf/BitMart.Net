@@ -570,6 +570,7 @@ namespace BitMart.Net.Clients.SpotApi
                     DepositEnabled = x.DepositEnabled,
                     MinWithdrawQuantity = x.WithdrawMinsize,
                     WithdrawEnabled = x.WithdrawEnabled,
+                    ContractAddress = x.ContractAddress,
                     // WithdrawFee = x.WithdrawMinfee This is in USDT, so can't be used
                 }).ToArray()
             });
@@ -594,6 +595,7 @@ namespace BitMart.Net.Clients.SpotApi
                     DepositEnabled = x.DepositEnabled,
                     MinWithdrawQuantity = x.WithdrawMinsize,
                     WithdrawEnabled = x.WithdrawEnabled,
+                    ContractAddress = x.ContractAddress,
                     // WithdrawFee = x.WithdrawMinfee This is in USDT, so can't be used
                 }).ToArray()
             }).ToArray());

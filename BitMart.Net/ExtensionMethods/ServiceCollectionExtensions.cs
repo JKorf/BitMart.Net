@@ -103,6 +103,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<ICryptoSocketClient, CryptoSocketClient>();
             services.AddTransient<IBitMartOrderBookFactory, BitMartOrderBookFactory>();
             services.AddTransient<IBitMartTrackerFactory, BitMartTrackerFactory>();
+            services.AddTransient<ITrackerFactory, BitMartTrackerFactory>();
             services.AddSingleton<IBitMartUserClientProvider, BitMartUserClientProvider>(x =>
             new BitMartUserClientProvider(
                 x.GetRequiredService<HttpClient>(),
