@@ -131,10 +131,10 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         #region Get User Trades
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMartFuturesUserTrade[]>> GetUserTradesAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BitMartFuturesUserTrade[]>> GetUserTradesAsync(string? symbol = null, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            parameters.Add("symbol", symbol);
+            parameters.AddOptional("symbol", symbol);
             parameters.AddOptionalSeconds("start_time", startTime);
             parameters.AddOptionalSeconds("end_time", endTime);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/private/trades", BitMartExchange.RateLimiter.BitMart, 1, true,
