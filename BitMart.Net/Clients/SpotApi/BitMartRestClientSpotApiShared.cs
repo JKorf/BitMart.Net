@@ -213,19 +213,30 @@ namespace BitMart.Net.Clients.SpotApi
         #endregion
 
         #region Balance client
-        EndpointOptions<GetBalancesRequest> IBalanceRestClient.GetBalancesOptions { get; } = new EndpointOptions<GetBalancesRequest>(true);
+        GetBalancesOptions IBalanceRestClient.GetBalancesOptions { get; } = new GetBalancesOptions(AccountTypeFilter.Spot, AccountTypeFilter.Funding);
 
         async Task<ExchangeWebResult<SharedBalance[]>> IBalanceRestClient.GetBalancesAsync(GetBalancesRequest request, CancellationToken ct)
         {
-            var validationError = ((IBalanceRestClient)this).GetBalancesOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
+            var validationError = ((IBalanceRestClient)this).GetBalancesOptions.ValidateRequest(Exchange, request, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedBalance[]>(Exchange, validationError);
 
-            var result = await Account.GetSpotBalancesAsync(ct: ct).ConfigureAwait(false);
-            if (!result)
-                return result.AsExchangeResult<SharedBalance[]>(Exchange, null, default);
+            if (request.AccountType == SharedAccountType.Funding)
+            {
+                var result = await Account.GetFundingBalancesAsync(ct: ct).ConfigureAwait(false);
+                if (!result)
+                    return result.AsExchangeResult<SharedBalance[]>(Exchange, null, default);
 
-            return result.AsExchangeResult<SharedBalance[]>(Exchange, TradingMode.Spot, result.Data.Select(x => new SharedBalance(x.Id, x.Available, x.Available + x.Frozen)).ToArray());
+                return result.AsExchangeResult<SharedBalance[]>(Exchange, TradingMode.Spot, result.Data.Select(x => new SharedBalance(x.Name, x.Available, x.Available + x.Frozen)).ToArray());
+            }
+            else
+            {
+                var result = await Account.GetSpotBalancesAsync(ct: ct).ConfigureAwait(false);
+                if (!result)
+                    return result.AsExchangeResult<SharedBalance[]>(Exchange, null, default);
+
+                return result.AsExchangeResult<SharedBalance[]>(Exchange, TradingMode.Spot, result.Data.Select(x => new SharedBalance(x.Id, x.Available, x.Available + x.Frozen)).ToArray());
+            }
         }
 
         #endregion
@@ -402,6 +413,7 @@ namespace BitMart.Net.Clients.SpotApi
                 x.Price,
                 x.CreateTime)
             {
+                ClientOrderId = x.ClientOrderId,
                 Fee = x.Fee,
                 FeeAsset = x.FeeAsset,
                 Role = x.TradeRole == TradeRole.Maker ? SharedRole.Maker : SharedRole.Taker
@@ -444,6 +456,7 @@ namespace BitMart.Net.Clients.SpotApi
                 x.Price,
                 x.CreateTime)
             {
+                ClientOrderId = x.ClientOrderId,
                 Fee = x.Fee,
                 FeeAsset = x.FeeAsset,
                 Role = x.TradeRole == TradeRole.Maker ? SharedRole.Maker : SharedRole.Taker
@@ -754,5 +767,6 @@ namespace BitMart.Net.Clients.SpotApi
             return result.AsExchangeResult(Exchange, TradingMode.Spot, new SharedFee(result.Data.BuyMakerFeeRate * 100, result.Data.BuyTakerFeeRate * 100));
         }
         #endregion
+
     }
 }

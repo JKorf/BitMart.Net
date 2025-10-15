@@ -188,7 +188,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                         LastTrade = x.Order.LastTrade == null ? null : new SharedUserTrade(ExchangeSymbolCache.ParseSymbol(_topicId, x.Order.Symbol), x.Order.Symbol, x.Order.OrderId, x.Order.LastTrade.TradeId.ToString(), (x.Order.Side == Enums.FuturesSide.BuyCloseShort || x.Order.Side == Enums.FuturesSide.BuyOpenLong) ? SharedOrderSide.Buy : SharedOrderSide.Sell, x.Order.LastTrade.Quantity, x.Order.LastTrade.Price, x.Order.UpdateTime!.Value)
                         {
                             Fee = x.Order.LastTrade.Fee,
-                            FeeAsset = x.Order.LastTrade.FeeAsset
+                            FeeAsset = x.Order.LastTrade.FeeAsset,
+                            ClientOrderId = x.Order.ClientOrderId
                         }
                     }
                 ).ToArray())),
