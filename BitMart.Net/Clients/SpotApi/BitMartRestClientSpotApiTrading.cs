@@ -12,6 +12,7 @@ using BitMart.Net.Objects.Internal;
 using System.Collections.Generic;
 using CryptoExchange.Net.RateLimiting.Guards;
 using System.Linq;
+using CryptoExchange.Net;
 
 namespace BitMart.Net.Clients.SpotApi
 {
@@ -55,7 +56,7 @@ namespace BitMart.Net.Clients.SpotApi
                 new SingleLimitGuard(60, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartOrderId>(request, parameters, ct, additionalHeaders: new Dictionary<string, string>
             {
-                { "X-BM-BROKER-ID", _baseClient._brokerId }
+                { "X-BM-BROKER-ID", LibraryHelpers.GetClientReference(() => _baseClient.ClientOptions.BrokerId, _baseClient.Exchange) }
             }).ConfigureAwait(false);
             return result;
         }
@@ -74,7 +75,7 @@ namespace BitMart.Net.Clients.SpotApi
                 new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartOrderIdsWrapper>(request, parameters, ct, additionalHeaders: new Dictionary<string, string>
             {
-                { "X-BM-BROKER-ID", _baseClient._brokerId }
+                { "X-BM-BROKER-ID", LibraryHelpers.GetClientReference(() => _baseClient.ClientOptions.BrokerId, _baseClient.Exchange) }
             }).ConfigureAwait(false);
             if (!result)
                 return result.As<BitMartOrderIds>(default);
@@ -153,7 +154,7 @@ namespace BitMart.Net.Clients.SpotApi
                 new SingleLimitGuard(20, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartOrderId>(request, parameters, ct, additionalHeaders: new Dictionary<string, string>
             {
-                { "X-BM-BROKER-ID", _baseClient._brokerId }
+                { "X-BM-BROKER-ID", LibraryHelpers.GetClientReference(() => _baseClient.ClientOptions.BrokerId, _baseClient.Exchange) }
             }).ConfigureAwait(false);
             return result;
         }

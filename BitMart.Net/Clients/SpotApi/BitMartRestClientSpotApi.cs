@@ -26,7 +26,8 @@ namespace BitMart.Net.Clients.SpotApi
     {
         #region fields 
         internal static TimeSyncState _timeSyncState = new TimeSyncState("Spot Api");
-        internal readonly string _brokerId;
+
+        public new BitMartRestOptions ClientOptions => (BitMartRestOptions)base.ClientOptions;
 
         protected override ErrorMapping ErrorMapping => BitMartErrors.SpotRestErrors;
         #endregion
@@ -55,8 +56,6 @@ namespace BitMart.Net.Clients.SpotApi
             Margin = new BitMartRestClientSpotApiMargin(this);
             SubAccount = new BitMartRestClientSpotApiSubAccount(this);
             Trading = new BitMartRestClientSpotApiTrading(logger, this);
-
-            _brokerId = !string.IsNullOrEmpty(options.BrokerId) ? options.BrokerId! : "EASYTRADING0001";
         }
         #endregion
 

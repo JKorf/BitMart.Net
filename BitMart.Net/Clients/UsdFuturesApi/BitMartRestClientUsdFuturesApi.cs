@@ -28,8 +28,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         internal static TimeSyncState _timeSyncState = new TimeSyncState("UsdFutures Api");
         private readonly IBitMartRestClient _baseClient;
 
-        internal readonly string _brokerId;
-
+        public new BitMartRestOptions ClientOptions => (BitMartRestOptions)base.ClientOptions;
         protected override ErrorMapping ErrorMapping => BitMartErrors.FuturesRestErrors;
         #endregion
 
@@ -56,7 +55,6 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             Trading = new BitMartRestClientUsdFuturesApiTrading(logger, this);
 
             _baseClient = baseClient;
-            _brokerId = !string.IsNullOrEmpty(options.BrokerId) ? options.BrokerId! : "EASYTRADING0001";
         }
         #endregion
 

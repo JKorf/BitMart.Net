@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO.Pipes;
 using CryptoExchange.Net.RateLimiting.Guards;
+using CryptoExchange.Net;
 
 namespace BitMart.Net.Clients.UsdFuturesApi
 {
@@ -169,7 +170,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 new SingleLimitGuard(24, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartFuturesOrderResponse>(request, parameters, ct, additionalHeaders:new Dictionary<string, string>
             {
-                { "X-BM-BROKER-ID", _baseClient._brokerId }
+                { "X-BM-BROKER-ID", LibraryHelpers.GetClientReference(() => _baseClient.ClientOptions.BrokerId, _baseClient.Exchange) }
             }).ConfigureAwait(false);
             return result;
         }
@@ -203,7 +204,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 new SingleLimitGuard(24, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartOrderId>(request, parameters, ct, additionalHeaders: new Dictionary<string, string>
             {
-                { "X-BM-BROKER-ID", _baseClient._brokerId }
+                { "X-BM-BROKER-ID", LibraryHelpers.GetClientReference(() => _baseClient.ClientOptions.BrokerId, _baseClient.Exchange) }
             }).ConfigureAwait(false);
             return result;
         }
@@ -284,7 +285,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 new SingleLimitGuard(24, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartFuturesOrderId>(request, parameters, ct, additionalHeaders: new Dictionary<string, string>
             {
-                { "X-BM-BROKER-ID", _baseClient._brokerId }
+                { "X-BM-BROKER-ID", LibraryHelpers.GetClientReference(() => _baseClient.ClientOptions.BrokerId, _baseClient.Exchange) }
             }).ConfigureAwait(false);
             return result;
         }
@@ -328,7 +329,10 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             parameters.AddOptional("client_order_id", clientOrderId);
             parameters.AddOptionalEnum("category", triggerOrderType);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/contract/private/submit-tp-sl-order", BitMartExchange.RateLimiter.BitMart, 1, true);
-            var result = await _baseClient.SendAsync<BitMartOrderId>(request, parameters, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<BitMartOrderId>(request, parameters, ct, additionalHeaders: new Dictionary<string, string>
+            {
+                { "X-BM-BROKER-ID", LibraryHelpers.GetClientReference(() => _baseClient.ClientOptions.BrokerId, _baseClient.Exchange) }
+            }).ConfigureAwait(false);
             return result;
         }
 
