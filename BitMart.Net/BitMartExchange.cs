@@ -53,6 +53,16 @@ namespace BitMart.Net
         internal static JsonSerializerContext _serializerContext = JsonSerializerContextCache.GetOrCreate<BitMartSourceGenerationContext>();
 
         /// <summary>
+        /// Aliases for BitMart assets
+        /// </summary>
+        public static AssetAliasConfiguration AssetAliases { get; } = new AssetAliasConfiguration
+        {
+            Aliases = [
+                new AssetAlias("USDT", SharedSymbol.UsdOrStable, AliasType.OnlyToExchange)
+            ]
+        };
+
+        /// <summary>
         /// Format a base and quote asset to a BitMart recognized symbol 
         /// </summary>
         /// <param name="baseAsset">Base asset</param>
@@ -62,6 +72,9 @@ namespace BitMart.Net
         /// <returns></returns>
         public static string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
         {
+            baseAsset = AssetAliases.CommonToExchangeName(baseAsset);
+            quoteAsset = AssetAliases.CommonToExchangeName(quoteAsset);
+
             if (tradingMode == TradingMode.Spot)
                 return baseAsset.ToUpperInvariant() + "_" + quoteAsset.ToUpperInvariant();
 
