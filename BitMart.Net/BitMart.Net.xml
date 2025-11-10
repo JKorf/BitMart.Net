@@ -229,6 +229,9 @@
         <member name="T:BitMart.Net.Clients.BitMartUserClientProvider">
             <inheritdoc />
         </member>
+        <member name="P:BitMart.Net.Clients.BitMartUserClientProvider.ExchangeName">
+            <inheritdoc />
+        </member>
         <member name="M:BitMart.Net.Clients.BitMartUserClientProvider.#ctor(System.Action{BitMart.Net.Objects.Options.BitMartOptions})">
             <summary>
             ctor
@@ -8782,6 +8785,9 @@
             <summary>
             BitMart order book factory
             </summary>
+        </member>
+        <member name="P:BitMart.Net.SymbolOrderBooks.BitMartOrderBookFactory.ExchangeName">
+            <inheritdoc />
         </member>
         <member name="M:BitMart.Net.SymbolOrderBooks.BitMartOrderBookFactory.#ctor(System.IServiceProvider)">
             <summary>

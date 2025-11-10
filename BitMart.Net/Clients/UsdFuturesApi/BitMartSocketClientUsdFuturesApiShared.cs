@@ -21,7 +21,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         public void ResetDefaultExchangeParameters() => ExchangeParameters.ResetStaticParameters();
 
         #region Tickers client
-        EndpointOptions<SubscribeAllTickersRequest> ITickersSocketClient.SubscribeAllTickersOptions { get; } = new EndpointOptions<SubscribeAllTickersRequest>(false);
+        SubscribeTickersOptions ITickersSocketClient.SubscribeAllTickersOptions { get; } = new SubscribeTickersOptions();
         async Task<ExchangeResult<UpdateSubscription>> ITickersSocketClient.SubscribeToAllTickersUpdatesAsync(SubscribeAllTickersRequest request, Action<ExchangeEvent<SharedSpotTicker[]>> handler, CancellationToken ct)
         {
             var validationError = ((ITickersSocketClient)this).SubscribeAllTickersOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
@@ -36,7 +36,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         #endregion
 
         #region Ticker client
-        EndpointOptions<SubscribeTickerRequest> ITickerSocketClient.SubscribeTickerOptions { get; } = new EndpointOptions<SubscribeTickerRequest>(false)
+        SubscribeTickerOptions ITickerSocketClient.SubscribeTickerOptions { get; } = new SubscribeTickerOptions()
         {
             SupportsMultipleSymbols = true,
             MaxSymbolCount = 75
@@ -72,7 +72,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
             var symbols = request.Symbols?.Length > 0 ? request.Symbols.Select(x => x.GetSymbol(FormatSymbol)).ToArray() : [request.Symbol!.GetSymbol(FormatSymbol)];
-            var result = await SubscribeToTradeUpdatesAsync(symbols, update => handler(update.AsExchangeEvent(Exchange, update.Data.Select(x => new SharedTrade(x.Quantity, x.Price, x.Timestamp) { Side = x.BuyerIsMaker ? SharedOrderSide.Sell : SharedOrderSide.Buy }).ToArray())), ct).ConfigureAwait(false);
+            var result = await SubscribeToTradeUpdatesAsync(symbols, update => handler(update.AsExchangeEvent(Exchange, update.Data.Select(x =>
+                new SharedTrade(ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), x.Symbol, x.Quantity, x.Price, x.Timestamp) { Side = x.BuyerIsMaker ? SharedOrderSide.Sell : SharedOrderSide.Buy }).ToArray())), ct).ConfigureAwait(false);
             
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
         }
@@ -148,7 +149,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             var result = await SubscribeToKlineUpdatesAsync(symbols, interval, update =>
             {
                 foreach (var item in update.Data.Klines)
-                    handler(update.AsExchangeEvent(Exchange, new SharedKline(item.Timestamp!.Value, item.ClosePrice, item.HighPrice, item.LowPrice, item.OpenPrice, item.Volume)));
+                    handler(update.AsExchangeEvent(Exchange, new SharedKline(ExchangeSymbolCache.ParseSymbol(_topicId, update.Symbol), update.Symbol!, item.Timestamp!.Value, item.ClosePrice, item.HighPrice, item.LowPrice, item.OpenPrice, item.Volume)));
             }, ct).ConfigureAwait(false);
             
             return new ExchangeResult<UpdateSubscription>(Exchange, result);

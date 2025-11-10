@@ -65,10 +65,11 @@ namespace BitMart.Net.Clients.SpotApi
 
             // Get data
             WebCallResult<BitMartKline[]> result;
+            var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             if ((DateTime.UtcNow - endTime).TotalSeconds < (int)interval)
             {
                 result = await ExchangeData.GetKlinesAsync(
-                    request.Symbol!.GetSymbol(FormatSymbol),
+                    symbol,
                     interval,
                     startTime: startTime,
                     limit: limit,
@@ -78,7 +79,7 @@ namespace BitMart.Net.Clients.SpotApi
             else
             {
                 result = await ExchangeData.GetKlineHistoryAsync(
-                    request.Symbol!.GetSymbol(FormatSymbol),
+                    symbol,
                     interval,
                     startTime,
                     endTime,
@@ -94,7 +95,8 @@ namespace BitMart.Net.Clients.SpotApi
             if (result.Data.Count() == limit)
                 nextToken = new DateTimeToken(result.Data.Min(x => x.OpenTime));            
 
-            return result.AsExchangeResult<SharedKline[]>(Exchange, request.Symbol!.TradingMode, result.Data.Reverse().Select(x => new SharedKline(x.OpenTime, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.Volume)).ToArray(), nextToken);
+            return result.AsExchangeResult<SharedKline[]>(Exchange, request.Symbol!.TradingMode, result.Data.Reverse().Select(x => 
+            new SharedKline(request.Symbol, symbol, x.OpenTime, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.Volume)).ToArray(), nextToken);
         }
 
         #endregion
@@ -128,7 +130,7 @@ namespace BitMart.Net.Clients.SpotApi
 
         #region Ticker client
 
-        EndpointOptions<GetTickerRequest> ISpotTickerRestClient.GetSpotTickerOptions { get; } = new EndpointOptions<GetTickerRequest>(false);
+        GetTickerOptions ISpotTickerRestClient.GetSpotTickerOptions { get; } = new GetTickerOptions();
         async Task<ExchangeWebResult<SharedSpotTicker>> ISpotTickerRestClient.GetSpotTickerAsync(GetTickerRequest request, CancellationToken ct)
         {
             var validationError = ((ISpotTickerRestClient)this).GetSpotTickerOptions.ValidateRequest(Exchange, request, request.Symbol!.TradingMode, SupportedTradingModes);
@@ -145,7 +147,7 @@ namespace BitMart.Net.Clients.SpotApi
             });
         }
 
-        EndpointOptions<GetTickersRequest> ISpotTickerRestClient.GetSpotTickersOptions { get; } = new EndpointOptions<GetTickersRequest>(false);
+        GetTickersOptions ISpotTickerRestClient.GetSpotTickersOptions { get; } = new GetTickersOptions();
         async Task<ExchangeWebResult<SharedSpotTicker[]>> ISpotTickerRestClient.GetSpotTickersAsync(GetTickersRequest request, CancellationToken ct)
         {
             var validationError = ((ISpotTickerRestClient)this).GetSpotTickersOptions.ValidateRequest(Exchange, request, TradingMode.Spot, SupportedTradingModes);
@@ -197,14 +199,16 @@ namespace BitMart.Net.Clients.SpotApi
             if (validationError != null)
                 return new ExchangeWebResult<SharedTrade[]>(Exchange, validationError);
 
+            var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             var result = await ExchangeData.GetTradesAsync(
-                request.Symbol!.GetSymbol(FormatSymbol),
+                symbol,
                 limit: request.Limit,
                 ct: ct).ConfigureAwait(false);
             if (!result)
                 return result.AsExchangeResult<SharedTrade[]>(Exchange, null, default);
 
-            return result.AsExchangeResult<SharedTrade[]>(Exchange, request.Symbol!.TradingMode, result.Data.Select(x => new SharedTrade(x.Quantity, x.Price, x.Timestamp)
+            return result.AsExchangeResult<SharedTrade[]>(Exchange, request.Symbol!.TradingMode, result.Data.Select(x => 
+            new SharedTrade(request.Symbol, symbol, x.Quantity, x.Price, x.Timestamp)
             {
                 Side = x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
             }).ToArray());

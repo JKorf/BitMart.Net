@@ -8,7 +8,7 @@ namespace BitMart.Net.Interfaces
     /// <summary>
     /// BitMart local order book factory
     /// </summary>
-    public interface IBitMartOrderBookFactory
+    public interface IBitMartOrderBookFactory : IExchangeService
     {
         /// <summary>
         /// UsdFutures order book factory methods

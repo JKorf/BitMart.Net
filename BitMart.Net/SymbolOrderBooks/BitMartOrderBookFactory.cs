@@ -17,6 +17,9 @@ namespace BitMart.Net.SymbolOrderBooks
     {
         private readonly IServiceProvider _serviceProvider;
 
+        /// <inheritdoc />
+        public string ExchangeName => BitMartExchange.ExchangeName;
+
         /// <summary>
         /// ctor
         /// </summary>
