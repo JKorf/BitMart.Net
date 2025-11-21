@@ -16,13 +16,13 @@ namespace BitMart.Net.Objects.Sockets.Subscriptions
     internal class BitMartSubscription<T> : Subscription<BitMartSocketResponse, BitMartSocketResponse>
     {
         private readonly SocketApiClient _client;
-        private readonly Action<DataEvent<T>> _handler;
+        private readonly Action<DateTime, string?, BitMartUpdate<T>> _handler;
         private readonly IEnumerable<string> _topics;
 
         /// <summary>
         /// ctor
         /// </summary>
-        public BitMartSubscription(ILogger logger, SocketApiClient client, string[] topics, Action<DataEvent<T>> handler, bool auth) : base(logger, auth)
+        public BitMartSubscription(ILogger logger, SocketApiClient client, string[] topics, Action<DateTime, string?, BitMartUpdate<T>> handler, bool auth) : base(logger, auth)
         {
             _client = client;
             _handler = handler;
@@ -38,9 +38,9 @@ namespace BitMart.Net.Objects.Sockets.Subscriptions
         protected override Query? GetUnsubQuery(SocketConnection connection) => new BitMartQuery(_client, "unsubscribe", _topics, Authenticated) { RequiredResponses = _topics.Count() };
 
         /// <inheritdoc />
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<BitMartUpdate<T>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, BitMartUpdate<T> message)
         {
-            _handler.Invoke(message.As(message.Data.Data, message.Data.Table, null, SocketUpdateType.Update));
+            _handler.Invoke(receiveTime, originalData, message);
             return CallResult.SuccessResult;
         }
     }

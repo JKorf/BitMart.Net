@@ -6,6 +6,7 @@ using BitMart.Net.Objects.Models;
 using BitMart.Net.Objects.Internal;
 using System.Linq;
 using CryptoExchange.Net.Clients;
+using System;
 
 namespace BitMart.Net.Objects.Sockets
 {
@@ -23,12 +24,12 @@ namespace BitMart.Net.Objects.Sockets
             MessageMatcher = MessageMatcher.Create<BitMartSocketResponse>("login", HandleMessage);
         }
 
-        public CallResult<BitMartSocketResponse> HandleMessage(SocketConnection connection, DataEvent<BitMartSocketResponse> message)
+        public CallResult<BitMartSocketResponse> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, BitMartSocketResponse message)
         {
-            if (message.Data.ErrorCode != null)
-                return new CallResult<BitMartSocketResponse>(new ServerError(message.Data.ErrorCode.Value, _client.GetErrorInfo(message.Data.ErrorCode.Value, message.Data.ErrorMessage!)));
+            if (message.ErrorCode != null)
+                return new CallResult<BitMartSocketResponse>(new ServerError(message.ErrorCode.Value, _client.GetErrorInfo(message.ErrorCode.Value, message.ErrorMessage!)));
 
-            return new CallResult<BitMartSocketResponse>(message.Data, message.OriginalData, null);
+            return new CallResult<BitMartSocketResponse>(message, originalData, null);
         }
     }
 }

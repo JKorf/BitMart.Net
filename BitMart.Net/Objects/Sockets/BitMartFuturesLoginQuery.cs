@@ -6,6 +6,7 @@ using BitMart.Net.Objects.Models;
 using BitMart.Net.Objects.Internal;
 using System.Linq;
 using CryptoExchange.Net.Objects.Errors;
+using System;
 
 namespace BitMart.Net.Objects.Sockets
 {
@@ -20,12 +21,12 @@ namespace BitMart.Net.Objects.Sockets
             MessageMatcher = MessageMatcher.Create<BitMartFuturesLoginResponse>("access", HandleMessage);
         }
 
-        public CallResult<BitMartFuturesLoginResponse> HandleMessage(SocketConnection connection, DataEvent<BitMartFuturesLoginResponse> message)
+        public CallResult<BitMartFuturesLoginResponse> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, BitMartFuturesLoginResponse message)
         {
-            if (message.Data.Success != true)
-                return new CallResult<BitMartFuturesLoginResponse>(new ServerError(ErrorInfo.Unknown with { Message = message.Data.ErrorMessage! }));
+            if (message.Success != true)
+                return new CallResult<BitMartFuturesLoginResponse>(new ServerError(ErrorInfo.Unknown with { Message = message.ErrorMessage! }));
 
-            return message.ToCallResult(message.Data);
+            return new CallResult<BitMartFuturesLoginResponse>(message, originalData, null);
         }
     }
 }
