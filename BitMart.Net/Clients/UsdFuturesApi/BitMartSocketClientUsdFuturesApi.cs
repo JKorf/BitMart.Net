@@ -72,7 +72,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType type) => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(BitMartExchange._serializerContext));
 
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(BitMartExchange._serializerContext));
-        public override IMessageConverter CreateMessageConverter(WebSocketMessageType messageType) => new BitMartSocketClientFuturesApiMessageConverter();
+        public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new BitMartSocketClientFuturesApiMessageConverter();
 
         public IBitMartSocketClientUsdFuturesApiShared SharedClient => this;
 

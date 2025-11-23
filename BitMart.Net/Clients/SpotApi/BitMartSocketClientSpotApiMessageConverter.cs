@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace BitMart.Net.Clients.SpotApi
 {
-    internal class BitMartSocketClientSpotApiMessageConverter : DynamicJsonConverter
+    internal class BitMartSocketClientSpotApiMessageConverter : JsonSocketMessageHandler
     {
         public override JsonSerializerOptions Options { get; } = SerializerOptions.WithConverters(BitMartExchange._serializerContext);
 

@@ -73,7 +73,7 @@ namespace BitMart.Net.Clients.SpotApi
         protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType type) => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(BitMartExchange._serializerContext));
 
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(BitMartExchange._serializerContext));
-        public override IMessageConverter CreateMessageConverter(WebSocketMessageType messageType) => new BitMartSocketClientSpotApiMessageConverter();
+        public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new BitMartSocketClientSpotApiMessageConverter();
 
         public IBitMartSocketClientSpotApiShared SharedClient => this;
 
