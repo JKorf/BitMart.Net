@@ -1,23 +1,26 @@
+using Bitget.Net.Clients.MessageHandlers;
+using BitMart.Net.Interfaces.Clients;
+using BitMart.Net.Interfaces.Clients.SpotApi;
+using BitMart.Net.Interfaces.Clients.UsdFuturesApi;
+using BitMart.Net.Objects;
+using BitMart.Net.Objects.Internal;
+using BitMart.Net.Objects.Options;
 using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.Converters.MessageParsing;
+using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Objects.Errors;
+using CryptoExchange.Net.SharedApis;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
-using BitMart.Net.Interfaces.Clients.UsdFuturesApi;
-using BitMart.Net.Objects.Options;
-using CryptoExchange.Net.Clients;
-using BitMart.Net.Objects;
-using BitMart.Net.Interfaces.Clients;
-using BitMart.Net.Objects.Internal;
-using CryptoExchange.Net.Converters.SystemTextJson;
-using CryptoExchange.Net.Interfaces;
-using CryptoExchange.Net.Converters.MessageParsing;
-using BitMart.Net.Interfaces.Clients.SpotApi;
-using CryptoExchange.Net.SharedApis;
-using CryptoExchange.Net.Objects.Errors;
 
 namespace BitMart.Net.Clients.UsdFuturesApi
 {
@@ -30,10 +33,11 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
         public new BitMartRestOptions ClientOptions => (BitMartRestOptions)base.ClientOptions;
         protected override ErrorMapping ErrorMapping => BitMartErrors.FuturesRestErrors;
+        protected override IRestMessageHandler MessageHandler { get; } = new BitMartRestMessageHandler(BitMartErrors.FuturesRestErrors);
         #endregion
 
         #region Api clients
-            /// <inheritdoc />
+        /// <inheritdoc />
         public IBitMartRestClientUsdFuturesApiAccount Account { get; }
         /// <inheritdoc />
         public IBitMartRestClientUsdFuturesApiExchangeData ExchangeData { get; }
@@ -116,7 +120,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 => BitMartExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
 
         /// <inheritdoc />
-        protected override Error ParseErrorResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor, Exception? exception)
+        protected override Error ParseErrorResponse(int httpStatusCode, HttpResponseHeaders responseHeaders, IMessageAccessor accessor, Exception? exception)
         {
             if (!accessor.IsValid)
                 return new ServerError(ErrorInfo.Unknown, exception: exception);

@@ -28,9 +28,10 @@ namespace BitMart.Net
 
             var timestamp = GetMillisecondTimestamp(apiClient);
             var queryParams = request.GetQueryString(false);
-            var bodyParams = GetSerializedBody(_serializer, request.BodyParameters);
+            var bodyParams = GetSerializedBody(_serializer, request.BodyParameters ?? new Dictionary<string, object>());
             var signStr = $"{timestamp}#{_credentials.Pass}#{queryParams}{bodyParams}";
 
+            request.Headers ??= new Dictionary<string, string>();
             request.Headers.Add("X-BM-KEY", ApiKey);
             request.Headers.Add("X-BM-SIGN", SignHMACSHA256(signStr, SignOutputType.Hex).ToLowerInvariant());
             request.Headers.Add("X-BM-TIMESTAMP", timestamp);

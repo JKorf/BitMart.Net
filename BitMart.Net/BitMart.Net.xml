@@ -255,277 +255,6 @@
         <member name="M:BitMart.Net.Clients.BitMartUserClientProvider.GetSocketClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BitMart.Net.BitMartEnvironment)">
             <inheritdoc />
         </member>
-        <member name="T:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi">
-            <inheritdoc cref="T:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApi" />
-        </member>
-        <member name="P:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.Account">
-            <inheritdoc />
-        </member>
-        <member name="P:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.ExchangeData">
-            <inheritdoc />
-        </member>
-        <member name="P:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.Margin">
-            <inheritdoc />
-        </member>
-        <member name="P:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.SubAccount">
-            <inheritdoc />
-        </member>
-        <member name="P:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.Trading">
-            <inheritdoc />
-        </member>
-        <member name="P:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.ExchangeName">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.CreateAccessor">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.CreateSerializer">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.GetServerTimestampAsync">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.GetTimeSyncInfo">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.GetTimeOffset">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.ParseErrorResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor,System.Exception)">
-            <inheritdoc />
-        </member>
-        <member name="P:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.SharedClient">
-            <inheritdoc />
-        </member>
-        <member name="T:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount.GetFundingBalancesAsync(System.String,System.Nullable{System.Boolean},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount.GetSpotBalancesAsync(System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount.GetDepositAddressAsync(System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount.GetWithdrawalQuotaAsync(System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount.WithdrawAsync(System.String,System.Decimal,System.String,System.String,System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount.GetDepositHistoryAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount.GetWithdrawalHistoryAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount.GetDepositWithdrawalAsync(System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount.GetIsolatedMarginAccountsAsync(System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount.IsolatedMarginTransferAsync(System.String,System.String,System.Decimal,BitMart.Net.Enums.TransferDirection,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount.GetBaseTradeFeesAsync(System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount.GetSymbolTradeFeeAsync(System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount.GetWithdrawalAddressesAsync(System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="T:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetServerTimeAsync(System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetAssetsAsync(System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetSymbolsAsync(System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetSymbolNamesAsync(System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetTickerAsync(System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetTickersAsync(System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetAssetDepositWithdrawInfoAsync(System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetServerStatusAsync(System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetKlinesAsync(System.String,BitMart.Net.Enums.KlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetKlineHistoryAsync(System.String,BitMart.Net.Enums.KlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetTradesAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetOrderBookAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="T:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiMargin">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiMargin.BorrowAsync(System.String,System.String,System.Decimal,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiMargin.RepayAsync(System.String,System.String,System.Decimal,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiMargin.GetBorrowHistoryAsync(System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiMargin.GetRepayHistoryAsync(System.String,System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiMargin.GetBorrowInfoAsync(System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="T:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiSubAccount">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiSubAccount.TransferSubToMainForMainAsync(System.String,System.String,System.Decimal,System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiSubAccount.TransferSubToMainForSubAsync(System.String,System.String,System.Decimal,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiSubAccount.TransferMainToSubAccountAsync(System.String,System.String,System.Decimal,System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiSubAccount.TransferSubAccountToSubAccountAsync(System.String,System.Decimal,System.String,System.String,System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiSubAccount.GetSubAccountTransferHistoryForMainAsync(System.Int32,System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiSubAccount.GetSubAccountTransferHistoryAsync(System.Int32,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiSubAccount.GetSubAcccountBalanceAsync(System.String,System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiSubAccount.GetSubAccountListAsync(System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="T:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiTrading">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiTrading.PlaceOrderAsync(System.String,BitMart.Net.Enums.OrderSide,BitMart.Net.Enums.OrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Nullable{BitMart.Net.Enums.SelfTradePreventionMode},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiTrading.PlaceMultipleOrdersAsync(System.String,System.Collections.Generic.IEnumerable{BitMart.Net.Objects.Models.BitMartOrderRequest},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiTrading.CancelOrderAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiTrading.CancelOrdersAsync(System.String,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiTrading.CancelAllOrderAsync(System.String,System.Nullable{BitMart.Net.Enums.OrderSide},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiTrading.PlaceMarginOrderAsync(System.String,BitMart.Net.Enums.OrderSide,BitMart.Net.Enums.OrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiTrading.GetOrderAsync(System.String,System.Nullable{BitMart.Net.Enums.OrderQueryState},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiTrading.GetOrderByClientOrderIdAsync(System.String,System.Nullable{BitMart.Net.Enums.OrderQueryState},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiTrading.GetOpenOrdersAsync(System.String,System.Nullable{BitMart.Net.Enums.SpotMode},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiTrading.GetClosedOrdersAsync(System.String,System.Nullable{BitMart.Net.Enums.SpotMode},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiTrading.GetUserTradesAsync(System.String,System.Nullable{BitMart.Net.Enums.SpotMode},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiTrading.GetOrderTradesAsync(System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="T:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi">
-            <summary>
-            Client providing access to the BitMart Spot websocket Api
-            </summary>
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.#ctor(Microsoft.Extensions.Logging.ILogger,BitMart.Net.Objects.Options.BitMartSocketOptions)">
-            <summary>
-            ctor
-            </summary>
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartTickerUpdate}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartTickerUpdate}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToKlineUpdatesAsync(System.String,BitMart.Net.Enums.KlineStreamInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartKlineUpdate[]}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToKlineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},BitMart.Net.Enums.KlineStreamInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartKlineUpdate[]}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToPartialOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartOrderBookUpdate}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToPartialOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartOrderBookUpdate}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartOrderBookIncrementalUpdate}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartOrderBookIncrementalUpdate}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartTradeUpdate[]}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartTradeUpdate[]}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartOrderUpdate}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartBalanceUpdate}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.GetAuthenticationRequestAsync(CryptoExchange.Net.Sockets.SocketConnection)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
-            <inheritdoc />
-        </member>
         <member name="T:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi">
             <inheritdoc cref="T:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApi" />
         </member>
@@ -565,7 +294,7 @@
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.ParseErrorResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor,System.Exception)">
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.ParseErrorResponse(System.Int32,System.Net.Http.Headers.HttpResponseHeaders,CryptoExchange.Net.Interfaces.IMessageAccessor,System.Exception)">
             <inheritdoc />
         </member>
         <member name="T:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiAccount">
@@ -792,6 +521,277 @@
             <inheritdoc />
         </member>
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
+            <inheritdoc />
+        </member>
+        <member name="T:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi">
+            <inheritdoc cref="T:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApi" />
+        </member>
+        <member name="P:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.Account">
+            <inheritdoc />
+        </member>
+        <member name="P:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.ExchangeData">
+            <inheritdoc />
+        </member>
+        <member name="P:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.Margin">
+            <inheritdoc />
+        </member>
+        <member name="P:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.SubAccount">
+            <inheritdoc />
+        </member>
+        <member name="P:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.Trading">
+            <inheritdoc />
+        </member>
+        <member name="P:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.ExchangeName">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.CreateAccessor">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.CreateSerializer">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.GetServerTimestampAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.GetTimeSyncInfo">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.GetTimeOffset">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.ParseErrorResponse(System.Int32,System.Net.Http.Headers.HttpResponseHeaders,CryptoExchange.Net.Interfaces.IMessageAccessor,System.Exception)">
+            <inheritdoc />
+        </member>
+        <member name="P:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.SharedClient">
+            <inheritdoc />
+        </member>
+        <member name="T:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount.GetFundingBalancesAsync(System.String,System.Nullable{System.Boolean},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount.GetSpotBalancesAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount.GetDepositAddressAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount.GetWithdrawalQuotaAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount.WithdrawAsync(System.String,System.Decimal,System.String,System.String,System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount.GetDepositHistoryAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount.GetWithdrawalHistoryAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount.GetDepositWithdrawalAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount.GetIsolatedMarginAccountsAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount.IsolatedMarginTransferAsync(System.String,System.String,System.Decimal,BitMart.Net.Enums.TransferDirection,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount.GetBaseTradeFeesAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount.GetSymbolTradeFeeAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiAccount.GetWithdrawalAddressesAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetServerTimeAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetAssetsAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetSymbolsAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetSymbolNamesAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetTickerAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetTickersAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetAssetDepositWithdrawInfoAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetServerStatusAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetKlinesAsync(System.String,BitMart.Net.Enums.KlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetKlineHistoryAsync(System.String,BitMart.Net.Enums.KlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetTradesAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiExchangeData.GetOrderBookAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiMargin">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiMargin.BorrowAsync(System.String,System.String,System.Decimal,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiMargin.RepayAsync(System.String,System.String,System.Decimal,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiMargin.GetBorrowHistoryAsync(System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiMargin.GetRepayHistoryAsync(System.String,System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiMargin.GetBorrowInfoAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiSubAccount">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiSubAccount.TransferSubToMainForMainAsync(System.String,System.String,System.Decimal,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiSubAccount.TransferSubToMainForSubAsync(System.String,System.String,System.Decimal,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiSubAccount.TransferMainToSubAccountAsync(System.String,System.String,System.Decimal,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiSubAccount.TransferSubAccountToSubAccountAsync(System.String,System.Decimal,System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiSubAccount.GetSubAccountTransferHistoryForMainAsync(System.Int32,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiSubAccount.GetSubAccountTransferHistoryAsync(System.Int32,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiSubAccount.GetSubAcccountBalanceAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiSubAccount.GetSubAccountListAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiTrading">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiTrading.PlaceOrderAsync(System.String,BitMart.Net.Enums.OrderSide,BitMart.Net.Enums.OrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Nullable{BitMart.Net.Enums.SelfTradePreventionMode},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiTrading.PlaceMultipleOrdersAsync(System.String,System.Collections.Generic.IEnumerable{BitMart.Net.Objects.Models.BitMartOrderRequest},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiTrading.CancelOrderAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiTrading.CancelOrdersAsync(System.String,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiTrading.CancelAllOrderAsync(System.String,System.Nullable{BitMart.Net.Enums.OrderSide},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiTrading.PlaceMarginOrderAsync(System.String,BitMart.Net.Enums.OrderSide,BitMart.Net.Enums.OrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiTrading.GetOrderAsync(System.String,System.Nullable{BitMart.Net.Enums.OrderQueryState},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiTrading.GetOrderByClientOrderIdAsync(System.String,System.Nullable{BitMart.Net.Enums.OrderQueryState},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiTrading.GetOpenOrdersAsync(System.String,System.Nullable{BitMart.Net.Enums.SpotMode},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiTrading.GetClosedOrdersAsync(System.String,System.Nullable{BitMart.Net.Enums.SpotMode},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiTrading.GetUserTradesAsync(System.String,System.Nullable{BitMart.Net.Enums.SpotMode},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApiTrading.GetOrderTradesAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi">
+            <summary>
+            Client providing access to the BitMart Spot websocket Api
+            </summary>
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.#ctor(Microsoft.Extensions.Logging.ILogger,BitMart.Net.Objects.Options.BitMartSocketOptions)">
+            <summary>
+            ctor
+            </summary>
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartTickerUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartTickerUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToKlineUpdatesAsync(System.String,BitMart.Net.Enums.KlineStreamInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartKlineUpdate[]}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToKlineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},BitMart.Net.Enums.KlineStreamInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartKlineUpdate[]}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToPartialOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartOrderBookUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToPartialOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartOrderBookUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartOrderBookIncrementalUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartOrderBookIncrementalUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartTradeUpdate[]}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartTradeUpdate[]}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartOrderUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.SubscribeToBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartBalanceUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.GetAuthenticationRequestAsync(CryptoExchange.Net.Sockets.SocketConnection)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
         <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.Boolean">

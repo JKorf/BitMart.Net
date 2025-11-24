@@ -4,9 +4,9 @@ using System;
 using System.Net.WebSockets;
 using System.Text.Json;
 
-namespace BitMart.Net.Clients.SpotApi
+namespace BitMart.Net.Clients.MessageHandlers
 {
-    internal class BitMartSocketClientSpotApiMessageConverter : JsonSocketMessageHandler
+    internal class BitMartSocketSpotMessageConverter : JsonSocketMessageHandler
     {
         public override JsonSerializerOptions Options { get; } = SerializerOptions.WithConverters(BitMartExchange._serializerContext);
 
@@ -24,7 +24,7 @@ namespace BitMart.Net.Clients.SpotApi
             new MessageEvaluator {
                 Priority = 2,
                 Fields = [
-                    new PropertyFieldReference("table") { Constraint = x => x.Equals("spot/user/orders", StringComparison.Ordinal) },
+                    new PropertyFieldReference("table") { Constraint = x => x!.Equals("spot/user/orders", StringComparison.Ordinal) },
                 ],
                 StaticIdentifier = "spot/user/orders:ALL_SYMBOLS"
             },
@@ -32,7 +32,7 @@ namespace BitMart.Net.Clients.SpotApi
             new MessageEvaluator {
                 Priority = 3,
                 Fields = [
-                    new PropertyFieldReference("table") { Constraint = x => x.Equals("spot/user/balance", StringComparison.Ordinal) },
+                    new PropertyFieldReference("table") { Constraint = x => x!.Equals("spot/user/balance", StringComparison.Ordinal) },
                 ],
                 StaticIdentifier = "spot/user/balance:BALANCE_UPDATE"
             },
@@ -43,7 +43,7 @@ namespace BitMart.Net.Clients.SpotApi
                     new PropertyFieldReference("table") 
                     { 
                         Constraint = x => {
-                            return !x.Equals("spot/user/balance", StringComparison.Ordinal)
+                            return !x!.Equals("spot/user/balance", StringComparison.Ordinal)
                                 && !x.Equals("spot/user/orders", StringComparison.Ordinal);
                         }
                     },

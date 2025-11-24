@@ -18,6 +18,9 @@ using System.Linq;
 using BitMart.Net.Enums;
 using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Objects.Errors;
+using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
+using Bitget.Net.Clients.MessageHandlers;
+using System.Net.Http.Headers;
 
 namespace BitMart.Net.Clients.SpotApi
 {
@@ -30,6 +33,8 @@ namespace BitMart.Net.Clients.SpotApi
         public new BitMartRestOptions ClientOptions => (BitMartRestOptions)base.ClientOptions;
 
         protected override ErrorMapping ErrorMapping => BitMartErrors.SpotRestErrors;
+
+        protected override IRestMessageHandler MessageHandler { get; } = new BitMartRestMessageHandler(BitMartErrors.SpotRestErrors);
         #endregion
 
         #region Api clients
@@ -129,7 +134,7 @@ namespace BitMart.Net.Clients.SpotApi
                 => BitMartExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
 
         /// <inheritdoc />
-        protected override Error ParseErrorResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor, Exception? exception)
+        protected override Error ParseErrorResponse(int httpStatusCode, HttpResponseHeaders responseHeaders, IMessageAccessor accessor, Exception? exception)
         {
             if (!accessor.IsValid)
                 return new ServerError(ErrorInfo.Unknown, exception: exception);
@@ -145,7 +150,7 @@ namespace BitMart.Net.Clients.SpotApi
             return new ServerError(code.Value, GetErrorInfo(code.Value, msg), exception);
         }
 
-        protected override ServerRateLimitError ParseRateLimitResponse(int httpStatusCode, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor)
+        protected override ServerRateLimitError ParseRateLimitResponse(int httpStatusCode, HttpResponseHeaders responseHeaders, IMessageAccessor accessor)
         {
             var error = base.ParseRateLimitResponse(httpStatusCode, responseHeaders, accessor);
             var retryAfterHeader = responseHeaders.SingleOrDefault(r => r.Key.Equals("X-BM-RateLimit-Reset", StringComparison.InvariantCultureIgnoreCase));

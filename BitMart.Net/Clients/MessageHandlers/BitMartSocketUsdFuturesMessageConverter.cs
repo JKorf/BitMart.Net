@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace BitMart.Net.Clients.UsdFuturesApi
 {
-    internal class BitMartSocketClientFuturesApiMessageConverter : JsonSocketMessageHandler
+    internal class BitMartSocketUsdFuturesMessageConverter : JsonSocketMessageHandler
     {
         public override JsonSerializerOptions Options { get; } = SerializerOptions.WithConverters(BitMartExchange._serializerContext);
 
@@ -15,7 +15,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             new MessageEvaluator {
                 Priority = 1,
                 Fields = [
-                    new PropertyFieldReference("group") { Constraint = x => x.Equals("System", StringComparison.Ordinal) },
+                    new PropertyFieldReference("group") { Constraint = x => x!.Equals("System", StringComparison.Ordinal) },
                 ],
                 StaticIdentifier = "pong"
             },
@@ -23,7 +23,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             new MessageEvaluator {
                 Priority = 2,
                 Fields = [
-                    new PropertyFieldReference("action") { Constraint = x => x.Equals("access", StringComparison.Ordinal) },
+                    new PropertyFieldReference("action") { Constraint = x => x!.Equals("access", StringComparison.Ordinal) },
                 ],
                 StaticIdentifier = "access"
             },
@@ -32,7 +32,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             new MessageEvaluator {
                 Priority = 3,
                 Fields = [
-                    new PropertyFieldReference("group") { Constraint = x => !x.Equals("System", StringComparison.Ordinal) },
+                    new PropertyFieldReference("group") { Constraint = x => !x!.Equals("System", StringComparison.Ordinal) },
                     new PropertyFieldReference("action"),
                 ],
                 IdentifyMessageCallback = x => $"{x.FieldValue("action")}-{x.FieldValue("group")}"
@@ -41,7 +41,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             new MessageEvaluator {
                 Priority = 4,
                 Fields = [
-                    new PropertyFieldReference("group") { Constraint = x => !x.Equals("System", StringComparison.Ordinal) },
+                    new PropertyFieldReference("group") { Constraint = x => !x!.Equals("System", StringComparison.Ordinal) },
                 ],
                 IdentifyMessageCallback = x => $"{x.FieldValue("group")}"
             },
