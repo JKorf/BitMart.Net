@@ -29,6 +29,7 @@ namespace BitMart.Net.Objects.Sockets.Subscriptions
             _topics = topics;
 
             MessageMatcher = MessageMatcher.Create<BitMartUpdate<T>>(topics, DoHandleMessage);
+            MessageRouter = MessageRouter.Create<BitMartUpdate<T>>(topics, DoHandleMessage);
         }
 
         /// <inheritdoc />

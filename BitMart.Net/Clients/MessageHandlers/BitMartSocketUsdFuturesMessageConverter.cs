@@ -10,7 +10,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
     {
         public override JsonSerializerOptions Options { get; } = SerializerOptions.WithConverters(BitMartExchange._serializerContext);
 
-        protected override MessageEvaluator[] MessageEvaluators { get; } = [
+        protected override MessageEvaluator[] TypeEvaluators { get; } = [
 
             new MessageEvaluator {
                 Priority = 1,

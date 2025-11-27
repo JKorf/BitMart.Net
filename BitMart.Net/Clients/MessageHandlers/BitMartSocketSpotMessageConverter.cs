@@ -10,7 +10,7 @@ namespace BitMart.Net.Clients.MessageHandlers
     {
         public override JsonSerializerOptions Options { get; } = SerializerOptions.WithConverters(BitMartExchange._serializerContext);
 
-        protected override MessageEvaluator[] MessageEvaluators { get; } = [
+        protected override MessageEvaluator[] TypeEvaluators { get; } = [
 
             new MessageEvaluator {
                 Priority = 1,
@@ -62,12 +62,12 @@ namespace BitMart.Net.Clients.MessageHandlers
 
         ];
 
-        public override string? GetMessageIdentifier(ReadOnlySpan<byte> data, WebSocketMessageType? webSocketMessageType)
+        public override string? GetTypeIdentifier(ReadOnlySpan<byte> data, WebSocketMessageType? webSocketMessageType)
         {
             if (data.Length == 4)
                 return "pong";
 
-            return base.GetMessageIdentifier(data, webSocketMessageType);
+            return base.GetTypeIdentifier(data, webSocketMessageType);
         }
     }
 }

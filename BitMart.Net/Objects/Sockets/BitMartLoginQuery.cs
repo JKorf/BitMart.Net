@@ -22,6 +22,7 @@ namespace BitMart.Net.Objects.Sockets
         {
             _client = client;
             MessageMatcher = MessageMatcher.Create<BitMartSocketResponse>("login", HandleMessage);
+            MessageRouter = MessageRouter.Create<BitMartSocketResponse>("login", HandleMessage);
         }
 
         public CallResult<BitMartSocketResponse> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, BitMartSocketResponse message)
