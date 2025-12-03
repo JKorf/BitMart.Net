@@ -100,7 +100,7 @@ namespace BitMart.Net.Clients.SpotApi
                     );
             });
 
-            var subscription = new BitMartSubscription<BitMartTickerUpdate[]>(_logger, this, symbols.Select(s => "spot/ticker:" + s).ToArray(), handler, false);
+            var subscription = new BitMartSubscription<BitMartTickerUpdate[]>(_logger, this, "spot/ticker", symbols.ToArray(), handler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("api?protocol=1.1"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -122,7 +122,7 @@ namespace BitMart.Net.Clients.SpotApi
                     );
             });
 
-            var subscription = new BitMartSubscription<BitMartKlineUpdate[]>(_logger, this, symbols.Select(s => $"spot/kline{intervalStr}:" + s).ToArray(), handler, false);
+            var subscription = new BitMartSubscription<BitMartKlineUpdate[]>(_logger, this, $"spot/kline{intervalStr}", symbols.ToArray(), handler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("api?protocol=1.1"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -145,7 +145,7 @@ namespace BitMart.Net.Clients.SpotApi
                         .WithDataTimestamp(data.Data.Max(x => x.Timestamp))
                     );
             });
-            var subscription = new BitMartSubscription<BitMartOrderBookUpdate[]>(_logger, this, symbols.Select(s => $"spot/depth{depth}:" + s).ToArray(), handler, false);
+            var subscription = new BitMartSubscription<BitMartOrderBookUpdate[]>(_logger, this, $"spot/depth{depth}", symbols.ToArray(), handler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("api?protocol=1.1"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -167,7 +167,7 @@ namespace BitMart.Net.Clients.SpotApi
                     );
             });
 
-            var subscription = new BitMartSubscription<BitMartOrderBookIncrementalUpdate[]>(_logger, this, symbols.Select(s => $"spot/depth/increase100:" + s).ToArray(), handler, false);
+            var subscription = new BitMartSubscription<BitMartOrderBookIncrementalUpdate[]>(_logger, this, "spot/depth/increase100", symbols.ToArray(), handler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("api?protocol=1.1"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -188,7 +188,7 @@ namespace BitMart.Net.Clients.SpotApi
                         .WithDataTimestamp(data.Data.Max(x => x.Timestamp))
                     );
             });
-            var subscription = new BitMartSubscription<BitMartTradeUpdate[]>(_logger, this, symbols.Select(s => $"spot/trade:" + s).ToArray(), handler, false);
+            var subscription = new BitMartSubscription<BitMartTradeUpdate[]>(_logger, this, "spot/trade", symbols.ToArray(), handler, false);
             return await SubscribeAsync(BaseAddress.AppendPath("api?protocol=1.1"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -205,7 +205,7 @@ namespace BitMart.Net.Clients.SpotApi
                         .WithDataTimestamp(data.Data.Max(x => x.UpdateTime))
                     );
             });
-            var subscription = new BitMartSubscription<BitMartOrderUpdate[]>(_logger, this, new[] { "spot/user/orders:ALL_SYMBOLS" }, handler, true);
+            var subscription = new BitMartSubscription<BitMartOrderUpdate[]>(_logger, this, "spot/user/orders", [], handler, true);
             return await SubscribeAsync(BaseAddress.AppendPath("user?protocol=1.1"), subscription, ct).ConfigureAwait(false);
         }
 
@@ -222,7 +222,7 @@ namespace BitMart.Net.Clients.SpotApi
                     );
             });
 
-            var subscription = new BitMartSubscription<BitMartBalanceUpdate[]>(_logger, this, new[] { "spot/user/balance:BALANCE_UPDATE" }, handler, true);
+            var subscription = new BitMartSubscription<BitMartBalanceUpdate[]>(_logger, this, "spot/user/balance", [], handler, true);
             return await SubscribeAsync(BaseAddress.AppendPath("user?protocol=1.1"), subscription, ct).ConfigureAwait(false);
         }
 

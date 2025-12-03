@@ -17,26 +17,32 @@ namespace BitMart.Net.Objects.Sockets.Subscriptions
     {
         private readonly SocketApiClient _client;
         private readonly Action<DateTime, string?, BitMartUpdate<T>> _handler;
-        private readonly IEnumerable<string> _topics;
+        private readonly string[] _subTopics;
 
         /// <summary>
         /// ctor
         /// </summary>
-        public BitMartSubscription(ILogger logger, SocketApiClient client, string[] topics, Action<DateTime, string?, BitMartUpdate<T>> handler, bool auth) : base(logger, auth)
+        public BitMartSubscription(ILogger logger, SocketApiClient client, string topic, string[]? symbols, Action<DateTime, string?, BitMartUpdate<T>> handler, bool auth) : base(logger, auth)
         {
             _client = client;
             _handler = handler;
-            _topics = topics;
 
-            MessageMatcher = MessageMatcher.Create<BitMartUpdate<T>>(topics, DoHandleMessage);
-            MessageRouter = MessageRouter.Create<BitMartUpdate<T>>(topics, DoHandleMessage);
+            if (topic == "spot/user/balance")
+                _subTopics = ["spot/user/balance:BALANCE_UPDATE"];
+            else if (topic == "spot/user/orders")
+                _subTopics = ["spot/user/orders:ALL_SYMBOLS"];
+            else
+                _subTopics = symbols!.Select(x => $"{topic}:{x}").ToArray();
+
+            MessageMatcher = MessageMatcher.Create<BitMartUpdate<T>>(_subTopics, DoHandleMessage);
+            MessageRouter = MessageRouter.CreateWithOptionalTopicFilters<BitMartUpdate<T>>(topic, symbols, DoHandleMessage);
         }
 
         /// <inheritdoc />
-        protected override Query? GetSubQuery(SocketConnection connection) => new BitMartQuery(_client, "subscribe", _topics, Authenticated) { RequiredResponses = _topics.Count() };
+        protected override Query? GetSubQuery(SocketConnection connection) => new BitMartQuery(_client, "subscribe", _subTopics, Authenticated) { RequiredResponses = _subTopics.Count() };
 
         /// <inheritdoc />
-        protected override Query? GetUnsubQuery(SocketConnection connection) => new BitMartQuery(_client, "unsubscribe", _topics, Authenticated) { RequiredResponses = _topics.Count() };
+        protected override Query? GetUnsubQuery(SocketConnection connection) => new BitMartQuery(_client, "unsubscribe", _subTopics, Authenticated) { RequiredResponses = _subTopics.Count() };
 
         /// <inheritdoc />
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, BitMartUpdate<T> message)

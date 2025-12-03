@@ -19,7 +19,7 @@ namespace BitMart.Net.Objects.Sockets
         }, false, 1)
         {
             MessageMatcher = MessageMatcher.Create<BitMartFuturesLoginResponse>("access", HandleMessage);
-            MessageRouter = MessageRouter.Create<BitMartFuturesLoginResponse>("access", HandleMessage);
+            MessageRouter = MessageRouter.CreateWithoutTopicFilter<BitMartFuturesLoginResponse>("access", HandleMessage);
         }
 
         public CallResult<BitMartFuturesLoginResponse> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, BitMartFuturesLoginResponse message)

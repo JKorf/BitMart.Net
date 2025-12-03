@@ -8767,7 +8767,7 @@
         <member name="T:BitMart.Net.Objects.Sockets.Subscriptions.BitMartSubscription`1">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,CryptoExchange.Net.Clients.SocketApiClient,System.String[],System.Action{System.DateTime,System.String,BitMart.Net.Objects.Internal.BitMartUpdate{`0}},System.Boolean)">
+        <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,CryptoExchange.Net.Clients.SocketApiClient,System.String,System.String[],System.Action{System.DateTime,System.String,BitMart.Net.Objects.Internal.BitMartUpdate{`0}},System.Boolean)">
             <summary>
             ctor
             </summary>
