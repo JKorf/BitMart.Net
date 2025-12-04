@@ -13,7 +13,7 @@ using CryptoExchange.Net.Clients;
 namespace BitMart.Net.Objects.Sockets.Subscriptions
 {
     /// <inheritdoc />
-    internal class BitMartFuturesSubscription<T> : Subscription<BitMartSocketResponse, BitMartSocketResponse>
+    internal class BitMartFuturesSubscription<T> : Subscription
     {
         private readonly SocketApiClient _client;
         private readonly Action<DateTime, string?, BitMartFuturesUpdate<T>> _handler;
