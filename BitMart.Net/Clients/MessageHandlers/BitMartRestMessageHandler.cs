@@ -8,7 +8,7 @@ using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Bitget.Net.Clients.MessageHandlers
+namespace BitMart.Net.Clients.MessageHandlers
 {
     internal class BitMartRestMessageHandler : JsonRestMessageHandler
     {

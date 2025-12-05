@@ -1,4 +1,5 @@
 using BitMart.Net.Clients;
+using BitMart.Net.Enums;
 using BitMart.Net.Objects;
 using BitMart.Net.Objects.Models;
 using BitMart.Net.Objects.Options;
@@ -16,6 +17,26 @@ namespace BitMart.Net.UnitTests
     [TestFixture]
     public class SocketSubscriptionTests
     {
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task ValidateConcurrentSpotSubscriptions(bool newDeserialization)
+        {
+            var logger = new LoggerFactory();
+            logger.AddProvider(new TraceLoggerProvider());
+
+            var client = new BitMartSocketClient(Options.Create(new BitMartSocketOptions
+            {
+                OutputOriginalData = true,
+                UseUpdatedDeserialization = newDeserialization
+            }), logger);
+
+            var tester = new SocketSubscriptionValidator<BitMartSocketClient>(client, "Subscriptions/Spot", "wss://ws-manager-compress.bitmart.com", "data");
+            await tester.ValidateConcurrentAsync<BitMartKlineUpdate[]>(
+                (client, handler) => client.SpotApi.SubscribeToKlineUpdatesAsync("ETH_USDT", KlineStreamInterval.OneDay, handler),
+                (client, handler) => client.SpotApi.SubscribeToKlineUpdatesAsync("ETH_USDT", KlineStreamInterval.OneHour, handler),
+                "Concurrent");
+        }
+
         [TestCase(false)]
         [TestCase(true)]
         public async Task ValidateSpotSubscriptions(bool newDeserialization)
@@ -37,6 +58,26 @@ namespace BitMart.Net.UnitTests
             await tester.ValidateAsync<BitMartTradeUpdate[]>((client, handler) => client.SpotApi.SubscribeToTradeUpdatesAsync("ETH_USDT", handler), "Trades", ignoreProperties: new List<string> { "s_t" });
             await tester.ValidateAsync<BitMartOrderUpdate>((client, handler) => client.SpotApi.SubscribeToOrderUpdatesAsync(handler), "Order");
             await tester.ValidateAsync<BitMartBalanceUpdate>((client, handler) => client.SpotApi.SubscribeToBalanceUpdatesAsync(handler), "Balance");
+        }
+
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task ValidateConcurrentFuturesSubscriptions(bool newDeserialization)
+        {
+            var logger = new LoggerFactory();
+            logger.AddProvider(new TraceLoggerProvider());
+
+            var client = new BitMartSocketClient(Options.Create(new BitMartSocketOptions
+            {
+                OutputOriginalData = true,
+                UseUpdatedDeserialization = newDeserialization
+            }), logger);
+
+            var tester = new SocketSubscriptionValidator<BitMartSocketClient>(client, "Subscriptions/Futures", "wss://openapi-ws.bitmart.com", "data");
+            await tester.ValidateConcurrentAsync<BitMartFuturesKlineUpdate>(
+                (client, handler) => client.UsdFuturesApi.SubscribeToKlineUpdatesAsync("ETHUSDT", FuturesStreamKlineInterval.OneDay, handler),
+                (client, handler) => client.UsdFuturesApi.SubscribeToKlineUpdatesAsync("ETHUSDT", FuturesStreamKlineInterval.OneHour, handler),
+                "Concurrent");
         }
 
         [TestCase(false)]

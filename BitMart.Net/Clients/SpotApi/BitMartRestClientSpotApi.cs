@@ -19,7 +19,7 @@ using BitMart.Net.Enums;
 using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
-using Bitget.Net.Clients.MessageHandlers;
+using BitMart.Net.Clients.MessageHandlers;
 using System.Net.Http.Headers;
 
 namespace BitMart.Net.Clients.SpotApi

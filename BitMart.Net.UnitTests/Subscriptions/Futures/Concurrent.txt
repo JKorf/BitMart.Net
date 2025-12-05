@@ -1,0 +1,6 @@
+>1 {"action": "subscribe", "args": ["futures/klineBin1H:ETHUSDT"]}
+>2 {"action": "subscribe", "args": ["futures/klineBin1D:ETHUSDT"]}
+<1 {"action":"subscribe","group":"futures/klineBin1H:ETHUSDT","success":true,"request":{"action":"subscribe","args":["futures/klineBin1H:ETHUSDT"]}}
+<2 {"action":"subscribe","group":"futures/klineBin1D:ETHUSDT","success":true,"request":{"action":"subscribe","args":["futures/klineBin1D:ETHUSDT"]}}
+=1 {"group":"futures/klineBin1H:ETHUSDT","data":{"symbol":"ETHUSDT","items":[{"o":"3354.38","h":"3371.21","l":"3338.48","c":"3352.2","v":"159199176","ts":1721030401}]}}
+=2 {"group":"futures/klineBin1D:ETHUSDT","data":{"symbol":"ETHUSDT","items":[{"o":"3354.38","h":"3371.21","l":"3338.48","c":"3352.2","v":"159199176","ts":1721030401}]}}

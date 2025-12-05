@@ -1,4 +1,4 @@
-using Bitget.Net.Clients.MessageHandlers;
+using BitMart.Net.Clients.MessageHandlers;
 using BitMart.Net.Interfaces.Clients;
 using BitMart.Net.Interfaces.Clients.SpotApi;
 using BitMart.Net.Interfaces.Clients.UsdFuturesApi;
