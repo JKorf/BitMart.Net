@@ -10,40 +10,36 @@ namespace BitMart.Net.Clients.UsdFuturesApi
     {
         public override JsonSerializerOptions Options { get; } = SerializerOptions.WithConverters(BitMartExchange._serializerContext);
 
-        protected override MessageEvaluator[] TypeEvaluators { get; } = [
+        protected override MessageTypeDefinition[] TypeEvaluators { get; } = [
 
-            new MessageEvaluator {
-                Priority = 1,
+            new MessageTypeDefinition {
                 Fields = [
-                    new PropertyFieldReference("group") { Constraint = x => x!.Equals("System", StringComparison.Ordinal) },
+                    new PropertyFieldReference("group").WithEqualContstraint("System"),
                 ],
                 StaticIdentifier = "pong"
             },
 
-            new MessageEvaluator {
-                Priority = 2,
+            new MessageTypeDefinition {
                 Fields = [
-                    new PropertyFieldReference("action") { Constraint = x => x!.Equals("access", StringComparison.Ordinal) },
+                    new PropertyFieldReference("action").WithEqualContstraint("access"),
                 ],
                 StaticIdentifier = "access"
             },
 
 
-            new MessageEvaluator {
-                Priority = 3,
+            new MessageTypeDefinition {
                 Fields = [
-                    new PropertyFieldReference("group") { Constraint = x => !x!.Equals("System", StringComparison.Ordinal) },
+                    new PropertyFieldReference("group").WithNotEqualContstraint("System"),
                     new PropertyFieldReference("action"),
                 ],
-                IdentifyMessageCallback = x => $"{x.FieldValue("action")}-{x.FieldValue("group")}"
+                TypeIdentifierCallback = x => $"{x.FieldValue("action")}-{x.FieldValue("group")}"
             },
 
-            new MessageEvaluator {
-                Priority = 4,
+            new MessageTypeDefinition {
                 Fields = [
-                    new PropertyFieldReference("group") { Constraint = x => !x!.Equals("System", StringComparison.Ordinal) },
+                    new PropertyFieldReference("group").WithNotEqualContstraint("System"),
                 ],
-                IdentifyMessageCallback = x => $"{x.FieldValue("group")}"
+                TypeIdentifierCallback = x => $"{x.FieldValue("group")}"
             },
         ];
     }

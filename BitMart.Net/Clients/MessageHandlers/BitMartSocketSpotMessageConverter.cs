@@ -22,31 +22,28 @@ namespace BitMart.Net.Clients.MessageHandlers
             AddTopicMapping<BitMartUpdate<BitMartTradeUpdate[]>>(x => x.Data.First().Symbol);
         }
 
-        protected override MessageEvaluator[] TypeEvaluators { get; } = [
+        protected override MessageTypeDefinition[] TypeEvaluators { get; } = [
 
-            new MessageEvaluator {
-                Priority = 1,
+            new MessageTypeDefinition {
                 Fields = [
                     new PropertyFieldReference("event"),
                     new PropertyFieldReference("topic"),
                 ],
-                IdentifyMessageCallback = x => $"{x.FieldValue("event")}:{x.FieldValue("topic")}"
+                TypeIdentifierCallback = x => $"{x.FieldValue("event")}:{x.FieldValue("topic")}"
             },
 
-            new MessageEvaluator {
-                Priority = 2,
+            new MessageTypeDefinition {
                 Fields = [
                     new PropertyFieldReference("table")
                 ],
-                IdentifyMessageCallback = x => x.FieldValue("table")!
+                TypeIdentifierCallback = x => x.FieldValue("table")!
             },
 
-            new MessageEvaluator {
-                Priority = 3,
+            new MessageTypeDefinition {
                 Fields = [
                     new PropertyFieldReference("event")
                 ],
-                IdentifyMessageCallback = x => $"{x.FieldValue("event")}"
+                TypeIdentifierCallback = x => $"{x.FieldValue("event")}"
             },
 
         ];
