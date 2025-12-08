@@ -8,8 +8,6 @@ using BitMart.Net.Objects.Models;
 using BitMart.Net.Enums;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.IO.Pipes;
 using CryptoExchange.Net.RateLimiting.Guards;
 using CryptoExchange.Net;
 

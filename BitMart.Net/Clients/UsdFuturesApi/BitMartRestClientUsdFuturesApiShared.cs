@@ -9,7 +9,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net;
 using BitMart.Net.Objects.Models;
-using System.Drawing;
 using CryptoExchange.Net.Objects.Errors;
 
 namespace BitMart.Net.Clients.UsdFuturesApi
@@ -317,7 +316,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 //nextToken = new DateTimeToken(result.Data.Min(x => x.Timestamp!.Value));
             }
 
-            return result.AsExchangeResult<SharedKline[]>(Exchange, request.Symbol!.TradingMode, result.Data.Reverse().Select(x => 
+            return result.AsExchangeResult<SharedKline[]>(Exchange, request.Symbol!.TradingMode, result.Data.AsEnumerable().Reverse().Select(x => 
                 new SharedKline(request.Symbol, symbol, x.Timestamp!.Value, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.Volume)).ToArray(), nextToken);
         }
 

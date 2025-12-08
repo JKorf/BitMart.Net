@@ -1,5 +1,5 @@
 using BitMart.Net.Interfaces.Clients.SpotApi;
-using CryptoExchange.Net.Interfaces;
+using CryptoExchange.Net.Interfaces.Clients;
 using System;
 
 namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi

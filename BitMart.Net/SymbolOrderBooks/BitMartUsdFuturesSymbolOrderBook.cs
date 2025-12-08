@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.OrderBook;
-using CryptoExchange.Net.Converters.SystemTextJson;
 using Microsoft.Extensions.Logging;
 using BitMart.Net.Clients;
 using BitMart.Net.Interfaces.Clients;

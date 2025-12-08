@@ -2,7 +2,6 @@ using BitMart.Net.Clients.MessageHandlers;
 using BitMart.Net.Interfaces.Clients;
 using BitMart.Net.Interfaces.Clients.SpotApi;
 using BitMart.Net.Interfaces.Clients.UsdFuturesApi;
-using BitMart.Net.Objects;
 using BitMart.Net.Objects.Internal;
 using BitMart.Net.Objects.Options;
 using CryptoExchange.Net.Authentication;

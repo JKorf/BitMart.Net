@@ -1,7 +1,5 @@
 using CryptoExchange.Net.Objects;
-using BitMart.Net.Clients.UsdFuturesApi;
 using BitMart.Net.Interfaces.Clients.UsdFuturesApi;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Threading;
@@ -9,7 +7,6 @@ using BitMart.Net.Objects.Models;
 using System;
 using BitMart.Net.Enums;
 using CryptoExchange.Net.RateLimiting.Guards;
-using BitMart.Net.Objects.Internal;
 
 namespace BitMart.Net.Clients.UsdFuturesApi
 {

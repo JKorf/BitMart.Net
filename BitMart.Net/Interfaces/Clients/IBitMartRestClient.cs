@@ -1,7 +1,7 @@
 using BitMart.Net.Interfaces.Clients.SpotApi;
 using BitMart.Net.Interfaces.Clients.UsdFuturesApi;
 using CryptoExchange.Net.Authentication;
-using CryptoExchange.Net.Interfaces;
+using CryptoExchange.Net.Interfaces.Clients;
 using CryptoExchange.Net.Objects.Options;
 
 namespace BitMart.Net.Interfaces.Clients

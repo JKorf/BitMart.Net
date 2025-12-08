@@ -4,8 +4,6 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using BitMart.Net.Enums;
-using System.Collections.Generic;
-using System.Drawing;
 
 namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 {

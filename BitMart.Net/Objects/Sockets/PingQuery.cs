@@ -1,6 +1,5 @@
 ﻿using CryptoExchange.Net.Sockets;
 using System;
-using System.Collections.Generic;
 
 namespace BitMart.Net.Objects.Sockets
 {

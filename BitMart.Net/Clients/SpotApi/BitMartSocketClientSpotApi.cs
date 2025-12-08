@@ -1,7 +1,6 @@
 using BitMart.Net.Clients.MessageHandlers;
 using BitMart.Net.Enums;
 using BitMart.Net.Interfaces.Clients.SpotApi;
-using BitMart.Net.Objects;
 using BitMart.Net.Objects.Internal;
 using BitMart.Net.Objects.Models;
 using BitMart.Net.Objects.Options;
@@ -19,6 +18,7 @@ using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Sockets.Default;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;

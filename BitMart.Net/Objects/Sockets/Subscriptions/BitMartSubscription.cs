@@ -1,14 +1,11 @@
-using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using BitMart.Net.Objects.Models;
 using BitMart.Net.Objects.Internal;
 using System.Linq;
 using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.Sockets.Default;
 
 namespace BitMart.Net.Objects.Sockets.Subscriptions
 {
