@@ -12,6 +12,7 @@ namespace BitMart.Net
     {
         private static IStringMessageSerializer _serializer = new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(BitMartExchange._serializerContext));
 
+        public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.Hmac];
         public BitMartAuthenticationProvider(ApiCredentials credentials) : base(credentials)
         {
             if (string.IsNullOrEmpty(credentials.Pass))
