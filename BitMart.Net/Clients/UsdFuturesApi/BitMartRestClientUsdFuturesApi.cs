@@ -117,22 +117,5 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
                 => BitMartExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
-
-        /// <inheritdoc />
-        protected override Error ParseErrorResponse(int httpStatusCode, HttpResponseHeaders responseHeaders, IMessageAccessor accessor, Exception? exception)
-        {
-            if (!accessor.IsValid)
-                return new ServerError(ErrorInfo.Unknown, exception: exception);
-
-            var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));
-            var msg = accessor.GetValue<string>(MessagePath.Get().Property("message")) ?? accessor.GetValue<string>(MessagePath.Get().Property("msg"));
-            if (msg == null)
-                return new ServerError(ErrorInfo.Unknown, exception: exception);
-
-            if (code == null)
-                return new ServerError(ErrorInfo.Unknown with { Message = msg }, exception);
-
-            return new ServerError(code.Value, GetErrorInfo(code.Value, msg), exception);
-        }
     }
 }

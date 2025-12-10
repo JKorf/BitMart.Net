@@ -132,38 +132,6 @@ namespace BitMart.Net.Clients.SpotApi
                 => BitMartExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
 
         /// <inheritdoc />
-        protected override Error ParseErrorResponse(int httpStatusCode, HttpResponseHeaders responseHeaders, IMessageAccessor accessor, Exception? exception)
-        {
-            if (!accessor.IsValid)
-                return new ServerError(ErrorInfo.Unknown, exception: exception);
-
-            var code = accessor.GetValue<int?>(MessagePath.Get().Property("code"));
-            var msg = accessor.GetValue<string>(MessagePath.Get().Property("message")) ?? accessor.GetValue<string>(MessagePath.Get().Property("msg"));
-            if (msg == null)
-                return new ServerError(ErrorInfo.Unknown, exception: exception);
-
-            if (code == null)
-                return new ServerError(ErrorInfo.Unknown with { Message = msg }, exception);
-
-            return new ServerError(code.Value, GetErrorInfo(code.Value, msg), exception);
-        }
-
-        protected override ServerRateLimitError ParseRateLimitResponse(int httpStatusCode, HttpResponseHeaders responseHeaders, IMessageAccessor accessor)
-        {
-            var error = base.ParseRateLimitResponse(httpStatusCode, responseHeaders, accessor);
-            var retryAfterHeader = responseHeaders.SingleOrDefault(r => r.Key.Equals("X-BM-RateLimit-Reset", StringComparison.InvariantCultureIgnoreCase));
-            if (retryAfterHeader.Value?.Any() != true)
-                return error;
-
-            var value = retryAfterHeader.Value.First();
-            if (!int.TryParse(value, out var seconds))
-                return error;
-
-            error.RetryAfter = DateTime.UtcNow.AddSeconds(seconds);
-            return error;
-        }
-
-        /// <inheritdoc />
         public IBitMartRestClientSpotApiShared SharedClient => this;
     }
 }

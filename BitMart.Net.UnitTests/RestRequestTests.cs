@@ -16,14 +16,12 @@ namespace BitMart.Net.UnitTests
     [TestFixture]
     public class RestRequestTests
     {
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateSpotAccountDataCalls(bool newDeserialization)
+        [Test]
+        public async Task ValidateSpotAccountDataCalls()
         {
             var client = new BitMartRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.UseUpdatedDeserialization = newDeserialization;
                 opts.ApiCredentials = new ApiCredentials("123", "456", "XXX");
             });
             var tester = new RestRequestValidator<BitMartRestClient>(client, "Endpoints/Spot/Account", "https://api-cloud.bitmart.com", IsAuthenticated);
@@ -39,15 +37,13 @@ namespace BitMart.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.Account.GetSymbolTradeFeeAsync("123"), "GetSymbolTradeFee", nestedJsonProperty: "data");
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateSpotExchangeDataCalls(bool newDeserialization)
+        [Test]
+        public async Task ValidateSpotExchangeDataCalls()
         {
             var client = new BitMartRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new ApiCredentials("123", "456", "XXX");
-                opts.UseUpdatedDeserialization = newDeserialization;
             });
             var tester = new RestRequestValidator<BitMartRestClient>(client, "Endpoints/Spot/ExchangeData", "https://api-cloud.bitmart.com", IsAuthenticated);
             await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetTickerAsync("123"), "GetTicker", nestedJsonProperty: "data");
@@ -59,14 +55,12 @@ namespace BitMart.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetOrderBookAsync("123", 5), "GetOrderBook", nestedJsonProperty: "data", ignoreProperties: new List<string> { "ts" });
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateSpotMarginDataCalls(bool newDeserialization)
+        [Test]
+        public async Task ValidateSpotMarginDataCalls()
         {
             var client = new BitMartRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.UseUpdatedDeserialization = newDeserialization;
                 opts.ApiCredentials = new ApiCredentials("123", "456", "XXX");
             });
             var tester = new RestRequestValidator<BitMartRestClient>(client, "Endpoints/Spot/Margin", "https://api-cloud.bitmart.com", IsAuthenticated);
@@ -77,14 +71,12 @@ namespace BitMart.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.Margin.GetBorrowInfoAsync(), "GetBorrowInfo", nestedJsonProperty: "data.symbols");
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateSpotSubAccountCalls(bool newDeserialization)
+        [Test]
+        public async Task ValidateSpotSubAccountCalls()
         {
             var client = new BitMartRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.UseUpdatedDeserialization = newDeserialization;
                 opts.ApiCredentials = new ApiCredentials("123", "456", "XXX");
             });
             var tester = new RestRequestValidator<BitMartRestClient>(client, "Endpoints/Spot/SubAccount", "https://api-cloud.bitmart.com", IsAuthenticated);
@@ -98,14 +90,12 @@ namespace BitMart.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.SubAccount.GetSubAccountListAsync(), "GetSubAccountList", nestedJsonProperty: "data.subAccountList");
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateSpotTradingDataCalls(bool newDeserialization)
+        [Test]
+        public async Task ValidateSpotTradingDataCalls()
         {
             var client = new BitMartRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.UseUpdatedDeserialization = newDeserialization;
                 opts.ApiCredentials = new ApiCredentials("123", "456", "XXX");
             });
             var tester = new RestRequestValidator<BitMartRestClient>(client, "Endpoints/Spot/Trading", "https://api-cloud.bitmart.com", IsAuthenticated);
@@ -122,14 +112,12 @@ namespace BitMart.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.Trading.CancelAllOrderAsync(), "CancelAllOrder");
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateUsdFuturesAccountCalls(bool newDeserialization)
+        [Test]
+        public async Task ValidateUsdFuturesAccountCalls()
         {
             var client = new BitMartRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.UseUpdatedDeserialization = newDeserialization;
                 opts.ApiCredentials = new ApiCredentials("123", "456", "XXX");
             });
             var tester = new RestRequestValidator<BitMartRestClient>(client, "Endpoints/UsdFutures/Account", "https://api-cloud-v2.bitmart.com", IsAuthenticated);
@@ -141,14 +129,12 @@ namespace BitMart.Net.UnitTests
             await tester.ValidateAsync(client => client.UsdFuturesApi.Account.SetPositionModeAsync(PositionMode.HedgeMode), "SetPositionMode", nestedJsonProperty: "data");
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateUsdFuturesExchangeDataCalls(bool newDeserialization)
+        [Test]
+        public async Task ValidateUsdFuturesExchangeDataCalls()
         {
             var client = new BitMartRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.UseUpdatedDeserialization = newDeserialization;
                 opts.ApiCredentials = new ApiCredentials("123", "456", "XXX");
             });
             var tester = new RestRequestValidator<BitMartRestClient>(client, "Endpoints/UsdFutures/ExchangeData", "https://api-cloud-v2.bitmart.com", IsAuthenticated);
@@ -160,14 +146,12 @@ namespace BitMart.Net.UnitTests
             await tester.ValidateAsync(client => client.UsdFuturesApi.ExchangeData.GetRecentTradesAsync("123"), "GetRecentTrades", nestedJsonProperty: "data");
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateUsdFuturesSubAccountCalls(bool newDeserialization)
+        [Test]
+        public async Task ValidateUsdFuturesSubAccountCalls()
         {
             var client = new BitMartRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.UseUpdatedDeserialization = newDeserialization;
                 opts.ApiCredentials = new ApiCredentials("123", "456", "XXX");
             });
             var tester = new RestRequestValidator<BitMartRestClient>(client, "Endpoints/UsdFutures/SubAccount", "https://api-cloud-v2.bitmart.com", IsAuthenticated);
@@ -179,14 +163,12 @@ namespace BitMart.Net.UnitTests
             await tester.ValidateAsync(client => client.UsdFuturesApi.SubAccount.GetSubAccountTransferHistoryAsync(123), "GetSubAccountTransferHistory", nestedJsonProperty: "data");
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateUsdFuturesTradingCalls(bool newDeserialization)
+        [Test]
+        public async Task ValidateUsdFuturesTradingCalls()
         {
             var client = new BitMartRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.UseUpdatedDeserialization = newDeserialization;
                 opts.ApiCredentials = new ApiCredentials("123", "456", "XXX");
             });
             var tester = new RestRequestValidator<BitMartRestClient>(client, "Endpoints/UsdFutures/Trading", "https://api-cloud-v2.bitmart.com", IsAuthenticated);
