@@ -53,6 +53,7 @@ namespace BitMart.Net.Clients.SpotApi
         {
             KeepAliveInterval = TimeSpan.Zero;
             ProcessUnparsableMessages = true;
+            MaxSubscriptionsPerConnection = 115;
 
             RegisterPeriodicQuery(
                 "ping",
@@ -67,6 +68,7 @@ namespace BitMart.Net.Clients.SpotApi
                         _ = connection.TriggerReconnectAsync();
                     }
                 });
+
             RateLimiter = BitMartExchange.RateLimiter.SocketLimits;
         }
         #endregion 

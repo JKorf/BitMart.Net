@@ -24,6 +24,8 @@ namespace BitMart.Net.Objects.Sockets.Subscriptions
             _client = client;
             _handler = handler;
 
+            IndividualSubscriptionCount = symbols?.Length ?? 1;
+
             if (topic == "spot/user/balance")
                 _subTopics = ["spot/user/balance:BALANCE_UPDATE"];
             else if (topic == "spot/user/orders")

@@ -13,14 +13,14 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
             new MessageTypeDefinition {
                 Fields = [
-                    new PropertyFieldReference("group").WithEqualContstraint("System"),
+                    new PropertyFieldReference("group").WithEqualConstraint("System"),
                 ],
                 StaticIdentifier = "pong"
             },
 
             new MessageTypeDefinition {
                 Fields = [
-                    new PropertyFieldReference("action").WithEqualContstraint("access"),
+                    new PropertyFieldReference("action").WithEqualConstraint("access"),
                 ],
                 StaticIdentifier = "access"
             },
@@ -28,7 +28,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
             new MessageTypeDefinition {
                 Fields = [
-                    new PropertyFieldReference("group").WithNotEqualContstraint("System"),
+                    new PropertyFieldReference("group").WithNotEqualConstraint("System"),
                     new PropertyFieldReference("action"),
                 ],
                 TypeIdentifierCallback = x => $"{x.FieldValue("action")}-{x.FieldValue("group")}"
@@ -36,7 +36,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
             new MessageTypeDefinition {
                 Fields = [
-                    new PropertyFieldReference("group").WithNotEqualContstraint("System"),
+                    new PropertyFieldReference("group").WithNotEqualConstraint("System"),
                 ],
                 TypeIdentifierCallback = x => $"{x.FieldValue("group")}"
             },
