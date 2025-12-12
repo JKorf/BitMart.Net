@@ -1043,6 +1043,11 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesSocketResponse">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesUpdateBitMartBookTicker">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.

@@ -168,6 +168,7 @@ namespace BitMart.Net.Converters
     [JsonSerializable(typeof(BitMartFuturesLoginResponse))]
     [JsonSerializable(typeof(BitMartFuturesSocketOperation))]
     [JsonSerializable(typeof(BitMartSocketResponse))]
+    [JsonSerializable(typeof(BitMartFuturesSocketResponse))]
     [JsonSerializable(typeof(BitMartSocketOperation))]
     [JsonSerializable(typeof(int?))]
     [JsonSerializable(typeof(int))]

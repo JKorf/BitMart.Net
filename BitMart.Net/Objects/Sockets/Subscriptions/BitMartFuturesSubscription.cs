@@ -26,6 +26,8 @@ namespace BitMart.Net.Objects.Sockets.Subscriptions
             _handler = handler;
             _topics = topics;
 
+            IndividualSubscriptionCount = topics.Length;
+
             MessageMatcher = MessageMatcher.Create<BitMartFuturesUpdate<T>>(topics, DoHandleMessage);
             MessageRouter = MessageRouter.CreateWithoutTopicFilter<BitMartFuturesUpdate<T>>(topics, DoHandleMessage);
         }

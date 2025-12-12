@@ -6,6 +6,7 @@ using System.Linq;
 using CryptoExchange.Net.Clients;
 using System;
 using CryptoExchange.Net.Sockets.Default;
+using CryptoExchange.Net.Objects.Errors;
 
 namespace BitMart.Net.Objects.Sockets
 {
@@ -20,16 +21,20 @@ namespace BitMart.Net.Objects.Sockets
         }, authenticated, weight)
         {
             _client = client;
-            MessageMatcher = MessageMatcher.Create<BitMartSocketResponse>(parameters.Select(p => operation + "-" + p), HandleMessage);
-            MessageRouter = MessageRouter.CreateWithoutTopicFilter<BitMartSocketResponse>(parameters.Select(p => operation + "-" + p), HandleMessage);
+            MessageMatcher = MessageMatcher.Create<BitMartFuturesSocketResponse>(parameters.Select(p => operation + "-" + p), HandleMessage);
+            MessageRouter = MessageRouter.CreateWithoutTopicFilter<BitMartFuturesSocketResponse>(parameters.Select(p => operation + "-" + p), HandleMessage);
         }
 
-        public CallResult<BitMartSocketResponse> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, BitMartSocketResponse message)
+        public CallResult<BitMartFuturesSocketResponse> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, BitMartFuturesSocketResponse message)
         {
-            if (message.ErrorCode != null)
-                return new CallResult<BitMartSocketResponse>(new ServerError(message.ErrorCode.Value, _client.GetErrorInfo(message.ErrorCode.Value, message.ErrorMessage!)));
+            if (message.ErrorMessage != null)
+            {
+                if (message.ErrorMessage.Contains("Invalid channel"))
+                    return new CallResult<BitMartFuturesSocketResponse>(new ServerError(new ErrorInfo(ErrorType.UnknownSymbol, message.ErrorMessage)));
 
-            return new CallResult<BitMartSocketResponse>(message, originalData, null);
+                return new CallResult<BitMartFuturesSocketResponse>(new ServerError(new ErrorInfo(ErrorType.Unknown, message.ErrorMessage)));
+            }
+            return new CallResult<BitMartFuturesSocketResponse>(message, originalData, null);
         }
     }
 }
