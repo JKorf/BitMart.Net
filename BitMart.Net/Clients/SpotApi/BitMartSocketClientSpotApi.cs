@@ -94,7 +94,7 @@ namespace BitMart.Net.Clients.SpotApi
             var handler = new Action<DateTime, string?, BitMartUpdate<BitMartTickerUpdate[]>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMartTickerUpdate>(data.Data.First(), receiveTime, originalData)
+                    new DataEvent<BitMartTickerUpdate>(Exchange, data.Data.First(), receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Table)
                         .WithSymbol(data.Data.First().Symbol)
@@ -117,7 +117,7 @@ namespace BitMart.Net.Clients.SpotApi
             var handler = new Action<DateTime, string?, BitMartUpdate<BitMartKlineUpdate[]>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMartKlineUpdate[]>(data.Data, receiveTime, originalData)
+                    new DataEvent<BitMartKlineUpdate[]>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Table)
                         .WithSymbol(data.Data.First().Symbol)
@@ -140,7 +140,7 @@ namespace BitMart.Net.Clients.SpotApi
             var handler = new Action<DateTime, string?, BitMartUpdate<BitMartOrderBookUpdate[]>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMartOrderBookUpdate>(data.Data.First(), receiveTime, originalData)
+                    new DataEvent<BitMartOrderBookUpdate>(Exchange, data.Data.First(), receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Table)
                         .WithSymbol(data.Data.First().Symbol)
@@ -161,7 +161,7 @@ namespace BitMart.Net.Clients.SpotApi
             var handler = new Action<DateTime, string?, BitMartUpdate<BitMartOrderBookIncrementalUpdate[]>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMartOrderBookIncrementalUpdate>(data.Data.First(), receiveTime, originalData)
+                    new DataEvent<BitMartOrderBookIncrementalUpdate>(Exchange, data.Data.First(), receiveTime, originalData)
                         .WithStreamId(data.Table)
                         .WithSymbol(data.Data.First().Symbol)
                         .WithUpdateType(data.Data.First().Type == "snapshot" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
@@ -183,7 +183,7 @@ namespace BitMart.Net.Clients.SpotApi
             var handler = new Action<DateTime, string?, BitMartUpdate<BitMartTradeUpdate[]>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMartTradeUpdate[]>(data.Data, receiveTime, originalData)
+                    new DataEvent<BitMartTradeUpdate[]>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Table)
                         .WithSymbol(data.Data.First().Symbol)
@@ -200,7 +200,7 @@ namespace BitMart.Net.Clients.SpotApi
             var handler = new Action<DateTime, string?, BitMartUpdate<BitMartOrderUpdate[]>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMartOrderUpdate>(data.Data.First(), receiveTime, originalData)
+                    new DataEvent<BitMartOrderUpdate>(Exchange, data.Data.First(), receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Table)
                         .WithSymbol(data.Data.First().Symbol)
@@ -217,7 +217,7 @@ namespace BitMart.Net.Clients.SpotApi
             var handler = new Action<DateTime, string?, BitMartUpdate<BitMartBalanceUpdate[]>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMartBalanceUpdate>(data.Data.First(), receiveTime, originalData)
+                    new DataEvent<BitMartBalanceUpdate>(Exchange, data.Data.First(), receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Table)
                         .WithDataTimestamp(data.Data.Max(x => x.Timestamp))

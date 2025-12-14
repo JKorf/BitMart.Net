@@ -89,7 +89,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             var handler = new Action<DateTime, string?, BitMartFuturesUpdate<BitMartFuturesTickerUpdate>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMartFuturesTickerUpdate>(data.Data, receiveTime, originalData)
+                    new DataEvent<BitMartFuturesTickerUpdate>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Group)
                         .WithSymbol(data.Data.Symbol)
@@ -106,7 +106,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             var handler = new Action<DateTime, string?, BitMartFuturesUpdate<BitMartFuturesTickerUpdate>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMartFuturesTickerUpdate>(data.Data, receiveTime, originalData)
+                    new DataEvent<BitMartFuturesTickerUpdate>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Group)
                         .WithSymbol(data.Data.Symbol)
@@ -127,7 +127,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             var handler = new Action<DateTime, string?, BitMartFuturesUpdate<BitMartFundingRateUpdate>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMartFundingRateUpdate>(data.Data, receiveTime, originalData)
+                    new DataEvent<BitMartFundingRateUpdate>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Group)
                         .WithSymbol(data.Data.Symbol)
@@ -149,7 +149,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             var handler = new Action<DateTime, string?, BitMartFuturesUpdate<BitMartFuturesTradeUpdate[]>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMartFuturesTradeUpdate[]>(data.Data, receiveTime, originalData)
+                    new DataEvent<BitMartFuturesTradeUpdate[]>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Group)
                         .WithSymbol(data.Data.First().Symbol)
@@ -171,7 +171,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             var handler = new Action<DateTime, string?, BitMartFuturesUpdate<BitMartFuturesOrderBookUpdate>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMartFuturesOrderBookUpdate>(data.Data, receiveTime, originalData)
+                    new DataEvent<BitMartFuturesOrderBookUpdate>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Group)
                         .WithSymbol(data.Data.Symbol)
@@ -193,7 +193,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             var handler = new Action<DateTime, string?, BitMartFuturesUpdate<BitMartFuturesFullOrderBookUpdate>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMartFuturesFullOrderBookUpdate>(data.Data, receiveTime, originalData)
+                    new DataEvent<BitMartFuturesFullOrderBookUpdate>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(data.Data.Type == "snapshot" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId(data.Group)
                         .WithSymbol(data.Data.Symbol)
@@ -214,7 +214,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             var handler = new Action<DateTime, string?, BitMartFuturesUpdate<BitMartFuturesFullOrderBookUpdate>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMartFuturesFullOrderBookUpdate>(data.Data, receiveTime, originalData)
+                    new DataEvent<BitMartFuturesFullOrderBookUpdate>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(data.Data.Type == "snapshot" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId(data.Group)
                         .WithSymbol(data.Data.Symbol)
@@ -235,7 +235,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             var handler = new Action<DateTime, string?, BitMartFuturesUpdate<BitMartBookTicker>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMartBookTicker>(data.Data, receiveTime, originalData)
+                    new DataEvent<BitMartBookTicker>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Group)
                         .WithSymbol(data.Data.Symbol)
@@ -257,7 +257,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             var handler = new Action<DateTime, string?, BitMartFuturesUpdate<BitMartFuturesKlineUpdate>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMartFuturesKlineUpdate>(data.Data, receiveTime, originalData)
+                    new DataEvent<BitMartFuturesKlineUpdate>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Group)
                         .WithSymbol(data.Data.Symbol)
@@ -278,7 +278,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             var handler = new Action<DateTime, string?, BitMartFuturesUpdate<BitMartFuturesKlineUpdate>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMartFuturesKlineUpdate>(data.Data, receiveTime, originalData)
+                    new DataEvent<BitMartFuturesKlineUpdate>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Group)
                         .WithSymbol(data.Data.Symbol)
@@ -294,7 +294,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             var handler = new Action<DateTime, string?, BitMartFuturesUpdate<BitMartFuturesBalanceUpdate>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMartFuturesBalanceUpdate>(data.Data, receiveTime, originalData)
+                    new DataEvent<BitMartFuturesBalanceUpdate>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Group)
                     );
@@ -309,7 +309,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             var handler = new Action<DateTime, string?, BitMartFuturesUpdate<BitMartPositionUpdate[]>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMartPositionUpdate[]>(data.Data, receiveTime, originalData)
+                    new DataEvent<BitMartPositionUpdate[]>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Group)
                         .WithSymbol(data.Data.First().Symbol)
@@ -326,7 +326,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             var handler = new Action<DateTime, string?, BitMartFuturesUpdate<BitMartFuturesOrderUpdateEvent[]>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<BitMartFuturesOrderUpdateEvent[]>(data.Data, receiveTime, originalData)
+                    new DataEvent<BitMartFuturesOrderUpdateEvent[]>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Group)
                         .WithSymbol(data.Data.First().Order.Symbol)
