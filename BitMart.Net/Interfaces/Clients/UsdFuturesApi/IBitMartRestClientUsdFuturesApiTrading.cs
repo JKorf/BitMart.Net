@@ -78,8 +78,16 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
         /// <param name="startTime">Filter by start time</param>
         /// <param name="endTime">Filter by end time</param>
+        /// <param name="orderId">Filter by order id</param>
+        /// <param name="clientOrderId">Filter by client order id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartFuturesUserTrade[]>> GetUserTradesAsync(string? symbol = null, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
+        Task<WebCallResult<BitMartFuturesUserTrade[]>> GetUserTradesAsync(
+            string? symbol = null,
+            DateTime? startTime = null, 
+            DateTime? endTime = null,
+            long? orderId = null,
+            string? clientOrderId = null,
+            CancellationToken ct = default);
 
         /// <summary>
         /// Place a new order

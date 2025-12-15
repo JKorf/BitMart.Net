@@ -393,7 +393,7 @@
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.GetPositionRiskAsync(System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.GetUserTradesAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.GetUserTradesAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.String,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.PlaceOrderAsync(System.String,BitMart.Net.Enums.FuturesSide,BitMart.Net.Enums.FuturesOrderType,System.Int32,System.Nullable{System.Decimal},System.String,System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.MarginType},System.Nullable{BitMart.Net.Enums.OrderMode},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.StpMode},System.Threading.CancellationToken)">
@@ -4797,7 +4797,7 @@
             <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
             <param name="ct">Cancellation token</param>
         </member>
-        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.GetUserTradesAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.GetUserTradesAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.String,System.Threading.CancellationToken)">
             <summary>
             Get user trades
             <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-order-trade-keyed" /></para>
@@ -4805,6 +4805,8 @@
             <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
+            <param name="orderId">Filter by order id</param>
+            <param name="clientOrderId">Filter by client order id</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.PlaceOrderAsync(System.String,BitMart.Net.Enums.FuturesSide,BitMart.Net.Enums.FuturesOrderType,System.Int32,System.Nullable{System.Decimal},System.String,System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.MarginType},System.Nullable{BitMart.Net.Enums.OrderMode},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.StpMode},System.Threading.CancellationToken)">

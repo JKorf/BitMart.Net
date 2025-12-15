@@ -130,12 +130,20 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         #region Get User Trades
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMartFuturesUserTrade[]>> GetUserTradesAsync(string? symbol = null, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default)
+        public async Task<WebCallResult<BitMartFuturesUserTrade[]>> GetUserTradesAsync(
+            string? symbol = null,
+            DateTime? startTime = null,
+            DateTime? endTime = null,
+            long? orderId = null,
+            string? clientOrderId = null,
+            CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.AddOptional("symbol", symbol);
             parameters.AddOptionalSeconds("start_time", startTime);
             parameters.AddOptionalSeconds("end_time", endTime);
+            parameters.AddOptional("order_id", orderId);
+            parameters.AddOptional("client_order_id", clientOrderId);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/contract/private/trades", BitMartExchange.RateLimiter.BitMart, 1, true,
                 new SingleLimitGuard(6, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<BitMartFuturesUserTrade[]>(request, parameters, ct).ConfigureAwait(false);

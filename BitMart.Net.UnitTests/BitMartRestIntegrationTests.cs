@@ -123,7 +123,7 @@ namespace BitMart.Net.UnitTests
             await RunAndCheckResult(client => client.UsdFuturesApi.Trading.GetTriggerOrdersAsync(default, default, default, default, default), true);
             await RunAndCheckResult(client => client.UsdFuturesApi.Trading.GetPositionsAsync(default, default), true);
             await RunAndCheckResult(client => client.UsdFuturesApi.Trading.GetPositionRiskAsync(default, default), true);
-            await RunAndCheckResult(client => client.UsdFuturesApi.Trading.GetUserTradesAsync("ETHUSDT", default, default, default), true);
+            await RunAndCheckResult(client => client.UsdFuturesApi.Trading.GetUserTradesAsync("ETHUSDT", default, default, default, default, default), true);
         }
 
         [Test]
