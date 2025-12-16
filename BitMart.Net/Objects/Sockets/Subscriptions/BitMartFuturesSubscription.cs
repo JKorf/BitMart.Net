@@ -1,34 +1,35 @@
-using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using BitMart.Net.Objects.Models;
 using BitMart.Net.Objects.Internal;
 using System.Linq;
 using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.Sockets.Default;
 
 namespace BitMart.Net.Objects.Sockets.Subscriptions
 {
     /// <inheritdoc />
-    internal class BitMartFuturesSubscription<T> : Subscription<BitMartSocketResponse, BitMartSocketResponse>
+    internal class BitMartFuturesSubscription<T> : Subscription
     {
         private readonly SocketApiClient _client;
-        private readonly Action<DataEvent<T>> _handler;
+        private readonly Action<DateTime, string?, BitMartFuturesUpdate<T>> _handler;
         private readonly IEnumerable<string> _topics;
 
         /// <summary>
         /// ctor
         /// </summary>
-        public BitMartFuturesSubscription(ILogger logger, SocketApiClient client, string[] topics, Action<DataEvent<T>> handler, bool auth) : base(logger, auth)
+        public BitMartFuturesSubscription(ILogger logger, SocketApiClient client, string[] topics, Action<DateTime, string?, BitMartFuturesUpdate<T>> handler, bool auth) : base(logger, auth)
         {
             _client = client;
             _handler = handler;
             _topics = topics;
 
+            IndividualSubscriptionCount = topics.Length;
+
             MessageMatcher = MessageMatcher.Create<BitMartFuturesUpdate<T>>(topics, DoHandleMessage);
+            MessageRouter = MessageRouter.CreateWithoutTopicFilter<BitMartFuturesUpdate<T>>(topics, DoHandleMessage);
         }
 
         /// <inheritdoc />
@@ -38,9 +39,9 @@ namespace BitMart.Net.Objects.Sockets.Subscriptions
         protected override Query? GetUnsubQuery(SocketConnection connection) => new BitMartFuturesQuery(_client, "unsubscribe", _topics, Authenticated) { RequiredResponses = _topics.Count() };
 
         /// <inheritdoc />
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<BitMartFuturesUpdate<T>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, BitMartFuturesUpdate<T> message)
         {
-            _handler.Invoke(message.As(message.Data.Data, message.Data.Group, null, SocketUpdateType.Update));
+            _handler.Invoke(receiveTime, originalData, message);
             return CallResult.SuccessResult;
         }
     }

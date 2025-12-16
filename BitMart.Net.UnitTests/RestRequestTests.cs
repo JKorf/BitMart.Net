@@ -146,7 +146,6 @@ namespace BitMart.Net.UnitTests
             await tester.ValidateAsync(client => client.UsdFuturesApi.ExchangeData.GetRecentTradesAsync("123"), "GetRecentTrades", nestedJsonProperty: "data");
         }
 
-
         [Test]
         public async Task ValidateUsdFuturesSubAccountCalls()
         {

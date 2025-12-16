@@ -1,8 +1,6 @@
 using CryptoExchange.Net.Objects;
-using BitMart.Net.Clients.SpotApi;
 using BitMart.Net.Interfaces.Clients.SpotApi;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 using BitMart.Net.Objects.Models;
 using System.Threading;
 using System.Net.Http;

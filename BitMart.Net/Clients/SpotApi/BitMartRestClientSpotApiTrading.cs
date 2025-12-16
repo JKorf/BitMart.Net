@@ -2,7 +2,6 @@ using CryptoExchange.Net.Objects;
 using Microsoft.Extensions.Logging;
 using BitMart.Net.Interfaces.Clients.SpotApi;
 using BitMart.Net.Enums;
-using System.Drawing;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Threading;

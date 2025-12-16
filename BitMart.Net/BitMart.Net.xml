@@ -255,6 +255,271 @@
         <member name="M:BitMart.Net.Clients.BitMartUserClientProvider.GetSocketClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,BitMart.Net.BitMartEnvironment)">
             <inheritdoc />
         </member>
+        <member name="T:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi">
+            <inheritdoc cref="T:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApi" />
+        </member>
+        <member name="P:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.Account">
+            <inheritdoc />
+        </member>
+        <member name="P:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.ExchangeData">
+            <inheritdoc />
+        </member>
+        <member name="P:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.SubAccount">
+            <inheritdoc />
+        </member>
+        <member name="P:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.Trading">
+            <inheritdoc />
+        </member>
+        <member name="P:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.ExchangeName">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.CreateAccessor">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.CreateSerializer">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.GetServerTimestampAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.GetTimeSyncInfo">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.GetTimeOffset">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
+            <inheritdoc />
+        </member>
+        <member name="T:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiAccount">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiAccount.GetBalancesAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiAccount.GetTransferHistoryAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiAccount.TransferAsync(System.String,System.Decimal,BitMart.Net.Enums.FuturesTransferType,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiAccount.SetLeverageAsync(System.String,System.Decimal,BitMart.Net.Enums.MarginType,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiAccount.GetSymbolTradeFeeAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiAccount.GetTransactionHistoryAsync(System.String,System.Nullable{BitMart.Net.Enums.FlowType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiAccount.SetPositionModeAsync(BitMart.Net.Enums.PositionMode,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiAccount.GetPositionModeAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiExchangeData">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiExchangeData.GetContractsAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiExchangeData.GetOrderBookAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiExchangeData.GetOpenInterestAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiExchangeData.GetCurrentFundingRateAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiExchangeData.GetFundingRateHistoryAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiExchangeData.GetKlinesAsync(System.String,BitMart.Net.Enums.FuturesKlineInterval,System.DateTime,System.DateTime,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiExchangeData.GetMarkKlinesAsync(System.String,BitMart.Net.Enums.FuturesKlineInterval,System.DateTime,System.DateTime,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiExchangeData.GetLeverageBracketsAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiExchangeData.GetRecentTradesAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiSubAccount">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiSubAccount.TransferSubToMainForMainAsync(System.String,System.Decimal,System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiSubAccount.TransferMainToSubForMainAsync(System.String,System.Decimal,System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiSubAccount.TransferSubToMainForSubAsync(System.String,System.Decimal,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiSubAccount.GetSubAcccountBalanceAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiSubAccount.GetSubAccountTransferHistoryForMainAsync(System.String,System.Int32,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiSubAccount.GetSubAccountTransferHistoryAsync(System.Int32,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.GetOrderAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.GetClosedOrdersAsync(System.String,System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.GetOpenOrdersAsync(System.String,System.Nullable{BitMart.Net.Enums.FuturesOrderType},System.Nullable{BitMart.Net.Enums.OrderStatusQuery},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.GetTriggerOrdersAsync(System.String,System.Nullable{BitMart.Net.Enums.OrderType},System.Nullable{System.Int32},System.Nullable{BitMart.Net.Enums.TriggerPlanType},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.GetPositionsAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.GetPositionRiskAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.GetUserTradesAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.PlaceOrderAsync(System.String,BitMart.Net.Enums.FuturesSide,BitMart.Net.Enums.FuturesOrderType,System.Int32,System.Nullable{System.Decimal},System.String,System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.MarginType},System.Nullable{BitMart.Net.Enums.OrderMode},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.StpMode},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.PlaceTrailingOrderAsync(System.String,BitMart.Net.Enums.FuturesSide,System.Int32,System.Decimal,BitMart.Net.Enums.MarginType,System.Decimal,System.Decimal,BitMart.Net.Enums.TriggerPriceType,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.CancelTrailingOrderAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.CancelOrderAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.CancelOrdersAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.PlaceTriggerOrderAsync(System.String,BitMart.Net.Enums.OrderType,BitMart.Net.Enums.FuturesSide,System.Int32,System.Decimal,BitMart.Net.Enums.MarginType,System.Decimal,BitMart.Net.Enums.PriceDirection,BitMart.Net.Enums.TriggerPriceType,System.Nullable{BitMart.Net.Enums.OrderMode},System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.PlanCategory},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.CancelTriggerOrderAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.PlaceTpSlOrderAsync(System.String,BitMart.Net.Enums.TplSlOrderType,BitMart.Net.Enums.FuturesSide,System.Decimal,BitMart.Net.Enums.TriggerPriceType,BitMart.Net.Enums.PlanCategory,System.Nullable{System.Decimal},System.Nullable{System.Int32},System.String,System.Nullable{BitMart.Net.Enums.OrderType},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.EditOrderAsync(System.String,System.Nullable{System.Int64},System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.EditTpSlOrderAsync(System.String,System.Decimal,BitMart.Net.Enums.TriggerPriceType,BitMart.Net.Enums.PlanCategory,BitMart.Net.Enums.OrderType,System.String,System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.EditTriggerOrderAsync(System.String,System.Decimal,BitMart.Net.Enums.TriggerPriceType,BitMart.Net.Enums.OrderType,System.String,System.String,System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.EditPresetTriggerOrderAsync(System.String,System.String,BitMart.Net.Enums.TriggerPriceType,BitMart.Net.Enums.TriggerPriceType,System.Decimal,System.Decimal,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.CancelAllAfterAsync(System.String,System.TimeSpan,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi">
+            <summary>
+            Client providing access to the BitMart UsdFutures websocket Api
+            </summary>
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.#ctor(Microsoft.Extensions.Logging.ILogger,BitMart.Net.Objects.Options.BitMartSocketOptions)">
+            <summary>
+            ctor
+            </summary>
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesTickerUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToTickerUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesTickerUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToFundingRateUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFundingRateUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToFundingRateUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFundingRateUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesTradeUpdate[]}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToTradeUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesTradeUpdate[]}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesOrderBookUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesOrderBookUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToOrderBookSnapshotUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesFullOrderBookUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToOrderBookSnapshotUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesFullOrderBookUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToOrderBookIncrementalUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesFullOrderBookUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToOrderBookIncrementalUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesFullOrderBookUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToBookTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartBookTicker}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToBookTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartBookTicker}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToKlineUpdatesAsync(System.String,BitMart.Net.Enums.FuturesStreamKlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesKlineUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToKlineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},BitMart.Net.Enums.FuturesStreamKlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesKlineUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToMarkKlineUpdatesAsync(System.String,BitMart.Net.Enums.FuturesStreamKlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesKlineUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToMarkKlineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},BitMart.Net.Enums.FuturesStreamKlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesKlineUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesBalanceUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToPositionUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartPositionUpdate[]}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesOrderUpdateEvent[]}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.GetAuthenticationRequestAsync(CryptoExchange.Net.Sockets.Default.SocketConnection)">
+            <inheritdoc />
+        </member>
+        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
+            <inheritdoc />
+        </member>
         <member name="T:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi">
             <inheritdoc cref="T:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApi" />
         </member>
@@ -295,9 +560,6 @@
             <inheritdoc />
         </member>
         <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.ParseErrorResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor,System.Exception)">
             <inheritdoc />
         </member>
         <member name="P:BitMart.Net.Clients.SpotApi.BitMartRestClientSpotApi.SharedClient">
@@ -520,278 +782,10 @@
         <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.GetAuthenticationRequestAsync(CryptoExchange.Net.Sockets.SocketConnection)">
+        <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.GetAuthenticationRequestAsync(CryptoExchange.Net.Sockets.Default.SocketConnection)">
             <inheritdoc />
         </member>
         <member name="M:BitMart.Net.Clients.SpotApi.BitMartSocketClientSpotApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
-            <inheritdoc />
-        </member>
-        <member name="T:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi">
-            <inheritdoc cref="T:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApi" />
-        </member>
-        <member name="P:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.Account">
-            <inheritdoc />
-        </member>
-        <member name="P:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.ExchangeData">
-            <inheritdoc />
-        </member>
-        <member name="P:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.SubAccount">
-            <inheritdoc />
-        </member>
-        <member name="P:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.Trading">
-            <inheritdoc />
-        </member>
-        <member name="P:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.ExchangeName">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.CreateAccessor">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.CreateSerializer">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.GetServerTimestampAsync">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.GetTimeSyncInfo">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.GetTimeOffset">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApi.ParseErrorResponse(System.Int32,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor,System.Exception)">
-            <inheritdoc />
-        </member>
-        <member name="T:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiAccount">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiAccount.GetBalancesAsync(System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiAccount.GetTransferHistoryAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiAccount.TransferAsync(System.String,System.Decimal,BitMart.Net.Enums.FuturesTransferType,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiAccount.SetLeverageAsync(System.String,System.Decimal,BitMart.Net.Enums.MarginType,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiAccount.GetSymbolTradeFeeAsync(System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiAccount.GetTransactionHistoryAsync(System.String,System.Nullable{BitMart.Net.Enums.FlowType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiAccount.SetPositionModeAsync(BitMart.Net.Enums.PositionMode,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiAccount.GetPositionModeAsync(System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="T:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiExchangeData">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiExchangeData.GetContractsAsync(System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiExchangeData.GetOrderBookAsync(System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiExchangeData.GetOpenInterestAsync(System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiExchangeData.GetCurrentFundingRateAsync(System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiExchangeData.GetFundingRateHistoryAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiExchangeData.GetKlinesAsync(System.String,BitMart.Net.Enums.FuturesKlineInterval,System.DateTime,System.DateTime,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiExchangeData.GetMarkKlinesAsync(System.String,BitMart.Net.Enums.FuturesKlineInterval,System.DateTime,System.DateTime,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiExchangeData.GetLeverageBracketsAsync(System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiExchangeData.GetRecentTradesAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="T:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiSubAccount">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiSubAccount.TransferSubToMainForMainAsync(System.String,System.Decimal,System.String,System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiSubAccount.TransferMainToSubForMainAsync(System.String,System.Decimal,System.String,System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiSubAccount.TransferSubToMainForSubAsync(System.String,System.Decimal,System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiSubAccount.GetSubAcccountBalanceAsync(System.String,System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiSubAccount.GetSubAccountTransferHistoryForMainAsync(System.String,System.Int32,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiSubAccount.GetSubAccountTransferHistoryAsync(System.Int32,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="T:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.GetOrderAsync(System.String,System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.GetClosedOrdersAsync(System.String,System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.GetOpenOrdersAsync(System.String,System.Nullable{BitMart.Net.Enums.FuturesOrderType},System.Nullable{BitMart.Net.Enums.OrderStatusQuery},System.Nullable{System.Int32},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.GetTriggerOrdersAsync(System.String,System.Nullable{BitMart.Net.Enums.OrderType},System.Nullable{System.Int32},System.Nullable{BitMart.Net.Enums.TriggerPlanType},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.GetPositionsAsync(System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.GetPositionRiskAsync(System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.GetUserTradesAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.PlaceOrderAsync(System.String,BitMart.Net.Enums.FuturesSide,BitMart.Net.Enums.FuturesOrderType,System.Int32,System.Nullable{System.Decimal},System.String,System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.MarginType},System.Nullable{BitMart.Net.Enums.OrderMode},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.StpMode},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.PlaceTrailingOrderAsync(System.String,BitMart.Net.Enums.FuturesSide,System.Int32,System.Decimal,BitMart.Net.Enums.MarginType,System.Decimal,System.Decimal,BitMart.Net.Enums.TriggerPriceType,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.CancelTrailingOrderAsync(System.String,System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.CancelOrderAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.CancelOrdersAsync(System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.PlaceTriggerOrderAsync(System.String,BitMart.Net.Enums.OrderType,BitMart.Net.Enums.FuturesSide,System.Int32,System.Decimal,BitMart.Net.Enums.MarginType,System.Decimal,BitMart.Net.Enums.PriceDirection,BitMart.Net.Enums.TriggerPriceType,System.Nullable{BitMart.Net.Enums.OrderMode},System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.PlanCategory},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.CancelTriggerOrderAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.PlaceTpSlOrderAsync(System.String,BitMart.Net.Enums.TplSlOrderType,BitMart.Net.Enums.FuturesSide,System.Decimal,BitMart.Net.Enums.TriggerPriceType,BitMart.Net.Enums.PlanCategory,System.Nullable{System.Decimal},System.Nullable{System.Int32},System.String,System.Nullable{BitMart.Net.Enums.OrderType},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.EditOrderAsync(System.String,System.Nullable{System.Int64},System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.EditTpSlOrderAsync(System.String,System.Decimal,BitMart.Net.Enums.TriggerPriceType,BitMart.Net.Enums.PlanCategory,BitMart.Net.Enums.OrderType,System.String,System.Nullable{System.Decimal},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.EditTriggerOrderAsync(System.String,System.Decimal,BitMart.Net.Enums.TriggerPriceType,BitMart.Net.Enums.OrderType,System.String,System.String,System.Nullable{System.Decimal},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.EditPresetTriggerOrderAsync(System.String,System.String,BitMart.Net.Enums.TriggerPriceType,BitMart.Net.Enums.TriggerPriceType,System.Decimal,System.Decimal,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartRestClientUsdFuturesApiTrading.CancelAllAfterAsync(System.String,System.TimeSpan,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="T:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi">
-            <summary>
-            Client providing access to the BitMart UsdFutures websocket Api
-            </summary>
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.#ctor(Microsoft.Extensions.Logging.ILogger,BitMart.Net.Objects.Options.BitMartSocketOptions)">
-            <summary>
-            ctor
-            </summary>
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesTickerUpdate}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToTickerUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesTickerUpdate}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToFundingRateUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFundingRateUpdate}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToFundingRateUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFundingRateUpdate}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesTradeUpdate[]}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToTradeUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesTradeUpdate[]}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesOrderBookUpdate}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesOrderBookUpdate}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToOrderBookSnapshotUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesFullOrderBookUpdate}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToOrderBookSnapshotUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesFullOrderBookUpdate}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToOrderBookIncrementalUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesFullOrderBookUpdate}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToOrderBookIncrementalUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesFullOrderBookUpdate}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToBookTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartBookTicker}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToBookTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartBookTicker}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToKlineUpdatesAsync(System.String,BitMart.Net.Enums.FuturesStreamKlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesKlineUpdate}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToKlineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},BitMart.Net.Enums.FuturesStreamKlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesKlineUpdate}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToMarkKlineUpdatesAsync(System.String,BitMart.Net.Enums.FuturesStreamKlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesKlineUpdate}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToMarkKlineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},BitMart.Net.Enums.FuturesStreamKlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesKlineUpdate}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesBalanceUpdate}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToPositionUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartPositionUpdate[]}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.SubscribeToOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesOrderUpdateEvent[]}},System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.GetAuthenticationRequestAsync(CryptoExchange.Net.Sockets.SocketConnection)">
-            <inheritdoc />
-        </member>
-        <member name="M:BitMart.Net.Clients.UsdFuturesApi.BitMartSocketClientUsdFuturesApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
         <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.Boolean">
@@ -1045,6 +1039,11 @@
             </summary>
         </member>
         <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesSocketOperation">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:BitMart.Net.Converters.BitMartSourceGenerationContext.BitMartFuturesSocketResponse">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -4798,7 +4797,7 @@
             <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
             <param name="ct">Cancellation token</param>
         </member>
-        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.GetUserTradesAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
+        <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.GetUserTradesAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.String,System.Threading.CancellationToken)">
             <summary>
             Get user trades
             <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-order-trade-keyed" /></para>
@@ -4806,6 +4805,8 @@
             <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
             <param name="startTime">Filter by start time</param>
             <param name="endTime">Filter by end time</param>
+            <param name="orderId">Filter by order id</param>
+            <param name="clientOrderId">Filter by client order id</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.PlaceOrderAsync(System.String,BitMart.Net.Enums.FuturesSide,BitMart.Net.Enums.FuturesOrderType,System.Int32,System.Nullable{System.Decimal},System.String,System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.MarginType},System.Nullable{BitMart.Net.Enums.OrderMode},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.StpMode},System.Threading.CancellationToken)">
@@ -8750,35 +8751,35 @@
         <member name="T:BitMart.Net.Objects.Sockets.Subscriptions.BitMartFuturesSubscription`1">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartFuturesSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,CryptoExchange.Net.Clients.SocketApiClient,System.String[],System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}},System.Boolean)">
+        <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartFuturesSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,CryptoExchange.Net.Clients.SocketApiClient,System.String[],System.Action{System.DateTime,System.String,BitMart.Net.Objects.Internal.BitMartFuturesUpdate{`0}},System.Boolean)">
             <summary>
             ctor
             </summary>
         </member>
-        <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartFuturesSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
+        <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartFuturesSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.Default.SocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartFuturesSubscription`1.GetUnsubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
+        <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartFuturesSubscription`1.GetUnsubQuery(CryptoExchange.Net.Sockets.Default.SocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartFuturesSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Internal.BitMartFuturesUpdate{`0}})">
+        <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartFuturesSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.Default.SocketConnection,System.DateTime,System.String,BitMart.Net.Objects.Internal.BitMartFuturesUpdate{`0})">
             <inheritdoc />
         </member>
         <member name="T:BitMart.Net.Objects.Sockets.Subscriptions.BitMartSubscription`1">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,CryptoExchange.Net.Clients.SocketApiClient,System.String[],System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}},System.Boolean)">
+        <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,CryptoExchange.Net.Clients.SocketApiClient,System.String,System.String[],System.Action{System.DateTime,System.String,BitMart.Net.Objects.Internal.BitMartUpdate{`0}},System.Boolean)">
             <summary>
             ctor
             </summary>
         </member>
-        <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
+        <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.Default.SocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartSubscription`1.GetUnsubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
+        <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartSubscription`1.GetUnsubQuery(CryptoExchange.Net.Sockets.Default.SocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Internal.BitMartUpdate{`0}})">
+        <member name="M:BitMart.Net.Objects.Sockets.Subscriptions.BitMartSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.Default.SocketConnection,System.DateTime,System.String,BitMart.Net.Objects.Internal.BitMartUpdate{`0})">
             <inheritdoc />
         </member>
         <member name="T:BitMart.Net.SymbolOrderBooks.BitMartOrderBookFactory">
@@ -8885,14 +8886,14 @@
             Extensions for the ICryptoRestClient and ICryptoSocketClient interfaces
             </summary>
         </member>
-        <member name="M:CryptoExchange.Net.ExtensionMethods.CryptoClientExtensions.BitMart(CryptoExchange.Net.Interfaces.ICryptoRestClient)">
+        <member name="M:CryptoExchange.Net.ExtensionMethods.CryptoClientExtensions.BitMart(CryptoExchange.Net.Interfaces.Clients.ICryptoRestClient)">
             <summary>
             Get the BitMart REST Api client
             </summary>
             <param name="baseClient"></param>
             <returns></returns>
         </member>
-        <member name="M:CryptoExchange.Net.ExtensionMethods.CryptoClientExtensions.BitMart(CryptoExchange.Net.Interfaces.ICryptoSocketClient)">
+        <member name="M:CryptoExchange.Net.ExtensionMethods.CryptoClientExtensions.BitMart(CryptoExchange.Net.Interfaces.Clients.ICryptoSocketClient)">
             <summary>
             Get the BitMart Websocket Api client
             </summary>
@@ -8922,6 +8923,9 @@
         </member>
         <member name="M:Microsoft.Extensions.Configuration.Binder.SourceGeneration.BindingExtensions.Bind_BitMartOptions(Microsoft.Extensions.Configuration.IConfiguration,System.Object)">
             <summary>Attempts to bind the given object instance to configuration values by matching property names against configuration keys recursively.</summary>
+        </member>
+        <member name="M:Microsoft.Extensions.Configuration.Binder.SourceGeneration.BindingExtensions.TryGetConfigurationValue(Microsoft.Extensions.Configuration.IConfiguration,System.String,System.String@)">
+            <summary>Tries to get the configuration value for the specified key.</summary>
         </member>
         <member name="M:Microsoft.Extensions.Configuration.Binder.SourceGeneration.BindingExtensions.ValidateConfigurationKeys(System.Type,System.Lazy{System.Collections.Generic.HashSet{System.String}},Microsoft.Extensions.Configuration.IConfiguration,Microsoft.Extensions.Configuration.BinderOptions)">
             <summary>If required by the binder options, validates that there are no unknown keys in the input configuration object.</summary>

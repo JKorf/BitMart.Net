@@ -2,11 +2,11 @@ using CryptoExchange.Net.Objects;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects.Sockets;
 using BitMart.Net.Objects.Models;
 using System.Collections.Generic;
 using BitMart.Net.Enums;
+using CryptoExchange.Net.Interfaces.Clients;
 
 namespace BitMart.Net.Interfaces.Clients.SpotApi
 {

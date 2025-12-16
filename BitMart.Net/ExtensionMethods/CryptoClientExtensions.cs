@@ -1,6 +1,6 @@
-using CryptoExchange.Net.Interfaces;
 using BitMart.Net.Clients;
 using BitMart.Net.Interfaces.Clients;
+using CryptoExchange.Net.Interfaces.Clients;
 
 namespace CryptoExchange.Net.ExtensionMethods
 {

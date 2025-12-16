@@ -1,0 +1,6 @@
+>1 {"op": "subscribe", "args": ["spot/kline1H:ETH_USDT"]}
+>2 {"op": "subscribe", "args": ["spot/kline1D:ETH_USDT"]}
+<1 {"event": "subscribe","topic": "spot/kline1H:ETH_USDT"}
+<2 {"event": "subscribe","topic": "spot/kline1D:ETH_USDT"}
+=1 { "data": [{ "candle": [ 1709025360 ], "symbol":  "ETH_USDT" }], "table":  "spot/kline1H" }
+=2 { "data": [{ "candle": [ 1709025360 ], "symbol":  "ETH_USDT" }], "table":  "spot/kline1D" }
