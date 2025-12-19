@@ -263,6 +263,14 @@ namespace BitMart.Net.Clients.SpotApi
             return data.Decompress();
         }
 
+        public override ReadOnlySpan<byte> PreprocessStreamMessage(SocketConnection connection, WebSocketMessageType type, ReadOnlySpan<byte> data)
+        {
+            if (type == WebSocketMessageType.Text)
+                return data;
+
+            return data.Decompress();
+        }
+
         /// <inheritdoc />
         protected override Task<Query?> GetAuthenticationRequestAsync(SocketConnection connection)
         {
