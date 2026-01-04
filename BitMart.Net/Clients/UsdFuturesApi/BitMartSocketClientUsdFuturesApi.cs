@@ -126,12 +126,14 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         {
             var handler = new Action<DateTime, string?, BitMartFuturesUpdate<BitMartFundingRateUpdate>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Data.Timestamp);
+
                 onMessage(
                     new DataEvent<BitMartFundingRateUpdate>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Group)
                         .WithSymbol(data.Data.Symbol)
-                        .WithDataTimestamp(data.Data.Timestamp)
+                        .WithDataTimestamp(data.Data.Timestamp, GetTimeOffset())
                     );
             });
 
@@ -153,7 +155,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Group)
                         .WithSymbol(data.Data.First().Symbol)
-                        .WithDataTimestamp(data.Data.Max(x => x.Timestamp))
+                        .WithDataTimestamp(data.Data.Max(x => x.Timestamp), GetTimeOffset())
                     );
             });
 
@@ -170,12 +172,14 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         {
             var handler = new Action<DateTime, string?, BitMartFuturesUpdate<BitMartFuturesOrderBookUpdate>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Data.Timestamp);
+
                 onMessage(
                     new DataEvent<BitMartFuturesOrderBookUpdate>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Group)
                         .WithSymbol(data.Data.Symbol)
-                        .WithDataTimestamp(data.Data.Timestamp)
+                        .WithDataTimestamp(data.Data.Timestamp, GetTimeOffset())
                     );
             });
 
@@ -192,12 +196,14 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         {
             var handler = new Action<DateTime, string?, BitMartFuturesUpdate<BitMartFuturesFullOrderBookUpdate>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Data.Timestamp);
+
                 onMessage(
                     new DataEvent<BitMartFuturesFullOrderBookUpdate>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(data.Data.Type == "snapshot" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId(data.Group)
                         .WithSymbol(data.Data.Symbol)
-                        .WithDataTimestamp(data.Data.Timestamp)
+                        .WithDataTimestamp(data.Data.Timestamp, GetTimeOffset())
                     );
             });
             var subscription = new BitMartFuturesSubscription<BitMartFuturesFullOrderBookUpdate>(_logger, this, symbols.Select(s => $"futures/depthAll{depth}:" + s).ToArray(), handler, false);
@@ -213,12 +219,14 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         {
             var handler = new Action<DateTime, string?, BitMartFuturesUpdate<BitMartFuturesFullOrderBookUpdate>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Data.Timestamp);
+
                 onMessage(
                     new DataEvent<BitMartFuturesFullOrderBookUpdate>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(data.Data.Type == "snapshot" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithStreamId(data.Group)
                         .WithSymbol(data.Data.Symbol)
-                        .WithDataTimestamp(data.Data.Timestamp)
+                        .WithDataTimestamp(data.Data.Timestamp, GetTimeOffset())
                     );
             });
             var subscription = new BitMartFuturesSubscription<BitMartFuturesFullOrderBookUpdate>(_logger, this, symbols.Select(s => $"futures/depthIncrease{depth}:" + s).ToArray(), handler, false);
@@ -234,12 +242,14 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         {
             var handler = new Action<DateTime, string?, BitMartFuturesUpdate<BitMartBookTicker>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Data.Timestamp);
+
                 onMessage(
                     new DataEvent<BitMartBookTicker>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Group)
                         .WithSymbol(data.Data.Symbol)
-                        .WithDataTimestamp(data.Data.Timestamp)
+                        .WithDataTimestamp(data.Data.Timestamp,GetTimeOffset())
                     );
             });
             var subscription = new BitMartFuturesSubscription<BitMartBookTicker>(_logger, this, symbols.Select(s => $"futures/bookticker:" + s).ToArray(), handler, false);
@@ -368,18 +378,6 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 return data;
 
             return data.DecompressGzip();
-        }
-
-        /// <inheritdoc />
-        protected override Task<Query?> GetAuthenticationRequestAsync(SocketConnection connection)
-        {
-            var timestamp = DateTimeConverter.ConvertToMilliseconds(DateTime.UtcNow).ToString();
-            var authProvider = (BitMartAuthenticationProvider)AuthenticationProvider!;
-            var key = authProvider.ApiKey;
-            var memo = authProvider.Pass;
-            var sign = authProvider.Sign($"{timestamp}#{memo}#bitmart.WebSocket");
-
-            return Task.FromResult<Query?>(new BitMartFuturesLoginQuery(key, timestamp!, sign));
         }
 
         /// <inheritdoc />

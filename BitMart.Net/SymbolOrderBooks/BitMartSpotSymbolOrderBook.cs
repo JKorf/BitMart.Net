@@ -91,14 +91,14 @@ namespace BitMart.Net.SymbolOrderBooks
         private void HandleUpdate(DataEvent<BitMartOrderBookIncrementalUpdate> data)
         {
             if (data.UpdateType == SocketUpdateType.Snapshot)
-                SetInitialOrderBook(DateTimeConverter.ConvertToMilliseconds(data.Data.Timestamp).Value, data.Data.Bids, data.Data.Asks);
+                SetInitialOrderBook(DateTimeConverter.ConvertToMilliseconds(data.Data.Timestamp).Value, data.Data.Bids, data.Data.Asks, data.DataTime, data.DataTimeLocal);
             else
-                UpdateOrderBook(DateTimeConverter.ConvertToMilliseconds(data.Data.Timestamp).Value, data.Data.Bids, data.Data.Asks);
+                UpdateOrderBook(DateTimeConverter.ConvertToMilliseconds(data.Data.Timestamp).Value, data.Data.Bids, data.Data.Asks, data.DataTime, data.DataTimeLocal);
         }
 
         private void HandleUpdate(DataEvent<BitMartOrderBookUpdate> data)
         {
-            SetInitialOrderBook(DateTimeConverter.ConvertToMilliseconds(data.Data.Timestamp).Value, data.Data.Bids, data.Data.Asks);
+            SetInitialOrderBook(DateTimeConverter.ConvertToMilliseconds(data.Data.Timestamp).Value, data.Data.Bids, data.Data.Asks, data.DataTime, data.DataTimeLocal);
         }
 
         /// <inheritdoc />

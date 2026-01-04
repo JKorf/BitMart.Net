@@ -26,8 +26,7 @@ namespace BitMart.Net.Clients.SpotApi
     internal partial class BitMartRestClientSpotApi : RestApiClient, IBitMartRestClientSpotApi
     {
         #region fields 
-        internal static TimeSyncState _timeSyncState = new TimeSyncState("Spot Api");
-
+        
         public new BitMartRestOptions ClientOptions => (BitMartRestOptions)base.ClientOptions;
 
         protected override ErrorMapping ErrorMapping => BitMartErrors.SpotRestErrors;
@@ -118,14 +117,6 @@ namespace BitMart.Net.Clients.SpotApi
         /// <inheritdoc />
         protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
             => ExchangeData.GetServerTimeAsync();
-
-        /// <inheritdoc />
-        public override TimeSyncInfo? GetTimeSyncInfo()
-            => new TimeSyncInfo(_logger, ApiOptions.AutoTimestamp ?? ClientOptions.AutoTimestamp, ApiOptions.TimestampRecalculationInterval ?? ClientOptions.TimestampRecalculationInterval, _timeSyncState);
-
-        /// <inheritdoc />
-        public override TimeSpan? GetTimeOffset()
-            => _timeSyncState.TimeOffset;
 
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverTime = null)
