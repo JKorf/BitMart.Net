@@ -218,7 +218,7 @@ namespace BitMart.Net.Clients.SpotApi
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Table)
                         .WithSymbol(item.Symbol)
-                        .WithDataTimestamp(item.UpdateTime)
+                        .WithDataTimestamp(item.UpdateTime, GetTimeOffset())
                     );
             });
             var subscription = new BitMartSubscription<BitMartOrderUpdate[]>(_logger, this, "spot/user/orders", [], handler, true);
@@ -237,7 +237,7 @@ namespace BitMart.Net.Clients.SpotApi
                     new DataEvent<BitMartBalanceUpdate>(Exchange, item, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Table)
-                        .WithDataTimestamp(data.Data.Max(x => x.Timestamp))
+                        .WithDataTimestamp(item.Timestamp, GetTimeOffset())
                     );
             });
 

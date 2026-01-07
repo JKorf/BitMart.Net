@@ -42,16 +42,14 @@ namespace BitMart.Net
             request.SetQueryString(queryParams);
         }
 
-        public override Query? GetAuthenticationQuery(SocketApiClient apiClient, SocketConnection connection)
+        public override Query? GetAuthenticationQuery(SocketApiClient apiClient, SocketConnection connection, Dictionary<string, object?>? context = null)
         {
             var timestamp = DateTimeConverter.ConvertToMilliseconds(DateTime.UtcNow).ToString();
             var key = ApiKey;
             var memo = Pass;
-            var sign = Sign($"{timestamp}#{memo}#bitmart.WebSocket");
+            var sign = SignHMACSHA256($"{timestamp}#{memo}#bitmart.WebSocket", SignOutputType.Hex).ToLowerInvariant();
 
             return new BitMartLoginQuery(apiClient, key, timestamp!, sign);
         }
-
-        public string Sign(string data) => SignHMACSHA256(data, SignOutputType.Hex).ToLowerInvariant();
     }
 }

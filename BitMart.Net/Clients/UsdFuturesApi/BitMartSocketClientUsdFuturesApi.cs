@@ -318,12 +318,16 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         {
             var handler = new Action<DateTime, string?, BitMartFuturesUpdate<BitMartPositionUpdate[]>>((receiveTime, originalData, data) =>
             {
+                var timestamp = data.Data.Max(x => x.UpdateTime);
+                if (timestamp != null)
+                    UpdateTimeOffset(timestamp.Value);
+
                 onMessage(
                     new DataEvent<BitMartPositionUpdate[]>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Group)
                         .WithSymbol(data.Data.First().Symbol)
-                        .WithDataTimestamp(data.Data.Max(x => x.UpdateTime))
+                        .WithDataTimestamp(timestamp, GetTimeOffset())
                     );
             });
             var subscription = new BitMartFuturesSubscription<BitMartPositionUpdate[]>(_logger, this, new[] { "futures/position" }, handler, true);
@@ -335,12 +339,16 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         {
             var handler = new Action<DateTime, string?, BitMartFuturesUpdate<BitMartFuturesOrderUpdateEvent[]>>((receiveTime, originalData, data) =>
             {
+                var timestamp = data.Data.Max(x => x.Order.UpdateTime);
+                if (timestamp != null)
+                    UpdateTimeOffset(timestamp.Value);
+
                 onMessage(
                     new DataEvent<BitMartFuturesOrderUpdateEvent[]>(Exchange, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Group)
                         .WithSymbol(data.Data.First().Order.Symbol)
-                        .WithDataTimestamp(data.Data.Max(x => x.Order.UpdateTime))
+                        .WithDataTimestamp(timestamp, GetTimeOffset())
                     );
             });
             var subscription = new BitMartFuturesSubscription<BitMartFuturesOrderUpdateEvent[]>(_logger, this, new[] { "futures/order" }, handler, true);
