@@ -93,12 +93,16 @@ namespace BitMart.Net.Clients.SpotApi
         {
             var handler = new Action<DateTime, string?, BitMartUpdate<BitMartTickerUpdate[]>>((receiveTime, originalData, data) =>
             {
+                var item = data.Data.First();
+                if (item.Timestamp != null)
+                    UpdateTimeOffset(item.Timestamp.Value);
+
                 onMessage(
-                    new DataEvent<BitMartTickerUpdate>(Exchange, data.Data.First(), receiveTime, originalData)
+                    new DataEvent<BitMartTickerUpdate>(Exchange, item, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Table)
-                        .WithSymbol(data.Data.First().Symbol)
-                        .WithDataTimestamp(data.Data.Max(x => x.Timestamp))
+                        .WithSymbol(item.Symbol)
+                        .WithDataTimestamp(data.Data.Max(x => x.Timestamp), GetTimeOffset())
                     );
             });
 
@@ -139,12 +143,15 @@ namespace BitMart.Net.Clients.SpotApi
 
             var handler = new Action<DateTime, string?, BitMartUpdate<BitMartOrderBookUpdate[]>>((receiveTime, originalData, data) =>
             {
+                var item = data.Data.First();
+                UpdateTimeOffset(item.Timestamp);
+
                 onMessage(
-                    new DataEvent<BitMartOrderBookUpdate>(Exchange, data.Data.First(), receiveTime, originalData)
+                    new DataEvent<BitMartOrderBookUpdate>(Exchange, item, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Table)
-                        .WithSymbol(data.Data.First().Symbol)
-                        .WithDataTimestamp(data.Data.Max(x => x.Timestamp))
+                        .WithSymbol(item.Symbol)
+                        .WithDataTimestamp(data.Data.Max(x => x.Timestamp), GetTimeOffset())
                     );
             });
             var subscription = new BitMartSubscription<BitMartOrderBookUpdate[]>(_logger, this, $"spot/depth{depth}", symbols.ToArray(), handler, false);
@@ -160,12 +167,15 @@ namespace BitMart.Net.Clients.SpotApi
         {
             var handler = new Action<DateTime, string?, BitMartUpdate<BitMartOrderBookIncrementalUpdate[]>>((receiveTime, originalData, data) =>
             {
+                var item = data.Data.First();
+                UpdateTimeOffset(item.Timestamp);
+
                 onMessage(
-                    new DataEvent<BitMartOrderBookIncrementalUpdate>(Exchange, data.Data.First(), receiveTime, originalData)
+                    new DataEvent<BitMartOrderBookIncrementalUpdate>(Exchange, item, receiveTime, originalData)
                         .WithStreamId(data.Table)
-                        .WithSymbol(data.Data.First().Symbol)
-                        .WithUpdateType(data.Data.First().Type == "snapshot" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
-                        .WithDataTimestamp(data.Data.Max(x => x.Timestamp))
+                        .WithSymbol(item.Symbol)
+                        .WithUpdateType(item.Type == "snapshot" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
+                        .WithDataTimestamp(data.Data.Max(x => x.Timestamp), GetTimeOffset())
                     );
             });
 
@@ -187,7 +197,7 @@ namespace BitMart.Net.Clients.SpotApi
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Table)
                         .WithSymbol(data.Data.First().Symbol)
-                        .WithDataTimestamp(data.Data.Max(x => x.Timestamp))
+                        .WithDataTimestamp(data.Data.Max(x => x.Timestamp), GetTimeOffset())
                     );
             });
             var subscription = new BitMartSubscription<BitMartTradeUpdate[]>(_logger, this, "spot/trade", symbols.ToArray(), handler, false);
@@ -199,12 +209,16 @@ namespace BitMart.Net.Clients.SpotApi
         {
             var handler = new Action<DateTime, string?, BitMartUpdate<BitMartOrderUpdate[]>>((receiveTime, originalData, data) =>
             {
+                var item = data.Data.First();
+                if (item.UpdateTime != null)
+                    UpdateTimeOffset(item.UpdateTime.Value);
+
                 onMessage(
-                    new DataEvent<BitMartOrderUpdate>(Exchange, data.Data.First(), receiveTime, originalData)
+                    new DataEvent<BitMartOrderUpdate>(Exchange, item, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Table)
-                        .WithSymbol(data.Data.First().Symbol)
-                        .WithDataTimestamp(data.Data.Max(x => x.UpdateTime))
+                        .WithSymbol(item.Symbol)
+                        .WithDataTimestamp(item.UpdateTime, GetTimeOffset())
                     );
             });
             var subscription = new BitMartSubscription<BitMartOrderUpdate[]>(_logger, this, "spot/user/orders", [], handler, true);
@@ -216,11 +230,14 @@ namespace BitMart.Net.Clients.SpotApi
         {
             var handler = new Action<DateTime, string?, BitMartUpdate<BitMartBalanceUpdate[]>>((receiveTime, originalData, data) =>
             {
+                var item = data.Data.First();
+                UpdateTimeOffset(item.Timestamp);
+
                 onMessage(
-                    new DataEvent<BitMartBalanceUpdate>(Exchange, data.Data.First(), receiveTime, originalData)
+                    new DataEvent<BitMartBalanceUpdate>(Exchange, item, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Table)
-                        .WithDataTimestamp(data.Data.Max(x => x.Timestamp))
+                        .WithDataTimestamp(item.Timestamp, GetTimeOffset())
                     );
             });
 
@@ -269,18 +286,6 @@ namespace BitMart.Net.Clients.SpotApi
                 return data;
 
             return data.Decompress();
-        }
-
-        /// <inheritdoc />
-        protected override Task<Query?> GetAuthenticationRequestAsync(SocketConnection connection)
-        {
-            var timestamp = DateTimeConverter.ConvertToMilliseconds(DateTime.UtcNow).ToString();
-            var authProvider = (BitMartAuthenticationProvider)AuthenticationProvider!;
-            var key = authProvider.ApiKey;
-            var memo = authProvider.Pass;
-            var sign = authProvider.Sign($"{timestamp}#{memo}#bitmart.WebSocket");
-
-            return Task.FromResult<Query?>(new BitMartLoginQuery(this, key, timestamp!, sign));
         }
 
         /// <inheritdoc />
