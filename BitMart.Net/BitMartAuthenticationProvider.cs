@@ -1,3 +1,4 @@
+using BitMart.Net.Clients.SpotApi;
 using BitMart.Net.Objects.Sockets;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
@@ -44,12 +45,19 @@ namespace BitMart.Net
 
         public override Query? GetAuthenticationQuery(SocketApiClient apiClient, SocketConnection connection, Dictionary<string, object?>? context = null)
         {
-            var timestamp = DateTimeConverter.ConvertToMilliseconds(DateTime.UtcNow).ToString();
+            var timestamp = GetMillisecondTimestamp(apiClient);
             var key = ApiKey;
             var memo = Pass;
             var sign = SignHMACSHA256($"{timestamp}#{memo}#bitmart.WebSocket", SignOutputType.Hex).ToLowerInvariant();
 
-            return new BitMartLoginQuery(apiClient, key, timestamp!, sign);
+            if (apiClient is BitMartSocketClientSpotApi)
+            {
+                return new BitMartLoginQuery(apiClient, key, timestamp!, sign);
+            }
+            else
+            {
+                return new BitMartFuturesLoginQuery(key, timestamp!, sign);
+            }
         }
     }
 }
