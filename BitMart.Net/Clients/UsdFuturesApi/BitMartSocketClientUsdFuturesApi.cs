@@ -204,6 +204,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                         .WithStreamId(data.Group)
                         .WithSymbol(data.Data.Symbol)
                         .WithDataTimestamp(data.Data.Timestamp, GetTimeOffset())
+                        .WithSequenceNumber(data.Data.Version)
                     );
             });
             var subscription = new BitMartFuturesSubscription<BitMartFuturesFullOrderBookUpdate>(_logger, this, symbols.Select(s => $"futures/depthAll{depth}:" + s).ToArray(), handler, false);
@@ -227,6 +228,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                         .WithStreamId(data.Group)
                         .WithSymbol(data.Data.Symbol)
                         .WithDataTimestamp(data.Data.Timestamp, GetTimeOffset())
+                        .WithSequenceNumber(data.Data.Version)
                     );
             });
             var subscription = new BitMartFuturesSubscription<BitMartFuturesFullOrderBookUpdate>(_logger, this, symbols.Select(s => $"futures/depthIncrease{depth}:" + s).ToArray(), handler, false);

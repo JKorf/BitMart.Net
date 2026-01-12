@@ -7890,6 +7890,11 @@
             Trade status
             </summary>
         </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartSymbol.PlannedDelistTime">
+            <summary>
+            Expected delisting time
+            </summary>
+        </member>
         <member name="T:BitMart.Net.Objects.Models.BitMartSymbolTradeFee">
             <summary>
             Symbol trading fee
@@ -8662,7 +8667,7 @@
         </member>
         <member name="P:BitMart.Net.Objects.Options.BitMartOrderBookOptions.Limit">
             <summary>
-            The top amount of results to keep in sync. If for example limit=10 is used, the order book will contain the 10 best bids and 10 best asks. Leaving this null will sync the full order book
+            The top amount of results to keep in sync, 5, 20 or 50. If for example limit=10 is used, the order book will contain the 10 best bids and 10 best asks. Leaving this null will sync the full order book
             </summary>
         </member>
         <member name="P:BitMart.Net.Objects.Options.BitMartOrderBookOptions.InitialDataTimeout">

@@ -85,13 +85,9 @@ namespace BitMart.Net.SymbolOrderBooks
         private void HandleUpdate(DataEvent<BitMartFuturesFullOrderBookUpdate> data)
         {
             if (data.UpdateType == SocketUpdateType.Snapshot)
-            {
-                SetInitialOrderBook(data.Data.Version!.Value, data.Data.Bids, data.Data.Asks);
-            }
+                SetSnapshot(data.Data.Version!.Value, data.Data.Bids, data.Data.Asks, data.DataTime, data.DataTimeLocal);
             else
-            {
-                UpdateOrderBook(data.Data.Version!.Value, data.Data.Bids, data.Data.Asks);
-            }
+                UpdateOrderBook(data.Data.Version!.Value, data.Data.Bids, data.Data.Asks, data.DataTime, data.DataTimeLocal);
         }
 
 
