@@ -176,6 +176,7 @@ namespace BitMart.Net.Clients.SpotApi
                         .WithSymbol(item.Symbol)
                         .WithUpdateType(item.Type == "snapshot" ? SocketUpdateType.Snapshot : SocketUpdateType.Update)
                         .WithDataTimestamp(data.Data.Max(x => x.Timestamp), GetTimeOffset())
+                        .WithSequenceNumber(item.Version)
                     );
             });
 
