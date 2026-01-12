@@ -7890,6 +7890,11 @@
             Trade status
             </summary>
         </member>
+        <member name="P:BitMart.Net.Objects.Models.BitMartSymbol.PlannedDelistTime">
+            <summary>
+            Expected delisting time
+            </summary>
+        </member>
         <member name="T:BitMart.Net.Objects.Models.BitMartSymbolTradeFee">
             <summary>
             Symbol trading fee

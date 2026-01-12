@@ -81,6 +81,11 @@ namespace BitMart.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("trade_status")]
         public SymbolStatus? TradeStatus { get; set; }
+        /// <summary>
+        /// Expected delisting time
+        /// </summary>
+        [JsonPropertyName("planned_down_time")]
+        public DateTime? PlannedDelistTime { get; set; }
     }
 
 
