@@ -35,11 +35,6 @@ namespace BitMart.Net.Clients.SpotApi
     internal partial class BitMartSocketClientSpotApi : SocketApiClient, IBitMartSocketClientSpotApi
     {
         #region fields
-        private static readonly MessagePath _topicPath = MessagePath.Get().Property("topic");
-        private static readonly MessagePath _tablePath = MessagePath.Get().Property("table");
-        private static readonly MessagePath _eventPath = MessagePath.Get().Property("event");
-        private static readonly MessagePath _symbolPath = MessagePath.Get().Property("data").Index(0).Property("symbol");
-
         protected override ErrorMapping ErrorMapping => BitMartErrors.SpotSocketErrors;
         #endregion
 
@@ -52,7 +47,6 @@ namespace BitMart.Net.Clients.SpotApi
             base(logger, options.Environment.SocketClientSpotAddress!, options, options.SpotOptions)
         {
             KeepAliveInterval = TimeSpan.Zero;
-            ProcessUnparsableMessages = true;
             MaxIndividualSubscriptionsPerConnection = 115;
 
             RegisterPeriodicQuery(
@@ -72,8 +66,6 @@ namespace BitMart.Net.Clients.SpotApi
             RateLimiter = BitMartExchange.RateLimiter.SocketLimits;
         }
         #endregion 
-
-        protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType type) => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(BitMartExchange._serializerContext));
 
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(BitMartExchange._serializerContext));
         public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new BitMartSocketSpotMessageConverter();
@@ -244,41 +236,6 @@ namespace BitMart.Net.Clients.SpotApi
 
             var subscription = new BitMartSubscription<BitMartBalanceUpdate[]>(_logger, this, "spot/user/balance", [], handler, true);
             return await SubscribeAsync(BaseAddress.AppendPath("user?protocol=1.1"), subscription, ct).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
-        public override string? GetListenerIdentifier(IMessageAccessor message)
-        {
-            if (!message.IsValid)
-                return "pong";
-
-            var evnt = message.GetValue<string>(_eventPath);
-            if (evnt != null)
-            {
-                var topic = message.GetValue<string>(_topicPath);
-                if (topic == null)
-                    return evnt;
-
-                return evnt + ":" + topic;
-            }
-
-            var table = message.GetValue<string>(_tablePath);
-            if (string.Equals(table, "spot/user/orders", StringComparison.Ordinal))
-                return table + ":ALL_SYMBOLS";
-
-            if (string.Equals(table, "spot/user/balance", StringComparison.Ordinal))
-                return table + ":BALANCE_UPDATE";
-
-            var symbol = message.GetValue<string>(_symbolPath);
-            return table + ":" + symbol;
-        }
-
-        public override ReadOnlyMemory<byte> PreprocessStreamMessage(SocketConnection connection, WebSocketMessageType type, ReadOnlyMemory<byte> data)
-        {
-            if (type == WebSocketMessageType.Text)
-                return data;
-
-            return data.Decompress();
         }
 
         public override ReadOnlySpan<byte> PreprocessStreamMessage(SocketConnection connection, WebSocketMessageType type, ReadOnlySpan<byte> data)

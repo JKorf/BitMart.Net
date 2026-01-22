@@ -19,7 +19,7 @@ namespace BitMart.Net.UnitTests
         {
         }
 
-        public override BitMartSocketClient GetClient(ILoggerFactory loggerFactory, bool useUpdatedDeserialization)
+        public override BitMartSocketClient GetClient(ILoggerFactory loggerFactory)
         {
             var key = Environment.GetEnvironmentVariable("APIKEY");
             var sec = Environment.GetEnvironmentVariable("APISECRET");
@@ -29,20 +29,18 @@ namespace BitMart.Net.UnitTests
             return new BitMartSocketClient(Options.Create(new BitMartSocketOptions
             {
                 OutputOriginalData = true,
-                UseUpdatedDeserialization = useUpdatedDeserialization,
                 ApiCredentials = Authenticated ? new CryptoExchange.Net.Authentication.ApiCredentials(key, sec, pass) : null
             }), loggerFactory);
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task TestSubscriptions(bool useUpdatedDeserialization)
+        [Test]
+        public async Task TestSubscriptions()
         {
-            await RunAndCheckUpdate<BitMartTickerUpdate>(useUpdatedDeserialization , (client, updateHandler) => client.SpotApi.SubscribeToBalanceUpdatesAsync(default , default), false, true);
-            await RunAndCheckUpdate<BitMartTickerUpdate>(useUpdatedDeserialization, (client, updateHandler) => client.SpotApi.SubscribeToTickerUpdatesAsync("ETH_USDT", updateHandler, default), true, false);
+            await RunAndCheckUpdate<BitMartTickerUpdate>((client, updateHandler) => client.SpotApi.SubscribeToBalanceUpdatesAsync(default , default), false, true);
+            await RunAndCheckUpdate<BitMartTickerUpdate>((client, updateHandler) => client.SpotApi.SubscribeToTickerUpdatesAsync("ETH_USDT", updateHandler, default), true, false);
 
-            await RunAndCheckUpdate<BitMartFuturesBalanceUpdate>(useUpdatedDeserialization, (client, updateHandler) => client.UsdFuturesApi.SubscribeToBalanceUpdatesAsync(default, default), false, true);
-            await RunAndCheckUpdate<BitMartFuturesTickerUpdate>(useUpdatedDeserialization, (client, updateHandler) => client.UsdFuturesApi.SubscribeToTickerUpdatesAsync("ETHUSDT", updateHandler, default), true, false);
+            await RunAndCheckUpdate<BitMartFuturesBalanceUpdate>((client, updateHandler) => client.UsdFuturesApi.SubscribeToBalanceUpdatesAsync(default, default), false, true);
+            await RunAndCheckUpdate<BitMartFuturesTickerUpdate>((client, updateHandler) => client.UsdFuturesApi.SubscribeToTickerUpdatesAsync("ETHUSDT", updateHandler, default), true, false);
         } 
     }
 }

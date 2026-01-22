@@ -18,7 +18,6 @@ namespace BitMart.Net.Objects.Sockets
         }, false, 1)
         {
             _client = client;
-            MessageMatcher = MessageMatcher.Create<BitMartSocketResponse>("login", HandleMessage);
             MessageRouter = MessageRouter.CreateWithoutTopicFilter<BitMartSocketResponse>("login", HandleMessage);
         }
 

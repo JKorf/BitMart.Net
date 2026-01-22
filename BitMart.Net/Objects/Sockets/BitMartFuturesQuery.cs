@@ -21,7 +21,6 @@ namespace BitMart.Net.Objects.Sockets
         }, authenticated, weight)
         {
             _client = client;
-            MessageMatcher = MessageMatcher.Create<BitMartFuturesSocketResponse>(parameters.Select(p => operation + "-" + p), HandleMessage);
             MessageRouter = MessageRouter.CreateWithoutTopicFilter<BitMartFuturesSocketResponse>(parameters.Select(p => operation + "-" + p), HandleMessage);
         }
 

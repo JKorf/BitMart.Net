@@ -15,7 +15,6 @@ namespace BitMart.Net.Objects.Sockets
             Parameters = new[] { key, timestamp, sign, "web" },
         }, false, 1)
         {
-            MessageMatcher = MessageMatcher.Create<BitMartFuturesLoginResponse>("access", HandleMessage);
             MessageRouter = MessageRouter.CreateWithoutTopicFilter<BitMartFuturesLoginResponse>("access", HandleMessage);
         }
 

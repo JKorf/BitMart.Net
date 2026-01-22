@@ -33,7 +33,6 @@ namespace BitMart.Net.Objects.Sockets.Subscriptions
             else
                 _subTopics = symbols!.Select(x => $"{topic}:{x}").ToArray();
 
-            MessageMatcher = MessageMatcher.Create<BitMartUpdate<T>>(_subTopics, DoHandleMessage);
             MessageRouter = MessageRouter.CreateWithOptionalTopicFilters<BitMartUpdate<T>>(topic, symbols, DoHandleMessage);
         }
 

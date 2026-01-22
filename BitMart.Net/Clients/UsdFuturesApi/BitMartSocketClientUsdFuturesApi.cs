@@ -33,12 +33,6 @@ namespace BitMart.Net.Clients.UsdFuturesApi
     /// </summary>
     internal partial class BitMartSocketClientUsdFuturesApi : SocketApiClient, IBitMartSocketClientUsdFuturesApi
     {
-        #region fields
-        private static readonly MessagePath _actionPath = MessagePath.Get().Property("action");
-        private static readonly MessagePath _groupPath = MessagePath.Get().Property("group");
-
-        #endregion
-
         #region constructor/destructor
 
         /// <summary>
@@ -48,7 +42,6 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             base(logger, options.Environment.SocketClientPerpetualFuturesAddress!, options, options.UsdFuturesOptions)
         {
             KeepAliveInterval = TimeSpan.Zero;
-            ProcessUnparsableMessages = true;
 
             MessageSendSizeLimit = 2048;
 
@@ -67,8 +60,6 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 });
         }
         #endregion
-
-        protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType type) => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(BitMartExchange._serializerContext));
 
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(BitMartExchange._serializerContext));
         public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new BitMartSocketUsdFuturesMessageConverter();
@@ -357,37 +348,12 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             return await SubscribeAsync(BaseAddress.AppendPath("user?protocol=1.1"), subscription, ct).ConfigureAwait(false);
         }
 
-        /// <inheritdoc />
-        public override string? GetListenerIdentifier(IMessageAccessor message)
-        {
-            var group = message.GetValue<string>(_groupPath);
-            if (group == "System")
-                return "pong";
-
-            var action = message.GetValue<string>(_actionPath);
-            if (action == "access")
-                return action;
-            
-            if (!string.IsNullOrEmpty(action))
-                return action + "-" + group;
-
-            return group;
-        }
-
         public override ReadOnlySpan<byte> PreprocessStreamMessage(SocketConnection connection, WebSocketMessageType type, ReadOnlySpan<byte> data)
         {
             if (type == WebSocketMessageType.Text)
                 return data;
 
             return data.Decompress();
-        }
-
-        public override ReadOnlyMemory<byte> PreprocessStreamMessage(SocketConnection connection, WebSocketMessageType type, ReadOnlyMemory<byte> data)
-        {
-            if (type == WebSocketMessageType.Text)
-                return data;
-
-            return data.DecompressGzip();
         }
 
         /// <inheritdoc />

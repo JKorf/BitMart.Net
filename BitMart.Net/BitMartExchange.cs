@@ -17,6 +17,19 @@ namespace BitMart.Net
     public static class BitMartExchange
     {
         /// <summary>
+        /// Platform metadata
+        /// </summary>
+        public static PlatformInfo Metadata { get; } = new PlatformInfo(
+                "BitMart",
+                "BitMart",
+                "https://raw.githubusercontent.com/JKorf/BitMart.Net/master/BitMart.Net/Icon/icon.png",
+                "https://www.bitmart.com",
+                ["https://developer-pro.bitmart.com/#introduction"],
+                PlatformType.CryptoCurrencyExchange,
+                CentralizationType.Centralized
+                );
+
+        /// <summary>
         /// Exchange name
         /// </summary>
         public static string ExchangeName => "BitMart";
