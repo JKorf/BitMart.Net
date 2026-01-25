@@ -1,3 +1,4 @@
+using BitMart.Net.Enums;
 using BitMart.Net.Interfaces.Clients.SpotApi;
 using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
@@ -116,7 +117,7 @@ namespace BitMart.Net.Clients.SpotApi
                         update.Data.OrderId.ToString(),
                         update.Data.OrderType == Enums.OrderType.Limit ? SharedOrderType.Limit : update.Data.OrderType == Enums.OrderType.Market ? SharedOrderType.Market : SharedOrderType.Other,
                         update.Data.Side == Enums.OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                        update.Data.Status == Enums.OrderStatus.Canceled ? SharedOrderStatus.Canceled : (update.Data.Status == Enums.OrderStatus.New || update.Data.Status == Enums.OrderStatus.PartiallyFilled) ? SharedOrderStatus.Open : SharedOrderStatus.Filled,
+                        ParseOrderStatus(update.Data.Status),
                         update.Data.CreateTime)
                     {
                         ClientOrderId = update.Data.ClientOrderId?.ToString(),
@@ -138,6 +139,13 @@ namespace BitMart.Net.Clients.SpotApi
                 ct: ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
+        }
+
+        private SharedOrderStatus ParseOrderStatus(OrderStatus status)
+        {
+            if (status == OrderStatus.PartiallyFilled || status == OrderStatus.New) return SharedOrderStatus.Open;
+            if (status == OrderStatus.Canceled || status == OrderStatus.PartiallyCanceled || status == OrderStatus.Failed) return SharedOrderStatus.Canceled;
+            return SharedOrderStatus.Filled;
         }
         #endregion
 
