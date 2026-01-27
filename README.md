@@ -158,6 +158,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 3.3.2 - 27 Jan 2026
+    * Removed FillOrKill from REST Shared SpotSupportedTimeInForce values as it's not supported by API
+
 * Version 3.3.1 - 26 Jan 2026
     * Fixed Shared websocket order status parsing for PartiallyCanceled status
 
