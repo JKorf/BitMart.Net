@@ -701,6 +701,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             {
                 UnrealizedPnl = x.UnrealizedPnl,
                 AverageOpenPrice = x.OpenAveragePrice,
+                PositionMode = SharedPositionMode.HedgeMode,
                 PositionSide = x.PositionSide == PositionSide.Short ? SharedPositionSide.Short : SharedPositionSide.Long,
                 Leverage = x.Leverage
             }).ToArray());
