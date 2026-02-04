@@ -2675,7 +2675,7 @@
         </member>
         <member name="F:BitMart.Net.Enums.DepositWithdrawalStatus.Processing">
             <summary>
-            Processsing
+            Processing
             </summary>
         </member>
         <member name="F:BitMart.Net.Enums.DepositWithdrawalStatus.Completed">

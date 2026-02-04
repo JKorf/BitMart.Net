@@ -698,7 +698,15 @@ namespace BitMart.Net.Clients.SpotApi
             if (!deposits)
                 return deposits.AsExchangeResult<SharedDeposit[]>(Exchange, null, default);
 
-            return deposits.AsExchangeResult<SharedDeposit[]>(Exchange, TradingMode.Spot, deposits.Data.Select(x => new SharedDeposit(x.Asset.Split(new[] { "-" }, StringSplitOptions.RemoveEmptyEntries)[0], x.ArrivalQuantity, x.Status == DepositWithdrawalStatus.Completed, x.ApplyTime)
+            return deposits.AsExchangeResult<SharedDeposit[]>(Exchange, TradingMode.Spot, deposits.Data.Select(x => 
+            new SharedDeposit(
+                x.Asset.Split(new[] { "-" }, StringSplitOptions.RemoveEmptyEntries)[0],
+                x.ArrivalQuantity, 
+                x.Status == DepositWithdrawalStatus.Completed,
+                x.ApplyTime,
+                x.Status == DepositWithdrawalStatus.Completed ? SharedTransferStatus.Completed :
+                x.Status == DepositWithdrawalStatus.Failed || x.Status == DepositWithdrawalStatus.Canceled ? SharedTransferStatus.Failed
+                : SharedTransferStatus.InProgress)
             {
                 Id = x.DepositId!,
                 Tag = x.AddressMemo,
