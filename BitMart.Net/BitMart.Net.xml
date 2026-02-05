@@ -165,13 +165,13 @@
         <member name="M:BitMart.Net.BitMartTrackerFactory.CreateUserSpotDataTracker(CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig)">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.BitMartTrackerFactory.CreateUserSpotDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,BitMart.Net.BitMartEnvironment)">
+        <member name="M:BitMart.Net.BitMartTrackerFactory.CreateUserSpotDataTracker(System.String,CryptoExchange.Net.Authentication.ApiCredentials,CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig,BitMart.Net.BitMartEnvironment)">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.BitMartTrackerFactory.CreateUserFuturesDataTracker(CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig)">
+        <member name="M:BitMart.Net.BitMartTrackerFactory.CreateUserUsdFuturesDataTracker(CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig)">
             <inheritdoc />
         </member>
-        <member name="M:BitMart.Net.BitMartTrackerFactory.CreateUserFuturesDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,BitMart.Net.BitMartEnvironment)">
+        <member name="M:BitMart.Net.BitMartTrackerFactory.CreateUserUsdFuturesDataTracker(System.String,CryptoExchange.Net.Authentication.ApiCredentials,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig,BitMart.Net.BitMartEnvironment)">
             <inheritdoc />
         </member>
         <member name="T:BitMart.Net.BitMartUserSpotDataTracker">
@@ -182,13 +182,13 @@
             ctor
             </summary>
         </member>
-        <member name="T:BitMart.Net.BitMartUserFuturesDataTracker">
+        <member name="T:BitMart.Net.BitMartUserUsdFuturesDataTracker">
             <inheritdoc/>
         </member>
-        <member name="P:BitMart.Net.BitMartUserFuturesDataTracker.WebsocketPositionUpdatesAreFullSnapshots">
+        <member name="P:BitMart.Net.BitMartUserUsdFuturesDataTracker.WebsocketPositionUpdatesAreFullSnapshots">
             <inheritdoc/>
         </member>
-        <member name="M:BitMart.Net.BitMartUserFuturesDataTracker.#ctor(Microsoft.Extensions.Logging.ILogger{BitMart.Net.BitMartUserFuturesDataTracker},BitMart.Net.Interfaces.Clients.IBitMartRestClient,BitMart.Net.Interfaces.Clients.IBitMartSocketClient,System.String,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig)">
+        <member name="M:BitMart.Net.BitMartUserUsdFuturesDataTracker.#ctor(Microsoft.Extensions.Logging.ILogger{BitMart.Net.BitMartUserUsdFuturesDataTracker},BitMart.Net.Interfaces.Clients.IBitMartRestClient,BitMart.Net.Interfaces.Clients.IBitMartSocketClient,System.String,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig)">
             <summary>
             ctor
             </summary>
@@ -5269,7 +5269,7 @@
             Tracker factory
             </summary>
         </member>
-        <member name="M:BitMart.Net.Interfaces.IBitMartTrackerFactory.CreateUserSpotDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,BitMart.Net.BitMartEnvironment)">
+        <member name="M:BitMart.Net.Interfaces.IBitMartTrackerFactory.CreateUserSpotDataTracker(System.String,CryptoExchange.Net.Authentication.ApiCredentials,CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig,BitMart.Net.BitMartEnvironment)">
             <summary>
             Create a new Spot user data tracker
             </summary>
@@ -5284,7 +5284,7 @@
             </summary>
             <param name="config">Configuration</param>
         </member>
-        <member name="M:BitMart.Net.Interfaces.IBitMartTrackerFactory.CreateUserFuturesDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,BitMart.Net.BitMartEnvironment)">
+        <member name="M:BitMart.Net.Interfaces.IBitMartTrackerFactory.CreateUserUsdFuturesDataTracker(System.String,CryptoExchange.Net.Authentication.ApiCredentials,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig,BitMart.Net.BitMartEnvironment)">
             <summary>
             Create a new futures user data tracker
             </summary>
@@ -5293,7 +5293,7 @@
             <param name="credentials">Credentials</param>
             <param name="environment">Environment</param>
         </member>
-        <member name="M:BitMart.Net.Interfaces.IBitMartTrackerFactory.CreateUserFuturesDataTracker(CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig)">
+        <member name="M:BitMart.Net.Interfaces.IBitMartTrackerFactory.CreateUserUsdFuturesDataTracker(CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig)">
             <summary>
             Create a new futures user data tracker
             </summary>

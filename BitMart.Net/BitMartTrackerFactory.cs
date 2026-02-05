@@ -108,7 +108,7 @@ namespace BitMart.Net
         }
 
         /// <inheritdoc />
-        public IUserSpotDataTracker CreateUserSpotDataTracker(SpotUserDataTrackerConfig config)
+        public IUserSpotDataTracker CreateUserSpotDataTracker(SpotUserDataTrackerConfig? config = null)
         {
             var restClient = _serviceProvider?.GetRequiredService<IBitMartRestClient>() ?? new BitMartRestClient();
             var socketClient = _serviceProvider?.GetRequiredService<IBitMartSocketClient>() ?? new BitMartSocketClient();
@@ -122,7 +122,7 @@ namespace BitMart.Net
         }
 
         /// <inheritdoc />
-        public IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, SpotUserDataTrackerConfig config, ApiCredentials credentials, BitMartEnvironment? environment = null)
+        public IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, ApiCredentials credentials, SpotUserDataTrackerConfig? config = null, BitMartEnvironment? environment = null)
         {
             var clientProvider = _serviceProvider?.GetRequiredService<IBitMartUserClientProvider>() ?? new BitMartUserClientProvider();
             var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);
@@ -137,12 +137,12 @@ namespace BitMart.Net
         }
 
         /// <inheritdoc />
-        public IUserFuturesDataTracker CreateUserFuturesDataTracker(FuturesUserDataTrackerConfig config)
+        public IUserFuturesDataTracker CreateUserUsdFuturesDataTracker(FuturesUserDataTrackerConfig? config = null)
         {
             var restClient = _serviceProvider?.GetRequiredService<IBitMartRestClient>() ?? new BitMartRestClient();
             var socketClient = _serviceProvider?.GetRequiredService<IBitMartSocketClient>() ?? new BitMartSocketClient();
-            return new BitMartUserFuturesDataTracker(
-                _serviceProvider?.GetRequiredService<ILogger<BitMartUserFuturesDataTracker>>() ?? new NullLogger<BitMartUserFuturesDataTracker>(),
+            return new BitMartUserUsdFuturesDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<BitMartUserUsdFuturesDataTracker>>() ?? new NullLogger<BitMartUserUsdFuturesDataTracker>(),
                 restClient,
                 socketClient,
                 null,
@@ -151,13 +151,13 @@ namespace BitMart.Net
         }
 
         /// <inheritdoc />
-        public IUserFuturesDataTracker CreateUserFuturesDataTracker(string userIdentifier, FuturesUserDataTrackerConfig config, ApiCredentials credentials, BitMartEnvironment? environment = null)
+        public IUserFuturesDataTracker CreateUserUsdFuturesDataTracker(string userIdentifier, ApiCredentials credentials, FuturesUserDataTrackerConfig? config = null, BitMartEnvironment? environment = null)
         {
             var clientProvider = _serviceProvider?.GetRequiredService<IBitMartUserClientProvider>() ?? new BitMartUserClientProvider();
             var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);
             var socketClient = clientProvider.GetSocketClient(userIdentifier, credentials, environment);
-            return new BitMartUserFuturesDataTracker(
-                _serviceProvider?.GetRequiredService<ILogger<BitMartUserFuturesDataTracker>>() ?? new NullLogger<BitMartUserFuturesDataTracker>(),
+            return new BitMartUserUsdFuturesDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<BitMartUserUsdFuturesDataTracker>>() ?? new NullLogger<BitMartUserUsdFuturesDataTracker>(),
                 restClient,
                 socketClient,
                 userIdentifier,

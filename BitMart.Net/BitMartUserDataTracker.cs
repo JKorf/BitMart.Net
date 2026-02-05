@@ -17,7 +17,7 @@ namespace BitMart.Net
             IBitMartRestClient restClient,
             IBitMartSocketClient socketClient,
             string? userIdentifier,
-            SpotUserDataTrackerConfig config) : base(
+            SpotUserDataTrackerConfig? config) : base(
                 logger,
                 restClient.SpotApi.SharedClient,
                 null,
@@ -27,13 +27,13 @@ namespace BitMart.Net
                 socketClient.SpotApi.SharedClient,
                 null,
                 userIdentifier,
-                config)
+                config ?? new SpotUserDataTrackerConfig())
         {
         }
     }
 
     /// <inheritdoc/>
-    public class BitMartUserFuturesDataTracker : UserFuturesDataTracker
+    public class BitMartUserUsdFuturesDataTracker : UserFuturesDataTracker
     {
         /// <inheritdoc/>
         protected override bool WebsocketPositionUpdatesAreFullSnapshots => false;
@@ -41,12 +41,12 @@ namespace BitMart.Net
         /// <summary>
         /// ctor
         /// </summary>
-        public BitMartUserFuturesDataTracker(
-            ILogger<BitMartUserFuturesDataTracker> logger,
+        public BitMartUserUsdFuturesDataTracker(
+            ILogger<BitMartUserUsdFuturesDataTracker> logger,
             IBitMartRestClient restClient,
             IBitMartSocketClient socketClient,
             string? userIdentifier,
-            FuturesUserDataTrackerConfig config) : base(logger,
+            FuturesUserDataTrackerConfig? config) : base(logger,
                 restClient.UsdFuturesApi.SharedClient,
                 null,
                 restClient.UsdFuturesApi.SharedClient,
@@ -56,7 +56,7 @@ namespace BitMart.Net
                 null,
                 socketClient.UsdFuturesApi.SharedClient,
                 userIdentifier,
-                config)
+                config ?? new FuturesUserDataTrackerConfig())
         {
         }
     }
