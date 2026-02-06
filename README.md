@@ -158,6 +158,15 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 3.4.0 - 06 Feb 2026
+    * Updated CryptoExchange.Net to version 10.4.0, see https://github.com/JKorf/CryptoExchange.Net/releases/ for full release notes
+    * Added BitMartUserSpotDataTracker and BitMartUserFuturesDataTracker
+    * Added additional methods for requesting supported symbols to Shared ISpotSymbolRestClient/IFuturesSymbolRestClient interfaces
+    * Added PositionMode mapping on SharedPosition models
+    * Added Status mapping for SharedDeposit models
+    * Fixed disposed clients getting returned from UserClientProvider
+    * Fixed typo in DepositWithdrawalStatus enum
+
 * Version 3.3.2 - 27 Jan 2026
     * Removed FillOrKill from REST Shared SpotSupportedTimeInForce values as it's not supported by API
 
