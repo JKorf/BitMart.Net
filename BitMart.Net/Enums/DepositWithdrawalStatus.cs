@@ -21,7 +21,7 @@ namespace BitMart.Net.Enums
         [Map("1")]
         Submitted,
         /// <summary>
-        /// Processsing
+        /// Processing
         /// </summary>
         [Map("2")]
         Processing,

@@ -1,11 +1,16 @@
 ﻿using BitMart.Net.Clients;
 using BitMart.Net.Interfaces;
 using BitMart.Net.Interfaces.Clients;
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Trackers.Klines;
 using CryptoExchange.Net.Trackers.Trades;
+using CryptoExchange.Net.Trackers.UserData;
+using CryptoExchange.Net.Trackers.UserData.Interfaces;
+using CryptoExchange.Net.Trackers.UserData.Objects;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using System;
 
 namespace BitMart.Net
@@ -99,6 +104,64 @@ namespace BitMart.Net
                 symbol,
                 limit,
                 period
+                );
+        }
+
+        /// <inheritdoc />
+        public IUserSpotDataTracker CreateUserSpotDataTracker(SpotUserDataTrackerConfig? config = null)
+        {
+            var restClient = _serviceProvider?.GetRequiredService<IBitMartRestClient>() ?? new BitMartRestClient();
+            var socketClient = _serviceProvider?.GetRequiredService<IBitMartSocketClient>() ?? new BitMartSocketClient();
+            return new BitMartUserSpotDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<BitMartUserSpotDataTracker>>() ?? new NullLogger<BitMartUserSpotDataTracker>(),
+                restClient,
+                socketClient,
+                null,
+                config
+                );
+        }
+
+        /// <inheritdoc />
+        public IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, ApiCredentials credentials, SpotUserDataTrackerConfig? config = null, BitMartEnvironment? environment = null)
+        {
+            var clientProvider = _serviceProvider?.GetRequiredService<IBitMartUserClientProvider>() ?? new BitMartUserClientProvider();
+            var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);
+            var socketClient = clientProvider.GetSocketClient(userIdentifier, credentials, environment);
+            return new BitMartUserSpotDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<BitMartUserSpotDataTracker>>() ?? new NullLogger<BitMartUserSpotDataTracker>(),
+                restClient,
+                socketClient,
+                userIdentifier,
+                config
+                );
+        }
+
+        /// <inheritdoc />
+        public IUserFuturesDataTracker CreateUserUsdFuturesDataTracker(FuturesUserDataTrackerConfig? config = null)
+        {
+            var restClient = _serviceProvider?.GetRequiredService<IBitMartRestClient>() ?? new BitMartRestClient();
+            var socketClient = _serviceProvider?.GetRequiredService<IBitMartSocketClient>() ?? new BitMartSocketClient();
+            return new BitMartUserUsdFuturesDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<BitMartUserUsdFuturesDataTracker>>() ?? new NullLogger<BitMartUserUsdFuturesDataTracker>(),
+                restClient,
+                socketClient,
+                null,
+                config
+                );
+        }
+
+        /// <inheritdoc />
+        public IUserFuturesDataTracker CreateUserUsdFuturesDataTracker(string userIdentifier, ApiCredentials credentials, FuturesUserDataTrackerConfig? config = null, BitMartEnvironment? environment = null)
+        {
+            var clientProvider = _serviceProvider?.GetRequiredService<IBitMartUserClientProvider>() ?? new BitMartUserClientProvider();
+            var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);
+            var socketClient = clientProvider.GetSocketClient(userIdentifier, credentials, environment);
+            return new BitMartUserUsdFuturesDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<BitMartUserUsdFuturesDataTracker>>() ?? new NullLogger<BitMartUserUsdFuturesDataTracker>(),
+                restClient,
+                socketClient,
+                userIdentifier,
+                config
                 );
         }
     }

@@ -124,7 +124,44 @@ namespace BitMart.Net.Clients.SpotApi
             ExchangeSymbolCache.UpdateSymbolInfo(_topicId, response.Data);
             return response;
         }
+        async Task<ExchangeResult<SharedSymbol[]>> ISpotSymbolRestClient.GetSpotSymbolsForBaseAssetAsync(string baseAsset)
+        {
+            if (!ExchangeSymbolCache.HasCached(_topicId))
+            {
+                var symbols = await ((ISpotSymbolRestClient)this).GetSpotSymbolsAsync(new GetSymbolsRequest()).ConfigureAwait(false);
+                if (!symbols)
+                    return new ExchangeResult<SharedSymbol[]>(Exchange, symbols.Error!);
+            }
 
+            return new ExchangeResult<SharedSymbol[]>(Exchange, ExchangeSymbolCache.GetSymbolsForBaseAsset(_topicId, baseAsset));
+        }
+
+        async Task<ExchangeResult<bool>> ISpotSymbolRestClient.SupportsSpotSymbolAsync(SharedSymbol symbol)
+        {
+            if (symbol.TradingMode != TradingMode.Spot)
+                throw new ArgumentException(nameof(symbol), "Only Spot symbols allowed");
+
+            if (!ExchangeSymbolCache.HasCached(_topicId))
+            {
+                var symbols = await ((ISpotSymbolRestClient)this).GetSpotSymbolsAsync(new GetSymbolsRequest()).ConfigureAwait(false);
+                if (!symbols)
+                    return new ExchangeResult<bool>(Exchange, symbols.Error!);
+            }
+
+            return new ExchangeResult<bool>(Exchange, ExchangeSymbolCache.SupportsSymbol(_topicId, symbol));
+        }
+
+        async Task<ExchangeResult<bool>> ISpotSymbolRestClient.SupportsSpotSymbolAsync(string symbolName)
+        {
+            if (!ExchangeSymbolCache.HasCached(_topicId))
+            {
+                var symbols = await ((ISpotSymbolRestClient)this).GetSpotSymbolsAsync(new GetSymbolsRequest()).ConfigureAwait(false);
+                if (!symbols)
+                    return new ExchangeResult<bool>(Exchange, symbols.Error!);
+            }
+
+            return new ExchangeResult<bool>(Exchange, ExchangeSymbolCache.SupportsSymbol(_topicId, symbolName));
+        }
         #endregion
 
         #region Ticker client
@@ -661,7 +698,15 @@ namespace BitMart.Net.Clients.SpotApi
             if (!deposits)
                 return deposits.AsExchangeResult<SharedDeposit[]>(Exchange, null, default);
 
-            return deposits.AsExchangeResult<SharedDeposit[]>(Exchange, TradingMode.Spot, deposits.Data.Select(x => new SharedDeposit(x.Asset.Split(new[] { "-" }, StringSplitOptions.RemoveEmptyEntries)[0], x.ArrivalQuantity, x.Status == DepositWithdrawalStatus.Completed, x.ApplyTime)
+            return deposits.AsExchangeResult<SharedDeposit[]>(Exchange, TradingMode.Spot, deposits.Data.Select(x => 
+            new SharedDeposit(
+                x.Asset.Split(new[] { "-" }, StringSplitOptions.RemoveEmptyEntries)[0],
+                x.ArrivalQuantity, 
+                x.Status == DepositWithdrawalStatus.Completed,
+                x.ApplyTime,
+                x.Status == DepositWithdrawalStatus.Completed ? SharedTransferStatus.Completed :
+                x.Status == DepositWithdrawalStatus.Failed || x.Status == DepositWithdrawalStatus.Canceled ? SharedTransferStatus.Failed
+                : SharedTransferStatus.InProgress)
             {
                 Id = x.DepositId!,
                 Tag = x.AddressMemo,

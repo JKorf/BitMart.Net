@@ -226,6 +226,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 update => handler(update.ToType(update.Data.Select(x => new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicId, x.Symbol), x.Symbol, x.PositionSize, x.UpdateTime)
                 {
                     AverageOpenPrice = x.AverageOpenPrice,
+                    PositionMode = SharedPositionMode.HedgeMode,
                     PositionSide = x.PositionSide == Enums.PositionSide.Short ? SharedPositionSide.Short : SharedPositionSide.Long,
                     LiquidationPrice = x.LiquidationPrice == 0 ? null : x.LiquidationPrice
                 }).ToArray())),
