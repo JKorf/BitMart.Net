@@ -12,8 +12,8 @@ namespace BitMart.Net.Clients
     /// <inheritdoc />
     public class BitMartUserClientProvider : IBitMartUserClientProvider
     {
-        private static ConcurrentDictionary<string, IBitMartRestClient> _restClients = new ConcurrentDictionary<string, IBitMartRestClient>();
-        private static ConcurrentDictionary<string, IBitMartSocketClient> _socketClients = new ConcurrentDictionary<string, IBitMartSocketClient>();
+        private ConcurrentDictionary<string, IBitMartRestClient> _restClients = new ConcurrentDictionary<string, IBitMartRestClient>();
+        private ConcurrentDictionary<string, IBitMartSocketClient> _socketClients = new ConcurrentDictionary<string, IBitMartSocketClient>();
 
         private readonly IOptions<BitMartRestOptions> _restOptions;
         private readonly IOptions<BitMartSocketOptions> _socketOptions;
