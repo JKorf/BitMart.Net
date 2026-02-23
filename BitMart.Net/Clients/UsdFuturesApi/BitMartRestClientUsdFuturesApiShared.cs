@@ -291,7 +291,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
         #region Klines client
 
-        GetKlinesOptions IKlineRestClient.GetKlinesOptions { get; } = new GetKlinesOptions(false, false, true, 500, false,
+        GetKlinesOptions IKlineRestClient.GetKlinesOptions { get; } = new GetKlinesOptions(true, true, true, 500, false,
             SharedKlineInterval.OneMinute,
             SharedKlineInterval.FiveMinutes,
             SharedKlineInterval.FifteenMinutes,
@@ -329,13 +329,13 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             if (!result)
                 return result.AsExchangeResult<SharedKline[]>(Exchange, null, default);
 
-
             return result.AsExchangeResult(
-                   Exchange,
-                   request.Symbol.TradingMode,
-                   result.Data.Select(x =>  
-                        new SharedKline(request.Symbol, symbol, x.Timestamp!.Value, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.Volume))
-                   .ToArray());
+                    Exchange,
+                    request.Symbol.TradingMode,
+                    ExchangeHelpers.ApplyFilter(result.Data, x => x.Timestamp!.Value, request.StartTime, request.EndTime, request.Direction ?? DataDirection.Descending)
+                    .Select(x =>  
+                            new SharedKline(request.Symbol, symbol, x.Timestamp!.Value, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.Volume))
+                       .ToArray());
         }
 
         #endregion
