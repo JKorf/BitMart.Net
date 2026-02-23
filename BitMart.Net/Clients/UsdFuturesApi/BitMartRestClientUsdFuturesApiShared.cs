@@ -575,7 +575,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 request.StartTime,
                 request.EndTime ?? DateTime.UtcNow,
                 pageParams,
-                maxTimespan: TimeSpan.FromDays(90));
+                maxPeriod: TimeSpan.FromDays(90));
 
             return result.AsExchangeResult(
                        Exchange,
@@ -666,7 +666,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 request.StartTime,
                 request.EndTime ?? DateTime.UtcNow,
                 pageParams,
-                maxTimespan: TimeSpan.FromDays(90));
+                maxPeriod: TimeSpan.FromDays(90));
 
             return result.AsExchangeResult(
                        Exchange,
