@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Configuration;
 using CryptoExchange.Net.Interfaces.Clients;
+using System.Threading;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -95,8 +96,8 @@ namespace Microsoft.Extensions.DependencyInjection
                 return new BitMartRestClient(client, serviceProvider.GetRequiredService<ILoggerFactory>(), serviceProvider.GetRequiredService<IOptions<BitMartRestOptions>>());
             }).ConfigurePrimaryHttpMessageHandler((serviceProvider) => {
                 var options = serviceProvider.GetRequiredService<IOptions<BitMartRestOptions>>().Value;
-                return LibraryHelpers.CreateHttpClientMessageHandler(options.Proxy, options.HttpKeepAliveInterval);
-            });
+                return LibraryHelpers.CreateHttpClientMessageHandler(options);
+            }).SetHandlerLifetime(Timeout.InfiniteTimeSpan);
             services.Add(new ServiceDescriptor(typeof(IBitMartSocketClient), x => { return new BitMartSocketClient(x.GetRequiredService<IOptions<BitMartSocketOptions>>(), x.GetRequiredService<ILoggerFactory>()); }, socketClientLifeTime ?? ServiceLifetime.Singleton));
 
             services.AddTransient<ICryptoRestClient, CryptoRestClient>();
@@ -106,7 +107,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddTransient<ITrackerFactory, BitMartTrackerFactory>();
             services.AddSingleton<IBitMartUserClientProvider, BitMartUserClientProvider>(x =>
             new BitMartUserClientProvider(
-                x.GetRequiredService<HttpClient>(),
+                x.GetRequiredService<IHttpClientFactory>().CreateClient(typeof(IBitMartRestClient).Name),
                 x.GetRequiredService<ILoggerFactory>(),
                 x.GetRequiredService<IOptions<BitMartRestOptions>>(),
                 x.GetRequiredService<IOptions<BitMartSocketOptions>>()));
