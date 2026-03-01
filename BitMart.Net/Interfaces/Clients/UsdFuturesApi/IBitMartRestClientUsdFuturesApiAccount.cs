@@ -14,14 +14,24 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
     {
         /// <summary>
         /// Get account balances
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-contract-assets-keyed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-contract-assets-keyed" /><br />
+        /// Endpoint:<br />
+        /// GET /contract/private/assets-detail
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BitMartFuturesBalance[]>> GetBalancesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get account transfer history
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-transfer-list-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-transfer-list-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /account/v1/transfer-contract-list
+        /// </para>
         /// </summary>
         /// <param name="asset">Filter by asset, for example `USDT`</param>
         /// <param name="startTime">Filter by start time</param>
@@ -33,7 +43,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Transfer between futures and spot account
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#transfer-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#transfer-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /account/v1/transfer-contract
+        /// </para>
         /// </summary>
         /// <param name="asset">The asset, for example `USDT`</param>
         /// <param name="quantity">Quantity to transfer</param>
@@ -43,7 +58,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Set leverage
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#submit-leverage-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#submit-leverage-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /contract/private/submit-leverage
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="leverage">Leverage</param>
@@ -53,7 +73,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Get symbol trading fee
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-trade-fee-rate-keyed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-trade-fee-rate-keyed" /><br />
+        /// Endpoint:<br />
+        /// GET /contract/private/trade-fee-rate
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -62,7 +87,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Get transaction history
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-transaction-history-keyed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-transaction-history-keyed" /><br />
+        /// Endpoint:<br />
+        /// GET /contract/private/transaction-history
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol, for Example `ETHUSDT`</param>
         /// <param name="flowType">Filter by type</param>
@@ -75,7 +105,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Set the position mode of the account
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#set-position-mode-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#set-position-mode-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /contract/private/set-position-mode
+        /// </para>
         /// </summary>
         /// <param name="positionMode">Position mode</param>
         /// <param name="ct">Cancellation token</param>
@@ -84,7 +119,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Get the current position  mode of the account
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-position-mode-keyed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-position-mode-keyed" /><br />
+        /// Endpoint:<br />
+        /// GET /contract/private/get-position-mode
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>

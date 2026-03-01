@@ -12,7 +12,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
     {
         /// <summary>
         /// Transfer from sub futures account to main account, for main account
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#sub-account-to-main-account-for-main-account-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#sub-account-to-main-account-for-main-account-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /account/contract/sub-account/main/v1/sub-to-main
+        /// </para>
         /// </summary>
         /// <param name="asset">The asset, for example `USDT`</param>
         /// <param name="quantity">Quantity</param>
@@ -23,7 +28,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Transfer from main account to sub futures acount
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#main-account-to-sub-account-for-main-account-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#main-account-to-sub-account-for-main-account-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /account/contract/sub-account/main/v1/main-to-sub
+        /// </para>
         /// </summary>
         /// <param name="asset">The asset, for example `USDT`</param>
         /// <param name="quantity">Quantity</param>
@@ -34,7 +44,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Transfer from sub futures account to main account, for sub account
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#sub-account-to-main-account-for-sub-account-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#sub-account-to-main-account-for-sub-account-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /account/contract/sub-account/sub/v1/sub-to-main
+        /// </para>
         /// </summary>
         /// <param name="asset">The asset, for example `USDT`</param>
         /// <param name="quantity">Quantity</param>
@@ -44,7 +59,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Get sub account futures balances
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-sub-account-futures-wallet-balance-for-main-account-keyed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-sub-account-futures-wallet-balance-for-main-account-keyed" /><br />
+        /// Endpoint:<br />
+        /// GET /account/contract/sub-account/main/v1/wallet
+        /// </para>
         /// </summary>
         /// <param name="subAccount">Sub account name</param>
         /// <param name="asset">The asset, for example `USDT`</param>
@@ -53,7 +73,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Get sub account transfer history, for main account
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-sub-account-transfer-history-for-main-account-keyed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-sub-account-transfer-history-for-main-account-keyed" /><br />
+        /// Endpoint:<br />
+        /// GET /account/contract/sub-account/main/v1/transfer-list
+        /// </para>
         /// </summary>
         /// <param name="subAccount">Sub account name</param>
         /// <param name="limit">Max number of results</param>
@@ -62,7 +87,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Get sub account transfer history
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-account-futures-asset-transfer-history-for-main-sub-account-keyed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-account-futures-asset-transfer-history-for-main-sub-account-keyed" /><br />
+        /// Endpoint:<br />
+        /// GET /account/contract/sub-account/v1/transfer-history
+        /// </para>
         /// </summary>
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>

@@ -15,7 +15,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
     {
         /// <summary>
         /// Place a new order
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#new-order-v2-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#new-order-v2-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /spot/v2/submit_order
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="side">Order side</param>
@@ -30,7 +35,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Place multiple orders in one call
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#new-batch-order-v4-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#new-batch-order-v4-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /spot/v4/batch_orders
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="orders">Order parameters</param>
@@ -40,7 +50,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Cancel an open order
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#cancel-order-v3-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#cancel-order-v3-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /spot/v3/cancel_order
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="orderId">Cancel by order id. Either this or clientOrderId should be provided</param>
@@ -50,7 +65,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Cancel multiple orders
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#cancel-batch-order-v4-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#cancel-batch-order-v4-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /spot/v4/cancel_orders
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="orderIds">Order ids to cancel. Either this or clientOrderIds should be provided</param>
@@ -60,7 +80,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Cancel all orders matching the parameters
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#cancel-all-order-v4-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#cancel-all-order-v4-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /spot/v4/cancel_all
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
         /// <param name="side">Filter by order side</param>
@@ -70,7 +95,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Place a new margin order
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#new-margin-order-v1-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#new-margin-order-v1-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /spot/v1/margin/submit_order
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="side">Order side</param>
@@ -84,7 +114,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get order details
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#query-order-by-id-v4-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#query-order-by-id-v4-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /spot/v4/query/order
+        /// </para>
         /// </summary>
         /// <param name="orderId">Id of the order</param>
         /// <param name="orderQueryState">Order status. If known speeds up the request</param>
@@ -93,7 +128,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get order details by client order id
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#query-order-by-clientorderid-v4-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#query-order-by-clientorderid-v4-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /spot/v4/query/client-order
+        /// </para>
         /// </summary>
         /// <param name="clientOrderId">Client order id</param>
         /// <param name="orderQueryState">Order status. If known speeds up the request</param>
@@ -102,7 +142,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get current open orders
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#current-open-orders-v4-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#current-open-orders-v4-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /spot/v4/query/open-orders
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
         /// <param name="spotOrderMode">Filter by order mode</param>
@@ -114,7 +159,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get closed orders
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#account-orders-v4-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#account-orders-v4-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /spot/v4/query/history-orders
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
         /// <param name="spotOrderMode">Filter spot order more</param>
@@ -126,7 +176,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get list of user trades
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#account-trade-list-v4-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#account-trade-list-v4-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /spot/v4/query/trades
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
         /// <param name="spotOrderMode">Filter by order mode</param>
@@ -138,7 +193,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get trades for a specific order
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#order-trade-list-v4-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#order-trade-list-v4-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /spot/v4/query/order-trades
+        /// </para>
         /// </summary>
         /// <param name="orderId">The order id</param>
         /// <param name="ct">Cancellation token</param>

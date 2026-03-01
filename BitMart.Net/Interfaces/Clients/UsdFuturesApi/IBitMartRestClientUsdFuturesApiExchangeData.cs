@@ -14,7 +14,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
     {
         /// <summary>
         /// Get contracts
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-contract-details" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-contract-details" /><br />
+        /// Endpoint:<br />
+        /// GET /contract/public/details
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -22,7 +27,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Get the current order book
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-market-depth" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-market-depth" /><br />
+        /// Endpoint:<br />
+        /// GET /contract/public/depth
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -30,7 +40,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Get open interest for a symbol
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-futures-openinterest" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-futures-openinterest" /><br />
+        /// Endpoint:<br />
+        /// GET /contract/public/open-interest
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -38,7 +53,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Get the current funding rate for a symbol
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-current-funding-rate" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-current-funding-rate" /><br />
+        /// Endpoint:<br />
+        /// GET /contract/public/funding-rate
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -46,7 +66,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Get kline/candlestick data
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-k-line" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-k-line" /><br />
+        /// Endpoint:<br />
+        /// GET /contract/public/kline
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="klineInterval">Kline interval</param>
@@ -57,7 +82,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Get mark price klines
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-markprice-k-line" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-markprice-k-line" /><br />
+        /// Endpoint:<br />
+        /// GET /contract/public/markprice-kline
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="klineInterval">Kline interval</param>
@@ -68,7 +98,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Get funding rate history
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-funding-rate-history" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-funding-rate-history" /><br />
+        /// Endpoint:<br />
+        /// GET /contract/public/funding-rate-history
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="limit">Max number of results, max 100</param>
@@ -77,7 +112,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Get leverage bracket info
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-current-leverage-risk-limit" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-current-leverage-risk-limit" /><br />
+        /// Endpoint:<br />
+        /// GET /contract/public/leverage-bracket
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -85,7 +125,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Get recent trades
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-market-trade" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-market-trade" /><br />
+        /// Endpoint:<br />
+        /// GET /contract/public/market-trade
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="limit">Max number of results</param>

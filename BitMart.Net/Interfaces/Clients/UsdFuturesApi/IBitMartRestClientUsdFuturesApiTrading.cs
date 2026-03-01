@@ -14,7 +14,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
     {
         /// <summary>
         /// Get an order by id
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-order-detail-keyed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-order-detail-keyed" /><br />
+        /// Endpoint:<br />
+        /// GET /contract/private/order
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="orderId">Order id</param>
@@ -23,7 +28,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Get order history
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-order-history-keyed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-order-history-keyed" /><br />
+        /// Endpoint:<br />
+        /// GET /contract/private/order-history
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="orderId">Filter by order id</param>
@@ -35,7 +45,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Get open orders
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-all-open-orders-keyed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-all-open-orders-keyed" /><br />
+        /// Endpoint:<br />
+        /// GET /contract/private/get-open-orders
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
         /// <param name="orderType">Filter by order type</param>
@@ -46,7 +61,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Get open trigger orders
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-all-current-plan-orders-keyed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-all-current-plan-orders-keyed" /><br />
+        /// Endpoint:<br />
+        /// GET /contract/private/current-plan-order
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
         /// <param name="type">Filter by order type</param>
@@ -57,7 +77,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Get current positions
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-current-position-keyed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-current-position-keyed" /><br />
+        /// Endpoint:<br />
+        /// GET /contract/private/position
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -65,7 +90,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Get position risk
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-current-position-risk-details-keyed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-current-position-risk-details-keyed" /><br />
+        /// Endpoint:<br />
+        /// GET /contract/private/position-risk
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -73,7 +103,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Get user trades
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-order-trade-keyed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-order-trade-keyed" /><br />
+        /// Endpoint:<br />
+        /// GET /contract/private/trades
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
         /// <param name="startTime">Filter by start time</param>
@@ -91,7 +126,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Place a new order
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#submit-order-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#submit-order-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /contract/private/submit-order
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="side">Order side</param>
@@ -112,7 +152,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Place a new trailing stop order
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#submit-trail-order-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#submit-trail-order-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /contract/private/submit-trail-order
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="side">Order side</param>
@@ -137,7 +182,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Cancel a trailing stop order
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#cancel-trail-order-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#cancel-trail-order-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /contract/private/cancel-trail-order
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="orderId">Order id</param>
@@ -147,7 +197,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Cancel an active order
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#cancel-order-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#cancel-order-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /contract/private/cancel-order
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="orderId">The order id, either this or clientOrderId should be provided</param>
@@ -157,7 +212,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Cancel all orders on a symbol
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#cancel-all-orders-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#cancel-all-orders-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /contract/private/cancel-orders
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -165,7 +225,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Place a new trigger order
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#submit-plan-order-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#submit-plan-order-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /contract/private/submit-plan-order
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="orderType">The order type</param>
@@ -188,7 +253,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Cancel a trigger order
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#cancel-plan-order-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#cancel-plan-order-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /contract/private/cancel-plan-order
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="orderId">The order id, either this or clientOrderId should be provided</param>
@@ -198,7 +268,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Place a new tp/sl order
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#submit-tp-or-sl-order-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#submit-tp-or-sl-order-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /contract/private/submit-tp-sl-order
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="tpSlType">Take profit or stop loss</param>
@@ -215,7 +290,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Edit an open limit order
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#modify-limit-order-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#modify-limit-order-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /contract/private/modify-limit-order
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="orderId">Order id, either this or clientOrderId should be provided</param>
@@ -228,7 +308,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Edit an existing tp/sl order
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#modify-tp-sl-order-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#modify-tp-sl-order-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /contract/private/modify-tp-sl-order
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="orderId">Order id, either this or clientOrderId should be provided</param>
@@ -242,7 +327,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Edit an existing plan order
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#modify-plan-order-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#modify-plan-order-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /contract/private/modify-plan-order
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="orderId">Order id, either this or clientOrderId should be provided</param>
@@ -256,7 +346,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Edit an preset plan order
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#modify-preset-plan-order-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#modify-preset-plan-order-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /contract/private/modify-preset-plan-order
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="orderId">The order id</param>

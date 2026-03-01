@@ -14,13 +14,23 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
     {
         /// <summary>
         /// Get server status
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-system-service-status" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#get-system-service-status" /><br />
+        /// Endpoint:<br />
+        /// GET /system/service
+        /// </para>
         /// </summary>
         Task<WebCallResult<BitMartStatus[]>> GetServerStatusAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get server time
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-system-time" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#get-system-time" /><br />
+        /// Endpoint:<br />
+        /// GET /system/time
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -28,7 +38,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get supported assets list
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-currency-list-v1" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#get-currency-list-v1" /><br />
+        /// Endpoint:<br />
+        /// GET /spot/v1/currencies
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -36,7 +51,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get supported symbols list
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-trading-pair-details-v1" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#get-trading-pair-details-v1" /><br />
+        /// Endpoint:<br />
+        /// GET /spot/v1/symbols/details
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -44,7 +64,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get a list of supported symbol names
-        /// <para><a href="https://openapi-doc.bitmart.com/en/spot/#get-trading-pairs-list-v1" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://openapi-doc.bitmart.com/en/spot/#get-trading-pairs-list-v1" /><br />
+        /// Endpoint:<br />
+        /// GET /spot/v1/symbols
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -52,7 +77,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get price ticker for a symbol
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-ticker-of-a-trading-pair-v3" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#get-ticker-of-a-trading-pair-v3" /><br />
+        /// Endpoint:<br />
+        /// GET /spot/quotation/v3/ticker
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -60,7 +90,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get price tickers for all symbols
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-ticker-of-all-pairs-v3" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#get-ticker-of-all-pairs-v3" /><br />
+        /// Endpoint:<br />
+        /// GET /spot/quotation/v3/tickers
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
@@ -68,7 +103,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get deposit and withdrawal info for assets
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-currencies" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#get-currencies" /><br />
+        /// Endpoint:<br />
+        /// GET /account/v1/currencies
+        /// </para>
         /// </summary>
         /// <param name="asset">Filter by asset. Can specify up to 20 assets comma separated</param>
         /// <param name="ct">Cancellation token</param>
@@ -76,7 +116,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get kline/candlesticks
-        /// <para><a href="https://openapi-doc.bitmart.com/en/spot/#get-latest-k-line-v3" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://openapi-doc.bitmart.com/en/spot/#get-latest-k-line-v3" /><br />
+        /// Endpoint:<br />
+        /// GET /spot/quotation/v3/lite-klines
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="klineInterval">The interval</param>
@@ -88,7 +133,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get historical klines
-        /// <para><a href="https://openapi-doc.bitmart.com/en/spot/#get-history-k-line-v3" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://openapi-doc.bitmart.com/en/spot/#get-history-k-line-v3" /><br />
+        /// Endpoint:<br />
+        /// GET /spot/quotation/v3/klines
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="klineInterval">Kline interval</param>
@@ -100,7 +150,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get recent trades
-        /// <para><a href="https://openapi-doc.bitmart.com/en/spot/#get-recent-trades-v3" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://openapi-doc.bitmart.com/en/spot/#get-recent-trades-v3" /><br />
+        /// Endpoint:<br />
+        /// GET /spot/quotation/v3/trades
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="limit">Max number of results</param>
@@ -109,7 +164,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get the current order book
-        /// <para><a href="https://openapi-doc.bitmart.com/en/spot/#get-depth-v3" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://openapi-doc.bitmart.com/en/spot/#get-depth-v3" /><br />
+        /// Endpoint:<br />
+        /// GET /spot/quotation/v3/books
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="limit">Max number of rows in the book</param>

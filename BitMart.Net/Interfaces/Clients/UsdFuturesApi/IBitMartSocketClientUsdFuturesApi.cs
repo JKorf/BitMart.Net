@@ -22,7 +22,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Subscribe to ticker updates
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-ticker-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#public-ticker-channel" /><br />
+        /// Endpoint:<br />
+        /// futures/ticker:{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol to subscribe</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -32,7 +37,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Subscribe to ticker updates
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-ticker-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#public-ticker-channel" /><br />
+        /// Endpoint:<br />
+        /// futures/ticker:{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbols">Symbols to subscribe</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -42,7 +52,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Subscribe to ticker updates
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-ticker-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#public-ticker-channel" /><br />
+        /// Endpoint:<br />
+        /// futures/ticker
+        /// </para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -51,7 +66,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Subscribe to trade updates for a symbol
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-trade-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#public-trade-channel" /><br />
+        /// Endpoint:<br />
+        /// futures/trade:{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `ETHUSDT`</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -61,7 +81,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Subscribe to trade updates for multiple symbols
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-trade-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#public-trade-channel" /><br />
+        /// Endpoint:<br />
+        /// futures/trade:{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbols">Symbols, for example `ETHUSDT`</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -71,7 +96,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Subscribe to funding rate updates for a symbol
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-funding-rate-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#public-funding-rate-channel" /><br />
+        /// Endpoint:<br />
+        /// futures/fundingRate:{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `ETHUSDT`</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -81,7 +111,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Subscribe to funding rate updates for multiple symbols
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-funding-rate-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#public-funding-rate-channel" /><br />
+        /// Endpoint:<br />
+        /// futures/fundingRate:{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbols">Symbols, for example `ETHUSDT`</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -91,7 +126,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Subscribe to order book updates for a symbol
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-depth-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#public-depth-channel" /><br />
+        /// Endpoint:<br />
+        /// futures/depth{depth}:{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `ETHUSDT`</param>
         /// <param name="depth">Depth level, 5, 20 or 50</param>
@@ -102,7 +142,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Subscribe to order book updates for multiple symbols
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-depth-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#public-depth-channel" /><br />
+        /// Endpoint:<br />
+        /// futures/depth{depth}:{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbols">Symbols, for example `ETHUSDT`</param>
         /// <param name="depth">Depth level, 5, 20 or 50</param>
@@ -113,7 +158,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Subscribe to order book updates for a symbol. Pushes the full order book depth with each update
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-depth-all-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#public-depth-all-channel" /><br />
+        /// Endpoint:<br />
+        /// futures/depthAll{depth}:{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `ETHUSDT`</param>
         /// <param name="depth">Depth level, 5, 20 or 50</param>
@@ -124,7 +174,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Subscribe to order book updates for multiple symbols. Pushes the full order book depth with each update
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-depth-all-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#public-depth-all-channel" /><br />
+        /// Endpoint:<br />
+        /// futures/depthAll{depth}:{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbols">Symbols, for example `ETHUSDT`</param>
         /// <param name="depth">Depth level, 5, 20 or 50</param>
@@ -135,7 +190,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Subscribe to order book updates for a symbol. First update is the snapshot, after that updates to the snapshot will be pushed
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-depth-all-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#public-depth-all-channel" /><br />
+        /// Endpoint:<br />
+        /// futures/depthIncrease{depth}:{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `ETHUSDT`</param>
         /// <param name="depth">Depth level, 5, 20 or 50</param>
@@ -146,7 +206,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Subscribe to order book updates for multiple symbols. First update is the snapshot, after that updates to the snapshot will be pushed
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-depth-all-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#public-depth-all-channel" /><br />
+        /// Endpoint:<br />
+        /// futures/depthIncrease{depth}:{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbols">Symbols, for example `ETHUSDT`</param>
         /// <param name="depth">Depth level, 5, 20 or 50</param>
@@ -175,7 +240,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Subscribe to kline/candlestick updates for a symbol
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-klinebin-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#public-klinebin-channel" /><br />
+        /// Endpoint:<br />
+        /// futures/klineBin{interval}:{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `ETHUSDT`</param>
         /// <param name="interval">Kline interval</param>
@@ -186,7 +256,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Subscribe to kline/candlestick updates for multiple symbols
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-klinebin-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#public-klinebin-channel" /><br />
+        /// Endpoint:<br />
+        /// futures/klineBin{interval}:{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbols">Symbols, for example `ETHUSDT`</param>
         /// <param name="interval">Kline interval</param>
@@ -197,7 +272,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Subscribe mark price kline/candlestick updates for multiple symbols
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-markprice-klinebin-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#public-markprice-klinebin-channel" /><br />
+        /// Endpoint:<br />
+        /// futures/markPriceKlineBin{interval}:{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `ETHUSDT`</param>
         /// <param name="interval">Kline interval</param>
@@ -208,7 +288,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Subscribe mark price kline/candlestick updates for multiple symbols
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-markprice-klinebin-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#public-markprice-klinebin-channel" /><br />
+        /// Endpoint:<br />
+        /// futures/markPriceKlineBin{interval}:{symbol}
+        /// </para>
         /// </summary>
         /// <param name="symbols">Symbols, for example `ETHUSDT`</param>
         /// <param name="interval">Kline interval</param>
@@ -219,7 +304,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Subscribe to balance updates
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#private-assets-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#private-assets-channel" /><br />
+        /// Endpoint:<br />
+        /// futures/asset:{asset}
+        /// </para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -228,7 +318,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Subscribe to position updates
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#private-position-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#private-position-channel" /><br />
+        /// Endpoint:<br />
+        /// futures/position
+        /// </para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -237,7 +332,12 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 
         /// <summary>
         /// Subscribe to order updates
-        /// <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#private-order-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#private-order-channel" /><br />
+        /// Endpoint:<br />
+        /// futures/order
+        /// </para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>

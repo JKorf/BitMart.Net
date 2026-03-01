@@ -3823,7 +3823,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiAccount.GetFundingBalancesAsync(System.String,System.Nullable{System.Boolean},System.Threading.CancellationToken)">
             <summary>
             Get funding account balances
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#get-account-balance-keyed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#get-account-balance-keyed" /><br />
+            Endpoint:<br />
+            GET /account/v1/wallet
+            </para>
             </summary>
             <param name="asset">Filter on asset, for example `ETH`</param>
             <param name="needUsdValuation">Include USD valuation</param>
@@ -3832,14 +3837,24 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiAccount.GetSpotBalancesAsync(System.Threading.CancellationToken)">
             <summary>
             Get spot account balances
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#get-spot-wallet-balance-keyed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#get-spot-wallet-balance-keyed" /><br />
+            Endpoint:<br />
+            GET /spot/v1/wallet
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiAccount.GetDepositAddressAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get deposit address
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#deposit-address-keyed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#deposit-address-keyed" /><br />
+            Endpoint:<br />
+            GET /account/v1/deposit/address
+            </para>
             </summary>
             <param name="asset">The asset, for example `ETH`</param>
             <param name="ct">Cancellation token</param>
@@ -3847,7 +3862,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiAccount.GetWithdrawalQuotaAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get withdrawal quotas
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#withdraw-quota-keyed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#withdraw-quota-keyed" /><br />
+            Endpoint:<br />
+            GET /account/v1/withdraw/charge
+            </para>
             </summary>
             <param name="asset">Asset, for example `ETH`</param>
             <param name="ct">Cancellation token</param>
@@ -3855,7 +3875,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiAccount.WithdrawAsync(System.String,System.Decimal,System.String,System.String,System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Withdraw funds
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#withdraw-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#withdraw-signed" /><br />
+            Endpoint:<br />
+            POST /account/v1/withdraw/apply
+            </para>
             </summary>
             <param name="asset">The asset, for example `ETH`</param>
             <param name="quantity">Quantity to withdraw</param>
@@ -3870,7 +3895,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiAccount.GetDepositHistoryAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get deposit history
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#get-deposit-and-withdraw-history-keyed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#get-deposit-and-withdraw-history-keyed" /><br />
+            Endpoint:<br />
+            GET /account/v2/deposit-withdraw/history
+            </para>
             </summary>
             <param name="asset">Filter by asset</param>
             <param name="startTime">Filter by start time</param>
@@ -3882,7 +3912,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiAccount.GetWithdrawalHistoryAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get withdrawal history
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#get-deposit-and-withdraw-history-keyed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#get-deposit-and-withdraw-history-keyed" /><br />
+            Endpoint:<br />
+            GET /account/v2/deposit-withdraw/history
+            </para>
             </summary>
             <param name="asset">Filter by asset</param>
             <param name="startTime">Filter by start time</param>
@@ -3894,7 +3929,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiAccount.GetDepositWithdrawalAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get a specific withdrawal or deposit
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#get-a-deposit-or-withdraw-detail-keyed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#get-a-deposit-or-withdraw-detail-keyed" /><br />
+            Endpoint:<br />
+            GET /account/v1/deposit-withdraw/detail
+            </para>
             </summary>
             <param name="id">The deposit or withdrawal id</param>
             <param name="ct">Cancellation token</param>
@@ -3902,7 +3942,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiAccount.GetIsolatedMarginAccountsAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get isolated margin account info
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#get-margin-account-details-isolated-keyed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#get-margin-account-details-isolated-keyed" /><br />
+            Endpoint:<br />
+            GET /spot/v1/margin/isolated/account
+            </para>
             </summary>
             <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
             <param name="ct">Cancellation token</param>
@@ -3910,7 +3955,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiAccount.IsolatedMarginTransferAsync(System.String,System.String,System.Decimal,BitMart.Net.Enums.TransferDirection,System.Threading.CancellationToken)">
             <summary>
             Transfer asset between Spot and Isolated Margin account
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#margin-asset-transfer-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#margin-asset-transfer-signed" /><br />
+            Endpoint:<br />
+            GET /spot/v1/margin/isolated/transfer
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="asset">The asset, for example `ETH`</param>
@@ -3921,14 +3971,24 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiAccount.GetBaseTradeFeesAsync(System.Threading.CancellationToken)">
             <summary>
             Get base trading fees
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#get-basic-fee-rate-keyed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#get-basic-fee-rate-keyed" /><br />
+            Endpoint:<br />
+            GET /spot/v1/user_fee
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiAccount.GetSymbolTradeFeeAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get trading fees for a specific symbol
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#get-actual-trade-fee-rate-keyed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#get-actual-trade-fee-rate-keyed" /><br />
+            Endpoint:<br />
+            GET /spot/v1/trade_fee
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="ct">Cancellation token</param>
@@ -3936,7 +3996,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiAccount.GetWithdrawalAddressesAsync(System.Threading.CancellationToken)">
             <summary>
             Get withdrawal addresses
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#withdraw-address-keyed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#withdraw-address-keyed" /><br />
+            Endpoint:<br />
+            GET /account/v1/withdraw/address/list
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
         </member>
@@ -3948,13 +4013,23 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiExchangeData.GetServerStatusAsync(System.Threading.CancellationToken)">
             <summary>
             Get server status
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#get-system-service-status" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#get-system-service-status" /><br />
+            Endpoint:<br />
+            GET /system/service
+            </para>
             </summary>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiExchangeData.GetServerTimeAsync(System.Threading.CancellationToken)">
             <summary>
             Get server time
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#get-system-time" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#get-system-time" /><br />
+            Endpoint:<br />
+            GET /system/time
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -3962,7 +4037,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiExchangeData.GetAssetsAsync(System.Threading.CancellationToken)">
             <summary>
             Get supported assets list
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#get-currency-list-v1" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#get-currency-list-v1" /><br />
+            Endpoint:<br />
+            GET /spot/v1/currencies
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -3970,7 +4050,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiExchangeData.GetSymbolsAsync(System.Threading.CancellationToken)">
             <summary>
             Get supported symbols list
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#get-trading-pair-details-v1" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#get-trading-pair-details-v1" /><br />
+            Endpoint:<br />
+            GET /spot/v1/symbols/details
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -3978,7 +4063,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiExchangeData.GetSymbolNamesAsync(System.Threading.CancellationToken)">
             <summary>
             Get a list of supported symbol names
-            <para><a href="https://openapi-doc.bitmart.com/en/spot/#get-trading-pairs-list-v1" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://openapi-doc.bitmart.com/en/spot/#get-trading-pairs-list-v1" /><br />
+            Endpoint:<br />
+            GET /spot/v1/symbols
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -3986,7 +4076,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiExchangeData.GetTickerAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get price ticker for a symbol
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#get-ticker-of-a-trading-pair-v3" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#get-ticker-of-a-trading-pair-v3" /><br />
+            Endpoint:<br />
+            GET /spot/quotation/v3/ticker
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="ct">Cancellation token</param>
@@ -3994,7 +4089,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiExchangeData.GetTickersAsync(System.Threading.CancellationToken)">
             <summary>
             Get price tickers for all symbols
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#get-ticker-of-all-pairs-v3" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#get-ticker-of-all-pairs-v3" /><br />
+            Endpoint:<br />
+            GET /spot/quotation/v3/tickers
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -4002,7 +4102,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiExchangeData.GetAssetDepositWithdrawInfoAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get deposit and withdrawal info for assets
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#get-currencies" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#get-currencies" /><br />
+            Endpoint:<br />
+            GET /account/v1/currencies
+            </para>
             </summary>
             <param name="asset">Filter by asset. Can specify up to 20 assets comma separated</param>
             <param name="ct">Cancellation token</param>
@@ -4010,7 +4115,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiExchangeData.GetKlinesAsync(System.String,BitMart.Net.Enums.KlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get kline/candlesticks
-            <para><a href="https://openapi-doc.bitmart.com/en/spot/#get-latest-k-line-v3" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://openapi-doc.bitmart.com/en/spot/#get-latest-k-line-v3" /><br />
+            Endpoint:<br />
+            GET /spot/quotation/v3/lite-klines
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="klineInterval">The interval</param>
@@ -4022,7 +4132,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiExchangeData.GetKlineHistoryAsync(System.String,BitMart.Net.Enums.KlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get historical klines
-            <para><a href="https://openapi-doc.bitmart.com/en/spot/#get-history-k-line-v3" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://openapi-doc.bitmart.com/en/spot/#get-history-k-line-v3" /><br />
+            Endpoint:<br />
+            GET /spot/quotation/v3/klines
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="klineInterval">Kline interval</param>
@@ -4034,7 +4149,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiExchangeData.GetTradesAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get recent trades
-            <para><a href="https://openapi-doc.bitmart.com/en/spot/#get-recent-trades-v3" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://openapi-doc.bitmart.com/en/spot/#get-recent-trades-v3" /><br />
+            Endpoint:<br />
+            GET /spot/quotation/v3/trades
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="limit">Max number of results</param>
@@ -4043,7 +4163,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiExchangeData.GetOrderBookAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get the current order book
-            <para><a href="https://openapi-doc.bitmart.com/en/spot/#get-depth-v3" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://openapi-doc.bitmart.com/en/spot/#get-depth-v3" /><br />
+            Endpoint:<br />
+            GET /spot/quotation/v3/books
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="limit">Max number of rows in the book</param>
@@ -4058,7 +4183,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiMargin.BorrowAsync(System.String,System.String,System.Decimal,System.Threading.CancellationToken)">
             <summary>
             Borrow an asset
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#margin-borrow-isolated-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#margin-borrow-isolated-signed" /><br />
+            Endpoint:<br />
+            POST /spot/v1/margin/isolated/borrow
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="asset">The asset, for example `ETH`</param>
@@ -4068,7 +4198,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiMargin.RepayAsync(System.String,System.String,System.Decimal,System.Threading.CancellationToken)">
             <summary>
             Repay an asset
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#margin-repay-isolated-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#margin-repay-isolated-signed" /><br />
+            Endpoint:<br />
+            POST /spot/v1/margin/isolated/repay
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="asset">The asset, for example `ETH`</param>
@@ -4078,7 +4213,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiMargin.GetBorrowHistoryAsync(System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get borrow history
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#get-borrow-record-isolated-keyed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#get-borrow-record-isolated-keyed" /><br />
+            Endpoint:<br />
+            GET /spot/v1/margin/isolated/borrow_record
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="borrowId">Filter by borrow id</param>
@@ -4090,7 +4230,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiMargin.GetRepayHistoryAsync(System.String,System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get repayment history
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#get-repayment-record-isolated-keyed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#get-repayment-record-isolated-keyed" /><br />
+            Endpoint:<br />
+            GET /spot/v1/margin/isolated/repay_record
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="asset">Filter by asset, for example `ETH`</param>
@@ -4103,7 +4248,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiMargin.GetBorrowInfoAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get borrow rate and quantity info
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#get-trading-pair-borrowing-rate-and-amount-keyed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#get-trading-pair-borrowing-rate-and-amount-keyed" /><br />
+            Endpoint:<br />
+            GET /spot/v1/margin/isolated/pairs
+            </para>
             </summary>
             <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
             <param name="ct">Cancellation token</param>
@@ -4121,7 +4271,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiSubAccount.TransferSubToMainForMainAsync(System.String,System.String,System.Decimal,System.String,System.Threading.CancellationToken)">
             <summary>
             Transfer from sub account to main account, usable from main account
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#sub-account-to-main-account-for-main-account-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#sub-account-to-main-account-for-main-account-signed" /><br />
+            Endpoint:<br />
+            POST /account/sub-account/main/v1/sub-to-main
+            </para>
             </summary>
             <param name="clientOrderId">Unique identifier</param>
             <param name="asset">The asset, for example `ETH`</param>
@@ -4132,7 +4287,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiSubAccount.TransferSubToMainForSubAsync(System.String,System.String,System.Decimal,System.Threading.CancellationToken)">
             <summary>
             Transfer from sub account to main account, usable from sub account
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#sub-account-to-main-account-for-sub-account-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#sub-account-to-main-account-for-sub-account-signed" /><br />
+            Endpoint:<br />
+            POST /account/sub-account/sub/v1/sub-to-main
+            </para>
             </summary>
             <param name="clientOrderId">Unique identifier</param>
             <param name="asset">The asset, for example `ETH`</param>
@@ -4142,7 +4302,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiSubAccount.TransferMainToSubAccountAsync(System.String,System.String,System.Decimal,System.String,System.Threading.CancellationToken)">
             <summary>
             Transfer from main account to a sub account
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#main-account-to-sub-account-for-main-account-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#main-account-to-sub-account-for-main-account-signed" /><br />
+            Endpoint:<br />
+            POST /account/sub-account/main/v1/main-to-sub
+            </para>
             </summary>
             <param name="clientOrderId">Unique identifier</param>
             <param name="asset">The asset, for example `ETH`</param>
@@ -4153,7 +4318,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiSubAccount.TransferSubAccountToSubAccountAsync(System.String,System.Decimal,System.String,System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Transfer from sub account to another sub account
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#sub-account-to-sub-account-for-main-account-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#sub-account-to-sub-account-for-main-account-signed" /><br />
+            Endpoint:<br />
+            POST /account/sub-account/main/v1/sub-to-sub
+            </para>
             </summary>
             <param name="clientOrderId">Unique identifier</param>
             <param name="quantity">Quantity to transfer</param>
@@ -4165,7 +4335,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiSubAccount.GetSubAccountTransferHistoryForMainAsync(System.Int32,System.String,System.Threading.CancellationToken)">
             <summary>
             Get sub account transfer history for main account
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#get-sub-account-transfer-history-for-main-account-keyed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#get-sub-account-transfer-history-for-main-account-keyed" /><br />
+            Endpoint:<br />
+            GET /account/sub-account/main/v1/transfer-list
+            </para>
             </summary>
             <param name="account">Filter by account name</param>
             <param name="limit">Max number of results</param>
@@ -4174,7 +4349,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiSubAccount.GetSubAccountTransferHistoryAsync(System.Int32,System.Threading.CancellationToken)">
             <summary>
             Get sub accont transfer history 
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#get-account-spot-asset-transfer-history-for-main-sub-account-keyed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#get-account-spot-asset-transfer-history-for-main-sub-account-keyed" /><br />
+            Endpoint:<br />
+            GET /account/sub-account/v1/transfer-history
+            </para>
             </summary>
             <param name="limit">Max number of results</param>
             <param name="ct">Cancellation token</param>
@@ -4183,7 +4363,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiSubAccount.GetSubAcccountBalanceAsync(System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Get the balance of a sub account
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#get-sub-account-spot-wallet-balance-for-main-account-keyed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#get-sub-account-spot-wallet-balance-for-main-account-keyed" /><br />
+            Endpoint:<br />
+            GET /account/sub-account/main/v1/wallet
+            </para>
             </summary>
             <param name="subAccount">Sub account name</param>
             <param name="asset">Filter by asset, for example `ETH`</param>
@@ -4192,7 +4377,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiSubAccount.GetSubAccountListAsync(System.Threading.CancellationToken)">
             <summary>
             Get list of sub accounts
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#get-sub-account-list-for-main-account-keyed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#get-sub-account-list-for-main-account-keyed" /><br />
+            Endpoint:<br />
+            GET /account/sub-account/main/v1/subaccount-list
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
         </member>
@@ -4204,7 +4394,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiTrading.PlaceOrderAsync(System.String,BitMart.Net.Enums.OrderSide,BitMart.Net.Enums.OrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Nullable{BitMart.Net.Enums.SelfTradePreventionMode},System.Threading.CancellationToken)">
             <summary>
             Place a new order
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#new-order-v2-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#new-order-v2-signed" /><br />
+            Endpoint:<br />
+            POST /spot/v2/submit_order
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="side">Order side</param>
@@ -4219,7 +4414,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiTrading.PlaceMultipleOrdersAsync(System.String,System.Collections.Generic.IEnumerable{BitMart.Net.Objects.Models.BitMartOrderRequest},System.Threading.CancellationToken)">
             <summary>
             Place multiple orders in one call
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#new-batch-order-v4-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#new-batch-order-v4-signed" /><br />
+            Endpoint:<br />
+            POST /spot/v4/batch_orders
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="orders">Order parameters</param>
@@ -4229,7 +4429,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiTrading.CancelOrderAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Cancel an open order
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#cancel-order-v3-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#cancel-order-v3-signed" /><br />
+            Endpoint:<br />
+            POST /spot/v3/cancel_order
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="orderId">Cancel by order id. Either this or clientOrderId should be provided</param>
@@ -4239,7 +4444,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiTrading.CancelOrdersAsync(System.String,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <summary>
             Cancel multiple orders
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#cancel-batch-order-v4-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#cancel-batch-order-v4-signed" /><br />
+            Endpoint:<br />
+            POST /spot/v4/cancel_orders
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="orderIds">Order ids to cancel. Either this or clientOrderIds should be provided</param>
@@ -4249,7 +4459,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiTrading.CancelAllOrderAsync(System.String,System.Nullable{BitMart.Net.Enums.OrderSide},System.Threading.CancellationToken)">
             <summary>
             Cancel all orders matching the parameters
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#cancel-all-order-v4-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#cancel-all-order-v4-signed" /><br />
+            Endpoint:<br />
+            POST /spot/v4/cancel_all
+            </para>
             </summary>
             <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
             <param name="side">Filter by order side</param>
@@ -4259,7 +4474,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiTrading.PlaceMarginOrderAsync(System.String,BitMart.Net.Enums.OrderSide,BitMart.Net.Enums.OrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Threading.CancellationToken)">
             <summary>
             Place a new margin order
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#new-margin-order-v1-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#new-margin-order-v1-signed" /><br />
+            Endpoint:<br />
+            POST /spot/v1/margin/submit_order
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="side">Order side</param>
@@ -4273,7 +4493,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiTrading.GetOrderAsync(System.String,System.Nullable{BitMart.Net.Enums.OrderQueryState},System.Threading.CancellationToken)">
             <summary>
             Get order details
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#query-order-by-id-v4-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#query-order-by-id-v4-signed" /><br />
+            Endpoint:<br />
+            POST /spot/v4/query/order
+            </para>
             </summary>
             <param name="orderId">Id of the order</param>
             <param name="orderQueryState">Order status. If known speeds up the request</param>
@@ -4282,7 +4507,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiTrading.GetOrderByClientOrderIdAsync(System.String,System.Nullable{BitMart.Net.Enums.OrderQueryState},System.Threading.CancellationToken)">
             <summary>
             Get order details by client order id
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#query-order-by-clientorderid-v4-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#query-order-by-clientorderid-v4-signed" /><br />
+            Endpoint:<br />
+            POST /spot/v4/query/client-order
+            </para>
             </summary>
             <param name="clientOrderId">Client order id</param>
             <param name="orderQueryState">Order status. If known speeds up the request</param>
@@ -4291,7 +4521,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiTrading.GetOpenOrdersAsync(System.String,System.Nullable{BitMart.Net.Enums.SpotMode},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get current open orders
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#current-open-orders-v4-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#current-open-orders-v4-signed" /><br />
+            Endpoint:<br />
+            POST /spot/v4/query/open-orders
+            </para>
             </summary>
             <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
             <param name="spotOrderMode">Filter by order mode</param>
@@ -4303,7 +4538,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiTrading.GetClosedOrdersAsync(System.String,System.Nullable{BitMart.Net.Enums.SpotMode},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get closed orders
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#account-orders-v4-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#account-orders-v4-signed" /><br />
+            Endpoint:<br />
+            POST /spot/v4/query/history-orders
+            </para>
             </summary>
             <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
             <param name="spotOrderMode">Filter spot order more</param>
@@ -4315,7 +4555,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiTrading.GetUserTradesAsync(System.String,System.Nullable{BitMart.Net.Enums.SpotMode},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get list of user trades
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#account-trade-list-v4-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#account-trade-list-v4-signed" /><br />
+            Endpoint:<br />
+            POST /spot/v4/query/trades
+            </para>
             </summary>
             <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
             <param name="spotOrderMode">Filter by order mode</param>
@@ -4327,7 +4572,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartRestClientSpotApiTrading.GetOrderTradesAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get trades for a specific order
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#order-trade-list-v4-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#order-trade-list-v4-signed" /><br />
+            Endpoint:<br />
+            POST /spot/v4/query/order-trades
+            </para>
             </summary>
             <param name="orderId">The order id</param>
             <param name="ct">Cancellation token</param>
@@ -4345,7 +4595,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartSocketClientSpotApi.SubscribeToTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartTickerUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to price ticker updates for a symbol
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#public-ticker-channel" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#public-ticker-channel" /><br />
+            Endpoint:<br />
+            spot/ticker
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="onMessage">The event handler for the received data</param>
@@ -4355,7 +4610,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartSocketClientSpotApi.SubscribeToTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartTickerUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to price ticker updates for multiple symbols
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#public-ticker-channel" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#public-ticker-channel" /><br />
+            Endpoint:<br />
+            spot/ticker
+            </para>
             </summary>
             <param name="symbols">The symbols, for example `ETH_USDT`</param>
             <param name="onMessage">The event handler for the received data</param>
@@ -4365,7 +4625,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartSocketClientSpotApi.SubscribeToKlineUpdatesAsync(System.String,BitMart.Net.Enums.KlineStreamInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartKlineUpdate[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to kline/candlestick updates for a symbol
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#public-kline-channel" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#public-kline-channel" /><br />
+            Endpoint:<br />
+            spot/kline{interval}
+            </para>
             </summary>
             <param name="symbol">Symbol, for example `ETH_USDT`</param>
             <param name="interval">Kline interval</param>
@@ -4376,7 +4641,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartSocketClientSpotApi.SubscribeToKlineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},BitMart.Net.Enums.KlineStreamInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartKlineUpdate[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to kline/candlestick updates for multiple symbols
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#public-kline-channel" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#public-kline-channel" /><br />
+            Endpoint:<br />
+            spot/kline{interval}
+            </para>
             </summary>
             <param name="symbols">Symbols, for example `ETH_USDT`</param>
             <param name="interval">Kline interval</param>
@@ -4387,7 +4657,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartSocketClientSpotApi.SubscribeToPartialOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartOrderBookUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to full order book updates of the first x order book records
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#public-depth-all-channel" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#public-depth-all-channel" /><br />
+            Endpoint:<br />
+            spot/depth{depth}
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="depth">Order book depth, 5, 20 or 50</param>
@@ -4398,7 +4673,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartSocketClientSpotApi.SubscribeToPartialOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartOrderBookUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to full order book updates of the first x order book records
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#public-depth-all-channel" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#public-depth-all-channel" /><br />
+            Endpoint:<br />
+            spot/depth{depth}
+            </para>
             </summary>
             <param name="symbols">The symbols, for example `ETH_USDT`</param>
             <param name="depth">Order book depth, 5, 20 or 50</param>
@@ -4409,7 +4689,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartSocketClientSpotApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartOrderBookIncrementalUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to order book updates. An initial snapshot will be pushed, followed by change updates
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#public-depth-increase-channel" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#public-depth-increase-channel" /><br />
+            Endpoint:<br />
+            spot/depth/increase100
+            </para>
             </summary>
             <param name="symbol">Symbol, for example `ETH_USDT`</param>
             <param name="onMessage">The event handler for the received data</param>
@@ -4419,7 +4704,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartSocketClientSpotApi.SubscribeToOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartOrderBookIncrementalUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to order book updates. An initial snapshot will be pushed, followed by change updates
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#public-depth-increase-channel" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#public-depth-increase-channel" /><br />
+            Endpoint:<br />
+            spot/depth/increase100
+            </para>
             </summary>
             <param name="symbols">Symbols, for example `ETH_USDT`</param>
             <param name="onMessage">The event handler for the received data</param>
@@ -4429,7 +4719,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartTradeUpdate[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to trade updates for a symbol
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#public-trade-channel" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#public-trade-channel" /><br />
+            Endpoint:<br />
+            spot/trade
+            </para>
             </summary>
             <param name="symbol">Symbol, for example `ETH_USDT`</param>
             <param name="onMessage">The event handler for the received data</param>
@@ -4439,7 +4734,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartTradeUpdate[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to trade updates for multiple symbols
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#public-trade-channel" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#public-trade-channel" /><br />
+            Endpoint:<br />
+            spot/trade
+            </para>
             </summary>
             <param name="symbols">Symbols, for example `ETH_USDT`</param>
             <param name="onMessage">The event handler for the received data</param>
@@ -4449,7 +4749,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartSocketClientSpotApi.SubscribeToOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartOrderUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to user order updates
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#private-order-progress" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#private-order-progress" /><br />
+            Endpoint:<br />
+            spot/user/orders
+            </para>
             </summary>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -4458,7 +4763,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.SpotApi.IBitMartSocketClientSpotApi.SubscribeToBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartBalanceUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to user balance updates
-            <para><a href="https://developer-pro.bitmart.com/en/spot/#private-balance-change" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/spot/#private-balance-change" /><br />
+            Endpoint:<br />
+            spot/user/balance
+            </para>
             </summary>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -4516,14 +4826,24 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiAccount.GetBalancesAsync(System.Threading.CancellationToken)">
             <summary>
             Get account balances
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-contract-assets-keyed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-contract-assets-keyed" /><br />
+            Endpoint:<br />
+            GET /contract/private/assets-detail
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiAccount.GetTransferHistoryAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get account transfer history
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-transfer-list-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-transfer-list-signed" /><br />
+            Endpoint:<br />
+            POST /account/v1/transfer-contract-list
+            </para>
             </summary>
             <param name="asset">Filter by asset, for example `USDT`</param>
             <param name="startTime">Filter by start time</param>
@@ -4535,7 +4855,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiAccount.TransferAsync(System.String,System.Decimal,BitMart.Net.Enums.FuturesTransferType,System.Threading.CancellationToken)">
             <summary>
             Transfer between futures and spot account
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#transfer-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#transfer-signed" /><br />
+            Endpoint:<br />
+            POST /account/v1/transfer-contract
+            </para>
             </summary>
             <param name="asset">The asset, for example `USDT`</param>
             <param name="quantity">Quantity to transfer</param>
@@ -4545,7 +4870,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiAccount.SetLeverageAsync(System.String,System.Decimal,BitMart.Net.Enums.MarginType,System.Threading.CancellationToken)">
             <summary>
             Set leverage
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#submit-leverage-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#submit-leverage-signed" /><br />
+            Endpoint:<br />
+            POST /contract/private/submit-leverage
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="leverage">Leverage</param>
@@ -4555,7 +4885,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiAccount.GetSymbolTradeFeeAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get symbol trading fee
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-trade-fee-rate-keyed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-trade-fee-rate-keyed" /><br />
+            Endpoint:<br />
+            GET /contract/private/trade-fee-rate
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="ct">Cancellation token</param>
@@ -4564,7 +4899,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiAccount.GetTransactionHistoryAsync(System.String,System.Nullable{BitMart.Net.Enums.FlowType},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get transaction history
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-transaction-history-keyed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-transaction-history-keyed" /><br />
+            Endpoint:<br />
+            GET /contract/private/transaction-history
+            </para>
             </summary>
             <param name="symbol">Filter by symbol, for Example `ETHUSDT`</param>
             <param name="flowType">Filter by type</param>
@@ -4577,7 +4917,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiAccount.SetPositionModeAsync(BitMart.Net.Enums.PositionMode,System.Threading.CancellationToken)">
             <summary>
             Set the position mode of the account
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#set-position-mode-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#set-position-mode-signed" /><br />
+            Endpoint:<br />
+            POST /contract/private/set-position-mode
+            </para>
             </summary>
             <param name="positionMode">Position mode</param>
             <param name="ct">Cancellation token</param>
@@ -4586,7 +4931,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiAccount.GetPositionModeAsync(System.Threading.CancellationToken)">
             <summary>
             Get the current position  mode of the account
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-position-mode-keyed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-position-mode-keyed" /><br />
+            Endpoint:<br />
+            GET /contract/private/get-position-mode
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
             <returns></returns>
@@ -4599,7 +4949,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiExchangeData.GetContractsAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get contracts
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-contract-details" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-contract-details" /><br />
+            Endpoint:<br />
+            GET /contract/public/details
+            </para>
             </summary>
             <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
             <param name="ct">Cancellation token</param>
@@ -4607,7 +4962,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiExchangeData.GetOrderBookAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get the current order book
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-market-depth" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-market-depth" /><br />
+            Endpoint:<br />
+            GET /contract/public/depth
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="ct">Cancellation token</param>
@@ -4615,7 +4975,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiExchangeData.GetOpenInterestAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get open interest for a symbol
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-futures-openinterest" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-futures-openinterest" /><br />
+            Endpoint:<br />
+            GET /contract/public/open-interest
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="ct">Cancellation token</param>
@@ -4623,7 +4988,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiExchangeData.GetCurrentFundingRateAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get the current funding rate for a symbol
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-current-funding-rate" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-current-funding-rate" /><br />
+            Endpoint:<br />
+            GET /contract/public/funding-rate
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="ct">Cancellation token</param>
@@ -4631,7 +5001,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiExchangeData.GetKlinesAsync(System.String,BitMart.Net.Enums.FuturesKlineInterval,System.DateTime,System.DateTime,System.Threading.CancellationToken)">
             <summary>
             Get kline/candlestick data
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-k-line" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-k-line" /><br />
+            Endpoint:<br />
+            GET /contract/public/kline
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="klineInterval">Kline interval</param>
@@ -4642,7 +5017,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiExchangeData.GetMarkKlinesAsync(System.String,BitMart.Net.Enums.FuturesKlineInterval,System.DateTime,System.DateTime,System.Threading.CancellationToken)">
             <summary>
             Get mark price klines
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-markprice-k-line" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-markprice-k-line" /><br />
+            Endpoint:<br />
+            GET /contract/public/markprice-kline
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="klineInterval">Kline interval</param>
@@ -4653,7 +5033,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiExchangeData.GetFundingRateHistoryAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get funding rate history
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-funding-rate-history" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-funding-rate-history" /><br />
+            Endpoint:<br />
+            GET /contract/public/funding-rate-history
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="limit">Max number of results, max 100</param>
@@ -4662,7 +5047,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiExchangeData.GetLeverageBracketsAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get leverage bracket info
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-current-leverage-risk-limit" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-current-leverage-risk-limit" /><br />
+            Endpoint:<br />
+            GET /contract/public/leverage-bracket
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="ct">Cancellation token</param>
@@ -4670,7 +5060,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiExchangeData.GetRecentTradesAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get recent trades
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-market-trade" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-market-trade" /><br />
+            Endpoint:<br />
+            GET /contract/public/market-trade
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="limit">Max number of results</param>
@@ -4684,7 +5079,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiSubAccount.TransferSubToMainForMainAsync(System.String,System.Decimal,System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Transfer from sub futures account to main account, for main account
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#sub-account-to-main-account-for-main-account-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#sub-account-to-main-account-for-main-account-signed" /><br />
+            Endpoint:<br />
+            POST /account/contract/sub-account/main/v1/sub-to-main
+            </para>
             </summary>
             <param name="asset">The asset, for example `USDT`</param>
             <param name="quantity">Quantity</param>
@@ -4695,7 +5095,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiSubAccount.TransferMainToSubForMainAsync(System.String,System.Decimal,System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Transfer from main account to sub futures acount
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#main-account-to-sub-account-for-main-account-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#main-account-to-sub-account-for-main-account-signed" /><br />
+            Endpoint:<br />
+            POST /account/contract/sub-account/main/v1/main-to-sub
+            </para>
             </summary>
             <param name="asset">The asset, for example `USDT`</param>
             <param name="quantity">Quantity</param>
@@ -4706,7 +5111,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiSubAccount.TransferSubToMainForSubAsync(System.String,System.Decimal,System.String,System.Threading.CancellationToken)">
             <summary>
             Transfer from sub futures account to main account, for sub account
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#sub-account-to-main-account-for-sub-account-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#sub-account-to-main-account-for-sub-account-signed" /><br />
+            Endpoint:<br />
+            POST /account/contract/sub-account/sub/v1/sub-to-main
+            </para>
             </summary>
             <param name="asset">The asset, for example `USDT`</param>
             <param name="quantity">Quantity</param>
@@ -4716,7 +5126,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiSubAccount.GetSubAcccountBalanceAsync(System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Get sub account futures balances
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-sub-account-futures-wallet-balance-for-main-account-keyed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-sub-account-futures-wallet-balance-for-main-account-keyed" /><br />
+            Endpoint:<br />
+            GET /account/contract/sub-account/main/v1/wallet
+            </para>
             </summary>
             <param name="subAccount">Sub account name</param>
             <param name="asset">The asset, for example `USDT`</param>
@@ -4725,7 +5140,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiSubAccount.GetSubAccountTransferHistoryForMainAsync(System.String,System.Int32,System.Threading.CancellationToken)">
             <summary>
             Get sub account transfer history, for main account
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-sub-account-transfer-history-for-main-account-keyed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-sub-account-transfer-history-for-main-account-keyed" /><br />
+            Endpoint:<br />
+            GET /account/contract/sub-account/main/v1/transfer-list
+            </para>
             </summary>
             <param name="subAccount">Sub account name</param>
             <param name="limit">Max number of results</param>
@@ -4734,7 +5154,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiSubAccount.GetSubAccountTransferHistoryAsync(System.Int32,System.Threading.CancellationToken)">
             <summary>
             Get sub account transfer history
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-account-futures-asset-transfer-history-for-main-sub-account-keyed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-account-futures-asset-transfer-history-for-main-sub-account-keyed" /><br />
+            Endpoint:<br />
+            GET /account/contract/sub-account/v1/transfer-history
+            </para>
             </summary>
             <param name="limit">Max number of results</param>
             <param name="ct">Cancellation token</param>
@@ -4747,7 +5172,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.GetOrderAsync(System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Get an order by id
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-order-detail-keyed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-order-detail-keyed" /><br />
+            Endpoint:<br />
+            GET /contract/private/order
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="orderId">Order id</param>
@@ -4756,7 +5186,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.GetClosedOrdersAsync(System.String,System.String,System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
             <summary>
             Get order history
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-order-history-keyed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-order-history-keyed" /><br />
+            Endpoint:<br />
+            GET /contract/private/order-history
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="orderId">Filter by order id</param>
@@ -4768,7 +5203,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.GetOpenOrdersAsync(System.String,System.Nullable{BitMart.Net.Enums.FuturesOrderType},System.Nullable{BitMart.Net.Enums.OrderStatusQuery},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get open orders
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-all-open-orders-keyed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-all-open-orders-keyed" /><br />
+            Endpoint:<br />
+            GET /contract/private/get-open-orders
+            </para>
             </summary>
             <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
             <param name="orderType">Filter by order type</param>
@@ -4779,7 +5219,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.GetTriggerOrdersAsync(System.String,System.Nullable{BitMart.Net.Enums.OrderType},System.Nullable{System.Int32},System.Nullable{BitMart.Net.Enums.TriggerPlanType},System.Threading.CancellationToken)">
             <summary>
             Get open trigger orders
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-all-current-plan-orders-keyed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-all-current-plan-orders-keyed" /><br />
+            Endpoint:<br />
+            GET /contract/private/current-plan-order
+            </para>
             </summary>
             <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
             <param name="type">Filter by order type</param>
@@ -4790,7 +5235,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.GetPositionsAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get current positions
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-current-position-keyed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-current-position-keyed" /><br />
+            Endpoint:<br />
+            GET /contract/private/position
+            </para>
             </summary>
             <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
             <param name="ct">Cancellation token</param>
@@ -4798,7 +5248,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.GetPositionRiskAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get position risk
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-current-position-risk-details-keyed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-current-position-risk-details-keyed" /><br />
+            Endpoint:<br />
+            GET /contract/private/position-risk
+            </para>
             </summary>
             <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
             <param name="ct">Cancellation token</param>
@@ -4806,7 +5261,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.GetUserTradesAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int64},System.String,System.Threading.CancellationToken)">
             <summary>
             Get user trades
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#get-order-trade-keyed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-order-trade-keyed" /><br />
+            Endpoint:<br />
+            GET /contract/private/trades
+            </para>
             </summary>
             <param name="symbol">Filter by symbol, for example `ETHUSDT`</param>
             <param name="startTime">Filter by start time</param>
@@ -4818,7 +5278,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.PlaceOrderAsync(System.String,BitMart.Net.Enums.FuturesSide,BitMart.Net.Enums.FuturesOrderType,System.Int32,System.Nullable{System.Decimal},System.String,System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.MarginType},System.Nullable{BitMart.Net.Enums.OrderMode},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.StpMode},System.Threading.CancellationToken)">
             <summary>
             Place a new order
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#submit-order-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#submit-order-signed" /><br />
+            Endpoint:<br />
+            POST /contract/private/submit-order
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="side">Order side</param>
@@ -4839,7 +5304,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.PlaceTrailingOrderAsync(System.String,BitMart.Net.Enums.FuturesSide,System.Int32,System.Decimal,BitMart.Net.Enums.MarginType,System.Decimal,System.Decimal,BitMart.Net.Enums.TriggerPriceType,System.Threading.CancellationToken)">
             <summary>
             Place a new trailing stop order
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#submit-trail-order-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#submit-trail-order-signed" /><br />
+            Endpoint:<br />
+            POST /contract/private/submit-trail-order
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="side">Order side</param>
@@ -4855,7 +5325,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.CancelTrailingOrderAsync(System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Cancel a trailing stop order
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#cancel-trail-order-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#cancel-trail-order-signed" /><br />
+            Endpoint:<br />
+            POST /contract/private/cancel-trail-order
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="orderId">Order id</param>
@@ -4865,7 +5340,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.CancelOrderAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Cancel an active order
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#cancel-order-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#cancel-order-signed" /><br />
+            Endpoint:<br />
+            POST /contract/private/cancel-order
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="orderId">The order id, either this or clientOrderId should be provided</param>
@@ -4875,7 +5355,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.CancelOrdersAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Cancel all orders on a symbol
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#cancel-all-orders-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#cancel-all-orders-signed" /><br />
+            Endpoint:<br />
+            POST /contract/private/cancel-orders
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="ct">Cancellation token</param>
@@ -4883,7 +5368,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.PlaceTriggerOrderAsync(System.String,BitMart.Net.Enums.OrderType,BitMart.Net.Enums.FuturesSide,System.Int32,System.Decimal,BitMart.Net.Enums.MarginType,System.Decimal,BitMart.Net.Enums.PriceDirection,BitMart.Net.Enums.TriggerPriceType,System.Nullable{BitMart.Net.Enums.OrderMode},System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.PlanCategory},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Nullable{BitMart.Net.Enums.TriggerPriceType},System.Threading.CancellationToken)">
             <summary>
             Place a new trigger order
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#submit-plan-order-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#submit-plan-order-signed" /><br />
+            Endpoint:<br />
+            POST /contract/private/submit-plan-order
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="orderType">The order type</param>
@@ -4906,7 +5396,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.CancelTriggerOrderAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Cancel a trigger order
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#cancel-plan-order-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#cancel-plan-order-signed" /><br />
+            Endpoint:<br />
+            POST /contract/private/cancel-plan-order
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="orderId">The order id, either this or clientOrderId should be provided</param>
@@ -4916,7 +5411,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.PlaceTpSlOrderAsync(System.String,BitMart.Net.Enums.TplSlOrderType,BitMart.Net.Enums.FuturesSide,System.Decimal,BitMart.Net.Enums.TriggerPriceType,BitMart.Net.Enums.PlanCategory,System.Nullable{System.Decimal},System.Nullable{System.Int32},System.String,System.Nullable{BitMart.Net.Enums.OrderType},System.Threading.CancellationToken)">
             <summary>
             Place a new tp/sl order
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#submit-tp-or-sl-order-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#submit-tp-or-sl-order-signed" /><br />
+            Endpoint:<br />
+            POST /contract/private/submit-tp-sl-order
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="tpSlType">Take profit or stop loss</param>
@@ -4933,7 +5433,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.EditOrderAsync(System.String,System.Nullable{System.Int64},System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
             <summary>
             Edit an open limit order
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#modify-limit-order-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#modify-limit-order-signed" /><br />
+            Endpoint:<br />
+            POST /contract/private/modify-limit-order
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="orderId">Order id, either this or clientOrderId should be provided</param>
@@ -4946,7 +5451,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.EditTpSlOrderAsync(System.String,System.Decimal,BitMart.Net.Enums.TriggerPriceType,BitMart.Net.Enums.PlanCategory,BitMart.Net.Enums.OrderType,System.String,System.Nullable{System.Decimal},System.Threading.CancellationToken)">
             <summary>
             Edit an existing tp/sl order
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#modify-tp-sl-order-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#modify-tp-sl-order-signed" /><br />
+            Endpoint:<br />
+            POST /contract/private/modify-tp-sl-order
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="orderId">Order id, either this or clientOrderId should be provided</param>
@@ -4960,7 +5470,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.EditTriggerOrderAsync(System.String,System.Decimal,BitMart.Net.Enums.TriggerPriceType,BitMart.Net.Enums.OrderType,System.String,System.String,System.Nullable{System.Decimal},System.Threading.CancellationToken)">
             <summary>
             Edit an existing plan order
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#modify-plan-order-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#modify-plan-order-signed" /><br />
+            Endpoint:<br />
+            POST /contract/private/modify-plan-order
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="orderId">Order id, either this or clientOrderId should be provided</param>
@@ -4974,7 +5489,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartRestClientUsdFuturesApiTrading.EditPresetTriggerOrderAsync(System.String,System.String,BitMart.Net.Enums.TriggerPriceType,BitMart.Net.Enums.TriggerPriceType,System.Decimal,System.Decimal,System.Threading.CancellationToken)">
             <summary>
             Edit an preset plan order
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#modify-preset-plan-order-signed" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#modify-preset-plan-order-signed" /><br />
+            Endpoint:<br />
+            POST /contract/private/modify-preset-plan-order
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="orderId">The order id</param>
@@ -5005,7 +5525,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesTickerUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to ticker updates
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-ticker-channel" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#public-ticker-channel" /><br />
+            Endpoint:<br />
+            futures/ticker:{symbol}
+            </para>
             </summary>
             <param name="symbol">Symbol to subscribe</param>
             <param name="onMessage">The event handler for the received data</param>
@@ -5015,7 +5540,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToTickerUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesTickerUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to ticker updates
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-ticker-channel" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#public-ticker-channel" /><br />
+            Endpoint:<br />
+            futures/ticker:{symbol}
+            </para>
             </summary>
             <param name="symbols">Symbols to subscribe</param>
             <param name="onMessage">The event handler for the received data</param>
@@ -5025,7 +5555,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToTickerUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesTickerUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to ticker updates
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-ticker-channel" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#public-ticker-channel" /><br />
+            Endpoint:<br />
+            futures/ticker
+            </para>
             </summary>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -5034,7 +5569,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesTradeUpdate[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to trade updates for a symbol
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-trade-channel" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#public-trade-channel" /><br />
+            Endpoint:<br />
+            futures/trade:{symbol}
+            </para>
             </summary>
             <param name="symbol">Symbol, for example `ETHUSDT`</param>
             <param name="onMessage">The event handler for the received data</param>
@@ -5044,7 +5584,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToTradeUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesTradeUpdate[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to trade updates for multiple symbols
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-trade-channel" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#public-trade-channel" /><br />
+            Endpoint:<br />
+            futures/trade:{symbol}
+            </para>
             </summary>
             <param name="symbols">Symbols, for example `ETHUSDT`</param>
             <param name="onMessage">The event handler for the received data</param>
@@ -5054,7 +5599,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToFundingRateUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFundingRateUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to funding rate updates for a symbol
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-funding-rate-channel" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#public-funding-rate-channel" /><br />
+            Endpoint:<br />
+            futures/fundingRate:{symbol}
+            </para>
             </summary>
             <param name="symbol">Symbol, for example `ETHUSDT`</param>
             <param name="onMessage">The event handler for the received data</param>
@@ -5064,7 +5614,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToFundingRateUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFundingRateUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to funding rate updates for multiple symbols
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-funding-rate-channel" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#public-funding-rate-channel" /><br />
+            Endpoint:<br />
+            futures/fundingRate:{symbol}
+            </para>
             </summary>
             <param name="symbols">Symbols, for example `ETHUSDT`</param>
             <param name="onMessage">The event handler for the received data</param>
@@ -5074,7 +5629,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesOrderBookUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to order book updates for a symbol
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-depth-channel" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#public-depth-channel" /><br />
+            Endpoint:<br />
+            futures/depth{depth}:{symbol}
+            </para>
             </summary>
             <param name="symbol">Symbol, for example `ETHUSDT`</param>
             <param name="depth">Depth level, 5, 20 or 50</param>
@@ -5085,7 +5645,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToOrderBookUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesOrderBookUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to order book updates for multiple symbols
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-depth-channel" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#public-depth-channel" /><br />
+            Endpoint:<br />
+            futures/depth{depth}:{symbol}
+            </para>
             </summary>
             <param name="symbols">Symbols, for example `ETHUSDT`</param>
             <param name="depth">Depth level, 5, 20 or 50</param>
@@ -5096,7 +5661,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToOrderBookSnapshotUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesFullOrderBookUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to order book updates for a symbol. Pushes the full order book depth with each update
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-depth-all-channel" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#public-depth-all-channel" /><br />
+            Endpoint:<br />
+            futures/depthAll{depth}:{symbol}
+            </para>
             </summary>
             <param name="symbol">Symbol, for example `ETHUSDT`</param>
             <param name="depth">Depth level, 5, 20 or 50</param>
@@ -5107,7 +5677,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToOrderBookSnapshotUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesFullOrderBookUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to order book updates for multiple symbols. Pushes the full order book depth with each update
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-depth-all-channel" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#public-depth-all-channel" /><br />
+            Endpoint:<br />
+            futures/depthAll{depth}:{symbol}
+            </para>
             </summary>
             <param name="symbols">Symbols, for example `ETHUSDT`</param>
             <param name="depth">Depth level, 5, 20 or 50</param>
@@ -5118,7 +5693,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToOrderBookIncrementalUpdatesAsync(System.String,System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesFullOrderBookUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to order book updates for a symbol. First update is the snapshot, after that updates to the snapshot will be pushed
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-depth-all-channel" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#public-depth-all-channel" /><br />
+            Endpoint:<br />
+            futures/depthIncrease{depth}:{symbol}
+            </para>
             </summary>
             <param name="symbol">Symbol, for example `ETHUSDT`</param>
             <param name="depth">Depth level, 5, 20 or 50</param>
@@ -5129,7 +5709,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToOrderBookIncrementalUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesFullOrderBookUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to order book updates for multiple symbols. First update is the snapshot, after that updates to the snapshot will be pushed
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-depth-all-channel" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#public-depth-all-channel" /><br />
+            Endpoint:<br />
+            futures/depthIncrease{depth}:{symbol}
+            </para>
             </summary>
             <param name="symbols">Symbols, for example `ETHUSDT`</param>
             <param name="depth">Depth level, 5, 20 or 50</param>
@@ -5158,7 +5743,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToKlineUpdatesAsync(System.String,BitMart.Net.Enums.FuturesStreamKlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesKlineUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to kline/candlestick updates for a symbol
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-klinebin-channel" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#public-klinebin-channel" /><br />
+            Endpoint:<br />
+            futures/klineBin{interval}:{symbol}
+            </para>
             </summary>
             <param name="symbol">Symbol, for example `ETHUSDT`</param>
             <param name="interval">Kline interval</param>
@@ -5169,7 +5759,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToKlineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},BitMart.Net.Enums.FuturesStreamKlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesKlineUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to kline/candlestick updates for multiple symbols
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-klinebin-channel" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#public-klinebin-channel" /><br />
+            Endpoint:<br />
+            futures/klineBin{interval}:{symbol}
+            </para>
             </summary>
             <param name="symbols">Symbols, for example `ETHUSDT`</param>
             <param name="interval">Kline interval</param>
@@ -5180,7 +5775,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToMarkKlineUpdatesAsync(System.String,BitMart.Net.Enums.FuturesStreamKlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesKlineUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe mark price kline/candlestick updates for multiple symbols
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-markprice-klinebin-channel" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#public-markprice-klinebin-channel" /><br />
+            Endpoint:<br />
+            futures/markPriceKlineBin{interval}:{symbol}
+            </para>
             </summary>
             <param name="symbol">Symbol, for example `ETHUSDT`</param>
             <param name="interval">Kline interval</param>
@@ -5191,7 +5791,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToMarkKlineUpdatesAsync(System.Collections.Generic.IEnumerable{System.String},BitMart.Net.Enums.FuturesStreamKlineInterval,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesKlineUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe mark price kline/candlestick updates for multiple symbols
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#public-markprice-klinebin-channel" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#public-markprice-klinebin-channel" /><br />
+            Endpoint:<br />
+            futures/markPriceKlineBin{interval}:{symbol}
+            </para>
             </summary>
             <param name="symbols">Symbols, for example `ETHUSDT`</param>
             <param name="interval">Kline interval</param>
@@ -5202,7 +5807,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesBalanceUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to balance updates
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#private-assets-channel" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#private-assets-channel" /><br />
+            Endpoint:<br />
+            futures/asset:{asset}
+            </para>
             </summary>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -5211,7 +5821,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToPositionUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartPositionUpdate[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to position updates
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#private-position-channel" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#private-position-channel" /><br />
+            Endpoint:<br />
+            futures/position
+            </para>
             </summary>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -5220,7 +5835,12 @@
         <member name="M:BitMart.Net.Interfaces.Clients.UsdFuturesApi.IBitMartSocketClientUsdFuturesApi.SubscribeToOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{BitMart.Net.Objects.Models.BitMartFuturesOrderUpdateEvent[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to order updates
-            <para><a href="https://developer-pro.bitmart.com/en/futuresv2/#private-order-channel" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://developer-pro.bitmart.com/en/futuresv2/#private-order-channel" /><br />
+            Endpoint:<br />
+            futures/order
+            </para>
             </summary>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>

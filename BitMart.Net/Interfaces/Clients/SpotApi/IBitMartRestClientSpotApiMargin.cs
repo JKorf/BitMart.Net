@@ -13,7 +13,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
     {
         /// <summary>
         /// Borrow an asset
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#margin-borrow-isolated-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#margin-borrow-isolated-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /spot/v1/margin/isolated/borrow
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="asset">The asset, for example `ETH`</param>
@@ -23,7 +28,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Repay an asset
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#margin-repay-isolated-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#margin-repay-isolated-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /spot/v1/margin/isolated/repay
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="asset">The asset, for example `ETH`</param>
@@ -33,7 +43,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get borrow history
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-borrow-record-isolated-keyed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#get-borrow-record-isolated-keyed" /><br />
+        /// Endpoint:<br />
+        /// GET /spot/v1/margin/isolated/borrow_record
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="borrowId">Filter by borrow id</param>
@@ -45,7 +60,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get repayment history
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-repayment-record-isolated-keyed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#get-repayment-record-isolated-keyed" /><br />
+        /// Endpoint:<br />
+        /// GET /spot/v1/margin/isolated/repay_record
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="asset">Filter by asset, for example `ETH`</param>
@@ -58,7 +78,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get borrow rate and quantity info
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-trading-pair-borrowing-rate-and-amount-keyed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#get-trading-pair-borrowing-rate-and-amount-keyed" /><br />
+        /// Endpoint:<br />
+        /// GET /spot/v1/margin/isolated/pairs
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>

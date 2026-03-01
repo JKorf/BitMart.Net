@@ -14,7 +14,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
     {
         /// <summary>
         /// Get funding account balances
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-account-balance-keyed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#get-account-balance-keyed" /><br />
+        /// Endpoint:<br />
+        /// GET /account/v1/wallet
+        /// </para>
         /// </summary>
         /// <param name="asset">Filter on asset, for example `ETH`</param>
         /// <param name="needUsdValuation">Include USD valuation</param>
@@ -23,14 +28,24 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         
         /// <summary>
         /// Get spot account balances
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-spot-wallet-balance-keyed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#get-spot-wallet-balance-keyed" /><br />
+        /// Endpoint:<br />
+        /// GET /spot/v1/wallet
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BitMartSpotBalance[]>> GetSpotBalancesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get deposit address
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#deposit-address-keyed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#deposit-address-keyed" /><br />
+        /// Endpoint:<br />
+        /// GET /account/v1/deposit/address
+        /// </para>
         /// </summary>
         /// <param name="asset">The asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
@@ -38,7 +53,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get withdrawal quotas
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#withdraw-quota-keyed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#withdraw-quota-keyed" /><br />
+        /// Endpoint:<br />
+        /// GET /account/v1/withdraw/charge
+        /// </para>
         /// </summary>
         /// <param name="asset">Asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
@@ -46,7 +66,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Withdraw funds
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#withdraw-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#withdraw-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /account/v1/withdraw/apply
+        /// </para>
         /// </summary>
         /// <param name="asset">The asset, for example `ETH`</param>
         /// <param name="quantity">Quantity to withdraw</param>
@@ -61,7 +86,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get deposit history
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-deposit-and-withdraw-history-keyed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#get-deposit-and-withdraw-history-keyed" /><br />
+        /// Endpoint:<br />
+        /// GET /account/v2/deposit-withdraw/history
+        /// </para>
         /// </summary>
         /// <param name="asset">Filter by asset</param>
         /// <param name="startTime">Filter by start time</param>
@@ -73,7 +103,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get withdrawal history
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-deposit-and-withdraw-history-keyed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#get-deposit-and-withdraw-history-keyed" /><br />
+        /// Endpoint:<br />
+        /// GET /account/v2/deposit-withdraw/history
+        /// </para>
         /// </summary>
         /// <param name="asset">Filter by asset</param>
         /// <param name="startTime">Filter by start time</param>
@@ -85,7 +120,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get a specific withdrawal or deposit
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-a-deposit-or-withdraw-detail-keyed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#get-a-deposit-or-withdraw-detail-keyed" /><br />
+        /// Endpoint:<br />
+        /// GET /account/v1/deposit-withdraw/detail
+        /// </para>
         /// </summary>
         /// <param name="id">The deposit or withdrawal id</param>
         /// <param name="ct">Cancellation token</param>
@@ -93,7 +133,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get isolated margin account info
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-margin-account-details-isolated-keyed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#get-margin-account-details-isolated-keyed" /><br />
+        /// Endpoint:<br />
+        /// GET /spot/v1/margin/isolated/account
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -101,7 +146,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Transfer asset between Spot and Isolated Margin account
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#margin-asset-transfer-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#margin-asset-transfer-signed" /><br />
+        /// Endpoint:<br />
+        /// GET /spot/v1/margin/isolated/transfer
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="asset">The asset, for example `ETH`</param>
@@ -112,14 +162,24 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get base trading fees
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-basic-fee-rate-keyed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#get-basic-fee-rate-keyed" /><br />
+        /// Endpoint:<br />
+        /// GET /spot/v1/user_fee
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BitMartFeeRate>> GetBaseTradeFeesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get trading fees for a specific symbol
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-actual-trade-fee-rate-keyed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#get-actual-trade-fee-rate-keyed" /><br />
+        /// Endpoint:<br />
+        /// GET /spot/v1/trade_fee
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -127,7 +187,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get withdrawal addresses
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#withdraw-address-keyed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#withdraw-address-keyed" /><br />
+        /// Endpoint:<br />
+        /// GET /account/v1/withdraw/address/list
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BitMartWithdrawalAddress[]>> GetWithdrawalAddressesAsync(CancellationToken ct = default);

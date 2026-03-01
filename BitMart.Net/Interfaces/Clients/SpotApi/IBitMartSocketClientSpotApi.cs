@@ -22,7 +22,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to price ticker updates for a symbol
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#public-ticker-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#public-ticker-channel" /><br />
+        /// Endpoint:<br />
+        /// spot/ticker
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -32,7 +37,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to price ticker updates for multiple symbols
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#public-ticker-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#public-ticker-channel" /><br />
+        /// Endpoint:<br />
+        /// spot/ticker
+        /// </para>
         /// </summary>
         /// <param name="symbols">The symbols, for example `ETH_USDT`</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -42,7 +52,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to kline/candlestick updates for a symbol
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#public-kline-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#public-kline-channel" /><br />
+        /// Endpoint:<br />
+        /// spot/kline{interval}
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="interval">Kline interval</param>
@@ -53,7 +68,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to kline/candlestick updates for multiple symbols
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#public-kline-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#public-kline-channel" /><br />
+        /// Endpoint:<br />
+        /// spot/kline{interval}
+        /// </para>
         /// </summary>
         /// <param name="symbols">Symbols, for example `ETH_USDT`</param>
         /// <param name="interval">Kline interval</param>
@@ -64,7 +84,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to full order book updates of the first x order book records
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#public-depth-all-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#public-depth-all-channel" /><br />
+        /// Endpoint:<br />
+        /// spot/depth{depth}
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="depth">Order book depth, 5, 20 or 50</param>
@@ -76,7 +101,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to full order book updates of the first x order book records
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#public-depth-all-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#public-depth-all-channel" /><br />
+        /// Endpoint:<br />
+        /// spot/depth{depth}
+        /// </para>
         /// </summary>
         /// <param name="symbols">The symbols, for example `ETH_USDT`</param>
         /// <param name="depth">Order book depth, 5, 20 or 50</param>
@@ -87,7 +117,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to order book updates. An initial snapshot will be pushed, followed by change updates
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#public-depth-increase-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#public-depth-increase-channel" /><br />
+        /// Endpoint:<br />
+        /// spot/depth/increase100
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -97,7 +132,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to order book updates. An initial snapshot will be pushed, followed by change updates
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#public-depth-increase-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#public-depth-increase-channel" /><br />
+        /// Endpoint:<br />
+        /// spot/depth/increase100
+        /// </para>
         /// </summary>
         /// <param name="symbols">Symbols, for example `ETH_USDT`</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -107,7 +147,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to trade updates for a symbol
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#public-trade-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#public-trade-channel" /><br />
+        /// Endpoint:<br />
+        /// spot/trade
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol, for example `ETH_USDT`</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -117,7 +162,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to trade updates for multiple symbols
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#public-trade-channel" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#public-trade-channel" /><br />
+        /// Endpoint:<br />
+        /// spot/trade
+        /// </para>
         /// </summary>
         /// <param name="symbols">Symbols, for example `ETH_USDT`</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -127,7 +177,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to user order updates
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#private-order-progress" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#private-order-progress" /><br />
+        /// Endpoint:<br />
+        /// spot/user/orders
+        /// </para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -136,7 +191,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to user balance updates
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#private-balance-change" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#private-balance-change" /><br />
+        /// Endpoint:<br />
+        /// spot/user/balance
+        /// </para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>

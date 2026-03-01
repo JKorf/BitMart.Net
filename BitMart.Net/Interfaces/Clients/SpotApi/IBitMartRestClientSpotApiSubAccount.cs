@@ -12,7 +12,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
     {
         /// <summary>
         /// Transfer from sub account to main account, usable from main account
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#sub-account-to-main-account-for-main-account-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#sub-account-to-main-account-for-main-account-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /account/sub-account/main/v1/sub-to-main
+        /// </para>
         /// </summary>
         /// <param name="clientOrderId">Unique identifier</param>
         /// <param name="asset">The asset, for example `ETH`</param>
@@ -23,7 +28,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Transfer from sub account to main account, usable from sub account
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#sub-account-to-main-account-for-sub-account-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#sub-account-to-main-account-for-sub-account-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /account/sub-account/sub/v1/sub-to-main
+        /// </para>
         /// </summary>
         /// <param name="clientOrderId">Unique identifier</param>
         /// <param name="asset">The asset, for example `ETH`</param>
@@ -33,7 +43,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Transfer from main account to a sub account
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#main-account-to-sub-account-for-main-account-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#main-account-to-sub-account-for-main-account-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /account/sub-account/main/v1/main-to-sub
+        /// </para>
         /// </summary>
         /// <param name="clientOrderId">Unique identifier</param>
         /// <param name="asset">The asset, for example `ETH`</param>
@@ -44,7 +59,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Transfer from sub account to another sub account
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#sub-account-to-sub-account-for-main-account-signed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#sub-account-to-sub-account-for-main-account-signed" /><br />
+        /// Endpoint:<br />
+        /// POST /account/sub-account/main/v1/sub-to-sub
+        /// </para>
         /// </summary>
         /// <param name="clientOrderId">Unique identifier</param>
         /// <param name="quantity">Quantity to transfer</param>
@@ -56,7 +76,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get sub account transfer history for main account
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-sub-account-transfer-history-for-main-account-keyed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#get-sub-account-transfer-history-for-main-account-keyed" /><br />
+        /// Endpoint:<br />
+        /// GET /account/sub-account/main/v1/transfer-list
+        /// </para>
         /// </summary>
         /// <param name="account">Filter by account name</param>
         /// <param name="limit">Max number of results</param>
@@ -65,7 +90,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get sub accont transfer history 
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-account-spot-asset-transfer-history-for-main-sub-account-keyed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#get-account-spot-asset-transfer-history-for-main-sub-account-keyed" /><br />
+        /// Endpoint:<br />
+        /// GET /account/sub-account/v1/transfer-history
+        /// </para>
         /// </summary>
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
@@ -74,7 +104,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get the balance of a sub account
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-sub-account-spot-wallet-balance-for-main-account-keyed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#get-sub-account-spot-wallet-balance-for-main-account-keyed" /><br />
+        /// Endpoint:<br />
+        /// GET /account/sub-account/main/v1/wallet
+        /// </para>
         /// </summary>
         /// <param name="subAccount">Sub account name</param>
         /// <param name="asset">Filter by asset, for example `ETH`</param>
@@ -83,7 +118,12 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get list of sub accounts
-        /// <para><a href="https://developer-pro.bitmart.com/en/spot/#get-sub-account-list-for-main-account-keyed" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#get-sub-account-list-for-main-account-keyed" /><br />
+        /// Endpoint:<br />
+        /// GET /account/sub-account/main/v1/subaccount-list
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BitMartSubAccount[]>> GetSubAccountListAsync(CancellationToken ct = default);
