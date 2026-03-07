@@ -33,11 +33,11 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// POST /account/v1/transfer-contract-list
         /// </para>
         /// </summary>
-        /// <param name="asset">Filter by asset, for example `USDT`</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="page">Page number</param>
-        /// <param name="limit">Max number of results</param>
+        /// <param name="asset">["<c>currency</c>"] Filter by asset, for example `USDT`</param>
+        /// <param name="startTime">["<c>time_start</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>time_end</c>"] Filter by end time</param>
+        /// <param name="page">["<c>page</c>"] Page number</param>
+        /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BitMartFuturesTransfer[]>> GetTransferHistoryAsync(string? asset = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? limit = null, CancellationToken ct = default);
 
@@ -50,9 +50,9 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// POST /account/v1/transfer-contract
         /// </para>
         /// </summary>
-        /// <param name="asset">The asset, for example `USDT`</param>
-        /// <param name="quantity">Quantity to transfer</param>
-        /// <param name="type">Transfer direction</param>
+        /// <param name="asset">["<c>currency</c>"] The asset, for example `USDT`</param>
+        /// <param name="quantity">["<c>amount</c>"] Quantity to transfer</param>
+        /// <param name="type">["<c>type</c>"] Transfer direction</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BitMartTransferResult>> TransferAsync(string asset, decimal quantity, FuturesTransferType type, CancellationToken ct = default);
 
@@ -65,9 +65,9 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// POST /contract/private/submit-leverage
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
-        /// <param name="leverage">Leverage</param>
-        /// <param name="marginType">Open type, required at close position</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETHUSDT`</param>
+        /// <param name="leverage">["<c>leverage</c>"] Leverage</param>
+        /// <param name="marginType">["<c>open_type</c>"] Open type, required at close position</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<BitMartLeverage>> SetLeverageAsync(string symbol, decimal leverage, MarginType marginType, CancellationToken ct = default);
 
@@ -80,7 +80,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// GET /contract/private/trade-fee-rate
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
+        /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<BitMartFuturesFeeRate>> GetSymbolTradeFeeAsync(string symbol, CancellationToken ct = default);
@@ -94,11 +94,11 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// GET /contract/private/transaction-history
         /// </para>
         /// </summary>
-        /// <param name="symbol">Filter by symbol, for Example `ETHUSDT`</param>
-        /// <param name="flowType">Filter by type</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
-        /// <param name="limit">Max number of results, max 1000</param>
+        /// <param name="symbol">["<c>symbol</c>"] Filter by symbol, for Example `ETHUSDT`</param>
+        /// <param name="flowType">["<c>flow_type</c>"] Filter by type</param>
+        /// <param name="startTime">["<c>time_start</c>"] Filter by start time</param>
+        /// <param name="endTime">["<c>time_end</c>"] Filter by end time</param>
+        /// <param name="limit">["<c>page_size</c>"] Max number of results, max 1000</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<BitMartFuturesTransaction[]>> GetTransactionHistoryAsync(string? symbol = null, FlowType? flowType = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
@@ -112,7 +112,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// POST /contract/private/set-position-mode
         /// </para>
         /// </summary>
-        /// <param name="positionMode">Position mode</param>
+        /// <param name="positionMode">["<c>position_mode</c>"] Position mode</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<BitMartPositionMode>> SetPositionModeAsync(PositionMode positionMode, CancellationToken ct = default);
