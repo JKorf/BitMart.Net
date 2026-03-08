@@ -13,22 +13,22 @@ namespace BitMart.Net.Objects.Models
     public record BitMartFuturesOrderBookUpdate
     {
         /// <summary>
-        /// Timestamp
+        /// ["<c>ms_t</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("ms_t")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Side of the book
+        /// ["<c>way</c>"] Side of the book
         /// </summary>
         [JsonPropertyName("way")]
         public OrderBookSide Side { get; set; }
         /// <summary>
-        /// Depths, can either be bids or asks, check Side to see which
+        /// ["<c>depths</c>"] Depths, can either be bids or asks, check Side to see which
         /// </summary>
         [JsonPropertyName("depths")]
         public BitMartFuturesOrderBookEntry[] Depths { get; set; } = Array.Empty<BitMartFuturesOrderBookEntry>();
@@ -41,12 +41,12 @@ namespace BitMart.Net.Objects.Models
     public record BitMartFuturesOrderBookEntry : ISymbolOrderBookEntry
     {
         /// <summary>
-        /// Price
+        /// ["<c>price</c>"] Price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Quantity
+        /// ["<c>vol</c>"] Quantity
         /// </summary>
         [JsonPropertyName("vol")]
         public decimal Quantity { get; set; }

@@ -11,22 +11,22 @@ namespace BitMart.Net.Objects.Models
     public record BitMartOpenInterest
     {
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime? Timestamp { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Open interest
+        /// ["<c>open_interest</c>"] Open interest
         /// </summary>
         [JsonPropertyName("open_interest")]
         public decimal OpenInterest { get; set; }
         /// <summary>
-        /// Open interest value
+        /// ["<c>open_interest_value</c>"] Open interest value
         /// </summary>
         [JsonPropertyName("open_interest_value")]
         public decimal OpenInterestValue { get; set; }

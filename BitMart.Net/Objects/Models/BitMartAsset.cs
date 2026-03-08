@@ -11,7 +11,7 @@ namespace BitMart.Net.Objects.Models
     internal record BitMartAssetWrapper
     {
         /// <summary>
-        /// Currencies
+        /// ["<c>currencies</c>"] Currencies
         /// </summary>
         [JsonPropertyName("currencies")]
         public BitMartAsset[] Currencies { get; set; } = Array.Empty<BitMartAsset>();
@@ -24,22 +24,22 @@ namespace BitMart.Net.Objects.Models
     public record BitMartAsset
     {
         /// <summary>
-        /// Id
+        /// ["<c>id</c>"] Id
         /// </summary>
         [JsonPropertyName("id")]
         public string Id { get; set; } = string.Empty;
         /// <summary>
-        /// Name
+        /// ["<c>name</c>"] Name
         /// </summary>
         [JsonPropertyName("name")]
         public string Name { get; set; } = string.Empty;
         /// <summary>
-        /// Withdraw enabled
+        /// ["<c>withdraw_enabled</c>"] Withdraw enabled
         /// </summary>
         [JsonPropertyName("withdraw_enabled")]
         public bool WithdrawEnabled { get; set; }
         /// <summary>
-        /// Deposit enabled
+        /// ["<c>deposit_enabled</c>"] Deposit enabled
         /// </summary>
         [JsonPropertyName("deposit_enabled")]
         public bool DepositEnabled { get; set; }

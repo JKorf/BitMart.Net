@@ -10,27 +10,27 @@ namespace BitMart.Net.Objects.Models
     public record BitMartWithdrawalQuota
     {
         /// <summary>
-        /// Todays available withdraw of BTC
+        /// ["<c>today_available_withdraw_BTC</c>"] Todays available withdraw of BTC
         /// </summary>
         [JsonPropertyName("today_available_withdraw_BTC")]
         public decimal AvailableWithdrawBtc { get; set; }
         /// <summary>
-        /// Min withdraw
+        /// ["<c>min_withdraw</c>"] Min withdraw
         /// </summary>
         [JsonPropertyName("min_withdraw")]
         public decimal MinWithdraw { get; set; }
         /// <summary>
-        /// Withdraw precision
+        /// ["<c>withdraw_precision</c>"] Withdraw precision
         /// </summary>
         [JsonPropertyName("withdraw_precision")]
         public decimal WithdrawPrecision { get; set; }
         /// <summary>
-        /// Withdraw fee
+        /// ["<c>withdraw_fee</c>"] Withdraw fee
         /// </summary>
         [JsonPropertyName("withdraw_fee")]
         public decimal WithdrawFee { get; set; }
         /// <summary>
-        /// Withdraw precision step
+        /// ["<c>withdraw_Precision_GeTen</c>"] Withdraw precision step
         /// </summary>
         [JsonPropertyName("withdraw_Precision_GeTen")]
         public decimal? WithdrawPrecisionStep { get; set; }

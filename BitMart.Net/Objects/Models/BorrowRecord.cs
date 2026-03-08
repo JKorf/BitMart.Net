@@ -8,7 +8,7 @@ namespace BitMart.Net.Objects.Models
     internal record BorrowRecordWrapper
     {
         /// <summary>
-        /// Records
+        /// ["<c>records</c>"] Records
         /// </summary>
         [JsonPropertyName("records")]
         public BorrowRecord[] Records { get; set; } = Array.Empty<BorrowRecord>();
@@ -21,42 +21,42 @@ namespace BitMart.Net.Objects.Models
     public record BorrowRecord
     {
         /// <summary>
-        /// Borrow id
+        /// ["<c>borrow_id</c>"] Borrow id
         /// </summary>
         [JsonPropertyName("borrow_id")]
         public string BorrowId { get; set; } = string.Empty;
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Borrow quantity
+        /// ["<c>borrow_amount</c>"] Borrow quantity
         /// </summary>
         [JsonPropertyName("borrow_amount")]
         public decimal BorrowQuantity { get; set; }
         /// <summary>
-        /// Daily interest
+        /// ["<c>daily_interest</c>"] Daily interest
         /// </summary>
         [JsonPropertyName("daily_interest")]
         public decimal DailyInterest { get; set; }
         /// <summary>
-        /// Hourly interest
+        /// ["<c>hourly_interest</c>"] Hourly interest
         /// </summary>
         [JsonPropertyName("hourly_interest")]
         public decimal HourlyInterest { get; set; }
         /// <summary>
-        /// Interest quantity
+        /// ["<c>interest_amount</c>"] Interest quantity
         /// </summary>
         [JsonPropertyName("interest_amount")]
         public decimal InterestQuantity { get; set; }
         /// <summary>
-        /// Create time
+        /// ["<c>create_time</c>"] Create time
         /// </summary>
         [JsonPropertyName("create_time")]
         public DateTime CreateTime { get; set; }

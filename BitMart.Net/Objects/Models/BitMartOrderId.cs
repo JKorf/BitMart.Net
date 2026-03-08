@@ -10,12 +10,12 @@ namespace BitMart.Net.Objects.Models
     public record BitMartOrderId
     {
         /// <summary>
-        /// Order id
+        /// ["<c>order_id</c>"] Order id
         /// </summary>
         [JsonPropertyName("order_id"), JsonConverter(typeof(NumberStringConverter))]
         public string OrderId { get; set; } = string.Empty;
         /// <summary>
-        /// Client order id
+        /// ["<c>client_order_id</c>"] Client order id
         /// </summary>
         [JsonPropertyName("client_order_id")]
         public string? ClientOrderId { get; set; } = string.Empty;

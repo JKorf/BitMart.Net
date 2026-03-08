@@ -8,7 +8,7 @@ namespace BitMart.Net.Objects.Models
     internal record RepayRecordWrapper
     {
         /// <summary>
-        /// Records
+        /// ["<c>records</c>"] Records
         /// </summary>
         [JsonPropertyName("records")]
         public RepayRecord[] Records { get; set; } = Array.Empty<RepayRecord>();
@@ -21,37 +21,37 @@ namespace BitMart.Net.Objects.Models
     public record RepayRecord
     {
         /// <summary>
-        /// Repay id
+        /// ["<c>repay_id</c>"] Repay id
         /// </summary>
         [JsonPropertyName("repay_id")]
         public string RepayId { get; set; } = string.Empty;
         /// <summary>
-        /// Repay time
+        /// ["<c>repay_time</c>"] Repay time
         /// </summary>
         [JsonPropertyName("repay_time")]
         public DateTime? RepayTime { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Repaid quantity
+        /// ["<c>repaid_amount</c>"] Repaid quantity
         /// </summary>
         [JsonPropertyName("repaid_amount")]
         public decimal RepaidQuantity { get; set; }
         /// <summary>
-        /// Repaid principal
+        /// ["<c>repaid_principal</c>"] Repaid principal
         /// </summary>
         [JsonPropertyName("repaid_principal")]
         public decimal RepaidPrincipal { get; set; }
         /// <summary>
-        /// Repaid interest
+        /// ["<c>repaid_interest</c>"] Repaid interest
         /// </summary>
         [JsonPropertyName("repaid_interest")]
         public decimal RepaidInterest { get; set; }

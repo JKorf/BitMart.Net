@@ -12,19 +12,19 @@ namespace BitMart.Net.Objects.Models
     public record BitMartBalanceUpdate
     {
         /// <summary>
-        /// Event type
+        /// ["<c>event_type</c>"] Event type
         /// </summary>
         [JsonPropertyName("event_type")]
         public BalanceUpdateType EventType { get; set; }
 
         /// <summary>
-        /// Event time
+        /// ["<c>event_time</c>"] Event time
         /// </summary>
         [JsonPropertyName("event_time")]
         public DateTime Timestamp { get; set; }
 
         /// <summary>
-        /// Updated balances
+        /// ["<c>balance_details</c>"] Updated balances
         /// </summary>
         [JsonPropertyName("balance_details")]
         public BitMartBalanceUpdateDetails[] Balances { get; set; } = Array.Empty<BitMartBalanceUpdateDetails>();
@@ -37,17 +37,17 @@ namespace BitMart.Net.Objects.Models
     public record BitMartBalanceUpdateDetails
     {
         /// <summary>
-        /// Asset
+        /// ["<c>ccy</c>"] Asset
         /// </summary>
         [JsonPropertyName("ccy")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Available balance
+        /// ["<c>av_bal</c>"] Available balance
         /// </summary>
         [JsonPropertyName("av_bal")]
         public decimal Available { get; set; }
         /// <summary>
-        /// Frozen balance
+        /// ["<c>fz_bal</c>"] Frozen balance
         /// </summary>
         [JsonPropertyName("fz_bal")]
         public decimal Frozen { get; set; }

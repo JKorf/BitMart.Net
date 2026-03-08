@@ -9,7 +9,7 @@ namespace BitMart.Net.Objects.Models
     internal record BitMartStatusWrapper
     {
         /// <summary>
-        /// Service
+        /// ["<c>service</c>"] Service
         /// </summary>
         [JsonPropertyName("service")]
         public BitMartStatus[] Service { get; set; } = Array.Empty<BitMartStatus>();
@@ -22,27 +22,27 @@ namespace BitMart.Net.Objects.Models
     public record BitMartStatus
     {
         /// <summary>
-        /// Title
+        /// ["<c>title</c>"] Title
         /// </summary>
         [JsonPropertyName("title")]
         public string Title { get; set; } = string.Empty;
         /// <summary>
-        /// Service type
+        /// ["<c>service_type</c>"] Service type
         /// </summary>
         [JsonPropertyName("service_type")]
         public ServiceType? ServiceType { get; set; }
         /// <summary>
-        /// Status
+        /// ["<c>status</c>"] Status
         /// </summary>
         [JsonPropertyName("status")]
         public SystemMaintenanceStatus? Status { get; set; }
         /// <summary>
-        /// Start time
+        /// ["<c>start_time</c>"] Start time
         /// </summary>
         [JsonPropertyName("start_time")]
         public DateTime? StartTime { get; set; }
         /// <summary>
-        /// End time
+        /// ["<c>end_time</c>"] End time
         /// </summary>
         [JsonPropertyName("end_time")]
         public DateTime? EndTime { get; set; }

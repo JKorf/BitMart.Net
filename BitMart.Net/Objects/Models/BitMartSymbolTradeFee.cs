@@ -10,27 +10,27 @@ namespace BitMart.Net.Objects.Models
     public record BitMartSymbolTradeFee
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Buy taker fee rate
+        /// ["<c>buy_taker_fee_rate</c>"] Buy taker fee rate
         /// </summary>
         [JsonPropertyName("buy_taker_fee_rate")]
         public decimal BuyTakerFeeRate { get; set; }
         /// <summary>
-        /// Sell taker fee rate
+        /// ["<c>sell_taker_fee_rate</c>"] Sell taker fee rate
         /// </summary>
         [JsonPropertyName("sell_taker_fee_rate")]
         public decimal SellTakerFeeRate { get; set; }
         /// <summary>
-        /// Buy maker fee rate
+        /// ["<c>buy_maker_fee_rate</c>"] Buy maker fee rate
         /// </summary>
         [JsonPropertyName("buy_maker_fee_rate")]
         public decimal BuyMakerFeeRate { get; set; }
         /// <summary>
-        /// Sell maker fee rate
+        /// ["<c>sell_maker_fee_rate</c>"] Sell maker fee rate
         /// </summary>
         [JsonPropertyName("sell_maker_fee_rate")]
         public decimal SellMakerFeeRate { get; set; }

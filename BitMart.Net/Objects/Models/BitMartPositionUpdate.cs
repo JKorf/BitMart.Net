@@ -12,67 +12,67 @@ namespace BitMart.Net.Objects.Models
     public record BitMartPositionUpdate
     {
         /// <summary>
-        /// Symbol name
+        /// ["<c>symbol</c>"] Symbol name
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Position size
+        /// ["<c>hold_volume</c>"] Position size
         /// </summary>
         [JsonPropertyName("hold_volume")]
         public decimal PositionSize { get; set; }
         /// <summary>
-        /// Position side
+        /// ["<c>position_type</c>"] Position side
         /// </summary>
         [JsonPropertyName("position_type")]
         public PositionSide PositionSide { get; set; }
         /// <summary>
-        /// Margin type
+        /// ["<c>open_type</c>"] Margin type
         /// </summary>
         [JsonPropertyName("open_type")]
         public MarginType MarginType { get; set; }
         /// <summary>
-        /// Quantity frozen
+        /// ["<c>frozen_volume</c>"] Quantity frozen
         /// </summary>
         [JsonPropertyName("frozen_volume")]
         public decimal QuantityFrozen { get; set; }
         /// <summary>
-        /// Quantity close
+        /// ["<c>close_volume</c>"] Quantity close
         /// </summary>
         [JsonPropertyName("close_volume")]
         public decimal QuantityClose { get; set; }
         /// <summary>
-        /// Average position price
+        /// ["<c>hold_avg_price</c>"] Average position price
         /// </summary>
         [JsonPropertyName("hold_avg_price")]
         public decimal? AverageHoldPrice { get; set; }
         /// <summary>
-        /// Average close price
+        /// ["<c>close_avg_price</c>"] Average close price
         /// </summary>
         [JsonPropertyName("close_avg_price")]
         public decimal? AverageClosePrice { get; set; }
         /// <summary>
-        /// Average open price
+        /// ["<c>open_avg_price</c>"] Average open price
         /// </summary>
         [JsonPropertyName("open_avg_price")]
         public decimal? AverageOpenPrice { get; set; }
         /// <summary>
-        /// Liquidation price
+        /// ["<c>liquidate_price</c>"] Liquidation price
         /// </summary>
         [JsonPropertyName("liquidate_price")]
         public decimal? LiquidationPrice { get; set; }
         /// <summary>
-        /// Create time
+        /// ["<c>create_time</c>"] Create time
         /// </summary>
         [JsonPropertyName("create_time")]
         public DateTime CreateTime { get; set; }
         /// <summary>
-        /// Update time
+        /// ["<c>update_time</c>"] Update time
         /// </summary>
         [JsonPropertyName("update_time")]
         public DateTime? UpdateTime { get; set; }
         /// <summary>
-        /// Position mode
+        /// ["<c>position_mode</c>"] Position mode
         /// </summary>
         [JsonPropertyName("position_mode")]
         public PositionMode? PositionMode { get; set; }

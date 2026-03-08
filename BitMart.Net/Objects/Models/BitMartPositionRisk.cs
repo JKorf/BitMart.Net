@@ -12,62 +12,62 @@ namespace BitMart.Net.Objects.Models
     public record BitMartPositionRisk
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Position quantity
+        /// ["<c>position_amt</c>"] Position quantity
         /// </summary>
         [JsonPropertyName("position_amt")]
         public decimal PositionQuantity { get; set; }
         /// <summary>
-        /// Mark price
+        /// ["<c>mark_price</c>"] Mark price
         /// </summary>
         [JsonPropertyName("mark_price")]
         public decimal MarkPrice { get; set; }
         /// <summary>
-        /// Unrealized profit and loss
+        /// ["<c>unrealized_profit</c>"] Unrealized profit and loss
         /// </summary>
         [JsonPropertyName("unrealized_profit")]
         public decimal UnrealizedPnl { get; set; }
         /// <summary>
-        /// Liquidation price
+        /// ["<c>liquidation_price</c>"] Liquidation price
         /// </summary>
         [JsonPropertyName("liquidation_price")]
         public decimal LiquidationPrice { get; set; }
         /// <summary>
-        /// Leverage
+        /// ["<c>leverage</c>"] Leverage
         /// </summary>
         [JsonPropertyName("leverage")]
         public decimal Leverage { get; set; }
         /// <summary>
-        /// Max notional value
+        /// ["<c>max_notional_value</c>"] Max notional value
         /// </summary>
         [JsonPropertyName("max_notional_value")]
         public decimal MaxNotionalValue { get; set; }
         /// <summary>
-        /// Margin type
+        /// ["<c>margin_type</c>"] Margin type
         /// </summary>
         [JsonPropertyName("margin_type")]
         public MarginType? MarginType { get; set; }
         /// <summary>
-        /// Margin for isolated position
+        /// ["<c>isolated_margin</c>"] Margin for isolated position
         /// </summary>
         [JsonPropertyName("isolated_margin")]
         public decimal? IsolatedMargin { get; set; }
         /// <summary>
-        /// Position side
+        /// ["<c>position_side</c>"] Position side
         /// </summary>
         [JsonPropertyName("position_side")]
         public PositionSide? PositionSide { get; set; }
         /// <summary>
-        /// Notional
+        /// ["<c>notional</c>"] Notional
         /// </summary>
         [JsonPropertyName("notional")]
         public decimal Notional { get; set; }
         /// <summary>
-        /// Update time
+        /// ["<c>update_time</c>"] Update time
         /// </summary>
         [JsonPropertyName("update_time")]
         public DateTime? UpdateTime { get; set; }

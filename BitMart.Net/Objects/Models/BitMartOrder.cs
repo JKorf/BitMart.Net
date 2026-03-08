@@ -12,87 +12,87 @@ namespace BitMart.Net.Objects.Models
     public record BitMartOrder
     {
         /// <summary>
-        /// Order id
+        /// ["<c>orderId</c>"] Order id
         /// </summary>
         [JsonPropertyName("orderId")]
         public string OrderId { get; set; } = string.Empty;
         /// <summary>
-        /// Client order id
+        /// ["<c>clientOrderId</c>"] Client order id
         /// </summary>
         [JsonPropertyName("clientOrderId")]
         public string? ClientOrderId { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Order side
+        /// ["<c>side</c>"] Order side
         /// </summary>
         [JsonPropertyName("side")]
         public OrderSide Side { get; set; }
         /// <summary>
-        /// Spot order mode
+        /// ["<c>orderMode</c>"] Spot order mode
         /// </summary>
         [JsonPropertyName("orderMode")]
         public SpotMode SpotMode { get; set; }
         /// <summary>
-        /// Order type
+        /// ["<c>type</c>"] Order type
         /// </summary>
         [JsonPropertyName("type")]
         public OrderType OrderType { get; set; }
         /// <summary>
-        /// Order status
+        /// ["<c>state</c>"] Order status
         /// </summary>
         [JsonPropertyName("state")]
         public OrderStatus Status { get; set; }
         /// <summary>
-        /// Price
+        /// ["<c>price</c>"] Price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal? Price { get; set; }
         /// <summary>
-        /// Price average
+        /// ["<c>priceAvg</c>"] Price average
         /// </summary>
         [JsonPropertyName("priceAvg")]
         public decimal? PriceAverage { get; set; }
         /// <summary>
-        /// Quantity
+        /// ["<c>size</c>"] Quantity
         /// </summary>
         [JsonPropertyName("size")]
         public decimal? Quantity { get; set; }
         /// <summary>
-        /// Quantity filled
+        /// ["<c>filledSize</c>"] Quantity filled
         /// </summary>
         [JsonPropertyName("filledSize")]
         public decimal? QuantityFilled { get; set; }
         /// <summary>
-        /// Quote quantity
+        /// ["<c>notional</c>"] Quote quantity
         /// </summary>
         [JsonPropertyName("notional")]
         public decimal? QuoteQuantity { get; set; }
         /// <summary>
-        /// Quote quantity filled
+        /// ["<c>filledNotional</c>"] Quote quantity filled
         /// </summary>
         [JsonPropertyName("filledNotional")]
         public decimal? QuoteQuantityFilled { get; set; }
         /// <summary>
-        /// Create time
+        /// ["<c>createTime</c>"] Create time
         /// </summary>
         [JsonPropertyName("createTime")]
         public DateTime CreateTime { get; set; }
         /// <summary>
-        /// Update time
+        /// ["<c>updateTime</c>"] Update time
         /// </summary>
         [JsonPropertyName("updateTime")]
         public DateTime? UpdateTime { get; set; }
         /// <summary>
-        /// Cancel source
+        /// ["<c>cancelSource</c>"] Cancel source
         /// </summary>
         [JsonPropertyName("cancelSource")]
         public string? CancelSource { get; set; }
         /// <summary>
-        /// Self trade prevention mode
+        /// ["<c>stpMode</c>"] Self trade prevention mode
         /// </summary>
         [JsonPropertyName("stpMode")]
         public SelfTradePreventionMode? StpMode { get; set; }

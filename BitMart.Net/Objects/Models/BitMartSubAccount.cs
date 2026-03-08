@@ -9,7 +9,7 @@ namespace BitMart.Net.Objects.Models
     internal record BitMartSubAccountWrapper
     {
         /// <summary>
-        /// Sub account list
+        /// ["<c>subAccountList</c>"] Sub account list
         /// </summary>
         [JsonPropertyName("subAccountList")]
         public BitMartSubAccount[] SubAccountList { get; set; } = Array.Empty<BitMartSubAccount>();
@@ -22,12 +22,12 @@ namespace BitMart.Net.Objects.Models
     public record BitMartSubAccount
     {
         /// <summary>
-        /// Account name
+        /// ["<c>accountName</c>"] Account name
         /// </summary>
         [JsonPropertyName("accountName")]
         public string AccountName { get; set; } = string.Empty;
         /// <summary>
-        /// Account status
+        /// ["<c>status</c>"] Account status
         /// </summary>
         [JsonPropertyName("status")]
         public SubAccountStatus Status { get; set; }

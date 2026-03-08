@@ -9,7 +9,7 @@ namespace BitMart.Net.Objects.Models
     internal record BitMartFuturesTransferWrapper
     {
         /// <summary>
-        /// Records
+        /// ["<c>records</c>"] Records
         /// </summary>
         [JsonPropertyName("records")]
         public BitMartFuturesTransfer[] Records { get; set; } = Array.Empty<BitMartFuturesTransfer>();
@@ -22,32 +22,32 @@ namespace BitMart.Net.Objects.Models
     public record BitMartFuturesTransfer
     {
         /// <summary>
-        /// Transfer id
+        /// ["<c>transfer_id</c>"] Transfer id
         /// </summary>
         [JsonPropertyName("transfer_id")]
         public string TransferId { get; set; } = string.Empty;
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Quantity
+        /// ["<c>amount</c>"] Quantity
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Type
+        /// ["<c>type</c>"] Type
         /// </summary>
         [JsonPropertyName("type")]
         public FuturesTransferType? Type { get; set; }
         /// <summary>
-        /// Status
+        /// ["<c>state</c>"] Status
         /// </summary>
         [JsonPropertyName("state")]
         public FuturesTransferStatus Status { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }

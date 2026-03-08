@@ -10,12 +10,12 @@ namespace BitMart.Net.Objects.Models
     public record BitMartFuturesOrderResponse
     {
         /// <summary>
-        /// Order id
+        /// ["<c>order_id</c>"] Order id
         /// </summary>
         [JsonPropertyName("order_id")]
         public long OrderId { get; set; }
         /// <summary>
-        /// Price. Note that this is a string because when executing a market trade the server will return `market price` as string value.
+        /// ["<c>price</c>"] Price. Note that this is a string because when executing a market trade the server will return `market price` as string value.
         /// </summary>
         [JsonPropertyName("price")]
         public string Price { get; set; } = string.Empty;

@@ -9,7 +9,7 @@ namespace BitMart.Net.Objects.Models
     internal record BitMartDepositWithdrawalWrapper
     {
         /// <summary>
-        /// Record
+        /// ["<c>record</c>"] Record
         /// </summary>
         [JsonPropertyName("record")]
         public BitMartDepositWithdrawal Record { get; set; } = null!;
@@ -20,7 +20,7 @@ namespace BitMart.Net.Objects.Models
     internal record BitMartDepositWithdrawalHistoryWrapper
     {
         /// <summary>
-        /// Records
+        /// ["<c>records</c>"] Records
         /// </summary>
         [JsonPropertyName("records")]
         public BitMartDepositWithdrawal[] Records { get; set; } = Array.Empty<BitMartDepositWithdrawal>();
@@ -33,57 +33,57 @@ namespace BitMart.Net.Objects.Models
     public record BitMartDepositWithdrawal
     {
         /// <summary>
-        /// Withdraw id
+        /// ["<c>withdraw_id</c>"] Withdraw id
         /// </summary>
         [JsonPropertyName("withdraw_id")]
         public string? WithdrawId { get; set; }
         /// <summary>
-        /// Deposit id
+        /// ["<c>deposit_id</c>"] Deposit id
         /// </summary>
         [JsonPropertyName("deposit_id")]
         public string? DepositId { get; set; }
         /// <summary>
-        /// Operation type
+        /// ["<c>operation_type</c>"] Operation type
         /// </summary>
         [JsonPropertyName("operation_type")]
         public OperationType OperationType { get; set; }
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Apply time
+        /// ["<c>apply_time</c>"] Apply time
         /// </summary>
         [JsonPropertyName("apply_time")]
         public DateTime ApplyTime { get; set; }
         /// <summary>
-        /// Arrival quantity
+        /// ["<c>arrival_amount</c>"] Arrival quantity
         /// </summary>
         [JsonPropertyName("arrival_amount")]
         public decimal ArrivalQuantity { get; set; }
         /// <summary>
-        /// Fee
+        /// ["<c>fee</c>"] Fee
         /// </summary>
         [JsonPropertyName("fee")]
         public decimal Fee { get; set; }
         /// <summary>
-        /// Status
+        /// ["<c>status</c>"] Status
         /// </summary>
         [JsonPropertyName("status")]
         public DepositWithdrawalStatus Status { get; set; }
         /// <summary>
-        /// Address
+        /// ["<c>address</c>"] Address
         /// </summary>
         [JsonPropertyName("address")]
         public string? Address { get; set; }
         /// <summary>
-        /// Address memo
+        /// ["<c>address_memo</c>"] Address memo
         /// </summary>
         [JsonPropertyName("address_memo")]
         public string? AddressMemo { get; set; }
         /// <summary>
-        /// Transaction id
+        /// ["<c>tx_id</c>"] Transaction id
         /// </summary>
         [JsonPropertyName("tx_id")]
         public string TransactionId { get; set; } = string.Empty;

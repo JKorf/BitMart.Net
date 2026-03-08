@@ -18,32 +18,32 @@ namespace BitMart.Net.Objects.Models
     public record BitMartFuturesBalance
     {
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Position margin
+        /// ["<c>position_deposit</c>"] Position margin
         /// </summary>
         [JsonPropertyName("position_deposit")]
         public decimal PositionMargin { get; set; }
         /// <summary>
-        /// Frozen balance
+        /// ["<c>frozen_balance</c>"] Frozen balance
         /// </summary>
         [JsonPropertyName("frozen_balance")]
         public decimal FrozenBalance { get; set; }
         /// <summary>
-        /// Available balance
+        /// ["<c>available_balance</c>"] Available balance
         /// </summary>
         [JsonPropertyName("available_balance")]
         public decimal AvailableBalance { get; set; }
         /// <summary>
-        /// Equity
+        /// ["<c>equity</c>"] Equity
         /// </summary>
         [JsonPropertyName("equity")]
         public decimal Equity { get; set; }
         /// <summary>
-        /// Unrealized profit and loss
+        /// ["<c>unrealized</c>"] Unrealized profit and loss
         /// </summary>
         [JsonPropertyName("unrealized")]
         public decimal UnrealizedPnl { get; set; }

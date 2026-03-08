@@ -10,7 +10,7 @@ namespace BitMart.Net.Objects.Models
     public record BitMartFuturesOrderId
     {
         /// <summary>
-        /// Order id
+        /// ["<c>order_id</c>"] Order id
         /// </summary>
         [JsonPropertyName("order_id")]
         public long OrderId { get; set; }

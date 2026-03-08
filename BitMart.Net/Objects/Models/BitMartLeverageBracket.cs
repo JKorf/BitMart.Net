@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace BitMart.Net.Objects.Models
 {
@@ -14,12 +14,12 @@ namespace BitMart.Net.Objects.Models
     public record BitMartSymbolBracket
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Bracket info
+        /// ["<c>brackets</c>"] Bracket info
         /// </summary>
         [JsonPropertyName("brackets")]
         public BitMartLeverageBracket[] Brackets { get; set; } = [];
@@ -31,32 +31,32 @@ namespace BitMart.Net.Objects.Models
     public record BitMartLeverageBracket
     {
         /// <summary>
-        /// Bracket
+        /// ["<c>bracket</c>"] Bracket
         /// </summary>
         [JsonPropertyName("bracket")]
         public int Bracket { get; set; }
         /// <summary>
-        /// Initial leverage
+        /// ["<c>initial_leverage</c>"] Initial leverage
         /// </summary>
         [JsonPropertyName("initial_leverage")]
         public decimal InitialLeverage { get; set; }
         /// <summary>
-        /// Maximum notional value in this bracket
+        /// ["<c>notional_cap</c>"] Maximum notional value in this bracket
         /// </summary>
         [JsonPropertyName("notional_cap")]
         public decimal MaxNotionalValue { get; set; }
         /// <summary>
-        /// Minimum notional value in this bracket
+        /// ["<c>notional_floor</c>"] Minimum notional value in this bracket
         /// </summary>
         [JsonPropertyName("notional_floor")]
         public decimal MinNotionalValue { get; set; }
         /// <summary>
-        /// Maintenance margin ratio
+        /// ["<c>maint_margin_ratio</c>"] Maintenance margin ratio
         /// </summary>
         [JsonPropertyName("maint_margin_ratio")]
         public decimal MaintenanceMarginRatio { get; set; }
         /// <summary>
-        /// Cumulative maintenance margin amount
+        /// ["<c>cum</c>"] Cumulative maintenance margin amount
         /// </summary>
         [JsonPropertyName("cum")]
         public decimal CumulativeMaintenanceMargin { get; set; }

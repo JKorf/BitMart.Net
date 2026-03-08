@@ -12,97 +12,97 @@ namespace BitMart.Net.Objects.Models
     public record BitMartPosition
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Leverage
+        /// ["<c>leverage</c>"] Leverage
         /// </summary>
         [JsonPropertyName("leverage")]
         public decimal Leverage { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Current fee
+        /// ["<c>current_fee</c>"] Current fee
         /// </summary>
         [JsonPropertyName("current_fee")]
         public decimal? CurrentFee { get; set; }
         /// <summary>
-        /// Open time
+        /// ["<c>open_timestamp</c>"] Open time
         /// </summary>
         [JsonPropertyName("open_timestamp")]
         public DateTime? OpenTime { get; set; }
         /// <summary>
-        /// Current value
+        /// ["<c>current_value</c>"] Current value
         /// </summary>
         [JsonPropertyName("current_value")]
         public decimal? CurrentValue { get; set; }
         /// <summary>
-        /// Mark price
+        /// ["<c>mark_price</c>"] Mark price
         /// </summary>
         [JsonPropertyName("mark_price")]
         public decimal? MarkPrice { get; set; }
         /// <summary>
-        /// Position value
+        /// ["<c>position_value</c>"] Position value
         /// </summary>
         [JsonPropertyName("position_value")]
         public decimal? PositionValue { get; set; }
         /// <summary>
-        /// Position cross
+        /// ["<c>position_cross</c>"] Position cross
         /// </summary>
         [JsonPropertyName("position_cross")]
         public decimal? PositionCross { get; set; }
         /// <summary>
-        /// Maintenance margin
+        /// ["<c>maintenance_margin</c>"] Maintenance margin
         /// </summary>
         [JsonPropertyName("maintenance_margin")]
         public decimal? MaintenanceMargin { get; set; }
         /// <summary>
-        /// Close volume
+        /// ["<c>close_vol</c>"] Close volume
         /// </summary>
         [JsonPropertyName("close_vol")]
         public decimal? CloseVolume { get; set; }
         /// <summary>
-        /// Close average price
+        /// ["<c>close_avg_price</c>"] Close average price
         /// </summary>
         [JsonPropertyName("close_avg_price")]
         public decimal? CloseAveragePrice { get; set; }
         /// <summary>
-        /// Open average price
+        /// ["<c>open_avg_price</c>"] Open average price
         /// </summary>
         [JsonPropertyName("open_avg_price")]
         public decimal? OpenAveragePrice { get; set; }
         /// <summary>
-        /// Entry price
+        /// ["<c>entry_price</c>"] Entry price
         /// </summary>
         [JsonPropertyName("entry_price")]
         public decimal? EntryPrice { get; set; }
         /// <summary>
-        /// Current quantity
+        /// ["<c>current_amount</c>"] Current quantity
         /// </summary>
         [JsonPropertyName("current_amount")]
         public decimal? CurrentQuantity { get; set; }
         /// <summary>
-        /// Unrealized profit and loss
+        /// ["<c>unrealized_value</c>"] Unrealized profit and loss
         /// </summary>
         [JsonPropertyName("unrealized_value")]
         public decimal? UnrealizedPnl { get; set; }
         /// <summary>
-        /// Realized profit and loss
+        /// ["<c>realized_value</c>"] Realized profit and loss
         /// </summary>
         [JsonPropertyName("realized_value")]
         public decimal RealizedPnl { get; set; }
         /// <summary>
-        /// Position side
+        /// ["<c>position_type</c>"] Position side
         /// </summary>
         [JsonPropertyName("position_type")]
         public PositionSide? PositionSide { get; set; }
         /// <summary>
-        /// Position mode
+        /// ["<c>position_mode</c>"] Position mode
         /// </summary>
         [JsonPropertyName("position_mode")]
         public PositionMode? PositionMode { get; set; }

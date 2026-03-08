@@ -18,37 +18,37 @@ namespace BitMart.Net.Objects.Models
     public record BitMartWithdrawalAddress
     {
         /// <summary>
-        /// Asset name
+        /// ["<c>currency</c>"] Asset name
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Network name
+        /// ["<c>network</c>"] Network name
         /// </summary>
         [JsonPropertyName("network")]
         public string Network { get; set; } = string.Empty;
         /// <summary>
-        /// Address
+        /// ["<c>address</c>"] Address
         /// </summary>
         [JsonPropertyName("address")]
         public string Address { get; set; } = string.Empty;
         /// <summary>
-        /// Memo
+        /// ["<c>memo</c>"] Memo
         /// </summary>
         [JsonPropertyName("memo")]
         public string? Memo { get; set; }
         /// <summary>
-        /// Remark
+        /// ["<c>remark</c>"] Remark
         /// </summary>
         [JsonPropertyName("remark")]
         public string? Remark { get; set; }
         /// <summary>
-        /// Address type
+        /// ["<c>addressType</c>"] Address type
         /// </summary>
         [JsonPropertyName("addressType")]
         public WithdrawalAddressType Type { get; set; }
         /// <summary>
-        /// Is verified
+        /// ["<c>verifyStatus</c>"] Is verified
         /// </summary>
         [JsonPropertyName("verifyStatus")]
         public bool Verified { get; set; }

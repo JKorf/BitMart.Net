@@ -18,17 +18,17 @@ namespace BitMart.Net.Objects.Models
     public record BitMartFundingRateHistory
     {
         /// <summary>
-        /// Symbol name
+        /// ["<c>symbol</c>"] Symbol name
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Funding rate
+        /// ["<c>funding_rate</c>"] Funding rate
         /// </summary>
         [JsonPropertyName("funding_rate")]
         public decimal FundingRate { get; set; }
         /// <summary>
-        /// Funding time
+        /// ["<c>funding_time</c>"] Funding time
         /// </summary>
         [JsonPropertyName("funding_time")]
         public DateTime FundingTime { get; set; }

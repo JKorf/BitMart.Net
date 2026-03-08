@@ -11,22 +11,22 @@ namespace BitMart.Net.Objects.Models
     public record BitMartLeverage
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Leverage
+        /// ["<c>leverage</c>"] Leverage
         /// </summary>
         [JsonPropertyName("leverage")]
         public decimal Leverage { get; set; }
         /// <summary>
-        /// Open type
+        /// ["<c>open_type</c>"] Open type
         /// </summary>
         [JsonPropertyName("open_type")]
         public MarginType MarginType { get; set; }
         /// <summary>
-        /// Max value
+        /// ["<c>max_value</c>"] Max value
         /// </summary>
         [JsonPropertyName("max_value")]
         public decimal MaxValue { get; set; }

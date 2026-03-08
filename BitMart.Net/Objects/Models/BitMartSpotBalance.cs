@@ -8,7 +8,7 @@ namespace BitMart.Net.Objects.Models
     internal record BitMartSpotBalanceWrapper
     {
         /// <summary>
-        /// Wallet
+        /// ["<c>wallet</c>"] Wallet
         /// </summary>
         [JsonPropertyName("wallet")]
         public BitMartSpotBalance[] Wallet { get; set; } = Array.Empty<BitMartSpotBalance>();
@@ -21,22 +21,22 @@ namespace BitMart.Net.Objects.Models
     public record BitMartSpotBalance
     {
         /// <summary>
-        /// Id
+        /// ["<c>id</c>"] Id
         /// </summary>
         [JsonPropertyName("id")]
         public string Id { get; set; } = string.Empty;
         /// <summary>
-        /// Available
+        /// ["<c>available</c>"] Available
         /// </summary>
         [JsonPropertyName("available")]
         public decimal Available { get; set; }
         /// <summary>
-        /// Asset
+        /// ["<c>name</c>"] Asset
         /// </summary>
         [JsonPropertyName("name")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Frozen
+        /// ["<c>frozen</c>"] Frozen
         /// </summary>
         [JsonPropertyName("frozen")]
         public decimal Frozen { get; set; }

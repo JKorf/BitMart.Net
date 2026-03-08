@@ -12,83 +12,83 @@ namespace BitMart.Net.Objects.Models
     public record BitMartUserTrade
     {
         /// <summary>
-        /// Trade id
+        /// ["<c>tradeId</c>"] Trade id
         /// </summary>
         [JsonPropertyName("tradeId")]
         public string TradeId { get; set; } = string.Empty;
         /// <summary>
-        /// Order id
+        /// ["<c>orderId</c>"] Order id
         /// </summary>
         [JsonPropertyName("orderId")]
         public string OrderId { get; set; } = string.Empty;
         /// <summary>
-        /// Client order id
+        /// ["<c>clientOrderId</c>"] Client order id
         /// </summary>
         [JsonPropertyName("clientOrderId")]
         public string? ClientOrderId { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Order side
+        /// ["<c>side</c>"] Order side
         /// </summary>
         [JsonPropertyName("side")]
         public OrderSide Side { get; set; }
         /// <summary>
-        /// Order mode
+        /// ["<c>orderMode</c>"] Order mode
         /// </summary>
         [JsonPropertyName("orderMode")]
         public SpotMode OrderMode { get; set; }
         /// <summary>
-        /// Order type
+        /// ["<c>type</c>"] Order type
         /// </summary>
         [JsonPropertyName("type")]
         public OrderType OrderType { get; set; }
         /// <summary>
-        /// Price
+        /// ["<c>price</c>"] Price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Quantity
+        /// ["<c>size</c>"] Quantity
         /// </summary>
         [JsonPropertyName("size")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Value
+        /// ["<c>notional</c>"] Value
         /// </summary>
         [JsonPropertyName("notional")]
         public decimal Value { get; set; }
         /// <summary>
-        /// Fee
+        /// ["<c>fee</c>"] Fee
         /// </summary>
         [JsonPropertyName("fee")]
         public decimal Fee { get; set; }
         /// <summary>
-        /// Fee asset name
+        /// ["<c>feeCoinName</c>"] Fee asset name
         /// </summary>
         [JsonPropertyName("feeCoinName")]
         public string FeeAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Trade role
+        /// ["<c>tradeRole</c>"] Trade role
         /// </summary>
         [JsonPropertyName("tradeRole")]
         public TradeRole TradeRole { get; set; }
         /// <summary>
-        /// Create time
+        /// ["<c>createTime</c>"] Create time
         /// </summary>
         [JsonPropertyName("createTime")]
         public DateTime CreateTime { get; set; }
         /// <summary>
-        /// Update time
+        /// ["<c>updateTime</c>"] Update time
         /// </summary>
         [JsonPropertyName("updateTime")]
         public DateTime? UpdateTime { get; set; }
 
         /// <summary>
-        /// Self trade prevention mode
+        /// ["<c>stpMode</c>"] Self trade prevention mode
         /// </summary>
         [JsonPropertyName("stpMode")]
         public SelfTradePreventionMode? StpMode { get; set; }

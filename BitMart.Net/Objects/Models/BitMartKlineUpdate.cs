@@ -10,12 +10,12 @@ namespace BitMart.Net.Objects.Models
     public record BitMartKlineUpdate
     {
         /// <summary>
-        /// Symbol name
+        /// ["<c>symbol</c>"] Symbol name
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Kline/candle data
+        /// ["<c>candle</c>"] Kline/candle data
         /// </summary>
         [JsonPropertyName("candle")]
         public BitMartKline Kline { get; set; } = null!;

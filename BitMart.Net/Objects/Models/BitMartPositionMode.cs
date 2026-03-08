@@ -1,4 +1,4 @@
-﻿using BitMart.Net.Enums;
+using BitMart.Net.Enums;
 using System.Text.Json.Serialization;
 
 namespace BitMart.Net.Objects.Models
@@ -9,7 +9,7 @@ namespace BitMart.Net.Objects.Models
     public record BitMartPositionMode
     {
         /// <summary>
-        /// The position mode of the account
+        /// ["<c>position_mode</c>"] The position mode of the account
         /// </summary>
         [JsonPropertyName("position_mode")]
         public PositionMode PositionMode { get; set; }

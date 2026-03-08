@@ -8,7 +8,7 @@ namespace BitMart.Net.Objects.Models
     internal record BitMartAssetDepositWithdrawInfoWrapper
     {
         /// <summary>
-        /// Currencies
+        /// ["<c>currencies</c>"] Currencies
         /// </summary>
         [JsonPropertyName("currencies")]
         public BitMartAssetDepositWithdrawInfo[] Currencies { get; set; } = Array.Empty<BitMartAssetDepositWithdrawInfo>();
@@ -21,42 +21,42 @@ namespace BitMart.Net.Objects.Models
     public record BitMartAssetDepositWithdrawInfo
     {
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Name
+        /// ["<c>name</c>"] Name
         /// </summary>
         [JsonPropertyName("name")]
         public string Name { get; set; } = string.Empty;
         /// <summary>
-        /// Contract address
+        /// ["<c>contract_address</c>"] Contract address
         /// </summary>
         [JsonPropertyName("contract_address")]
         public string? ContractAddress { get; set; }
         /// <summary>
-        /// Network
+        /// ["<c>network</c>"] Network
         /// </summary>
         [JsonPropertyName("network")]
         public string Network { get; set; } = string.Empty;
         /// <summary>
-        /// Withdraw enabled
+        /// ["<c>withdraw_enabled</c>"] Withdraw enabled
         /// </summary>
         [JsonPropertyName("withdraw_enabled")]
         public bool WithdrawEnabled { get; set; }
         /// <summary>
-        /// Deposit enabled
+        /// ["<c>deposit_enabled</c>"] Deposit enabled
         /// </summary>
         [JsonPropertyName("deposit_enabled")]
         public bool DepositEnabled { get; set; }
         /// <summary>
-        /// Withdraw minsize
+        /// ["<c>withdraw_minsize</c>"] Withdraw minsize
         /// </summary>
         [JsonPropertyName("withdraw_minsize")]
         public decimal? WithdrawMinsize { get; set; }
         /// <summary>
-        /// Withdraw minimal fee in USDT
+        /// ["<c>withdraw_minfee</c>"] Withdraw minimal fee in USDT
         /// </summary>
         [JsonPropertyName("withdraw_minfee")]
         public decimal? WithdrawMinfee { get; set; }

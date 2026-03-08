@@ -11,52 +11,52 @@ namespace BitMart.Net.Objects.Models
     public record BitMartFeeRate
     {
         /// <summary>
-        /// User fee rate type
+        /// ["<c>user_rate_type</c>"] User fee rate type
         /// </summary>
         [JsonPropertyName("user_rate_type")]
         public FeeRateType? FeeRateType { get; set; }
         /// <summary>
-        /// Level
+        /// ["<c>level</c>"] Level
         /// </summary>
         [JsonPropertyName("level")]
         public string Level { get; set; } = string.Empty;
         /// <summary>
-        /// Taker fee rate for Class-A pairs
+        /// ["<c>taker_fee_rate_A</c>"] Taker fee rate for Class-A pairs
         /// </summary>
         [JsonPropertyName("taker_fee_rate_A")]
         public decimal TakerFeeRateA { get; set; }
         /// <summary>
-        /// Maker fee rate for Class-A pairs
+        /// ["<c>maker_fee_rate_A</c>"] Maker fee rate for Class-A pairs
         /// </summary>
         [JsonPropertyName("maker_fee_rate_A")]
         public decimal MakerFeeRateA { get; set; }
         /// <summary>
-        /// Taker fee rate for Class-B pairs
+        /// ["<c>taker_fee_rate_B</c>"] Taker fee rate for Class-B pairs
         /// </summary>
         [JsonPropertyName("taker_fee_rate_B")]
         public decimal TakerFeeRateB { get; set; }
         /// <summary>
-        /// Maker fee rate for Class-B pairs
+        /// ["<c>maker_fee_rate_B</c>"] Maker fee rate for Class-B pairs
         /// </summary>
         [JsonPropertyName("maker_fee_rate_B")]
         public decimal MakerFeeRateB { get; set; }
         /// <summary>
-        /// Taker fee rate for Class-C pairs
+        /// ["<c>taker_fee_rate_C</c>"] Taker fee rate for Class-C pairs
         /// </summary>
         [JsonPropertyName("taker_fee_rate_C")]
         public decimal TakerFeeRateC { get; set; }
         /// <summary>
-        /// Maker fee rate for Class-C pairs
+        /// ["<c>maker_fee_rate_C</c>"] Maker fee rate for Class-C pairs
         /// </summary>
         [JsonPropertyName("maker_fee_rate_C")]
         public decimal MakerFeeRateC { get; set; }
         /// <summary>
-        /// Taker fee rate for Class-D pairs
+        /// ["<c>taker_fee_rate_D</c>"] Taker fee rate for Class-D pairs
         /// </summary>
         [JsonPropertyName("taker_fee_rate_D")]
         public decimal TakerFeeRateD { get; set; }
         /// <summary>
-        /// Maker fee rate for Class-D pairs
+        /// ["<c>maker_fee_rate_D</c>"] Maker fee rate for Class-D pairs
         /// </summary>
         [JsonPropertyName("maker_fee_rate_D")]
         public decimal MakerFeeRateD { get; set; }

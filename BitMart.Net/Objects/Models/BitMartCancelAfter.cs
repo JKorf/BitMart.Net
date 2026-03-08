@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text.Json.Serialization;
 
 namespace BitMart.Net.Objects.Models
@@ -9,17 +9,17 @@ namespace BitMart.Net.Objects.Models
     public record BitMartCancelAfter
     {
         /// <summary>
-        /// Result
+        /// ["<c>result</c>"] Result
         /// </summary>
         [JsonPropertyName("result")]
         public bool Result { get; set; }
         /// <summary>
-        /// Time of setting
+        /// ["<c>set_time</c>"] Time of setting
         /// </summary>
         [JsonPropertyName("set_time")]
         public DateTime SetTime { get; set; }
         /// <summary>
-        /// Time of cancelling
+        /// ["<c>cancel_time</c>"] Time of cancelling
         /// </summary>
         [JsonPropertyName("cancel_time")]
         public DateTime CancelTime { get; set; }

@@ -8,7 +8,7 @@ namespace BitMart.Net.Objects.Models
     internal record BorrowInfoWrapper
     {
         /// <summary>
-        /// Symbols
+        /// ["<c>symbols</c>"] Symbols
         /// </summary>
         [JsonPropertyName("symbols")]
         public BorrowInfo[] Symbols { get; set; } = Array.Empty<BorrowInfo>();
@@ -21,27 +21,27 @@ namespace BitMart.Net.Objects.Models
     public record BorrowInfo
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Max leverage
+        /// ["<c>max_leverage</c>"] Max leverage
         /// </summary>
         [JsonPropertyName("max_leverage")]
         public decimal MaxLeverage { get; set; }
         /// <summary>
-        /// Symbol enabled
+        /// ["<c>symbol_enabled</c>"] Symbol enabled
         /// </summary>
         [JsonPropertyName("symbol_enabled")]
         public bool SymbolEnabled { get; set; }
         /// <summary>
-        /// Base
+        /// ["<c>base</c>"] Base
         /// </summary>
         [JsonPropertyName("base")]
         public BorrowInfoAsset Base { get; set; } = null!;
         /// <summary>
-        /// Quote
+        /// ["<c>quote</c>"] Quote
         /// </summary>
         [JsonPropertyName("quote")]
         public BorrowInfoAsset Quote { get; set; } = null!;
@@ -54,32 +54,32 @@ namespace BitMart.Net.Objects.Models
     public record BorrowInfoAsset
     {
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Daily interest
+        /// ["<c>daily_interest</c>"] Daily interest
         /// </summary>
         [JsonPropertyName("daily_interest")]
         public decimal DailyInterest { get; set; }
         /// <summary>
-        /// Hourly interest
+        /// ["<c>hourly_interest</c>"] Hourly interest
         /// </summary>
         [JsonPropertyName("hourly_interest")]
         public decimal HourlyInterest { get; set; }
         /// <summary>
-        /// Max borrow quantity
+        /// ["<c>max_borrow_amount</c>"] Max borrow quantity
         /// </summary>
         [JsonPropertyName("max_borrow_amount")]
         public decimal MaxBorrowQuantity { get; set; }
         /// <summary>
-        /// Min borrow quantity
+        /// ["<c>min_borrow_amount</c>"] Min borrow quantity
         /// </summary>
         [JsonPropertyName("min_borrow_amount")]
         public decimal MinBorrowQuantity { get; set; }
         /// <summary>
-        /// Borrowable quantity
+        /// ["<c>borrowable_amount</c>"] Borrowable quantity
         /// </summary>
         [JsonPropertyName("borrowable_amount")]
         public decimal BorrowableQuantity { get; set; }

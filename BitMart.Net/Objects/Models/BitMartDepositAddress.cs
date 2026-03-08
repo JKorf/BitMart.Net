@@ -10,22 +10,22 @@ namespace BitMart.Net.Objects.Models
     public record BitMartDepositAddress
     {
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Network
+        /// ["<c>chain</c>"] Network
         /// </summary>
         [JsonPropertyName("chain")]
         public string Network { get; set; } = string.Empty;
         /// <summary>
-        /// Address
+        /// ["<c>address</c>"] Address
         /// </summary>
         [JsonPropertyName("address")]
         public string Address { get; set; } = string.Empty;
         /// <summary>
-        /// Address memo
+        /// ["<c>address_memo</c>"] Address memo
         /// </summary>
         [JsonPropertyName("address_memo")]
         public string? AddressMemo { get; set; }

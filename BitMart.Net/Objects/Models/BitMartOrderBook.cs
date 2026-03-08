@@ -13,7 +13,7 @@ namespace BitMart.Net.Objects.Models
     public record BitMartOrderBook
     {
         /// <summary>
-        /// Timestamp
+        /// ["<c>timestamp</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("timestamp")]
         public DateTime Timestamp { get; set; }
@@ -22,18 +22,18 @@ namespace BitMart.Net.Objects.Models
         internal DateTime TimestampSpot { set => Timestamp = value; }
 
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
 
         /// <summary>
-        /// Asks
+        /// ["<c>asks</c>"] Asks
         /// </summary>
         [JsonPropertyName("asks")]
         public BitMartOrderBookEntry[] Asks { get; set; } = Array.Empty<BitMartOrderBookEntry>();
         /// <summary>
-        /// Bids
+        /// ["<c>bids</c>"] Bids
         /// </summary>
         [JsonPropertyName("bids")]
         public BitMartOrderBookEntry[] Bids { get; set; } = Array.Empty<BitMartOrderBookEntry>();

@@ -22,7 +22,7 @@ namespace BitMart.Net.Objects.Models
     public record BitMartOrderIds
     {
         /// <summary>
-        /// Order ids of the placed orders
+        /// ["<c>orderIds</c>"] Order ids of the placed orders
         /// </summary>
         [JsonPropertyName("orderIds")]
         public string[] OrderIds { get; set; } = Array.Empty<string>();

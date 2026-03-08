@@ -11,23 +11,23 @@ namespace BitMart.Net.Objects.Models
     public record BitMartOrderBookUpdate
     {
         /// <summary>
-        /// Timestamp
+        /// ["<c>ms_t</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("ms_t")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>symbol</c>"] Symbol
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = string.Empty;
 
         /// <summary>
-        /// Asks
+        /// ["<c>asks</c>"] Asks
         /// </summary>
         [JsonPropertyName("asks")]
         public BitMartOrderBookEntry[] Asks { get; set; } = Array.Empty<BitMartOrderBookEntry>();
         /// <summary>
-        /// Bids
+        /// ["<c>bids</c>"] Bids
         /// </summary>
         [JsonPropertyName("bids")]
         public BitMartOrderBookEntry[] Bids { get; set; } = Array.Empty<BitMartOrderBookEntry>();
@@ -40,12 +40,12 @@ namespace BitMart.Net.Objects.Models
     public record BitMartOrderBookIncrementalUpdate: BitMartOrderBookUpdate
     {
         /// <summary>
-        /// Update type
+        /// ["<c>type</c>"] Update type
         /// </summary>
         [JsonPropertyName("type")]
         public string Type { get; set; } = string.Empty;
         /// <summary>
-        /// Data version
+        /// ["<c>version</c>"] Data version
         /// </summary>
         [JsonPropertyName("version")]
         public long Version { get; set; }

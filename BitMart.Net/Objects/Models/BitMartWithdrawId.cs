@@ -10,7 +10,7 @@ namespace BitMart.Net.Objects.Models
     public record BitMartWithdrawId
     {
         /// <summary>
-        /// Withdraw id
+        /// ["<c>withdraw_id</c>"] Withdraw id
         /// </summary>
         [JsonPropertyName("withdraw_id")]
         public string WithdrawId { get; set; } = string.Empty;
