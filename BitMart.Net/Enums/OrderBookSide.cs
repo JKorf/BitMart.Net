@@ -11,12 +11,12 @@ namespace BitMart.Net.Enums
     public enum OrderBookSide
     {
         /// <summary>
-        /// Bids
+        /// ["<c>1</c>"] Bids
         /// </summary>
         [Map("1")]
         Bids,
         /// <summary>
-        /// Asks
+        /// ["<c>2</c>"] Asks
         /// </summary>
         [Map("2")]
         Asks

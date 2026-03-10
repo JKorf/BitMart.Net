@@ -11,22 +11,22 @@ namespace BitMart.Net.Enums
     public enum OrderMode
     {
         /// <summary>
-        /// Good till canceled
+        /// ["<c>1</c>"] Good till canceled
         /// </summary>
         [Map("1")]
         GoodTilCancel,
         /// <summary>
-        /// Fill entirely or cancel
+        /// ["<c>2</c>"] Fill entirely or cancel
         /// </summary>
         [Map("2")]
         FillOrKill,
         /// <summary>
-        /// Fill at least partially or cancel
+        /// ["<c>3</c>"] Fill at least partially or cancel
         /// </summary>
         [Map("3")]
         ImmediateOrCancel,
         /// <summary>
-        /// Post only
+        /// ["<c>4</c>"] Post only
         /// </summary>
         [Map("4")]
         PostOnly

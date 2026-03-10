@@ -11,22 +11,22 @@ namespace BitMart.Net.Enums
     public enum FuturesSide
     {
         /// <summary>
-        /// Buy open long
+        /// ["<c>1</c>"] Buy open long
         /// </summary>
         [Map("1")]
         BuyOpenLong,
         /// <summary>
-        /// Buy close short
+        /// ["<c>2</c>"] Buy close short
         /// </summary>
         [Map("2")]
         BuyCloseShort,
         /// <summary>
-        /// Sell close long
+        /// ["<c>3</c>"] Sell close long
         /// </summary>
         [Map("3")]
         SellCloseLong,
         /// <summary>
-        /// Sell oen short
+        /// ["<c>4</c>"] Sell open short
         /// </summary>
         [Map("4")]
         SellOpenShort

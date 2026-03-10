@@ -11,17 +11,17 @@ namespace BitMart.Net.Enums
     public enum EntrustType
     {
         /// <summary>
-        /// Normal (limit or market order)
+        /// ["<c>normal</c>"] Normal (limit or market order)
         /// </summary>
         [Map("normal")]
         Normal,
         /// <summary>
-        /// Limit maker
+        /// ["<c>limit_maker</c>"] Limit maker
         /// </summary>
         [Map("limit_maker")]
         LimitMaker,
         /// <summary>
-        /// Immediate or cancel
+        /// ["<c>ioc</c>"] Immediate or cancel
         /// </summary>
         [Map("ioc")]
         ImmediateOrCancel

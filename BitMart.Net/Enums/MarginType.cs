@@ -11,12 +11,12 @@ namespace BitMart.Net.Enums
     public enum MarginType
     {
         /// <summary>
-        /// Cross margin
+        /// ["<c>cross</c>"] Cross margin
         /// </summary>
         [Map("cross", "Cross")]
         CrossMargin,
         /// <summary>
-        /// Isolated margin
+        /// ["<c>isolated</c>"] Isolated margin
         /// </summary>
         [Map("isolated", "Isolated")]
         IsolatedMargin

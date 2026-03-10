@@ -11,12 +11,12 @@ namespace BitMart.Net.Enums
     public enum SymbolStatus
     {
         /// <summary>
-        /// Trading
+        /// ["<c>trading</c>"] Trading
         /// </summary>
         [Map("trading")]
         Trading,
         /// <summary>
-        /// Pre-trade
+        /// ["<c>pre-trade</c>"] Pre-trade
         /// </summary>
         [Map("pre-trade")]
         PreTrade

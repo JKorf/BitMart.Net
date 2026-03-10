@@ -11,17 +11,17 @@ namespace BitMart.Net.Enums
     public enum FeeRateType
     {
         /// <summary>
-        /// Normal user
+        /// ["<c>0</c>"] Normal user
         /// </summary>
         [Map("0")]
         Normal,
         /// <summary>
-        /// VIP user
+        /// ["<c>1</c>"] VIP user
         /// </summary>
         [Map("1")]
         Vip,
         /// <summary>
-        /// Special VIP user
+        /// ["<c>2</c>"] Special VIP user
         /// </summary>
         [Map("2")]
         SpecialVip

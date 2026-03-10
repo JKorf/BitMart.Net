@@ -11,12 +11,12 @@ namespace BitMart.Net.Enums
     public enum TransferDirection
     {
         /// <summary>
-        /// Transfer in
+        /// ["<c>in</c>"] Transfer in
         /// </summary>
         [Map("in")]
         TransferIn,
         /// <summary>
-        /// Transfer out
+        /// ["<c>out</c>"] Transfer out
         /// </summary>
         [Map("out")]
         TransferOut

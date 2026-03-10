@@ -11,32 +11,32 @@ namespace BitMart.Net.Enums
     public enum FlowType
     {
         /// <summary>
-        /// All
+        /// ["<c>0</c>"] All
         /// </summary>
         [Map("0")]
         All,
         /// <summary>
-        /// Transfer
+        /// ["<c>1</c>"] Transfer
         /// </summary>
         [Map("1")]
         Transfer,
         /// <summary>
-        /// Realized profit and loss
+        /// ["<c>2</c>"] Realized profit and loss
         /// </summary>
         [Map("2")]
         RealizedPnl,
         /// <summary>
-        /// Funding fee
+        /// ["<c>3</c>"] Funding fee
         /// </summary>
         [Map("3")]
         FundingFee,
         /// <summary>
-        /// Commission fee
+        /// ["<c>4</c>"] Commission fee
         /// </summary>
         [Map("4")]
         CommissionFee,
         /// <summary>
-        /// Liquidation clearance
+        /// ["<c>5</c>"] Liquidation clearance
         /// </summary>
         [Map("5")]
         LiquidationClearance

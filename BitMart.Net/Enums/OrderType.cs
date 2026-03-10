@@ -11,22 +11,22 @@ namespace BitMart.Net.Enums
     public enum OrderType
     {
         /// <summary>
-        /// Limit order
+        /// ["<c>limit</c>"] Limit order
         /// </summary>
         [Map("limit")]
         Limit,
         /// <summary>
-        /// Market order
+        /// ["<c>market</c>"] Market order
         /// </summary>
         [Map("market")]
         Market,
         /// <summary>
-        /// Limit maker order
+        /// ["<c>limit_maker</c>"] Limit maker order
         /// </summary>
         [Map("limit_maker")]
         LimitMaker,
         /// <summary>
-        /// Immediate or cancel order
+        /// ["<c>ioc</c>"] Immediate or cancel order
         /// </summary>
         [Map("ioc")]
         ImmediateOrCancel

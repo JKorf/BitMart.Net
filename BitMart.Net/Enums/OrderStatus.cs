@@ -11,32 +11,32 @@ namespace BitMart.Net.Enums
     public enum OrderStatus
     {
         /// <summary>
-        /// New
+        /// ["<c>new</c>"] New
         /// </summary>
         [Map("new")]
         New,
         /// <summary>
-        /// Partially filled
+        /// ["<c>partially_filled</c>"] Partially filled
         /// </summary>
         [Map("partially_filled")]
         PartiallyFilled,
         /// <summary>
-        /// Filled
+        /// ["<c>filled</c>"] Filled
         /// </summary>
         [Map("filled")]
         Filled,
         /// <summary>
-        /// Canceled
+        /// ["<c>canceled</c>"] Canceled
         /// </summary>
         [Map("canceled")]
         Canceled,
         /// <summary>
-        /// Partially canceled
+        /// ["<c>partially_canceled</c>"] Partially canceled
         /// </summary>
         [Map("partially_canceled")]
         PartiallyCanceled,
         /// <summary>
-        /// Order failed
+        /// ["<c>failed</c>"] Order failed
         /// </summary>
         [Map("failed")]
         Failed

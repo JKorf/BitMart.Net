@@ -11,12 +11,12 @@ namespace BitMart.Net.Enums
     public enum OrderStatusQuery
     {
         /// <summary>
-        /// All orders
+        /// ["<c>all</c>"] All orders
         /// </summary>
         [Map("all")]
         All,
         /// <summary>
-        /// Partially filled
+        /// ["<c>partially_filled</c>"] Partially filled
         /// </summary>
         [Map("partially_filled")]
         PartiallyFilled

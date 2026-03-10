@@ -11,12 +11,12 @@ namespace BitMart.Net.Enums
     public enum ContractStatus
     {
         /// <summary>
-        /// Trading
+        /// ["<c>Trading</c>"] Trading
         /// </summary>
         [Map("Trading")]
         Trading,
         /// <summary>
-        /// Delisted
+        /// ["<c>Delisted</c>"] Delisted
         /// </summary>
         [Map("Delisted")]
         Delisted

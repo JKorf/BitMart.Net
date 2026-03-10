@@ -11,17 +11,17 @@ namespace BitMart.Net.Enums
     public enum WithdrawalAddressType
     {
         /// <summary>
-        /// Standard address
+        /// ["<c>0</c>"] Standard address
         /// </summary>
         [Map("0")]
         Standard,
         /// <summary>
-        /// Universal address
+        /// ["<c>1</c>"] Universal address
         /// </summary>
         [Map("1")]
         Universal,
         /// <summary>
-        /// EVM address
+        /// ["<c>2</c>"] EVM address
         /// </summary>
         [Map("2")]
         Evm

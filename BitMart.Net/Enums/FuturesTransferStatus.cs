@@ -11,17 +11,17 @@ namespace BitMart.Net.Enums
     public enum FuturesTransferStatus
     {
         /// <summary>
-        /// Processing
+        /// ["<c>PROCESSING</c>"] Processing
         /// </summary>
         [Map("PROCESSING")]
         Processing,
         /// <summary>
-        /// Finished
+        /// ["<c>FINISHED</c>"] Finished
         /// </summary>
         [Map("FINISHED")]
         Finished,
         /// <summary>
-        /// Failed
+        /// ["<c>FAILED</c>"] Failed
         /// </summary>
         [Map("FAILED")]
         Failed

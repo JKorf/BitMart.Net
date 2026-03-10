@@ -11,12 +11,12 @@ namespace BitMart.Net.Enums
     public enum OrderQueryState
     {
         /// <summary>
-        /// Active order
+        /// ["<c>open</c>"] Active order
         /// </summary>
         [Map("open")]
         Open,
         /// <summary>
-        /// Closed order
+        /// ["<c>history</c>"] Closed order
         /// </summary>
         [Map("history")]
         History

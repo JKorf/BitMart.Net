@@ -11,67 +11,67 @@ namespace BitMart.Net.Enums
     public enum KlineInterval
     {
         /// <summary>
-        /// One minute
+        /// ["<c>1</c>"] One minute
         /// </summary>
         [Map("1")]
         OneMinute = 60,
         /// <summary>
-        /// Three minutes
+        /// ["<c>3</c>"] Three minutes
         /// </summary>
         [Map("3")]
         ThreeMinutes = 180,
         /// <summary>
-        /// Five minutes
+        /// ["<c>5</c>"] Five minutes
         /// </summary>
         [Map("5")]
         FiveMinutes = 300,
         /// <summary>
-        /// Fifteen minutes
+        /// ["<c>15</c>"] Fifteen minutes
         /// </summary>
         [Map("15")]
         FifteenMinutes = 900,
         /// <summary>
-        /// Thirty minutes
+        /// ["<c>30</c>"] Thirty minutes
         /// </summary>
         [Map("30")]
         ThirtyMinutes = 1800,
         /// <summary>
-        /// Fourty five minutes
+        /// ["<c>45</c>"] Fourty five minutes
         /// </summary>
         [Map("45")]
         FourtyFiveMinutes = 2700,
         /// <summary>
-        /// One hour
+        /// ["<c>60</c>"] One hour
         /// </summary>
         [Map("60")]
         OneHour = 3600,
         /// <summary>
-        /// Two hours
+        /// ["<c>120</c>"] Two hours
         /// </summary>
         [Map("120")]
         TwoHours = 7200,
         /// <summary>
-        /// Three hours
+        /// ["<c>180</c>"] Three hours
         /// </summary>
         [Map("180")]
         ThreeHours = 10800,
         /// <summary>
-        /// Four hours
+        /// ["<c>240</c>"] Four hours
         /// </summary>
         [Map("240")]
         FourHours = 14400,
         /// <summary>
-        /// One day
+        /// ["<c>1440</c>"] One day
         /// </summary>
         [Map("1440")]
         OneDay = 86400,
         /// <summary>
-        /// One week
+        /// ["<c>10080</c>"] One week
         /// </summary>
         [Map("10080")]
         OneWeek = 604800,
         /// <summary>
-        /// One month
+        /// ["<c>43200</c>"] One month
         /// </summary>
         [Map("43200")]
         OneMonth = 2592000

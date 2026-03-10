@@ -11,12 +11,12 @@ namespace BitMart.Net.Enums
     public enum TradeRole
     {
         /// <summary>
-        /// Maker
+        /// ["<c>maker</c>"] Maker
         /// </summary>
         [Map("maker", "M", "Maker")]
         Maker,
         /// <summary>
-        /// Taker
+        /// ["<c>taker</c>"] Taker
         /// </summary>
         [Map("taker", "T", "Taker")]
         Taker

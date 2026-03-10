@@ -11,12 +11,12 @@ namespace BitMart.Net.Enums
     public enum PriceDirection
     {
         /// <summary>
-        /// Long direction
+        /// ["<c>price_way_long</c>"] Long direction
         /// </summary>
         [Map("price_way_long")]
         LongDirection,
         /// <summary>
-        /// Short direction
+        /// ["<c>price_way_short</c>"] Short direction
         /// </summary>
         [Map("price_way_short")]
         ShortDirection

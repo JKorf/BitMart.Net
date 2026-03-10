@@ -11,17 +11,17 @@ namespace BitMart.Net.Enums
     public enum SystemMaintenanceStatus
     {
         /// <summary>
-        /// Waiting for start
+        /// ["<c>0</c>"] Waiting for start
         /// </summary>
         [Map("0")]
         Pending,
         /// <summary>
-        /// Currently executing
+        /// ["<c>1</c>"] Currently executing
         /// </summary>
         [Map("1")]
         Working,
         /// <summary>
-        /// Completed
+        /// ["<c>2</c>"] Completed
         /// </summary>
         [Map("2")]
         Completed,

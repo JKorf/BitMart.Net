@@ -11,12 +11,12 @@ namespace BitMart.Net.Enums
     public enum ContractType
     {
         /// <summary>
-        /// Perpetual contract
+        /// ["<c>1</c>"] Perpetual contract
         /// </summary>
         [Map("1")]
         Perpetual,
         /// <summary>
-        /// Futures contract
+        /// ["<c>2</c>"] Futures contract
         /// </summary>
         [Map("2")]
         Futures

@@ -11,32 +11,32 @@ namespace BitMart.Net.Enums
     public enum DepositWithdrawalStatus
     {
         /// <summary>
-        /// Created
+        /// ["<c>0</c>"] Created
         /// </summary>
         [Map("0")]
         Created,
         /// <summary>
-        /// Submitted
+        /// ["<c>1</c>"] Submitted
         /// </summary>
         [Map("1")]
         Submitted,
         /// <summary>
-        /// Processing
+        /// ["<c>2</c>"] Processing
         /// </summary>
         [Map("2")]
         Processing,
         /// <summary>
-        /// Completed
+        /// ["<c>3</c>"] Completed
         /// </summary>
         [Map("3")]
         Completed,
         /// <summary>
-        /// Canceled
+        /// ["<c>4</c>"] Canceled
         /// </summary>
         [Map("4")]
         Canceled,
         /// <summary>
-        /// Failed
+        /// ["<c>5</c>"] Failed
         /// </summary>
         [Map("5")]
         Failed

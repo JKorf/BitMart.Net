@@ -11,12 +11,12 @@ namespace BitMart.Net.Enums
     public enum TplSlOrderType
     {
         /// <summary>
-        /// Take profit order
+        /// ["<c>take_profit</c>"] Take profit order
         /// </summary>
         [Map("take_profit")]
         TakeProfit,
         /// <summary>
-        /// Stop loss order
+        /// ["<c>stop_loss</c>"] Stop loss order
         /// </summary>
         [Map("stop_loss")]
         StopLoss

@@ -11,12 +11,12 @@ namespace BitMart.Net.Enums
     public enum FuturesTransferType
     {
         /// <summary>
-        /// Spot to contract
+        /// ["<c>spot_to_contract</c>"] Spot to contract
         /// </summary>
         [Map("spot_to_contract")]
         SpotToContract,
         /// <summary>
-        /// Contract to spot
+        /// ["<c>contract_to_spot</c>"] Contract to spot
         /// </summary>
         [Map("contract_to_spot")]
         ContractToSpot

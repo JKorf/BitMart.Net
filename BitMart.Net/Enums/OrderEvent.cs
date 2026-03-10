@@ -11,47 +11,47 @@ namespace BitMart.Net.Enums
     public enum OrderEvent
     {
         /// <summary>
-        /// Trade filled
+        /// ["<c>1</c>"] Trade filled
         /// </summary>
         [Map("1")]
         Trade,
         /// <summary>
-        /// Order submitted
+        /// ["<c>2</c>"] Order submitted
         /// </summary>
         [Map("2")]
         Submit,
         /// <summary>
-        /// Order canceled
+        /// ["<c>3</c>"] Order canceled
         /// </summary>
         [Map("3")]
         Cancel,
         /// <summary>
-        /// Liquidate cancel order
+        /// ["<c>4</c>"] Liquidate cancel order
         /// </summary>
         [Map("4")]
         LiquidationCancel,
         /// <summary>
-        /// Adl cancel order
+        /// ["<c>5</c>"] Adl cancel order
         /// </summary>
         [Map("5")]
         AdlCancel,
         /// <summary>
-        /// Partial liquidate
+        /// ["<c>6</c>"] Partial liquidate
         /// </summary>
         [Map("6")]
         PartialLiquidation,
         /// <summary>
-        /// Bankruptcy order
+        /// ["<c>7</c>"] Bankruptcy order
         /// </summary>
         [Map("7")]
         Bankruptcy,
         /// <summary>
-        /// Passive Adl trade
+        /// ["<c>8</c>"] Passive Adl trade
         /// </summary>
         [Map("8")]
         PassiveAdlTrade,
         /// <summary>
-        /// Active adl trade
+        /// ["<c>9</c>"] Active adl trade
         /// </summary>
         [Map("9")]
         ActiveAdlTrade

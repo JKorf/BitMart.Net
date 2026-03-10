@@ -11,47 +11,47 @@ namespace BitMart.Net.Enums
     public enum FuturesOrderType
     {
         /// <summary>
-        /// Limit order
+        /// ["<c>limit</c>"] Limit order
         /// </summary>
         [Map("limit")]
         Limit,
         /// <summary>
-        /// Market order
+        /// ["<c>market</c>"] Market order
         /// </summary>
         [Map("market")]
         Market,
         /// <summary>
-        /// Liquidation
+        /// ["<c>liquidate</c>"] Liquidation
         /// </summary>
         [Map("liquidate")]
         Liquidation,
         /// <summary>
-        /// Bankruptcy
+        /// ["<c>bankruptcy</c>"] Bankruptcy
         /// </summary>
         [Map("bankruptcy")]
         Bankruptcy,
         /// <summary>
-        /// Auto deleverage
+        /// ["<c>adl</c>"] Auto deleverage
         /// </summary>
         [Map("adl")]
         AutoDeleverage,
         /// <summary>
-        /// Trailing
+        /// ["<c>trailing</c>"] Trailing
         /// </summary>
         [Map("trailing")]
         Trailing,
         /// <summary>
-        /// Plan order
+        /// ["<c>plan_order</c>"] Plan order
         /// </summary>
         [Map("plan_order", "planorder")]
         PlanOrder,
         /// <summary>
-        /// Stop loss
+        /// ["<c>stop_loss</c>"] Stop loss
         /// </summary>
         [Map("stop_loss")]
         StopLoss,
         /// <summary>
-        /// Take profit
+        /// ["<c>take_profit</c>"] Take profit
         /// </summary>
         [Map("take_profit")]
         TakeProfit

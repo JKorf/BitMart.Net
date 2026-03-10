@@ -11,12 +11,12 @@ namespace BitMart.Net.Enums
     public enum PlanCategory
     {
         /// <summary>
-        /// Take profit / Stop loss
+        /// ["<c>1</c>"] Take profit / Stop loss
         /// </summary>
         [Map("1")]
         TpSl,
         /// <summary>
-        /// Position Take profit / Stop loss
+        /// ["<c>2</c>"] Position Take profit / Stop loss
         /// </summary>
         [Map("2")]
         PositionTpSl

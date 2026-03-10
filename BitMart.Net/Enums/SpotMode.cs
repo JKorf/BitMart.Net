@@ -11,12 +11,12 @@ namespace BitMart.Net.Enums
     public enum SpotMode
     {
         /// <summary>
-        /// Spot
+        /// ["<c>spot</c>"] Spot
         /// </summary>
         [Map("spot")]
         Spot,
         /// <summary>
-        /// Isolated margin
+        /// ["<c>iso_margin</c>"] Isolated margin
         /// </summary>
         [Map("iso_margin")]
         IsolatedMargin

@@ -11,27 +11,27 @@ namespace BitMart.Net.Enums
     public enum BalanceUpdateType
     {
         /// <summary>
-        /// Trade
+        /// ["<c>TRANSACTION_COMPLETED</c>"] Trade
         /// </summary>
         [Map("TRANSACTION_COMPLETED")]
         Trade,
         /// <summary>
-        /// Deposit
+        /// ["<c>ACCOUNT_RECHARGE</c>"] Deposit
         /// </summary>
         [Map("ACCOUNT_RECHARGE")]
         Deposit,
         /// <summary>
-        /// Withdrawal
+        /// ["<c>ACCOUNT_WITHDRAWAL</c>"] Withdrawal
         /// </summary>
         [Map("ACCOUNT_WITHDRAWAL")]
         Withdrawal,
         /// <summary>
-        /// Transfer
+        /// ["<c>ACCOUNT_TRANSFER</c>"] Transfer
         /// </summary>
         [Map("ACCOUNT_TRANSFER")]
         Transfer,
         /// <summary>
-        /// BMX handling fee deduction
+        /// ["<c>BMX_DEDUCTION</c>"] BMX handling fee deduction
         /// </summary>
         [Map("BMX_DEDUCTION")]
         BmxDeduction,

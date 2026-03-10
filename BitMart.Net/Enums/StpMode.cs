@@ -8,17 +8,17 @@ namespace BitMart.Net.Enums
     public enum StpMode
     {
         /// <summary>
-        /// Cancel maker order
+        /// ["<c>1</c>"] Cancel maker order
         /// </summary>
         [Map("1")]
         CancelMaker,
         /// <summary>
-        /// Cancel taker order
+        /// ["<c>2</c>"] Cancel taker order
         /// </summary>
         [Map("2")]
         CancelTaker,
         /// <summary>
-        /// Cancel both orders
+        /// ["<c>3</c>"] Cancel both orders
         /// </summary>
         [Map("3")]
         CancelBoth

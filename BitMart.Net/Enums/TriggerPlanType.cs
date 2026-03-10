@@ -11,12 +11,12 @@ namespace BitMart.Net.Enums
     public enum TriggerPlanType
     {
         /// <summary>
-        /// Plan
+        /// ["<c>plan</c>"] Plan
         /// </summary>
         [Map("plan")]
         Plan,
         /// <summary>
-        /// Profit loss
+        /// ["<c>profit_loss</c>"] Profit loss
         /// </summary>
         [Map("profit_loss")]
         ProfitLoss

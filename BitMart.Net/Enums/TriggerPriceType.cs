@@ -11,12 +11,12 @@ namespace BitMart.Net.Enums
     public enum TriggerPriceType
     {
         /// <summary>
-        /// Last price
+        /// ["<c>1</c>"] Last price
         /// </summary>
         [Map("1")]
         LastPrice,
         /// <summary>
-        /// Fair price
+        /// ["<c>2</c>"] Fair price
         /// </summary>
         [Map("2")]
         FairPrice

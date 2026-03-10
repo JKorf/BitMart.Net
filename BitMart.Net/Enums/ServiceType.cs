@@ -11,17 +11,17 @@ namespace BitMart.Net.Enums
     public enum ServiceType
     {
         /// <summary>
-        /// Spot API service
+        /// ["<c>spot</c>"] Spot API service
         /// </summary>
         [Map("spot")]
         SpotApiService,
         /// <summary>
-        /// Contract API service
+        /// ["<c>contract</c>"] Contract API service
         /// </summary>
         [Map("contract")]
         ContractApiService,
         /// <summary>
-        /// Account API service
+        /// ["<c>account</c>"] Account API service
         /// </summary>
         [Map("account")]
         AccountApiService,
