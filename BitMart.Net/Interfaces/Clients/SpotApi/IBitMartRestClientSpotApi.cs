@@ -6,7 +6,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
     /// <summary>
     /// BitMart Spot API endpoints
     /// </summary>
-    public interface IBitMartRestClientSpotApi : IRestApiClient, IDisposable
+    public interface IBitMartRestClientSpotApi : IRestApiClient<BitMartCredentials>, IDisposable
     {
         /// <summary>
         /// Endpoints related to account settings, info or actions

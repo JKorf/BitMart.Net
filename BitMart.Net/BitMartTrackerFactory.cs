@@ -122,7 +122,7 @@ namespace BitMart.Net
         }
 
         /// <inheritdoc />
-        public IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, ApiCredentials credentials, SpotUserDataTrackerConfig? config = null, BitMartEnvironment? environment = null)
+        public IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, BitMartCredentials credentials, SpotUserDataTrackerConfig? config = null, BitMartEnvironment? environment = null)
         {
             var clientProvider = _serviceProvider?.GetRequiredService<IBitMartUserClientProvider>() ?? new BitMartUserClientProvider();
             var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);
@@ -151,7 +151,7 @@ namespace BitMart.Net
         }
 
         /// <inheritdoc />
-        public IUserFuturesDataTracker CreateUserUsdFuturesDataTracker(string userIdentifier, ApiCredentials credentials, FuturesUserDataTrackerConfig? config = null, BitMartEnvironment? environment = null)
+        public IUserFuturesDataTracker CreateUserUsdFuturesDataTracker(string userIdentifier, BitMartCredentials credentials, FuturesUserDataTrackerConfig? config = null, BitMartEnvironment? environment = null)
         {
             var clientProvider = _serviceProvider?.GetRequiredService<IBitMartUserClientProvider>() ?? new BitMartUserClientProvider();
             var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);

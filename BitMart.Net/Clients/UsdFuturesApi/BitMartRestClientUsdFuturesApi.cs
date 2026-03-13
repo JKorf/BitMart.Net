@@ -24,7 +24,7 @@ using System.Threading.Tasks;
 namespace BitMart.Net.Clients.UsdFuturesApi
 {
     /// <inheritdoc cref="IBitMartRestClientUsdFuturesApi" />
-    internal partial class BitMartRestClientUsdFuturesApi : RestApiClient, IBitMartRestClientUsdFuturesApi
+    internal partial class BitMartRestClientUsdFuturesApi : RestApiClient<BitMartEnvironment, BitMartAuthenticationProvider, BitMartCredentials>, IBitMartRestClientUsdFuturesApi
     {
         #region fields 
         private readonly IBitMartRestClient _baseClient;
@@ -66,7 +66,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         public IBitMartRestClientUsdFuturesApiShared SharedClient => this;
 
         /// <inheritdoc />
-        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+        protected override BitMartAuthenticationProvider CreateAuthenticationProvider(BitMartCredentials credentials)
             => new BitMartAuthenticationProvider(credentials);
 
         internal Task<WebCallResult> SendAsync(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)

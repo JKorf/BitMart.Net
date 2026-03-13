@@ -23,7 +23,7 @@ using System.Net.Http.Headers;
 namespace BitMart.Net.Clients.SpotApi
 {
     /// <inheritdoc cref="IBitMartRestClientSpotApi" />
-    internal partial class BitMartRestClientSpotApi : RestApiClient, IBitMartRestClientSpotApi
+    internal partial class BitMartRestClientSpotApi : RestApiClient<BitMartEnvironment, BitMartAuthenticationProvider, BitMartCredentials>, IBitMartRestClientSpotApi
     {
         #region fields 
         
@@ -65,7 +65,7 @@ namespace BitMart.Net.Clients.SpotApi
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(BitMartExchange._serializerContext));
 
         /// <inheritdoc />
-        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+        protected override BitMartAuthenticationProvider CreateAuthenticationProvider(BitMartCredentials credentials)
             => new BitMartAuthenticationProvider(credentials);
 
         internal Task<WebCallResult> SendAsync(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null, Dictionary<string, string>? additionalHeaders = null)

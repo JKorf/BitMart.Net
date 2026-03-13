@@ -15,7 +15,7 @@ using CryptoExchange.Net.Objects.Options;
 namespace BitMart.Net.Clients
 {
     /// <inheritdoc cref="IBitMartRestClient" />
-    public class BitMartRestClient : BaseRestClient, IBitMartRestClient
+    public class BitMartRestClient : BaseRestClient<BitMartEnvironment, BitMartCredentials>, IBitMartRestClient
     {
         #region Api clients
                 
@@ -54,13 +54,6 @@ namespace BitMart.Net.Clients
 
         #endregion
 
-        /// <inheritdoc />
-        public void SetOptions(UpdateOptions options)
-        {
-            SpotApi.SetOptions(options);
-            UsdFuturesApi.SetOptions(options);
-        }
-
         /// <summary>
         /// Set the default options to be used when creating new clients
         /// </summary>
@@ -68,13 +61,6 @@ namespace BitMart.Net.Clients
         public static void SetDefaultOptions(Action<BitMartRestOptions> optionsDelegate)
         {
             BitMartRestOptions.Default = ApplyOptionsDelegate(optionsDelegate);
-        }
-
-        /// <inheritdoc />
-        public void SetApiCredentials(ApiCredentials credentials)
-        {
-            UsdFuturesApi.SetApiCredentials(credentials);
-            SpotApi.SetApiCredentials(credentials);
         }
     }
 }

@@ -35,7 +35,7 @@ namespace BitMart.Net.UnitTests
             return new BitMartRestClient(null, loggerFactory, Options.Create(new BitMartRestOptions
             {
                 OutputOriginalData = true,
-                ApiCredentials = Authenticated ? new ApiCredentials(key, sec, pass) : null
+                ApiCredentials = Authenticated ? new BitMartCredentials(key, sec, pass) : null
             }));
         }
 

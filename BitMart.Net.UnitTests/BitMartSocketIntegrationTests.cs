@@ -29,7 +29,7 @@ namespace BitMart.Net.UnitTests
             return new BitMartSocketClient(Options.Create(new BitMartSocketOptions
             {
                 OutputOriginalData = true,
-                ApiCredentials = Authenticated ? new CryptoExchange.Net.Authentication.ApiCredentials(key, sec, pass) : null
+                ApiCredentials = Authenticated ? new BitMartCredentials(key, sec, pass) : null
             }), loggerFactory);
         }
 
