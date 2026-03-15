@@ -35,7 +35,7 @@ namespace BitMart.Net
             var signStr = $"{timestamp}#{Credential.Pass}#{queryParams}{bodyParams}";
 
             request.Headers ??= new Dictionary<string, string>();
-            request.Headers.Add("X-BM-KEY", Credential.PublicKey);
+            request.Headers.Add("X-BM-KEY", Credential.Key);
             request.Headers.Add("X-BM-SIGN", SignHMACSHA256(signStr, SignOutputType.Hex).ToLowerInvariant());
             request.Headers.Add("X-BM-TIMESTAMP", timestamp);
 
@@ -46,7 +46,7 @@ namespace BitMart.Net
         public override Query? GetAuthenticationQuery(SocketApiClient apiClient, SocketConnection connection, Dictionary<string, object?>? context = null)
         {
             var timestamp = GetMillisecondTimestamp(apiClient);
-            var key = Credential.PublicKey;
+            var key = Credential.Key;
             var memo = Credential.Pass;
             var sign = SignHMACSHA256($"{timestamp}#{memo}#bitmart.WebSocket", SignOutputType.Hex).ToLowerInvariant();
 
