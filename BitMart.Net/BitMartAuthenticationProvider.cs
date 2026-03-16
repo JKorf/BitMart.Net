@@ -17,11 +17,11 @@ namespace BitMart.Net
     {
         private static IStringMessageSerializer _serializer = new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(BitMartExchange._serializerContext));
 
-        public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.Hmac];
+        public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.HMAC];
         public BitMartAuthenticationProvider(BitMartCredentials credentials) : base(credentials)
         {
-            if (string.IsNullOrEmpty(credentials.Hmac!.Pass))
-                throw new ArgumentNullException(nameof(ApiCredentials.Hmac.Pass), "Passphrase is required for BitMart authentication");
+            if (string.IsNullOrEmpty(credentials.HMAC!.Pass))
+                throw new ArgumentNullException(nameof(ApiCredentials.HMAC.Pass), "Passphrase is required for BitMart authentication");
         }
 
         public override void ProcessRequest(RestApiClient apiClient, RestRequestConfiguration request)
