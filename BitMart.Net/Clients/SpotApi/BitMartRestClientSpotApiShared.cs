@@ -528,11 +528,14 @@ namespace BitMart.Net.Clients.SpotApi
             return order.AsExchangeResult(Exchange, request.Symbol!.TradingMode, new SharedId(request.OrderId));
         }
 
+
         private SharedOrderStatus ParseOrderStatus(OrderStatus status)
         {
             if (status == OrderStatus.PartiallyFilled || status == OrderStatus.New) return SharedOrderStatus.Open;
             if (status == OrderStatus.Canceled || status == OrderStatus.PartiallyCanceled || status == OrderStatus.Failed) return SharedOrderStatus.Canceled;
-            return SharedOrderStatus.Filled;
+            if (status == OrderStatus.Filled) return SharedOrderStatus.Filled;
+
+            return SharedOrderStatus.Unknown;
         }
 
         private SharedOrderType ParseOrderType(OrderType type)
@@ -733,15 +736,25 @@ namespace BitMart.Net.Clients.SpotApi
                                 x.ArrivalQuantity, 
                                 x.Status == DepositWithdrawalStatus.Completed,
                                 x.ApplyTime,
-                                x.Status == DepositWithdrawalStatus.Completed ? SharedTransferStatus.Completed :
-                                x.Status == DepositWithdrawalStatus.Failed || x.Status == DepositWithdrawalStatus.Canceled ? SharedTransferStatus.Failed
-                                : SharedTransferStatus.InProgress)
+                                ParseTransferStatus(x.Status))
                             {
                                 Id = x.DepositId!,
                                 Tag = x.AddressMemo,
                                 TransactionId = x.TransactionId,
                             })
                        .ToArray(), nextPageRequest);
+        }
+
+        private SharedTransferStatus ParseTransferStatus(DepositWithdrawalStatus status)
+        {
+            if (status == DepositWithdrawalStatus.Completed)
+                return SharedTransferStatus.Completed;
+            if (status == DepositWithdrawalStatus.Failed || status == DepositWithdrawalStatus.Canceled)
+                return SharedTransferStatus.Failed;
+            if (status == DepositWithdrawalStatus.Submitted || status == DepositWithdrawalStatus.Created || status == DepositWithdrawalStatus.Processing)
+                return SharedTransferStatus.InProgress;
+
+            return SharedTransferStatus.Unknown;
         }
 
         #endregion

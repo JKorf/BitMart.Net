@@ -781,9 +781,12 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             return null;
         }
 
-        private SharedOrderStatus ParseOrderStatus(FuturesOrderStatus status, decimal remainingQuantity)
+        private SharedOrderStatus ParseOrderStatus(Enums.FuturesOrderStatus status, decimal remainingQuantity)
         {
-            if (status == FuturesOrderStatus.Approval || status == FuturesOrderStatus.Check) return SharedOrderStatus.Open;
+            if (status == Enums.FuturesOrderStatus.Approval || status == Enums.FuturesOrderStatus.Check) return SharedOrderStatus.Open;
+            if (status != Enums.FuturesOrderStatus.Finish)
+                return SharedOrderStatus.Unknown;
+
             if (remainingQuantity > 0) return SharedOrderStatus.Canceled;
             return SharedOrderStatus.Filled;
         }
