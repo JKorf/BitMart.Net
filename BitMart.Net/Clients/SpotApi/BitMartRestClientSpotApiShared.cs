@@ -528,7 +528,6 @@ namespace BitMart.Net.Clients.SpotApi
             return order.AsExchangeResult(Exchange, request.Symbol!.TradingMode, new SharedId(request.OrderId));
         }
 
-
         private SharedOrderStatus ParseOrderStatus(OrderStatus status)
         {
             if (status == OrderStatus.PartiallyFilled || status == OrderStatus.New) return SharedOrderStatus.Open;
