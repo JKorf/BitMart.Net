@@ -7,13 +7,14 @@ using BitMart.Net.Objects.Models;
 using System.Collections.Generic;
 using BitMart.Net.Enums;
 using CryptoExchange.Net.Interfaces.Clients;
+using CryptoExchange.Net.Authentication;
 
 namespace BitMart.Net.Interfaces.Clients.SpotApi
 {
     /// <summary>
     /// BitMart Spot streams
     /// </summary>
-    public interface IBitMartSocketClientSpotApi : ISocketApiClient, IDisposable
+    public interface IBitMartSocketClientSpotApi : ISocketApiClient<BitMartCredentials>, IDisposable
     {
         /// <summary>
         /// Get the shared socket subscription client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.

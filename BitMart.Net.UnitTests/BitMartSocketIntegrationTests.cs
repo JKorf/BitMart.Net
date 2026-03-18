@@ -1,6 +1,7 @@
 ﻿using BitMart.Net.Clients;
 using BitMart.Net.Objects.Models;
 using BitMart.Net.Objects.Options;
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Testing;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;

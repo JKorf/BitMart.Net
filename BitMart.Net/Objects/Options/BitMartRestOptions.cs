@@ -1,3 +1,4 @@
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects.Options;
 using System;
 
@@ -38,12 +39,12 @@ namespace BitMart.Net.Objects.Options
          /// <summary>
         /// UsdFutures API options
         /// </summary>
-        public RestApiOptions<BitMartCredentials> UsdFuturesOptions { get; private set; } = new RestApiOptions<BitMartCredentials>();
+        public RestApiOptions UsdFuturesOptions { get; private set; } = new RestApiOptions();
 
          /// <summary>
         /// Spot API options
         /// </summary>
-        public RestApiOptions<BitMartCredentials> SpotOptions { get; private set; } = new RestApiOptions<BitMartCredentials>();
+        public RestApiOptions SpotOptions { get; private set; } = new RestApiOptions();
 
         internal BitMartRestOptions Set(BitMartRestOptions targetOptions)
         {

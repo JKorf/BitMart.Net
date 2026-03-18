@@ -1,3 +1,4 @@
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects.Options;
 
 namespace BitMart.Net.Objects.Options
@@ -28,12 +29,12 @@ namespace BitMart.Net.Objects.Options
         /// <summary>
         /// UsdFutures API options
         /// </summary>
-        public SocketApiOptions<BitMartCredentials> UsdFuturesOptions { get; private set; } = new SocketApiOptions<BitMartCredentials>();
+        public SocketApiOptions UsdFuturesOptions { get; private set; } = new SocketApiOptions();
 
          /// <summary>
         /// Spot API options
         /// </summary>
-        public SocketApiOptions<BitMartCredentials> SpotOptions { get; private set; } = new SocketApiOptions<BitMartCredentials>();
+        public SocketApiOptions SpotOptions { get; private set; } = new SocketApiOptions();
 
         internal BitMartSocketOptions Set(BitMartSocketOptions targetOptions)
         {

@@ -7,6 +7,7 @@ using BitMart.Net.Objects.Models;
 using System.Collections.Generic;
 using BitMart.Net.Enums;
 using CryptoExchange.Net.Interfaces.Clients;
+using CryptoExchange.Net.Authentication;
 
 namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
 {
