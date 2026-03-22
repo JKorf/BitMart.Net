@@ -19,8 +19,6 @@ namespace BitMart.Net
 
         public BitMartAuthenticationProvider(BitMartCredentials credentials) : base(credentials, credentials)
         {
-            if (string.IsNullOrEmpty(Credential.Pass))
-                throw new ArgumentNullException(nameof(ApiCredentials.Pass), "Passphrase is required for BitMart authentication");
         }
 
         public override void ProcessRequest(RestApiClient apiClient, RestRequestConfiguration request)
