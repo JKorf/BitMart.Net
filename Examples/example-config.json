@@ -3,10 +3,9 @@
 	"BitMart": {
 		// API credentials for both REST and Websocket client
 		"ApiCredentials": {
-			"HMAC": {
-				"Key": "APIKEY",
-				"Secret": "APISECRET",
-			}
+			"Key": "APIKEY",
+			"Secret": "APISECRET",
+			"Pass": "PASS"			
 		},
 		// Set the environment by name
 		"Environment": {
