@@ -49,7 +49,7 @@ namespace BitMart.Net.Clients
         }
 
         /// <inheritdoc />
-        public void InitializeUserClient(string userIdentifier, ApiCredentials credentials, BitMartEnvironment? environment = null)
+        public void InitializeUserClient(string userIdentifier, BitMartCredentials credentials, BitMartEnvironment? environment = null)
         {
             CreateRestClient(userIdentifier, credentials, environment);
             CreateSocketClient(userIdentifier, credentials, environment);
@@ -63,7 +63,7 @@ namespace BitMart.Net.Clients
         }
 
         /// <inheritdoc />
-        public IBitMartRestClient GetRestClient(string userIdentifier, ApiCredentials? credentials = null, BitMartEnvironment? environment = null)
+        public IBitMartRestClient GetRestClient(string userIdentifier, BitMartCredentials? credentials = null, BitMartEnvironment? environment = null)
         {
             if (!_restClients.TryGetValue(userIdentifier, out var client) || client.Disposed)
                 client = CreateRestClient(userIdentifier, credentials, environment);
@@ -72,7 +72,7 @@ namespace BitMart.Net.Clients
         }
 
         /// <inheritdoc />
-        public IBitMartSocketClient GetSocketClient(string userIdentifier, ApiCredentials? credentials = null, BitMartEnvironment? environment = null)
+        public IBitMartSocketClient GetSocketClient(string userIdentifier, BitMartCredentials? credentials = null, BitMartEnvironment? environment = null)
         {
             if (!_socketClients.TryGetValue(userIdentifier, out var client) || client.Disposed)
                 client = CreateSocketClient(userIdentifier, credentials, environment);
@@ -80,7 +80,7 @@ namespace BitMart.Net.Clients
             return client;
         }
 
-        private IBitMartRestClient CreateRestClient(string userIdentifier, ApiCredentials? credentials, BitMartEnvironment? environment)
+        private IBitMartRestClient CreateRestClient(string userIdentifier, BitMartCredentials? credentials, BitMartEnvironment? environment)
         {
             var clientRestOptions = SetRestEnvironment(environment);
             var client = new BitMartRestClient(_httpClient, _loggerFactory, clientRestOptions);
@@ -92,7 +92,7 @@ namespace BitMart.Net.Clients
             return client;
         }
 
-        private IBitMartSocketClient CreateSocketClient(string userIdentifier, ApiCredentials? credentials, BitMartEnvironment? environment)
+        private IBitMartSocketClient CreateSocketClient(string userIdentifier, BitMartCredentials? credentials, BitMartEnvironment? environment)
         {
             var clientSocketOptions = SetSocketEnvironment(environment);
             var client = new BitMartSocketClient(clientSocketOptions!, _loggerFactory);

@@ -6,7 +6,7 @@ namespace BitMart.Net.Objects.Options
     /// <summary>
     /// BitMart options
     /// </summary>
-    public class BitMartOptions : LibraryOptions<BitMartRestOptions, BitMartSocketOptions, ApiCredentials, BitMartEnvironment>
+    public class BitMartOptions : LibraryOptions<BitMartRestOptions, BitMartSocketOptions, BitMartCredentials, BitMartEnvironment>
     {
     }
 }

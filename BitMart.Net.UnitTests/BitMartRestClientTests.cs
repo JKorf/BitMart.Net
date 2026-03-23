@@ -9,6 +9,7 @@ using CryptoExchange.Net.Objects;
 using BitMart.Net.Interfaces.Clients;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Converters.SystemTextJson;
+using BitMart.Net.Clients.SpotApi;
 
 namespace BitMart.Net.UnitTests
 {
@@ -18,7 +19,7 @@ namespace BitMart.Net.UnitTests
         [Test]
         public void CheckSignatureExample1()
         {
-            var authProvider = new BitMartAuthenticationProvider(new ApiCredentials("XXX", "XXX", "XXX"));
+            var authProvider = new BitMartAuthenticationProvider(new BitMartCredentials("XXX", "XXX", "XXX"));
             var client = (RestApiClient)new BitMartRestClient().SpotApi;
 
             CryptoExchange.Net.Testing.TestHelpers.CheckSignature(
@@ -139,8 +140,8 @@ namespace BitMart.Net.UnitTests
 
             Assert.That(((BaseApiClient)restClient.SpotApi).OutputOriginalData, Is.True);
             Assert.That(((BaseApiClient)socketClient.SpotApi).OutputOriginalData, Is.False);
-            Assert.That(((BaseApiClient)restClient.SpotApi).AuthenticationProvider.ApiKey, Is.EqualTo("123"));
-            Assert.That(((BaseApiClient)socketClient.SpotApi).AuthenticationProvider.ApiKey, Is.EqualTo("456"));
+            Assert.That(((BitMartRestClientSpotApi)restClient.SpotApi).AuthenticationProvider.Key, Is.EqualTo("123"));
+            Assert.That(((BitMartSocketClientSpotApi)socketClient.SpotApi).AuthenticationProvider.Key, Is.EqualTo("456"));
             Assert.That(((BaseApiClient)restClient.SpotApi).ClientOptions.Proxy.Host, Is.EqualTo("host"));
             Assert.That(((BaseApiClient)restClient.SpotApi).ClientOptions.Proxy.Port, Is.EqualTo(80));
             Assert.That(((BaseApiClient)socketClient.SpotApi).ClientOptions.Proxy.Host, Is.EqualTo("host2"));

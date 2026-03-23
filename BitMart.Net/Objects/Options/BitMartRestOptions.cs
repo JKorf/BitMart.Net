@@ -1,3 +1,4 @@
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects.Options;
 using System;
 
@@ -6,7 +7,7 @@ namespace BitMart.Net.Objects.Options
     /// <summary>
     /// Options for the BitMartRestClient
     /// </summary>
-    public class BitMartRestOptions : RestExchangeOptions<BitMartEnvironment>
+    public class BitMartRestOptions : RestExchangeOptions<BitMartEnvironment, BitMartCredentials>
     {
         /// <summary>
         /// Default options for new clients

@@ -13,15 +13,12 @@ using System.Threading.Tasks;
 
 namespace BitMart.Net
 {
-    internal class BitMartAuthenticationProvider : AuthenticationProvider
+    internal class BitMartAuthenticationProvider : AuthenticationProvider<BitMartCredentials, BitMartCredentials>
     {
         private static IStringMessageSerializer _serializer = new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(BitMartExchange._serializerContext));
 
-        public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.Hmac];
-        public BitMartAuthenticationProvider(ApiCredentials credentials) : base(credentials)
+        public BitMartAuthenticationProvider(BitMartCredentials credentials) : base(credentials, credentials)
         {
-            if (string.IsNullOrEmpty(credentials.Pass))
-                throw new ArgumentNullException(nameof(ApiCredentials.Pass), "Passphrase is required for BitMart authentication");
         }
 
         public override void ProcessRequest(RestApiClient apiClient, RestRequestConfiguration request)
@@ -32,10 +29,10 @@ namespace BitMart.Net
             var timestamp = GetMillisecondTimestamp(apiClient);
             var queryParams = request.GetQueryString(false);
             var bodyParams = GetSerializedBody(_serializer, request.BodyParameters ?? new Dictionary<string, object>());
-            var signStr = $"{timestamp}#{_credentials.Pass}#{queryParams}{bodyParams}";
+            var signStr = $"{timestamp}#{Credential.Pass}#{queryParams}{bodyParams}";
 
             request.Headers ??= new Dictionary<string, string>();
-            request.Headers.Add("X-BM-KEY", ApiKey);
+            request.Headers.Add("X-BM-KEY", Credential.Key);
             request.Headers.Add("X-BM-SIGN", SignHMACSHA256(signStr, SignOutputType.Hex).ToLowerInvariant());
             request.Headers.Add("X-BM-TIMESTAMP", timestamp);
 
@@ -46,8 +43,8 @@ namespace BitMart.Net
         public override Query? GetAuthenticationQuery(SocketApiClient apiClient, SocketConnection connection, Dictionary<string, object?>? context = null)
         {
             var timestamp = GetMillisecondTimestamp(apiClient);
-            var key = ApiKey;
-            var memo = Pass;
+            var key = Credential.Key;
+            var memo = Credential.Pass;
             var sign = SignHMACSHA256($"{timestamp}#{memo}#bitmart.WebSocket", SignOutputType.Hex).ToLowerInvariant();
 
             if (apiClient is BitMartSocketClientSpotApi)

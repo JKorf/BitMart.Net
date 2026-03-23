@@ -32,7 +32,7 @@ namespace BitMart.Net.Clients.SpotApi
     /// <summary>
     /// Client providing access to the BitMart Spot websocket Api
     /// </summary>
-    internal partial class BitMartSocketClientSpotApi : SocketApiClient, IBitMartSocketClientSpotApi
+    internal partial class BitMartSocketClientSpotApi : SocketApiClient<BitMartEnvironment, BitMartAuthenticationProvider, BitMartCredentials>, IBitMartSocketClientSpotApi
     {
         #region fields
         protected override ErrorMapping ErrorMapping => BitMartErrors.SpotSocketErrors;
@@ -73,7 +73,7 @@ namespace BitMart.Net.Clients.SpotApi
         public IBitMartSocketClientSpotApiShared SharedClient => this;
 
         /// <inheritdoc />
-        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+        protected override BitMartAuthenticationProvider CreateAuthenticationProvider(BitMartCredentials credentials)
             => new BitMartAuthenticationProvider(credentials);
 
         /// <inheritdoc />

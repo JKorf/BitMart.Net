@@ -1,4 +1,5 @@
 using BitMart.Net.Interfaces.Clients.SpotApi;
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Interfaces.Clients;
 using System;
 
@@ -7,7 +8,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
     /// <summary>
     /// BitMart UsdFutures API endpoints
     /// </summary>
-    public interface IBitMartRestClientUsdFuturesApi : IRestApiClient, IDisposable
+    public interface IBitMartRestClientUsdFuturesApi : IRestApiClient<BitMartCredentials>, IDisposable
     {
         /// <summary>
         /// Endpoints related to account settings, info or actions

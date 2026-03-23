@@ -43,7 +43,7 @@ namespace BitMart.Net.UnitTests
 
             var client = new BitMartSocketClient(Options.Create(new BitMartSocketOptions
             {
-                ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456", "789"),
+                ApiCredentials = new BitMartCredentials("123", "456", "789"),
                 OutputOriginalData = true
             }), logger);
             var tester = new SocketSubscriptionValidator<BitMartSocketClient>(client, "Subscriptions/Spot", "wss://ws-manager-compress.bitmart.com", "data");
@@ -82,7 +82,7 @@ namespace BitMart.Net.UnitTests
 
             var client = new BitMartSocketClient(Options.Create(new BitMartSocketOptions
             {
-                ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456", "789"),
+                ApiCredentials = new BitMartCredentials("123", "456", "789"),
                 OutputOriginalData = true
             }), logger);
             var tester = new SocketSubscriptionValidator<BitMartSocketClient>(client, "Subscriptions/Futures", "wss://openapi-ws.bitmart.com", "data");

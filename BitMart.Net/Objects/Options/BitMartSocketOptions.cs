@@ -1,3 +1,4 @@
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects.Options;
 
 namespace BitMart.Net.Objects.Options
@@ -5,7 +6,7 @@ namespace BitMart.Net.Objects.Options
     /// <summary>
     /// Options for the BitMartSocketClient
     /// </summary>
-    public class BitMartSocketOptions : SocketExchangeOptions<BitMartEnvironment>
+    public class BitMartSocketOptions : SocketExchangeOptions<BitMartEnvironment, BitMartCredentials>
     {
         /// <summary>
         /// Default options for new clients

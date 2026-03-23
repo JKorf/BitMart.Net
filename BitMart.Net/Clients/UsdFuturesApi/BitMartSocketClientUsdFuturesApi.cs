@@ -31,7 +31,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
     /// <summary>
     /// Client providing access to the BitMart UsdFutures websocket Api
     /// </summary>
-    internal partial class BitMartSocketClientUsdFuturesApi : SocketApiClient, IBitMartSocketClientUsdFuturesApi
+    internal partial class BitMartSocketClientUsdFuturesApi : SocketApiClient<BitMartEnvironment, BitMartAuthenticationProvider, BitMartCredentials>, IBitMartSocketClientUsdFuturesApi
     {
         #region constructor/destructor
 
@@ -67,7 +67,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         public IBitMartSocketClientUsdFuturesApiShared SharedClient => this;
 
         /// <inheritdoc />
-        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+        protected override BitMartAuthenticationProvider CreateAuthenticationProvider(BitMartCredentials credentials)
             => new BitMartAuthenticationProvider(credentials);
 
 
