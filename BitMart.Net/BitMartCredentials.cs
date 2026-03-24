@@ -46,5 +46,8 @@ namespace BitMart.Net
             Pass = pass;
             return this;
         }
+
+        /// <inheritdoc />
+        public override ApiCredentials Copy() => new BitMartCredentials(this);
     }
 }
