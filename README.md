@@ -47,22 +47,38 @@ The NuGet package files are added along side the source with the latest GitHub r
 
 	
 ## How to use
-* REST Endpoints
-	```csharp
-	// Get the ETH/USDT ticker via rest request
-	var restClient = new BitMartRestClient();
-	var tickerResult = await restClient.SpotApi.ExchangeData.GetTickerAsync("ETH_USDT");
-	var lastPrice = tickerResult.Data.LastPrice;
-	```
-* Websocket streams
-	```csharp
-	// Subscribe to ETH/USDT ticker updates via the websocket API
-	var socketClient = new BitMartSocketClient();
-	var tickerSubscriptionResult = socketClient.SpotApi.SubscribeToTickerUpdatesAsync("ETH_USDT", (update) => 
-	{
-	  var lastPrice = update.Data.LastPrice;
-	});
-	```
+*Basic request:*
+```csharp
+// Get the ETH/USDT ticker via rest request
+var restClient = new BitMartRestClient();
+var tickerResult = await restClient.SpotApi.ExchangeData.GetTickerAsync("ETH_USDT");
+var lastPrice = tickerResult.Data.LastPrice;
+```
+
+*Place order:*
+```csharp
+var restClient = new BitMartRestClient(opts => {
+	opts.ApiCredentials = new BitMartCredentials("APIKEY", "APISECRET", "PASS");
+});
+
+// Place Limit order to go long for 10 contracts ETH/USDT at 2000
+var orderResult = await restClient.UsdFuturesApi.Trading.PlaceOrderAsync(
+    "ETHUSDT",
+    FuturesSide.BuyOpenLong,
+    FuturesOrderType.Limit,
+    10,
+    2000);
+```
+
+*WebSocket subscription:*
+```csharp
+// Subscribe to ETH/USDT ticker updates via the websocket API
+var socketClient = new BitMartSocketClient();
+var tickerSubscriptionResult = socketClient.SpotApi.SubscribeToTickerUpdatesAsync("ETH_USDT", (update) => 
+{
+  var lastPrice = update.Data.LastPrice;
+});
+```
 
 For information on the clients, dependency injection, response processing and more see the [documentation](https://cryptoexchange.jkorf.dev?library=BitMart.Net), or have a look at the examples [here](https://github.com/JKorf/BitMart.Net/tree/main/Examples) or [here](https://github.com/JKorf/CryptoExchange.Net/tree/master/Examples).
 
