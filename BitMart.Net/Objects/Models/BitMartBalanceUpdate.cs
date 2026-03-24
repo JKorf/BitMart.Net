@@ -18,6 +18,12 @@ namespace BitMart.Net.Objects.Models
         public BalanceUpdateType EventType { get; set; }
 
         /// <summary>
+        /// ["<c>account_type</c>"] Account type
+        /// </summary>
+        [JsonPropertyName("account_type")]
+        public AccountType AccountType { get; set; }
+
+        /// <summary>
         /// ["<c>event_time</c>"] Event time
         /// </summary>
         [JsonPropertyName("event_time")]
