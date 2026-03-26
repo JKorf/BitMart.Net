@@ -171,6 +171,11 @@ namespace BitMart.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("delist_time")]
         public DateTime? DelistTime { get; set; }
+        /// <summary>
+        /// ["<c>funding_time</c>"] Funding time
+        /// </summary>
+        [JsonPropertyName("funding_time")]
+        public DateTime? FundingTime { get; set; }
     }
 
 

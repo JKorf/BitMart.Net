@@ -40,6 +40,11 @@ namespace BitMart.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("frozen")]
         public decimal Frozen { get; set; }
+        /// <summary>
+        /// ["<c>total</c>"] Total
+        /// </summary>
+        [JsonPropertyName("total")]
+        public decimal Total { get; set; }
     }
 
 

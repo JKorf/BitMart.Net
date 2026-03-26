@@ -51,15 +51,30 @@ namespace BitMart.Net.Objects.Models
         [JsonPropertyName("deposit_enabled")]
         public bool DepositEnabled { get; set; }
         /// <summary>
-        /// ["<c>withdraw_minsize</c>"] Withdraw minsize
+        /// ["<c>withdraw_minsize</c>"] Withdraw min size
         /// </summary>
         [JsonPropertyName("withdraw_minsize")]
         public decimal? WithdrawMinsize { get; set; }
+        /// <summary>
+        /// ["<c>recharge_minsize</c>"] Recharge min size
+        /// </summary>
+        [JsonPropertyName("recharge_minsize")]
+        public decimal? RechargeMinSize { get; set; }
         /// <summary>
         /// ["<c>withdraw_minfee</c>"] Withdraw minimal fee in USDT
         /// </summary>
         [JsonPropertyName("withdraw_minfee")]
         public decimal? WithdrawMinfee { get; set; }
+        /// <summary>
+        /// ["<c>withdraw_fee_estimate</c>"] Withdraw fee estimate
+        /// </summary>
+        [JsonPropertyName("withdraw_fee_estimate")]
+        public decimal? WithdrawFeeEstimate { get; set; }
+        /// <summary>
+        /// ["<c>withdraw_fee</c>"] Withdraw fee
+        /// </summary>
+        [JsonPropertyName("withdraw_fee")]
+        public decimal? WithdrawFee { get; set; }
     }
 
 
