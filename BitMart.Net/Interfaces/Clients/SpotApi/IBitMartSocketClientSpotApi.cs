@@ -191,6 +191,36 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<BitMartOrderUpdate>> onMessage, CancellationToken ct = default);
 
         /// <summary>
+        /// Subscribe to book ticker updates
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#public-individual-symbol-book-ticker-channel" /><br />
+        /// Endpoint:<br />
+        /// spot/bookTicker
+        /// </para>
+        /// </summary>
+        /// <param name="symbol">The symbol to subscribe to</param>
+        /// <param name="onMessage">The event handler for the received data</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(string symbol, Action<DataEvent<BitMartBookTickerUpdate>> onMessage, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to book ticker updates
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/spot/#public-individual-symbol-book-ticker-channel" /><br />
+        /// Endpoint:<br />
+        /// spot/bookTicker
+        /// </para>
+        /// </summary>
+        /// <param name="symbols">The symbols to subscribe to</param>
+        /// <param name="onMessage">The event handler for the received data</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMartBookTickerUpdate>> onMessage, CancellationToken ct = default);
+
+        /// <summary>
         /// Subscribe to user balance updates
         /// <para>
         /// Docs:<br />

@@ -198,6 +198,28 @@ namespace BitMart.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
+        public Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(string symbol, Action<DataEvent<BitMartBookTickerUpdate>> onMessage, CancellationToken ct = default)
+            => SubscribeToBookTickerUpdatesAsync(new[] { symbol }, onMessage, ct);
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMartBookTickerUpdate>> onMessage, CancellationToken ct = default)
+        {
+            var handler = new Action<DateTime, string?, BitMartUpdate<BitMartBookTickerUpdate[]>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<BitMartBookTickerUpdate>(Exchange, data.Data.Single(), receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithStreamId(data.Table)
+                        .WithSymbol(data.Data.First().Symbol)
+                        .WithDataTimestamp(data.Data.Max(x => x.Timestamp), GetTimeOffset())
+                    );
+            });
+            var subscription = new BitMartSubscription<BitMartBookTickerUpdate[]>(_logger, this, "spot/bookTicker", symbols.ToArray(), handler, false);
+            return await SubscribeAsync(BaseAddress.AppendPath("api?protocol=1.1"), subscription, ct).ConfigureAwait(false);
+        }
+
+
+        /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<BitMartOrderUpdate>> onMessage, CancellationToken ct = default)
         {
             var handler = new Action<DateTime, string?, BitMartUpdate<BitMartOrderUpdate[]>>((receiveTime, originalData, data) =>

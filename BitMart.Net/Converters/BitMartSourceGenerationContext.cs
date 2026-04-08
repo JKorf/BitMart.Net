@@ -34,6 +34,7 @@ namespace BitMart.Net.Converters
     [JsonSerializable(typeof(BitMartUpdate<BitMartTradeUpdate[]>))]
     [JsonSerializable(typeof(BitMartUpdate<BitMartOrderUpdate[]>))]
     [JsonSerializable(typeof(BitMartUpdate<BitMartBalanceUpdate[]>))]
+    [JsonSerializable(typeof(BitMartUpdate<BitMartBookTickerUpdate[]>))]
     [JsonSerializable(typeof(BitMartResponse<BitMartBalanceWrapper>))]
     [JsonSerializable(typeof(BitMartResponse<BitMartSpotBalanceWrapper>))]
     [JsonSerializable(typeof(BitMartResponse<BitMartDepositAddress>))]

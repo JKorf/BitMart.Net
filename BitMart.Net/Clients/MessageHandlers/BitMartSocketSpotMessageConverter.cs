@@ -21,6 +21,7 @@ namespace BitMart.Net.Clients.MessageHandlers
             AddTopicMapping<BitMartUpdate<BitMartOrderBookUpdate[]>>(x => x.Data.First().Symbol);
             AddTopicMapping<BitMartUpdate<BitMartOrderBookIncrementalUpdate[]>>(x => x.Data.First().Symbol);
             AddTopicMapping<BitMartUpdate<BitMartTradeUpdate[]>>(x => x.Data.First().Symbol);
+            AddTopicMapping<BitMartUpdate<BitMartBookTickerUpdate[]>>(x => x.Data.First().Symbol);
         }
 
         protected override MessageTypeDefinition[] TypeEvaluators { get; } = [
