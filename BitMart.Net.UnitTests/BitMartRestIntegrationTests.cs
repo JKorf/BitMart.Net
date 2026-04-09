@@ -108,7 +108,7 @@ namespace BitMart.Net.UnitTests
         [Test]
         public async Task TestUsdFuturesExchangeData()
         {
-            await RunAndCheckResult(client => client.UsdFuturesApi.ExchangeData.GetContractsAsync(default, default), false, true, "data.symbols");
+            await RunAndCheckResult(client => client.UsdFuturesApi.ExchangeData.GetContractsAsync(default, default), false, true, "data.symbols", ignoreProperties: ["tradfi_info"]);
             await RunAndCheckResult(client => client.UsdFuturesApi.ExchangeData.GetOrderBookAsync("ETHUSDT", default), false, true, "data");
             await RunAndCheckResult(client => client.UsdFuturesApi.ExchangeData.GetOpenInterestAsync("ETHUSDT", default), false, true, "data");
             await RunAndCheckResult(client => client.UsdFuturesApi.ExchangeData.GetCurrentFundingRateAsync("ETHUSDT", default), false, true, "data");

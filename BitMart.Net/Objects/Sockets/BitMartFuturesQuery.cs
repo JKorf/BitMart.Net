@@ -6,6 +6,7 @@ using System.Linq;
 using CryptoExchange.Net.Clients;
 using System;
 using CryptoExchange.Net.Sockets.Default;
+using CryptoExchange.Net.Sockets.Default.Routing;
 using CryptoExchange.Net.Objects.Errors;
 
 namespace BitMart.Net.Objects.Sockets

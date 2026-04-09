@@ -7,6 +7,7 @@ using BitMart.Net.Objects.Internal;
 using System.Linq;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Sockets.Default;
+using CryptoExchange.Net.Sockets.Default.Routing;
 
 namespace BitMart.Net.Objects.Sockets.Subscriptions
 {
