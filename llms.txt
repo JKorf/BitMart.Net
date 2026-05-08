@@ -1,0 +1,52 @@
+# BitMart.Net
+
+BitMart.Net is a .NET client library for BitMart REST and WebSocket APIs, built on CryptoExchange.Net.
+
+## Install
+
+```bash
+dotnet add package BitMart.Net
+```
+
+## Clients
+
+```csharp
+using BitMart.Net;
+using BitMart.Net.Clients;
+
+var restClient = new BitMartRestClient(options =>
+{
+    options.ApiCredentials = new BitMartCredentials("API_KEY", "API_SECRET", "MEMO_OR_PASS");
+});
+
+var socketClient = new BitMartSocketClient();
+```
+
+## API roots
+
+- Spot REST: `restClient.SpotApi`
+- USD futures REST: `restClient.UsdFuturesApi`
+- Spot socket: `socketClient.SpotApi`
+- USD futures socket: `socketClient.UsdFuturesApi`
+
+## Common calls
+
+```csharp
+var spotTicker = await restClient.SpotApi.ExchangeData.GetTickerAsync("BTC_USDT");
+var spotBalances = await restClient.SpotApi.Account.GetSpotBalancesAsync();
+var openSpotOrders = await restClient.SpotApi.Trading.GetOpenOrdersAsync("BTC_USDT");
+
+var futuresFunding = await restClient.UsdFuturesApi.ExchangeData.GetCurrentFundingRateAsync("BTCUSDT");
+var futuresPositions = await restClient.UsdFuturesApi.Trading.GetPositionsAsync("BTCUSDT");
+```
+
+## Rules
+
+- Use `BitMartRestClient` and `BitMartSocketClient`; do not use raw HTTP.
+- Use `BitMartCredentials("key", "secret", "memoOrPass")` for private endpoints.
+- Spot symbols use underscores, for example `BTC_USDT`.
+- USD futures symbols do not use underscores, for example `BTCUSDT`.
+- Use `SpotApi` and `UsdFuturesApi`; do not invent V2/V3 roots.
+- Spot margin borrow/repay is under `SpotApi.Margin`; margin orders are under `SpotApi.Trading.PlaceMarginOrderAsync`.
+- Always check `.Success` before reading `.Data`.
+- Use `docs/ai-api-map.md` for endpoint routing and `llms-full.txt` for full examples, pitfalls, DI, shared APIs, and source-of-truth files.

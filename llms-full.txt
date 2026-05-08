@@ -1,0 +1,528 @@
+# BitMart.Net Full LLM Context
+
+> Detailed AI/LLM reference for generating correct C#/.NET code with BitMart.Net. Use this file when `llms.txt` is too brief and the task needs concrete examples, endpoint routing guidance, or anti-hallucination rules.
+
+BitMart.Net is a strongly typed .NET client library for the BitMart REST and WebSocket APIs. It is part of the CryptoExchange.Net ecosystem and uses the same result, shared API, logging, rate limiting, dependency injection, local order book, and socket patterns as the other JKorf exchange libraries.
+
+Current package version in this repository: 3.10.0.
+NuGet package id: `BitMart.Net`.
+CryptoExchange.Net dependency: 11.1.0.
+Target frameworks: netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0.
+Native AOT: supported on compatible .NET targets.
+
+Primary documentation:
+
+- README.md: overview, installation, feature table, release notes, basic examples
+- docs site: https://cryptoexchange.jkorf.dev/BitMart.Net/
+- API quick map: `docs/ai-api-map.md`
+- source interfaces: `BitMart.Net/Interfaces/Clients/**`
+- AI examples: `Examples/ai-friendly/`
+
+## Golden Rules For AI Code Generation
+
+- Use `BitMartRestClient` for REST and `BitMartSocketClient` for WebSocket. Do not generate raw `HttpClient` calls to BitMart endpoints.
+- Use `BitMartCredentials("key", "secret", "memoOrPass")`, not generic credentials without passphrase support.
+- Include `using BitMart.Net;` when using `BitMartCredentials` or `BitMartEnvironment`.
+- Include `using BitMart.Net.Enums;` for order sides, order types, futures sides, margin types, position modes and kline intervals.
+- Always check `.Success` before reading `.Data`.
+- REST methods return `WebCallResult<T>` or `WebCallResult`.
+- WebSocket subscriptions return `CallResult<UpdateSubscription>`.
+- Reuse clients. Do not instantiate a REST or socket client per request in production code.
+- Prefer dependency injection for long-running services.
+- Store WebSocket subscriptions and unsubscribe during shutdown.
+- Do not call `.Result` or `.Wait()` on async methods.
+- Do not invent endpoint names. If unsure, inspect `BitMart.Net/Interfaces/Clients/**`.
+- Use `SpotApi` for spot and margin endpoints.
+- Use `UsdFuturesApi` for USD futures endpoints.
+- Spot symbols use underscores (`BTC_USDT`); USD futures symbols do not (`BTCUSDT`).
+- For multi-exchange code, use `CryptoExchange.Net.SharedApis` interfaces from each exchange's `.SharedClient`.
+
+## Installation
+
+```bash
+dotnet add package BitMart.Net
+```
+
+## Required Usings
+
+General REST and sockets:
+
+```csharp
+using BitMart.Net;
+using BitMart.Net.Clients;
+using BitMart.Net.Enums;
+```
+
+Dependency injection:
+
+```csharp
+using BitMart.Net.Interfaces.Clients;
+using Microsoft.Extensions.DependencyInjection;
+```
+
+Shared API code:
+
+```csharp
+using BitMart.Net.Clients;
+using CryptoExchange.Net.SharedApis;
+```
+
+Retry/error helper code may also need:
+
+```csharp
+using CryptoExchange.Net.Objects;
+```
+
+## Client Setup
+
+Public market data does not require credentials:
+
+```csharp
+var client = new BitMartRestClient();
+
+var ticker = await client.SpotApi.ExchangeData.GetTickerAsync("BTC_USDT");
+if (!ticker.Success)
+{
+    Console.WriteLine(ticker.Error);
+    return;
+}
+
+Console.WriteLine(ticker.Data.LastPrice);
+```
+
+Private account and trading endpoints require API key, secret, and memo/passphrase:
+
+```csharp
+var client = new BitMartRestClient(options =>
+{
+    options.ApiCredentials = new BitMartCredentials("API_KEY", "API_SECRET", "MEMO_OR_PASS");
+});
+```
+
+Socket client with credentials:
+
+```csharp
+var socketClient = new BitMartSocketClient(options =>
+{
+    options.ApiCredentials = new BitMartCredentials("API_KEY", "API_SECRET", "MEMO_OR_PASS");
+});
+```
+
+## Dependency Injection
+
+```csharp
+services.AddBitMart(options =>
+{
+    options.ApiCredentials = new BitMartCredentials("API_KEY", "API_SECRET", "MEMO_OR_PASS");
+});
+```
+
+Inject:
+
+```csharp
+public class MyService
+{
+    private readonly IBitMartRestClient _restClient;
+    private readonly IBitMartSocketClient _socketClient;
+
+    public MyService(IBitMartRestClient restClient, IBitMartSocketClient socketClient)
+    {
+        _restClient = restClient;
+        _socketClient = socketClient;
+    }
+}
+```
+
+## Main API Surface
+
+REST:
+
+```text
+BitMartRestClient
+  .SpotApi
+    .ExchangeData
+    .Account
+    .Trading
+    .Margin
+    .SubAccount
+    .SharedClient
+  .UsdFuturesApi
+    .ExchangeData
+    .Account
+    .Trading
+    .SubAccount
+    .SharedClient
+```
+
+WebSocket:
+
+```text
+BitMartSocketClient
+  .SpotApi
+    .SharedClient
+    SubscribeToTickerUpdatesAsync(...)
+    SubscribeToKlineUpdatesAsync(...)
+    SubscribeToPartialOrderBookUpdatesAsync(...)
+    SubscribeToOrderBookUpdatesAsync(...)
+    SubscribeToTradeUpdatesAsync(...)
+    SubscribeToBookTickerUpdatesAsync(...)
+    SubscribeToOrderUpdatesAsync(...)
+    SubscribeToBalanceUpdatesAsync(...)
+  .UsdFuturesApi
+    .SharedClient
+    SubscribeToTickerUpdatesAsync(...)
+    SubscribeToTradeUpdatesAsync(...)
+    SubscribeToFundingRateUpdatesAsync(...)
+    SubscribeToOrderBookUpdatesAsync(...)
+    SubscribeToOrderBookSnapshotUpdatesAsync(...)
+    SubscribeToOrderBookIncrementalUpdatesAsync(...)
+    SubscribeToBookTickerUpdatesAsync(...)
+    SubscribeToKlineUpdatesAsync(...)
+    SubscribeToMarkKlineUpdatesAsync(...)
+    SubscribeToBalanceUpdatesAsync(...)
+    SubscribeToPositionUpdatesAsync(...)
+    SubscribeToOrderUpdatesAsync(...)
+```
+
+## Symbol Rules
+
+Spot symbols:
+
+```text
+BTC_USDT
+ETH_USDT
+```
+
+USD futures symbols:
+
+```text
+BTCUSDT
+ETHUSDT
+```
+
+Do not use:
+
+```text
+BTC-USDT
+BTC/USDT
+tBTCUSD
+BTCUSDT for spot
+BTC_USDT for USD futures
+```
+
+## Spot Exchange Data
+
+```csharp
+var status = await client.SpotApi.ExchangeData.GetServerStatusAsync();
+var serverTime = await client.SpotApi.ExchangeData.GetServerTimeAsync();
+var assets = await client.SpotApi.ExchangeData.GetAssetsAsync();
+var symbols = await client.SpotApi.ExchangeData.GetSymbolsAsync();
+var symbolNames = await client.SpotApi.ExchangeData.GetSymbolNamesAsync();
+var ticker = await client.SpotApi.ExchangeData.GetTickerAsync("BTC_USDT");
+var tickers = await client.SpotApi.ExchangeData.GetTickersAsync();
+var depositWithdrawInfo = await client.SpotApi.ExchangeData.GetAssetDepositWithdrawInfoAsync("USDT");
+var klines = await client.SpotApi.ExchangeData.GetKlinesAsync("BTC_USDT", KlineInterval.OneMinute);
+var klineHistory = await client.SpotApi.ExchangeData.GetKlineHistoryAsync("BTC_USDT", KlineInterval.OneMinute);
+var trades = await client.SpotApi.ExchangeData.GetTradesAsync("BTC_USDT");
+var book = await client.SpotApi.ExchangeData.GetOrderBookAsync("BTC_USDT", limit: 20);
+```
+
+## Spot Account
+
+```csharp
+var fundingBalances = await client.SpotApi.Account.GetFundingBalancesAsync("USDT");
+var spotBalances = await client.SpotApi.Account.GetSpotBalancesAsync();
+var depositAddress = await client.SpotApi.Account.GetDepositAddressAsync("USDT");
+var withdrawalQuota = await client.SpotApi.Account.GetWithdrawalQuotaAsync("USDT");
+var depositHistory = await client.SpotApi.Account.GetDepositHistoryAsync("USDT");
+var withdrawalHistory = await client.SpotApi.Account.GetWithdrawalHistoryAsync("USDT");
+var marginAccounts = await client.SpotApi.Account.GetIsolatedMarginAccountsAsync("BTC_USDT");
+var baseFees = await client.SpotApi.Account.GetBaseTradeFeesAsync();
+var symbolFee = await client.SpotApi.Account.GetSymbolTradeFeeAsync("BTC_USDT");
+var withdrawalAddresses = await client.SpotApi.Account.GetWithdrawalAddressesAsync();
+```
+
+Withdraw:
+
+```csharp
+var withdraw = await client.SpotApi.Account.WithdrawAsync(
+    asset: "USDT",
+    quantity: 25m,
+    targetAddress: "ADDRESS",
+    memo: null,
+    remark: "withdrawal");
+```
+
+Isolated margin transfer:
+
+```csharp
+var transfer = await client.SpotApi.Account.IsolatedMarginTransferAsync(
+    "BTC_USDT",
+    "USDT",
+    quantity: 25m,
+    direction: TransferDirection.TransferIn);
+```
+
+## Spot Trading
+
+```csharp
+var order = await client.SpotApi.Trading.PlaceOrderAsync(
+    symbol: "BTC_USDT",
+    side: OrderSide.Buy,
+    type: OrderType.Limit,
+    quantity: 0.001m,
+    price: 1m);
+
+if (!order.Success)
+{
+    Console.WriteLine(order.Error);
+    return;
+}
+
+Console.WriteLine(order.Data.OrderId);
+```
+
+Common spot trading calls:
+
+```csharp
+var batch = await client.SpotApi.Trading.PlaceMultipleOrdersAsync("BTC_USDT", orders);
+var cancel = await client.SpotApi.Trading.CancelOrderAsync("BTC_USDT", orderId: orderId);
+var cancelMany = await client.SpotApi.Trading.CancelOrdersAsync("BTC_USDT", orderIds: new[] { orderId });
+var cancelAll = await client.SpotApi.Trading.CancelAllOrderAsync("BTC_USDT");
+var marginOrder = await client.SpotApi.Trading.PlaceMarginOrderAsync("BTC_USDT", OrderSide.Buy, OrderType.Limit, quantity: 0.001m, price: 1m);
+var orderInfo = await client.SpotApi.Trading.GetOrderAsync(orderId);
+var orderByClientId = await client.SpotApi.Trading.GetOrderByClientOrderIdAsync(clientOrderId);
+var openOrders = await client.SpotApi.Trading.GetOpenOrdersAsync("BTC_USDT");
+var closedOrders = await client.SpotApi.Trading.GetClosedOrdersAsync("BTC_USDT");
+var userTrades = await client.SpotApi.Trading.GetUserTradesAsync("BTC_USDT");
+var orderTrades = await client.SpotApi.Trading.GetOrderTradesAsync(orderId);
+```
+
+## Spot Margin
+
+```csharp
+var borrowInfo = await client.SpotApi.Margin.GetBorrowInfoAsync("BTC_USDT");
+var borrow = await client.SpotApi.Margin.BorrowAsync("BTC_USDT", "USDT", 25m);
+var repay = await client.SpotApi.Margin.RepayAsync("BTC_USDT", "USDT", 25m);
+var borrowHistory = await client.SpotApi.Margin.GetBorrowHistoryAsync("BTC_USDT");
+var repayHistory = await client.SpotApi.Margin.GetRepayHistoryAsync("BTC_USDT", asset: "USDT");
+```
+
+## Spot Subaccounts
+
+```csharp
+var subAccounts = await client.SpotApi.SubAccount.GetSubAccountListAsync();
+var balances = await client.SpotApi.SubAccount.GetSubAcccountBalanceAsync("sub@example.com", "USDT");
+var historyForMain = await client.SpotApi.SubAccount.GetSubAccountTransferHistoryForMainAsync(limit: 50);
+var historyForSub = await client.SpotApi.SubAccount.GetSubAccountTransferHistoryAsync(limit: 50);
+
+var clientOrderId = Guid.NewGuid().ToString("N");
+var toSub = await client.SpotApi.SubAccount.TransferMainToSubAccountAsync(clientOrderId, "USDT", 25m, "sub@example.com");
+```
+
+## USD Futures Exchange Data
+
+```csharp
+const string symbol = "BTCUSDT";
+
+var contracts = await client.UsdFuturesApi.ExchangeData.GetContractsAsync(symbol);
+var book = await client.UsdFuturesApi.ExchangeData.GetOrderBookAsync(symbol);
+var openInterest = await client.UsdFuturesApi.ExchangeData.GetOpenInterestAsync(symbol);
+var funding = await client.UsdFuturesApi.ExchangeData.GetCurrentFundingRateAsync(symbol);
+var klines = await client.UsdFuturesApi.ExchangeData.GetKlinesAsync(symbol, FuturesKlineInterval.OneMinute, DateTime.UtcNow.AddHours(-1), DateTime.UtcNow);
+var markKlines = await client.UsdFuturesApi.ExchangeData.GetMarkKlinesAsync(symbol, FuturesKlineInterval.OneMinute, DateTime.UtcNow.AddHours(-1), DateTime.UtcNow);
+var fundingHistory = await client.UsdFuturesApi.ExchangeData.GetFundingRateHistoryAsync(symbol);
+var brackets = await client.UsdFuturesApi.ExchangeData.GetLeverageBracketsAsync(symbol);
+var trades = await client.UsdFuturesApi.ExchangeData.GetRecentTradesAsync(symbol);
+```
+
+## USD Futures Account
+
+```csharp
+var balances = await client.UsdFuturesApi.Account.GetBalancesAsync();
+var transfers = await client.UsdFuturesApi.Account.GetTransferHistoryAsync("USDT");
+var transfer = await client.UsdFuturesApi.Account.TransferAsync("USDT", 25m, FuturesTransferType.SpotToContract);
+var leverage = await client.UsdFuturesApi.Account.SetLeverageAsync("BTCUSDT", 5m, MarginType.CrossMargin);
+var fee = await client.UsdFuturesApi.Account.GetSymbolTradeFeeAsync("BTCUSDT");
+var transactions = await client.UsdFuturesApi.Account.GetTransactionHistoryAsync("BTCUSDT");
+var positionMode = await client.UsdFuturesApi.Account.GetPositionModeAsync();
+var setPositionMode = await client.UsdFuturesApi.Account.SetPositionModeAsync(PositionMode.OneWayMode);
+```
+
+## USD Futures Trading
+
+```csharp
+var positions = await client.UsdFuturesApi.Trading.GetPositionsAsync("BTCUSDT");
+var risks = await client.UsdFuturesApi.Trading.GetPositionRiskAsync("BTCUSDT");
+
+var order = await client.UsdFuturesApi.Trading.PlaceOrderAsync(
+    "BTCUSDT",
+    FuturesSide.BuyOpenLong,
+    FuturesOrderType.Limit,
+    quantity: 1,
+    price: 1m,
+    leverage: 5m,
+    marginType: MarginType.CrossMargin,
+    orderMode: OrderMode.GoodTilCancel);
+
+var orderInfo = await client.UsdFuturesApi.Trading.GetOrderAsync("BTCUSDT", orderId);
+var openOrders = await client.UsdFuturesApi.Trading.GetOpenOrdersAsync("BTCUSDT");
+var closedOrders = await client.UsdFuturesApi.Trading.GetClosedOrdersAsync("BTCUSDT");
+var userTrades = await client.UsdFuturesApi.Trading.GetUserTradesAsync("BTCUSDT");
+var cancel = await client.UsdFuturesApi.Trading.CancelOrderAsync("BTCUSDT", orderId: orderId);
+var cancelAll = await client.UsdFuturesApi.Trading.CancelOrdersAsync("BTCUSDT");
+```
+
+Futures trigger and TP/SL:
+
+```csharp
+var triggers = await client.UsdFuturesApi.Trading.GetTriggerOrdersAsync("BTCUSDT");
+var trigger = await client.UsdFuturesApi.Trading.PlaceTriggerOrderAsync(
+    "BTCUSDT",
+    OrderType.Limit,
+    FuturesSide.BuyOpenLong,
+    quantity: 1,
+    leverage: 5m,
+    marginType: MarginType.CrossMargin,
+    triggerPrice: 50000m,
+    priceDirection: PriceDirection.LongDirection,
+    triggerPriceType: TriggerPriceType.LastPrice,
+    orderPrice: 50010m);
+```
+
+## USD Futures Subaccounts
+
+```csharp
+var balances = await client.UsdFuturesApi.SubAccount.GetSubAcccountBalanceAsync("sub@example.com", "USDT");
+var historyForMain = await client.UsdFuturesApi.SubAccount.GetSubAccountTransferHistoryForMainAsync("sub@example.com", limit: 50);
+var historyForSub = await client.UsdFuturesApi.SubAccount.GetSubAccountTransferHistoryAsync(limit: 50);
+```
+
+## WebSocket Subscriptions
+
+Spot:
+
+```csharp
+var tickerSub = await socketClient.SpotApi.SubscribeToTickerUpdatesAsync("BTC_USDT", update => Console.WriteLine(update.Data.LastPrice));
+var klineSub = await socketClient.SpotApi.SubscribeToKlineUpdatesAsync("BTC_USDT", KlineStreamInterval.OneMinute, update => { });
+var bookSub = await socketClient.SpotApi.SubscribeToOrderBookUpdatesAsync("BTC_USDT", update => { });
+var tradesSub = await socketClient.SpotApi.SubscribeToTradeUpdatesAsync("BTC_USDT", update => { });
+var orderSub = await socketClient.SpotApi.SubscribeToOrderUpdatesAsync(update => { });
+var balanceSub = await socketClient.SpotApi.SubscribeToBalanceUpdatesAsync(update => { });
+```
+
+USD futures:
+
+```csharp
+var futuresTickerSub = await socketClient.UsdFuturesApi.SubscribeToTickerUpdatesAsync("BTCUSDT", update => { });
+var futuresTradeSub = await socketClient.UsdFuturesApi.SubscribeToTradeUpdatesAsync("BTCUSDT", update => { });
+var fundingSub = await socketClient.UsdFuturesApi.SubscribeToFundingRateUpdatesAsync("BTCUSDT", update => { });
+var futuresBookSub = await socketClient.UsdFuturesApi.SubscribeToOrderBookUpdatesAsync("BTCUSDT", 20, update => { });
+var futuresKlineSub = await socketClient.UsdFuturesApi.SubscribeToKlineUpdatesAsync("BTCUSDT", FuturesStreamKlineInterval.OneMinute, update => { });
+var positionSub = await socketClient.UsdFuturesApi.SubscribeToPositionUpdatesAsync(update => { });
+var futuresOrderSub = await socketClient.UsdFuturesApi.SubscribeToOrderUpdatesAsync(update => { });
+```
+
+For shared socket subscriptions, keep the concrete socket client and unsubscribe with:
+
+```csharp
+await socketClient.UnsubscribeAsync(subscription.Data);
+```
+
+## SharedApis Multi-Exchange Pattern
+
+Spot:
+
+```csharp
+ISpotTickerRestClient tickerClient = new BitMartRestClient().SpotApi.SharedClient;
+var symbol = new SharedSymbol(TradingMode.Spot, "BTC", "USDT");
+
+var ticker = await tickerClient.GetSpotTickerAsync(new GetTickerRequest(symbol));
+```
+
+USD futures:
+
+```csharp
+IFuturesTickerRestClient futuresTickerClient = new BitMartRestClient().UsdFuturesApi.SharedClient;
+var futuresSymbol = new SharedSymbol(TradingMode.PerpetualLinear, "BTC", "USDT");
+
+var ticker = await futuresTickerClient.GetFuturesTickerAsync(new GetTickerRequest(futuresSymbol));
+```
+
+## AI-Friendly Examples
+
+Use these examples when generating code:
+
+```text
+Examples/ai-friendly/01-spot-quickstart.cs
+Examples/ai-friendly/02-usd-futures.cs
+Examples/ai-friendly/03-websocket.cs
+Examples/ai-friendly/04-multi-exchange.cs
+Examples/ai-friendly/05-error-handling.cs
+```
+
+These files are intended to be copied into a console `Program.cs` after `dotnet add package BitMart.Net`. They are compiled by `BitMart.Net.UnitTests/Documentation/AiExampleCompileTests.cs`.
+
+## Error Handling And Retry Pattern
+
+```csharp
+var result = await client.SpotApi.ExchangeData.GetTickerAsync("BTC_USDT");
+if (!result.Success)
+{
+    Console.WriteLine(result.Error?.Code);
+    Console.WriteLine(result.Error?.Message);
+    Console.WriteLine(result.Error?.ErrorType);
+    Console.WriteLine(result.Error?.IsTransient);
+    return;
+}
+
+Console.WriteLine(result.Data.LastPrice);
+```
+
+Retry only transient failures:
+
+```csharp
+async Task<WebCallResult<T>> WithRetry<T>(Func<Task<WebCallResult<T>>> call)
+{
+    WebCallResult<T> last = default!;
+    for (var attempt = 1; attempt <= 3; attempt++)
+    {
+        last = await call();
+        if (last.Success || last.Error?.IsTransient != true)
+            return last;
+
+        await Task.Delay(TimeSpan.FromMilliseconds(250 * Math.Pow(2, attempt)));
+    }
+
+    return last;
+}
+```
+
+## Anti-Hallucination Checklist
+
+- Does it compile with the current package?
+- Does it use `SpotApi` and `UsdFuturesApi` correctly?
+- Does it use `BitMartCredentials("key", "secret", "memoOrPass")` for private endpoints?
+- Does every REST/socket result check `.Success` before `.Data`?
+- Does it avoid raw BitMart URLs and manual signing?
+- Does it avoid `.Result` and `.Wait()`?
+- Are WebSocket subscriptions unsubscribed on shutdown?
+- For shared socket interfaces, does it keep the concrete socket client for `UnsubscribeAsync(sub.Data)`?
+- Are spot symbols underscore format, for example `BTC_USDT`?
+- Are USD futures symbols compact format, for example `BTCUSDT`?
+- Does spot margin use `SpotApi.Margin` and margin orders use `SpotApi.Trading.PlaceMarginOrderAsync`?
+
+## Source Of Truth For Method Names
+
+When unsure, inspect these files instead of guessing:
+
+```text
+BitMart.Net/Interfaces/Clients/IBitMartRestClient.cs
+BitMart.Net/Interfaces/Clients/IBitMartSocketClient.cs
+BitMart.Net/Interfaces/Clients/SpotApi/*.cs
+BitMart.Net/Interfaces/Clients/UsdFuturesApi/*.cs
+BitMart.Net/Enums/*.cs
+BitMart.Net/Objects/Models/*.cs
+```
+
+Prefer the interface files over memory when generating endpoint names, parameters, callback names, enum names, and return types.

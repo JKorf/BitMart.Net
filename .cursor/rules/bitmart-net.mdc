@@ -1,0 +1,151 @@
+---
+description: Conventions for using BitMart.Net library when working with BitMart in C#/.NET. Apply when generating code that interacts with the BitMart API.
+globs:
+  - "**/*.cs"
+  - "**/*.csproj"
+alwaysApply: false
+---
+
+# BitMart.Net Conventions
+
+This codebase uses **BitMart.Net** for BitMart exchange access. Do not write raw `HttpClient` calls to BitMart endpoints.
+
+## Client setup pattern
+
+```csharp
+using BitMart.Net;
+using BitMart.Net.Clients;
+
+var restClient = new BitMartRestClient(options =>
+{
+    options.ApiCredentials = new BitMartCredentials("API_KEY", "API_SECRET", "MEMO_OR_PASS");
+});
+```
+
+For public market data only, no credentials are needed: `new BitMartRestClient()`.
+
+## Result pattern
+
+All REST methods return `WebCallResult<T>` or `WebCallResult`. WebSocket subscriptions return `CallResult<UpdateSubscription>`. Always check `.Success` before reading `.Data`:
+
+```csharp
+var ticker = await restClient.SpotApi.ExchangeData.GetTickerAsync("BTC_USDT");
+if (!ticker.Success) { /* ticker.Error */ return; }
+var price = ticker.Data.LastPrice;
+```
+
+## API surface
+
+- `restClient.SpotApi.ExchangeData` for spot public server status/time, assets, symbols, tickers, books, candles and trades
+- `restClient.SpotApi.Account` for balances, deposit/withdrawal, isolated margin account data and fees
+- `restClient.SpotApi.Trading` for spot orders, margin orders, cancels, fills and order queries
+- `restClient.SpotApi.Margin` for isolated margin borrow/repay and history
+- `restClient.SpotApi.SubAccount` for spot subaccount transfers and balances
+- `restClient.UsdFuturesApi.ExchangeData` for USD futures contracts, books, funding, open interest, klines and trades
+- `restClient.UsdFuturesApi.Account` for futures balances, transfer history, leverage, fees, transactions and position mode
+- `restClient.UsdFuturesApi.Trading` for futures orders, positions, risk, triggers, TP/SL and edits
+- `restClient.UsdFuturesApi.SubAccount` for USD futures subaccount transfers and balances
+- `socketClient.SpotApi` for spot public/private WebSocket streams
+- `socketClient.UsdFuturesApi` for USD futures public/private WebSocket streams
+
+## Symbol formats
+
+BitMart symbol conventions matter:
+
+- Spot symbols: `BTC_USDT`, `ETH_USDT`
+- USD futures symbols: `BTCUSDT`, `ETHUSDT`
+
+Do not use `BTC-USDT`, `BTC/USDT`, `tBTCUSD`, `BTCUSDT` for spot, or `BTC_USDT` for USD futures.
+
+## Spot order placement
+
+```csharp
+var order = await restClient.SpotApi.Trading.PlaceOrderAsync(
+    "BTC_USDT",
+    OrderSide.Buy,
+    OrderType.Limit,
+    quantity: 0.001m,
+    price: 1m);
+```
+
+Market buys can use `quoteQuantity`; limit and sell orders normally use `quantity`.
+
+## USD futures order placement
+
+```csharp
+var order = await restClient.UsdFuturesApi.Trading.PlaceOrderAsync(
+    "BTCUSDT",
+    FuturesSide.BuyOpenLong,
+    FuturesOrderType.Limit,
+    quantity: 1,
+    price: 1m,
+    leverage: 5m,
+    marginType: MarginType.CrossMargin,
+    orderMode: OrderMode.GoodTilCancel);
+```
+
+## WebSocket pattern
+
+```csharp
+var socketClient = new BitMartSocketClient();
+var sub = await socketClient.SpotApi.SubscribeToTickerUpdatesAsync(
+    "BTC_USDT",
+    update => { /* update.Data.LastPrice */ });
+if (!sub.Success) { /* sub.Error */ return; }
+
+await socketClient.UnsubscribeAsync(sub.Data);
+```
+
+For USD futures sockets:
+
+```csharp
+var futuresSub = await socketClient.UsdFuturesApi.SubscribeToTickerUpdatesAsync(
+    "BTCUSDT",
+    update => { /* update.Data.LastPrice */ });
+```
+
+## Multi-exchange code
+
+For exchange-agnostic code, use `CryptoExchange.Net.SharedApis`:
+
+```csharp
+using CryptoExchange.Net.SharedApis;
+
+var shared = new BitMartRestClient().SpotApi.SharedClient;
+var ticker = await shared.GetSpotTickerAsync(
+    new GetTickerRequest(new SharedSymbol(TradingMode.Spot, "BTC", "USDT")));
+```
+
+Shared socket interfaces do not expose unsubscribe; keep the concrete socket client and call `socketClient.UnsubscribeAsync(sub.Data)`.
+
+## Dependency injection
+
+```csharp
+services.AddBitMart(options =>
+{
+    options.ApiCredentials = new BitMartCredentials("API_KEY", "API_SECRET", "MEMO_OR_PASS");
+});
+```
+
+Inject `IBitMartRestClient` and `IBitMartSocketClient`.
+
+## Hard rules
+
+- Never write raw `HttpClient` to BitMart endpoints.
+- Never use `.Result` or `.Wait()`; use async all the way.
+- Never instantiate clients per request; reuse them or use DI.
+- Never skip checking `WebCallResult.Success`.
+- Prefer `BitMartRestClient` and `BitMartSocketClient`.
+- Always use `BitMartCredentials("key", "secret", "pass")`, not generic credentials without passphrase.
+- Always store WebSocket subscriptions and unsubscribe on shutdown.
+- Use `SpotApi` and `UsdFuturesApi`; do not invent V2/V3 roots.
+- Use spot symbols with underscores and futures symbols without underscores.
+- Use `SpotApi.Margin` for margin borrow/repay and `SpotApi.Trading.PlaceMarginOrderAsync` for margin orders.
+
+## Reference
+
+- Skill: `CLAUDE.md` in repo root has fuller examples
+- `llms.txt` and `llms-full.txt` in repo root for AI context
+- API map: `docs/ai-api-map.md`
+- Examples: `Examples/ai-friendly/`
+- Source of truth: `BitMart.Net/Interfaces/Clients/**` and `BitMart.Net/Enums/**`
