@@ -57,7 +57,7 @@ namespace BitMart.Net.Clients.SpotApi
                 result = await ExchangeData.GetKlinesAsync(
                     symbol,
                     interval,
-                    startTime: pageParams.StartTime!.Value.AddSeconds((int)interval),
+                    startTime: pageParams.StartTime?.AddSeconds((int)interval),
                     limit: limit,
                     ct: ct
                     ).ConfigureAwait(false);
