@@ -322,8 +322,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             var result = await ExchangeData.GetKlinesAsync(
                 symbol,
                 interval,
-                startTime: request.StartTime!.Value,
-                endTime: request.EndTime!.Value,
+                startTime: request.StartTime ?? DateTime.UtcNow.AddSeconds(-((int)interval * 100)),
+                endTime: request.EndTime ?? DateTime.UtcNow,
                 ct: ct
                 ).ConfigureAwait(false);
             if (!result)
