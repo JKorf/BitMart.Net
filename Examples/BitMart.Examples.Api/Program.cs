@@ -1,6 +1,6 @@
-using Microsoft.AspNetCore.Mvc;
-using BitMart.Net.Objects;
+using BitMart.Net;
 using BitMart.Net.Interfaces.Clients;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +14,8 @@ builder.Services.AddBitMart();
 /*
 builder.Services.AddBitMart(options =>
 {    
-   options.ApiCredentials = new ApiCredentials("<APIKEY>", "<APISECRET>", "<MEMO>");
+   options.ApiCredentials = new BitMartCredentials()
+        .WithHMAC("<APIKEY>", "<APISECRET>", "<MEMO>");
    options.Rest.RequestTimeout = TimeSpan.FromSeconds(5);
 });
 */
@@ -28,7 +29,9 @@ app.UseHttpsRedirection();
 app.MapGet("/{Symbol}", async ([FromServices] IBitMartRestClient client, string symbol) =>
 {
     var result = await client.SpotApi.ExchangeData.GetTickerAsync(symbol);
-    return result.Data.LastPrice;
+    return result.Success
+        ? Results.Ok(result.Data.LastPrice)
+        : Results.Problem(result.Error?.Message, statusCode: 502);
 })
 .WithOpenApi();
 
@@ -36,7 +39,9 @@ app.MapGet("/{Symbol}", async ([FromServices] IBitMartRestClient client, string 
 app.MapGet("/Balances", async ([FromServices] IBitMartRestClient client) =>
 {
     var result = await client.SpotApi.Account.GetSpotBalancesAsync();
-    return (object)(result.Success ? result.Data : result.Error!);
+    return result.Success
+        ? Results.Ok(result.Data)
+        : Results.Problem(result.Error?.Message, statusCode: 502);
 })
 .WithOpenApi();
 
