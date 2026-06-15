@@ -31,7 +31,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// <param name="clientOrderId">["<c>client_order_id</c>"] Client order id</param>
         /// <param name="stpMode">["<c>stpMode</c>"] Self trade prevention mode</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartOrderId>> PlaceOrderAsync(string symbol, OrderSide side, OrderType type, decimal? quantity = null, decimal? price = null, decimal? quoteQuantity = null, string? clientOrderId = null, SelfTradePreventionMode? stpMode = null, CancellationToken ct = default);
+        Task<HttpResult<BitMartOrderId>> PlaceOrderAsync(string symbol, OrderSide side, OrderType type, decimal? quantity = null, decimal? price = null, decimal? quoteQuantity = null, string? clientOrderId = null, SelfTradePreventionMode? stpMode = null, CancellationToken ct = default);
 
         /// <summary>
         /// Place multiple orders in one call
@@ -46,7 +46,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// <param name="orders">["<c>orderParams</c>"] Order parameters</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMartOrderIds>> PlaceMultipleOrdersAsync(string symbol, IEnumerable<BitMartOrderRequest> orders, CancellationToken ct = default);
+        Task<HttpResult<BitMartOrderIds>> PlaceMultipleOrdersAsync(string symbol, IEnumerable<BitMartOrderRequest> orders, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel an open order
@@ -61,7 +61,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// <param name="orderId">["<c>order_id</c>"] Cancel by order id. Either this or clientOrderId should be provided</param>
         /// <param name="clientOrderId">["<c>client_order_id</c>"] Cancel by client order Id. Either this or orderId should be provided</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> CancelOrderAsync(string symbol, string? orderId = null, string? clientOrderId = null, CancellationToken ct = default);
+        Task<HttpResult> CancelOrderAsync(string symbol, string? orderId = null, string? clientOrderId = null, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel multiple orders
@@ -76,7 +76,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// <param name="orderIds">["<c>orderIds</c>"] Order ids to cancel. Either this or clientOrderIds should be provided</param>
         /// <param name="clientOrderIds">["<c>clientOrderIds</c>"] Client order ids to cancel. Either this or orderIds should be provided</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartCancelOrdersResult>> CancelOrdersAsync(string symbol, IEnumerable<string>? orderIds = null, IEnumerable<string>? clientOrderIds = null, CancellationToken ct = default);
+        Task<HttpResult<BitMartCancelOrdersResult>> CancelOrdersAsync(string symbol, IEnumerable<string>? orderIds = null, IEnumerable<string>? clientOrderIds = null, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel all orders matching the parameters
@@ -91,7 +91,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// <param name="side">["<c>side</c>"] Filter by order side</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult> CancelAllOrderAsync(string? symbol = null, OrderSide? side = null, CancellationToken ct = default);
+        Task<HttpResult> CancelAllOrderAsync(string? symbol = null, OrderSide? side = null, CancellationToken ct = default);
 
         /// <summary>
         /// Place a new margin order
@@ -110,7 +110,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// <param name="quoteQuantity">["<c>notional</c>"] Quantity in quote asset for market orders</param>
         /// <param name="clientOrderId">["<c>client_order_id</c>"] Client order id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartOrderId>> PlaceMarginOrderAsync(string symbol, OrderSide side, OrderType type, decimal? quantity = null, decimal? price = null, decimal? quoteQuantity = null, string? clientOrderId = null, CancellationToken ct = default);
+        Task<HttpResult<BitMartOrderId>> PlaceMarginOrderAsync(string symbol, OrderSide side, OrderType type, decimal? quantity = null, decimal? price = null, decimal? quoteQuantity = null, string? clientOrderId = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get order details
@@ -124,7 +124,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// <param name="orderId">["<c>orderId</c>"] Id of the order</param>
         /// <param name="orderQueryState">["<c>queryState</c>"] Order status. If known speeds up the request</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartOrder>> GetOrderAsync(string orderId, OrderQueryState? orderQueryState = null, CancellationToken ct = default);
+        Task<HttpResult<BitMartOrder>> GetOrderAsync(string orderId, OrderQueryState? orderQueryState = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get order details by client order id
@@ -138,7 +138,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// <param name="clientOrderId">["<c>clientOrderId</c>"] Client order id</param>
         /// <param name="orderQueryState">["<c>queryState</c>"] Order status. If known speeds up the request</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartOrder>> GetOrderByClientOrderIdAsync(string clientOrderId, OrderQueryState? orderQueryState = null, CancellationToken ct = default);
+        Task<HttpResult<BitMartOrder>> GetOrderByClientOrderIdAsync(string clientOrderId, OrderQueryState? orderQueryState = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get current open orders
@@ -155,7 +155,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// <param name="endTime">["<c>endTime</c>"] Filter by end time</param>
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartOrder[]>> GetOpenOrdersAsync(string? symbol = null, SpotMode? spotOrderMode = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<BitMartOrder[]>> GetOpenOrdersAsync(string? symbol = null, SpotMode? spotOrderMode = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get closed orders
@@ -172,7 +172,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// <param name="endTime">["<c>endTime</c>"] Filter by end time</param>
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartOrder[]>> GetClosedOrdersAsync(string? symbol = null, SpotMode? spotOrderMode = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<BitMartOrder[]>> GetClosedOrdersAsync(string? symbol = null, SpotMode? spotOrderMode = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get list of user trades
@@ -189,7 +189,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// <param name="endTime">["<c>endTime</c>"] Filter by end time</param>
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartUserTrade[]>> GetUserTradesAsync(string? symbol = null, SpotMode? spotOrderMode = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<BitMartUserTrade[]>> GetUserTradesAsync(string? symbol = null, SpotMode? spotOrderMode = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get trades for a specific order
@@ -202,7 +202,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="orderId">["<c>orderId</c>"] The order id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartUserTrade[]>> GetOrderTradesAsync(string orderId, CancellationToken ct = default);
+        Task<HttpResult<BitMartUserTrade[]>> GetOrderTradesAsync(string orderId, CancellationToken ct = default);
 
     }
 }

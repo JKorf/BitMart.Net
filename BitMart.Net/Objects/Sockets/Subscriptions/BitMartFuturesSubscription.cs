@@ -29,7 +29,7 @@ namespace BitMart.Net.Objects.Sockets.Subscriptions
 
             IndividualSubscriptionCount = topics.Length;
 
-            MessageRouter = MessageRouter.CreateWithoutTopicFilter<BitMartFuturesUpdate<T>>(topics, DoHandleMessage);
+            MessageRouter = MessageRouter.CreateForEvent<BitMartFuturesUpdate<T>>(topics, DoHandleMessage);
         }
 
         /// <inheritdoc />
@@ -42,7 +42,7 @@ namespace BitMart.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, BitMartFuturesUpdate<T> message)
         {
             _handler.Invoke(receiveTime, originalData, message);
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
     }
 }

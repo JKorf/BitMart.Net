@@ -24,7 +24,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETHUSDT`</param>
         /// <param name="orderId">["<c>order_id</c>"] Order id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartFuturesOrder>> GetOrderAsync(string symbol, string orderId, CancellationToken ct = default);
+        Task<HttpResult<BitMartFuturesOrder>> GetOrderAsync(string symbol, string orderId, CancellationToken ct = default);
 
         /// <summary>
         /// Get order history
@@ -41,7 +41,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="startTime">["<c>start_time</c>"] Filter by start time</param>
         /// <param name="endTime">["<c>end_time</c>"] Filter by end time</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartFuturesOrder[]>> GetClosedOrdersAsync(string symbol, string? orderId = null, string? clientOrderId = null, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
+        Task<HttpResult<BitMartFuturesOrder[]>> GetClosedOrdersAsync(string symbol, string? orderId = null, string? clientOrderId = null, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get open orders
@@ -57,7 +57,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="status">["<c>order_state</c>"] Filter by order status</param>
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartFuturesOrder[]>> GetOpenOrdersAsync(string? symbol = null, FuturesOrderType? orderType = null, OrderStatusQuery? status = null, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<BitMartFuturesOrder[]>> GetOpenOrdersAsync(string? symbol = null, FuturesOrderType? orderType = null, OrderStatusQuery? status = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get open trigger orders
@@ -73,7 +73,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="planType">["<c>plan_type</c>"] Filter by plan type</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartTriggerOrder[]>> GetTriggerOrdersAsync(string? symbol = null, OrderType? type = null, int? limit = null, TriggerPlanType? planType = null, CancellationToken ct = default);
+        Task<HttpResult<BitMartTriggerOrder[]>> GetTriggerOrdersAsync(string? symbol = null, OrderType? type = null, int? limit = null, TriggerPlanType? planType = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get current positions
@@ -86,7 +86,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] Filter by symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartPosition[]>> GetPositionsAsync(string? symbol = null, CancellationToken ct = default);
+        Task<HttpResult<BitMartPosition[]>> GetPositionsAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get position risk
@@ -99,7 +99,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] Filter by symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartPositionRisk[]>> GetPositionRiskAsync(string? symbol = null, CancellationToken ct = default);
+        Task<HttpResult<BitMartPositionRisk[]>> GetPositionRiskAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get user trades
@@ -116,7 +116,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="orderId">["<c>order_id</c>"] Filter by order id</param>
         /// <param name="clientOrderId">["<c>client_order_id</c>"] Filter by client order id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartFuturesUserTrade[]>> GetUserTradesAsync(
+        Task<HttpResult<BitMartFuturesUserTrade[]>> GetUserTradesAsync(
             string? symbol = null,
             DateTime? startTime = null, 
             DateTime? endTime = null,
@@ -148,7 +148,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="presetStopLossPrice">["<c>preset_stop_loss_price</c>"] Stop loss price</param>
         /// <param name="stpMode">["<c>stp_mode</c>"] Self trade prevention mode</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartFuturesOrderResponse>> PlaceOrderAsync(string symbol, FuturesSide side, FuturesOrderType type, int quantity, decimal? price = null, string? clientOrderId = null, decimal? leverage = null, MarginType? marginType = null, OrderMode? orderMode = null, TriggerPriceType? presetTakeProfitPriceType = null, TriggerPriceType? presetStopLossPriceType = null, decimal? presetTakeProfitPrice = null, decimal? presetStopLossPrice = null, StpMode? stpMode = null, CancellationToken ct = default);
+        Task<HttpResult<BitMartFuturesOrderResponse>> PlaceOrderAsync(string symbol, FuturesSide side, FuturesOrderType type, int quantity, decimal? price = null, string? clientOrderId = null, decimal? leverage = null, MarginType? marginType = null, OrderMode? orderMode = null, TriggerPriceType? presetTakeProfitPriceType = null, TriggerPriceType? presetStopLossPriceType = null, decimal? presetTakeProfitPrice = null, decimal? presetStopLossPrice = null, StpMode? stpMode = null, CancellationToken ct = default);
 
         /// <summary>
         /// Place a new trailing stop order
@@ -169,7 +169,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="triggerPriceType">["<c>activation_price_type</c>"] Trigger price type</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMartOrderId>> PlaceTrailingOrderAsync(
+        Task<HttpResult<BitMartOrderId>> PlaceTrailingOrderAsync(
             string symbol,
             FuturesSide side,
             int quantity,
@@ -193,7 +193,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="orderId">["<c>order_id</c>"] Order id</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult> CancelTrailingOrderAsync(string symbol, string orderId, CancellationToken ct = default);
+        Task<HttpResult> CancelTrailingOrderAsync(string symbol, string orderId, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel an active order
@@ -208,7 +208,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="orderId">["<c>order_id</c>"] The order id, either this or clientOrderId should be provided</param>
         /// <param name="clientOrderId">["<c>client_order_id</c>"] The client order id, either this or orderId should be provided</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> CancelOrderAsync(string symbol, string? orderId = null, string? clientOrderId = null, CancellationToken ct = default);
+        Task<HttpResult> CancelOrderAsync(string symbol, string? orderId = null, string? clientOrderId = null, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel all orders on a symbol
@@ -221,7 +221,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> CancelOrdersAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult> CancelOrdersAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Place a new trigger order
@@ -249,7 +249,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="takeProfitPriceType">["<c>preset_take_profit_price_type</c>"] Take profit price type</param>
         /// <param name="stopLossPriceType">["<c>preset_stop_loss_price_type</c>"] Stop loss price type</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartFuturesOrderId>> PlaceTriggerOrderAsync(string symbol, OrderType orderType, FuturesSide side, int quantity, decimal leverage, MarginType marginType, decimal triggerPrice, PriceDirection priceDirection, TriggerPriceType triggerPriceType, OrderMode? orderMode = null, decimal? orderPrice = null, PlanCategory? planCategory = null, decimal? takeProfitPrice = null, decimal? stopLossPrice = null, TriggerPriceType? takeProfitPriceType = null, TriggerPriceType? stopLossPriceType = null, CancellationToken ct = default);
+        Task<HttpResult<BitMartFuturesOrderId>> PlaceTriggerOrderAsync(string symbol, OrderType orderType, FuturesSide side, int quantity, decimal leverage, MarginType marginType, decimal triggerPrice, PriceDirection priceDirection, TriggerPriceType triggerPriceType, OrderMode? orderMode = null, decimal? orderPrice = null, PlanCategory? planCategory = null, decimal? takeProfitPrice = null, decimal? stopLossPrice = null, TriggerPriceType? takeProfitPriceType = null, TriggerPriceType? stopLossPriceType = null, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel a trigger order
@@ -264,7 +264,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="orderId">["<c>order_id</c>"] The order id, either this or clientOrderId should be provided</param>
         /// <param name="clientOrderId">["<c>client_order_id</c>"] The client order id, either this or orderId should be provided</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> CancelTriggerOrderAsync(string symbol, string orderId, string? clientOrderId = null, CancellationToken ct = default);
+        Task<HttpResult> CancelTriggerOrderAsync(string symbol, string orderId, string? clientOrderId = null, CancellationToken ct = default);
 
         /// <summary>
         /// Place a new tp/sl order
@@ -286,7 +286,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="clientOrderId">["<c>client_order_id</c>"] Client order id</param>
         /// <param name="triggerOrderType">["<c>category</c>"] Type of order to place when triggered</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartOrderId>> PlaceTpSlOrderAsync(string symbol, TplSlOrderType tpSlType, FuturesSide orderSide, decimal triggerPrice, TriggerPriceType priceType, PlanCategory planCategory, decimal? executionPrice = null, int? quantity = null, string? clientOrderId = null, OrderType? triggerOrderType = null, CancellationToken ct = default);
+        Task<HttpResult<BitMartOrderId>> PlaceTpSlOrderAsync(string symbol, TplSlOrderType tpSlType, FuturesSide orderSide, decimal triggerPrice, TriggerPriceType priceType, PlanCategory planCategory, decimal? executionPrice = null, int? quantity = null, string? clientOrderId = null, OrderType? triggerOrderType = null, CancellationToken ct = default);
 
         /// <summary>
         /// Edit an open limit order
@@ -304,7 +304,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="quantity">["<c>size</c>"] New quantity</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMartOrderId>> EditOrderAsync(string symbol, long? orderId = null, string? clientOrderId = null, decimal? price = null, decimal? quantity = null, CancellationToken ct = default);
+        Task<HttpResult<BitMartOrderId>> EditOrderAsync(string symbol, long? orderId = null, string? clientOrderId = null, decimal? price = null, decimal? quantity = null, CancellationToken ct = default);
 
         /// <summary>
         /// Edit an existing tp/sl order
@@ -323,7 +323,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="planCategory">["<c>plan_category</c>"] Plan category</param>
         /// <param name="orderType">["<c>category</c>"] Order type</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartOrderId>> EditTpSlOrderAsync(string symbol, decimal triggerPrice, TriggerPriceType priceType, PlanCategory planCategory, OrderType orderType, string? orderId = null, decimal? executionPrice = null, CancellationToken ct = default);
+        Task<HttpResult<BitMartOrderId>> EditTpSlOrderAsync(string symbol, decimal triggerPrice, TriggerPriceType priceType, PlanCategory planCategory, OrderType orderType, string? orderId = null, decimal? executionPrice = null, CancellationToken ct = default);
 
         /// <summary>
         /// Edit an existing plan order
@@ -342,7 +342,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="priceType">["<c>price_type</c>"] Price type</param>
         /// <param name="orderType">["<c>type</c>"] Order type</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartOrderId>> EditTriggerOrderAsync(string symbol, decimal triggerPrice, TriggerPriceType priceType, OrderType orderType, string? orderId = null, string? clientOrderId = null, decimal? executionPrice = null, CancellationToken ct = default);
+        Task<HttpResult<BitMartOrderId>> EditTriggerOrderAsync(string symbol, decimal triggerPrice, TriggerPriceType priceType, OrderType orderType, string? orderId = null, string? clientOrderId = null, decimal? executionPrice = null, CancellationToken ct = default);
 
         /// <summary>
         /// Edit an preset plan order
@@ -360,7 +360,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="takeProfitPrice">["<c>preset_take_profit_price</c>"] Take profit price</param>
         /// <param name="stopLossPrice">["<c>preset_stop_loss_price</c>"] Stop loss price</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartOrderId>> EditPresetTriggerOrderAsync(string symbol, string orderId, TriggerPriceType takeProfitPriceType, TriggerPriceType stopLossPriceType, decimal takeProfitPrice, decimal stopLossPrice, CancellationToken ct = default);
+        Task<HttpResult<BitMartOrderId>> EditPresetTriggerOrderAsync(string symbol, string orderId, TriggerPriceType takeProfitPriceType, TriggerPriceType stopLossPriceType, decimal takeProfitPrice, decimal stopLossPrice, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel all orders for a symbol after a certain timeout
@@ -368,6 +368,6 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETHUSDT`</param>
         /// <param name="timespan">["<c>timeout</c>"] TimeSpan after which to cancel. TimeSpan.Zero to cancel the countdown</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartCancelAfter>> CancelAllAfterAsync(string symbol, TimeSpan timespan, CancellationToken ct = default);
+        Task<HttpResult<BitMartCancelAfter>> CancelAllAfterAsync(string symbol, TimeSpan timespan, CancellationToken ct = default);
     }
 }

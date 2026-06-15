@@ -43,8 +43,8 @@ namespace BitMart.Net.Clients.SpotApi
             /// <summary>
             /// ctor
             /// </summary>
-        internal BitMartSocketClientSpotApi(ILogger logger, BitMartSocketOptions options) :
-            base(logger, options.Environment.SocketClientSpotAddress!, options, options.SpotOptions)
+        internal BitMartSocketClientSpotApi(ILoggerFactory? loggerFactory, BitMartSocketOptions options) :
+            base(loggerFactory, BitMartExchange.Metadata.Id, options.Environment.SocketClientSpotAddress!, options, options.SpotOptions)
         {
             KeepAliveInterval = TimeSpan.Zero;
             MaxIndividualSubscriptionsPerConnection = 115;
@@ -77,11 +77,11 @@ namespace BitMart.Net.Clients.SpotApi
             => new BitMartAuthenticationProvider(credentials);
 
         /// <inheritdoc />
-        public Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<BitMartTickerUpdate>> onMessage, CancellationToken ct = default)
+        public Task<WebSocketResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<BitMartTickerUpdate>> onMessage, CancellationToken ct = default)
             => SubscribeToTickerUpdatesAsync(new[] { symbol }, onMessage, ct);
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMartTickerUpdate>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMartTickerUpdate>> onMessage, CancellationToken ct = default)
         {
             var handler = new Action<DateTime, string?, BitMartUpdate<BitMartTickerUpdate[]>>((receiveTime, originalData, data) =>
             {
@@ -103,11 +103,11 @@ namespace BitMart.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, KlineStreamInterval interval, Action<DataEvent<BitMartKlineUpdate[]>> onMessage, CancellationToken ct = default)
+        public Task<WebSocketResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, KlineStreamInterval interval, Action<DataEvent<BitMartKlineUpdate[]>> onMessage, CancellationToken ct = default)
             => SubscribeToKlineUpdatesAsync(new[] { symbol }, interval, onMessage, ct);
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(IEnumerable<string> symbols, KlineStreamInterval interval, Action<DataEvent<BitMartKlineUpdate[]>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(IEnumerable<string> symbols, KlineStreamInterval interval, Action<DataEvent<BitMartKlineUpdate[]>> onMessage, CancellationToken ct = default)
         {
             var intervalStr = EnumConverter.GetString(interval);
             var handler = new Action<DateTime, string?, BitMartUpdate<BitMartKlineUpdate[]>>((receiveTime, originalData, data) =>
@@ -125,11 +125,11 @@ namespace BitMart.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public Task<CallResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdatesAsync(string symbol, int depth, Action<DataEvent<BitMartOrderBookUpdate>> onMessage, CancellationToken ct = default)
+        public Task<WebSocketResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdatesAsync(string symbol, int depth, Action<DataEvent<BitMartOrderBookUpdate>> onMessage, CancellationToken ct = default)
             => SubscribeToPartialOrderBookUpdatesAsync(new[] { symbol }, depth, onMessage, ct);
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdatesAsync(IEnumerable<string> symbols, int depth, Action<DataEvent<BitMartOrderBookUpdate>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdatesAsync(IEnumerable<string> symbols, int depth, Action<DataEvent<BitMartOrderBookUpdate>> onMessage, CancellationToken ct = default)
         {
             depth.ValidateIntValues(nameof(depth), 5, 20, 50);
 
@@ -151,11 +151,11 @@ namespace BitMart.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, Action<DataEvent<BitMartOrderBookIncrementalUpdate>> onMessage, CancellationToken ct = default)
+        public Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, Action<DataEvent<BitMartOrderBookIncrementalUpdate>> onMessage, CancellationToken ct = default)
             => SubscribeToOrderBookUpdatesAsync(new[] { symbol }, onMessage, ct);
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMartOrderBookIncrementalUpdate>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMartOrderBookIncrementalUpdate>> onMessage, CancellationToken ct = default)
         {
             var handler = new Action<DateTime, string?, BitMartUpdate<BitMartOrderBookIncrementalUpdate[]>>((receiveTime, originalData, data) =>
             {
@@ -177,11 +177,11 @@ namespace BitMart.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<BitMartTradeUpdate[]>> onMessage, CancellationToken ct = default)
+        public Task<WebSocketResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<BitMartTradeUpdate[]>> onMessage, CancellationToken ct = default)
             => SubscribeToTradeUpdatesAsync(new[] { symbol }, onMessage, ct);
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMartTradeUpdate[]>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMartTradeUpdate[]>> onMessage, CancellationToken ct = default)
         {
             var handler = new Action<DateTime, string?, BitMartUpdate<BitMartTradeUpdate[]>>((receiveTime, originalData, data) =>
             {
@@ -198,11 +198,11 @@ namespace BitMart.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(string symbol, Action<DataEvent<BitMartBookTickerUpdate>> onMessage, CancellationToken ct = default)
+        public Task<WebSocketResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(string symbol, Action<DataEvent<BitMartBookTickerUpdate>> onMessage, CancellationToken ct = default)
             => SubscribeToBookTickerUpdatesAsync(new[] { symbol }, onMessage, ct);
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMartBookTickerUpdate>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(IEnumerable<string> symbols, Action<DataEvent<BitMartBookTickerUpdate>> onMessage, CancellationToken ct = default)
         {
             var handler = new Action<DateTime, string?, BitMartUpdate<BitMartBookTickerUpdate[]>>((receiveTime, originalData, data) =>
             {
@@ -220,7 +220,7 @@ namespace BitMart.Net.Clients.SpotApi
 
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<BitMartOrderUpdate>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<BitMartOrderUpdate>> onMessage, CancellationToken ct = default)
         {
             var handler = new Action<DateTime, string?, BitMartUpdate<BitMartOrderUpdate[]>>((receiveTime, originalData, data) =>
             {
@@ -241,7 +241,7 @@ namespace BitMart.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(Action<DataEvent<BitMartBalanceUpdate>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(Action<DataEvent<BitMartBalanceUpdate>> onMessage, CancellationToken ct = default)
         {
             var handler = new Action<DateTime, string?, BitMartUpdate<BitMartBalanceUpdate[]>>((receiveTime, originalData, data) =>
             {

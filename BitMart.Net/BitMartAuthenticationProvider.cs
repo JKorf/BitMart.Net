@@ -23,12 +23,12 @@ namespace BitMart.Net
 
         public override void ProcessRequest(RestApiClient apiClient, RestRequestConfiguration request)
         {
-            if (!request.Authenticated)
+            if (!request.RequestDefinition.Authenticated)
                 return;
 
             var timestamp = GetMillisecondTimestamp(apiClient);
             var queryParams = request.GetQueryString(false);
-            var bodyParams = GetSerializedBody(_serializer, request.BodyParameters ?? new Dictionary<string, object>());
+            var bodyParams = GetSerializedBody(_serializer, request.BodyParameters ?? new Parameters(BitMartExchange._parameterSerializationSettings));
             var signStr = $"{timestamp}#{Credential.Pass}#{queryParams}{bodyParams}";
 
             request.Headers ??= new Dictionary<string, string>();

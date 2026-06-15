@@ -1,6 +1,7 @@
 ﻿using BitMart.Net.Interfaces.Clients;
 using BitMart.Net.Objects.Options;
 using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Clients;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
@@ -10,18 +11,17 @@ using System.Net.Http;
 namespace BitMart.Net.Clients
 {
     /// <inheritdoc />
-    public class BitMartUserClientProvider : IBitMartUserClientProvider
+    public class BitMartUserClientProvider : UserClientProvider<
+        IBitMartRestClient,
+        IBitMartSocketClient,
+        BitMartRestOptions,
+        BitMartSocketOptions,
+        BitMartCredentials,
+        BitMartEnvironment
+        >, IBitMartUserClientProvider
     {
-        private ConcurrentDictionary<string, IBitMartRestClient> _restClients = new ConcurrentDictionary<string, IBitMartRestClient>();
-        private ConcurrentDictionary<string, IBitMartSocketClient> _socketClients = new ConcurrentDictionary<string, IBitMartSocketClient>();
-
-        private readonly IOptions<BitMartRestOptions> _restOptions;
-        private readonly IOptions<BitMartSocketOptions> _socketOptions;
-        private readonly HttpClient _httpClient;
-        private readonly ILoggerFactory? _loggerFactory;
-
         /// <inheritdoc />
-        public string ExchangeName => BitMartExchange.ExchangeName;
+        public override string ExchangeName => BitMartExchange.ExchangeName;
 
         /// <summary>
         /// ctor
@@ -40,97 +40,15 @@ namespace BitMart.Net.Clients
             ILoggerFactory? loggerFactory,
             IOptions<BitMartRestOptions> restOptions,
             IOptions<BitMartSocketOptions> socketOptions)
+            : base(httpClient, loggerFactory, restOptions, socketOptions)
         {
-            _httpClient = httpClient ?? new HttpClient();
-            _httpClient.Timeout = restOptions.Value.RequestTimeout;
-            _loggerFactory = loggerFactory;
-            _restOptions = restOptions;
-            _socketOptions = socketOptions;
         }
 
         /// <inheritdoc />
-        public void InitializeUserClient(string userIdentifier, BitMartCredentials credentials, BitMartEnvironment? environment = null)
-        {
-            CreateRestClient(userIdentifier, credentials, environment);
-            CreateSocketClient(userIdentifier, credentials, environment);
-        }
-
+        protected override IBitMartRestClient ConstructRestClient(HttpClient client, ILoggerFactory? loggerFactory, IOptions<BitMartRestOptions> options)
+            => new BitMartRestClient(client, loggerFactory, options);
         /// <inheritdoc />
-        public void ClearUserClients(string userIdentifier)
-        {
-            _restClients.TryRemove(userIdentifier, out _);
-            _socketClients.TryRemove(userIdentifier, out _);
-        }
-
-        /// <inheritdoc />
-        public IBitMartRestClient GetRestClient(string userIdentifier, BitMartCredentials? credentials = null, BitMartEnvironment? environment = null)
-        {
-            if (!_restClients.TryGetValue(userIdentifier, out var client) || client.Disposed)
-                client = CreateRestClient(userIdentifier, credentials, environment);
-
-            return client;
-        }
-
-        /// <inheritdoc />
-        public IBitMartSocketClient GetSocketClient(string userIdentifier, BitMartCredentials? credentials = null, BitMartEnvironment? environment = null)
-        {
-            if (!_socketClients.TryGetValue(userIdentifier, out var client) || client.Disposed)
-                client = CreateSocketClient(userIdentifier, credentials, environment);
-
-            return client;
-        }
-
-        private IBitMartRestClient CreateRestClient(string userIdentifier, BitMartCredentials? credentials, BitMartEnvironment? environment)
-        {
-            var clientRestOptions = SetRestEnvironment(environment);
-            var client = new BitMartRestClient(_httpClient, _loggerFactory, clientRestOptions);
-            if (credentials != null)
-            {
-                client.SetApiCredentials(credentials);
-                _restClients[userIdentifier] = client;
-            }
-            return client;
-        }
-
-        private IBitMartSocketClient CreateSocketClient(string userIdentifier, BitMartCredentials? credentials, BitMartEnvironment? environment)
-        {
-            var clientSocketOptions = SetSocketEnvironment(environment);
-            var client = new BitMartSocketClient(clientSocketOptions!, _loggerFactory);
-            if (credentials != null)
-            {
-                client.SetApiCredentials(credentials);
-                _socketClients[userIdentifier] = client;
-            }
-            return client;
-        }
-
-        private IOptions<BitMartRestOptions> SetRestEnvironment(BitMartEnvironment? environment)
-        {
-            if (environment == null)
-                return _restOptions;
-
-            var newRestClientOptions = new BitMartRestOptions();
-            var restOptions = _restOptions.Value.Set(newRestClientOptions);
-            newRestClientOptions.Environment = environment;
-            return Options.Create(newRestClientOptions);
-        }
-
-        private IOptions<BitMartSocketOptions> SetSocketEnvironment(BitMartEnvironment? environment)
-        {
-            if (environment == null)
-                return _socketOptions;
-
-            var newSocketClientOptions = new BitMartSocketOptions();
-            var restOptions = _socketOptions.Value.Set(newSocketClientOptions);
-            newSocketClientOptions.Environment = environment;
-            return Options.Create(newSocketClientOptions);
-        }
-
-        private static T ApplyOptionsDelegate<T>(Action<T>? del) where T : new()
-        {
-            var opts = new T();
-            del?.Invoke(opts);
-            return opts;
-        }
+        protected override IBitMartSocketClient ConstructSocketClient(ILoggerFactory? loggerFactory, IOptions<BitMartSocketOptions> options)
+            => new BitMartSocketClient(options, loggerFactory);
     }
 }

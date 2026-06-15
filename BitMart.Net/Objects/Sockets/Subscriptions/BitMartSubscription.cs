@@ -34,7 +34,10 @@ namespace BitMart.Net.Objects.Sockets.Subscriptions
             else
                 _subTopics = symbols!.Select(x => $"{topic}:{x}").ToArray();
 
-            MessageRouter = MessageRouter.CreateWithOptionalTopicFilters<BitMartUpdate<T>>(topic, symbols, DoHandleMessage);
+            if (symbols == null || symbols.Length == 0)
+                MessageRouter = MessageRouter.CreateForEvent<BitMartUpdate<T>>(topic, DoHandleMessage);
+            else
+                MessageRouter = MessageRouter.CreateForEvent<BitMartUpdate<T>>(topic, symbols, DoHandleMessage);
         }
 
         /// <inheritdoc />
@@ -47,7 +50,7 @@ namespace BitMart.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, BitMartUpdate<T> message)
         {
             _handler.Invoke(receiveTime, originalData, message);
-            return CallResult.SuccessResult;
+            return CallResult.Ok();
         }
     }
 }

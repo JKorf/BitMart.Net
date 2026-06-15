@@ -50,14 +50,14 @@ namespace BitMart.Net.Clients.SpotApi
         #endregion
 
         #region constructor/destructor
-        internal BitMartRestClientSpotApi(ILogger logger, HttpClient? httpClient, BitMartRestOptions options)
-            : base(logger, httpClient, options.Environment.RestSpotClientAddress, options, options.SpotOptions)
+        internal BitMartRestClientSpotApi(ILoggerFactory? loggerFactory, HttpClient? httpClient, BitMartRestOptions options)
+            : base(loggerFactory, BitMartExchange.Metadata.Id, httpClient, options.Environment.RestSpotClientAddress, options, options.SpotOptions)
         {
             Account = new BitMartRestClientSpotApiAccount(this);
-            ExchangeData = new BitMartRestClientSpotApiExchangeData(logger, this);
+            ExchangeData = new BitMartRestClientSpotApiExchangeData(_logger, this);
             Margin = new BitMartRestClientSpotApiMargin(this);
             SubAccount = new BitMartRestClientSpotApiSubAccount(this);
-            Trading = new BitMartRestClientSpotApiTrading(logger, this);
+            Trading = new BitMartRestClientSpotApiTrading(_logger, this);
         }
         #endregion
 
@@ -68,52 +68,46 @@ namespace BitMart.Net.Clients.SpotApi
         protected override BitMartAuthenticationProvider CreateAuthenticationProvider(BitMartCredentials credentials)
             => new BitMartAuthenticationProvider(credentials);
 
-        internal Task<WebCallResult> SendAsync(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null, Dictionary<string, string>? additionalHeaders = null)
-            => SendToAddressAsync(BaseAddress, definition, parameters, cancellationToken, weight, additionalHeaders);
-
-        internal async Task<WebCallResult> SendToAddressAsync(string baseAddress, RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null, Dictionary<string, string>? additionalHeaders = null)
+        internal async Task<HttpResult> SendAsync(RequestDefinition definition, Parameters? parameters, CancellationToken cancellationToken, int? weight = null, Dictionary<string, string>? additionalHeaders = null)
         {
             if (Authenticated)
             {
-                var window = (int?)((BitMartRestOptions)ClientOptions).ReceiveWindow?.TotalMilliseconds;
-                parameters ??= new ParameterCollection();
-                parameters.AddOptional("recvWindow", window);
+                var window = (int?)ClientOptions.ReceiveWindow?.TotalMilliseconds;
+                parameters ??= new Parameters(BitMartExchange._parameterSerializationSettings);
+                parameters.Add("recvWindow", window);
             }
 
-            var result = await base.SendAsync<BitMartResponse>(baseAddress, definition, parameters, cancellationToken, additionalHeaders, weight).ConfigureAwait(false);
-            if (!result)
-                return result.AsDataless();
+            var result = await base.SendAsync<BitMartResponse>(definition, parameters, cancellationToken, additionalHeaders, weight).ConfigureAwait(false);
+            if (!result.Success)
+                return result;
 
             if (result.Data.Code != 1000)
-                return result.AsDatalessError(new ServerError(result.Data.Code, GetErrorInfo(result.Data.Code, result.Data.Message)));
+                return HttpResult.Fail(result, new ServerError(result.Data.Code, GetErrorInfo(result.Data.Code, result.Data.Message)));
 
-            return result.AsDataless();
+            return result;
         }
 
-        internal Task<WebCallResult<T>> SendAsync<T>(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null, Dictionary<string, string>? additionalHeaders = null) where T : class
-            => SendToAddressAsync<T>(BaseAddress, definition, parameters, cancellationToken, weight, additionalHeaders);
-
-        internal async Task<WebCallResult<T>> SendToAddressAsync<T>(string baseAddress, RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null, Dictionary<string, string>? additionalHeaders = null) where T : class
+        internal async Task<HttpResult<T>> SendAsync<T>(RequestDefinition definition, Parameters? parameters, CancellationToken cancellationToken, int? weight = null, Dictionary<string, string>? additionalHeaders = null) where T : class
         {
             if (Authenticated)
             {
-                var window = (int?)((BitMartRestOptions)ClientOptions).ReceiveWindow?.TotalMilliseconds;
-                parameters ??= new ParameterCollection();
-                parameters.AddOptional("recvWindow", window);
+                var window = (int?)ClientOptions.ReceiveWindow?.TotalMilliseconds;
+                parameters ??= new Parameters(BitMartExchange._parameterSerializationSettings);
+                parameters.Add("recvWindow", window);
             }
 
-            var result = await base.SendAsync<BitMartResponse<T>>(baseAddress, definition, parameters, cancellationToken, additionalHeaders, weight).ConfigureAwait(false);
-            if (!result)
-                return result.As<T>(default);
+            var result = await base.SendAsync<BitMartResponse<T>>(definition, parameters, cancellationToken, additionalHeaders, weight).ConfigureAwait(false);
+            if (!result.Success)
+                return HttpResult.Fail<T>(result);
 
             if (result.Data.Code != 1000)
-                return result.AsError<T>(new ServerError(result.Data.Code, GetErrorInfo(result.Data.Code, result.Data.Message)));
+                return HttpResult.Fail<T>(result, new ServerError(result.Data.Code, GetErrorInfo(result.Data.Code, result.Data.Message)));
 
-            return result.As(result.Data.Data);
+            return HttpResult.Ok(result, result.Data.Data);
         }
 
         /// <inheritdoc />
-        protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
+        protected override Task<HttpResult<DateTime>> GetServerTimestampAsync()
             => ExchangeData.GetServerTimeAsync();
 
         /// <inheritdoc />

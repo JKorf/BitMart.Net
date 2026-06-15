@@ -8,7 +8,7 @@ namespace BitMart.Net.Objects.Sockets
     {
         public PingQuery() : base("ping", false) {
             RequestTimeout = TimeSpan.FromSeconds(5);
-            MessageRouter = MessageRouter.CreateWithoutHandler<string>("pong");
+            MessageRouter = MessageRouter.CreateVoid<string>("pong");
         }
     }
 }

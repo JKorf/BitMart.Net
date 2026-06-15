@@ -24,7 +24,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="subAccount">Sub account name</param>
         /// <param name="clientOrderId">Unique identifier</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> TransferSubToMainForMainAsync(string asset, decimal quantity, string subAccount, string clientOrderId, CancellationToken ct = default);
+        Task<HttpResult> TransferSubToMainForMainAsync(string asset, decimal quantity, string subAccount, string clientOrderId, CancellationToken ct = default);
 
         /// <summary>
         /// Transfer from main account to sub futures acount
@@ -40,7 +40,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="subAccount">Sub account name</param>
         /// <param name="clientOrderId">Unique identifier</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> TransferMainToSubForMainAsync(string asset, decimal quantity, string subAccount, string clientOrderId, CancellationToken ct = default);
+        Task<HttpResult> TransferMainToSubForMainAsync(string asset, decimal quantity, string subAccount, string clientOrderId, CancellationToken ct = default);
 
         /// <summary>
         /// Transfer from sub futures account to main account, for sub account
@@ -55,7 +55,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="quantity">Quantity</param>
         /// <param name="clientOrderId">Unique identifier</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> TransferSubToMainForSubAsync(string asset, decimal quantity, string clientOrderId, CancellationToken ct = default);
+        Task<HttpResult> TransferSubToMainForSubAsync(string asset, decimal quantity, string clientOrderId, CancellationToken ct = default);
 
         /// <summary>
         /// Get sub account futures balances
@@ -69,7 +69,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="subAccount">Sub account name</param>
         /// <param name="asset">The asset, for example `USDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartSubAccountBalance[]>> GetSubAcccountBalanceAsync(string subAccount, string? asset = null, CancellationToken ct = default);
+        Task<HttpResult<BitMartSubAccountBalance[]>> GetSubAccountBalanceAsync(string subAccount, string? asset = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get sub account transfer history, for main account
@@ -83,7 +83,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="subAccount">Sub account name</param>
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<SubAccountTransfer[]>> GetSubAccountTransferHistoryForMainAsync(string subAccount, int limit, CancellationToken ct = default);
+        Task<HttpResult<SubAccountTransfer[]>> GetSubAccountTransferHistoryForMainAsync(string subAccount, int limit, CancellationToken ct = default);
 
         /// <summary>
         /// Get sub account transfer history
@@ -96,7 +96,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// </summary>
         /// <param name="limit">Max number of results</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<SubAccountTransfer[]>> GetSubAccountTransferHistoryAsync(int limit, CancellationToken ct = default);
+        Task<HttpResult<SubAccountTransfer[]>> GetSubAccountTransferHistoryAsync(int limit, CancellationToken ct = default);
 
     }
 }

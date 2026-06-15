@@ -21,15 +21,15 @@ namespace BitMart.Net.Objects.Sockets
         }, authenticated, weight)
         {
             _client = client;
-            MessageRouter = MessageRouter.CreateWithoutTopicFilter<BitMartSocketResponse>(parameters.Select(p => operation + ":" + p), HandleMessage);
+            MessageRouter = MessageRouter.CreateForQuery<BitMartSocketResponse>(parameters.Select(p => operation + ":" + p), HandleMessage);
         }
 
         public CallResult<BitMartSocketResponse> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, BitMartSocketResponse message)
         {
             if (message.ErrorCode != null && message.ErrorCode != 90008) // 90008 = duplicate subscription, which is fine
-                return new CallResult<BitMartSocketResponse>(new ServerError(message.ErrorCode.Value, _client.GetErrorInfo(message.ErrorCode.Value, message.ErrorMessage!)));
+                return CallResult<BitMartSocketResponse>.Fail(new ServerError(message.ErrorCode.Value, _client.GetErrorInfo(message.ErrorCode.Value, message.ErrorMessage!)), originalData);
 
-            return new CallResult<BitMartSocketResponse>(message, originalData, null);
+            return CallResult<BitMartSocketResponse>.Ok(message, originalData);
         }
     }
 }

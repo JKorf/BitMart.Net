@@ -9,7 +9,7 @@ namespace BitMart.Net.Objects.Sockets
     {
         public FuturesPingQuery() : base("{\"action\":\"ping\"}", false) {
             RequestTimeout = TimeSpan.FromSeconds(5);
-            MessageRouter = MessageRouter.CreateWithoutHandler<BitMartFuturesUpdate<string>>("pong");
+            MessageRouter = MessageRouter.CreateVoid<BitMartFuturesUpdate<string>>("pong");
         }
     }
 }

@@ -23,7 +23,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] Filter by symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartContract[]>> GetContractsAsync(string? symbol = null, CancellationToken ct = default);
+        Task<HttpResult<BitMartContract[]>> GetContractsAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get the current order book
@@ -36,7 +36,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartOrderBook>> GetOrderBookAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<BitMartOrderBook>> GetOrderBookAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get open interest for a symbol
@@ -49,7 +49,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartOpenInterest>> GetOpenInterestAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<BitMartOpenInterest>> GetOpenInterestAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get the current funding rate for a symbol
@@ -62,7 +62,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartFundingRate>> GetCurrentFundingRateAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<BitMartFundingRate>> GetCurrentFundingRateAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get kline/candlestick data
@@ -78,7 +78,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="startTime">["<c>start_time</c>"] Filter by start time</param>
         /// <param name="endTime">["<c>end_time</c>"] Filter by end time</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartFuturesKline[]>> GetKlinesAsync(string symbol, FuturesKlineInterval klineInterval, DateTime startTime, DateTime endTime, CancellationToken ct = default);
+        Task<HttpResult<BitMartFuturesKline[]>> GetKlinesAsync(string symbol, FuturesKlineInterval klineInterval, DateTime startTime, DateTime endTime, CancellationToken ct = default);
 
         /// <summary>
         /// Get mark price klines
@@ -94,7 +94,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="startTime">["<c>start_time</c>"] Filter by start time</param>
         /// <param name="endTime">["<c>end_time</c>"] Filter by end time</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartFuturesKline[]>> GetMarkKlinesAsync(string symbol, FuturesKlineInterval klineInterval, DateTime startTime, DateTime endTime, CancellationToken ct = default);
+        Task<HttpResult<BitMartFuturesKline[]>> GetMarkKlinesAsync(string symbol, FuturesKlineInterval klineInterval, DateTime startTime, DateTime endTime, CancellationToken ct = default);
 
         /// <summary>
         /// Get funding rate history
@@ -108,7 +108,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETHUSDT`</param>
         /// <param name="limit">["<c>limit</c>"] Max number of results, max 100</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartFundingRateHistory[]>> GetFundingRateHistoryAsync(string symbol, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<BitMartFundingRateHistory[]>> GetFundingRateHistoryAsync(string symbol, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get leverage bracket info
@@ -121,7 +121,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartSymbolBracket[]>> GetLeverageBracketsAsync(string? symbol = null, CancellationToken ct = default);
+        Task<HttpResult<BitMartSymbolBracket[]>> GetLeverageBracketsAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get recent trades
@@ -135,7 +135,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETHUSDT`</param>
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartRecentTrade[]>> GetRecentTradesAsync(string symbol, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<BitMartRecentTrade[]>> GetRecentTradesAsync(string symbol, int? limit = null, CancellationToken ct = default);
 
     }
 }

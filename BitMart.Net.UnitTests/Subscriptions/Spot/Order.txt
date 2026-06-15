@@ -27,7 +27,7 @@
             "client_order_id":"order4872191",
             "create_time":"1609926028000",
             "update_time":"1609926044000",
-            "order_mode":"0",
+            "order_mode":"spot",
             "entrust_type":"normal",
             "order_state":"partially_filled"
         }

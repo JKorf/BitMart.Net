@@ -48,13 +48,13 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         #endregion
 
         #region constructor/destructor
-        internal BitMartRestClientUsdFuturesApi(ILogger logger, IBitMartRestClient baseClient, HttpClient? httpClient, BitMartRestOptions options)
-            : base(logger, httpClient, options.Environment.RestFuturesClientAddress, options, options.UsdFuturesOptions)
+        internal BitMartRestClientUsdFuturesApi(ILoggerFactory? loggerFactory, IBitMartRestClient baseClient, HttpClient? httpClient, BitMartRestOptions options)
+            : base(loggerFactory, BitMartExchange.Metadata.Id, httpClient, options.Environment.RestFuturesClientAddress, options, options.UsdFuturesOptions)
         {
             Account = new BitMartRestClientUsdFuturesApiAccount(this);
             SubAccount = new BitMartRestClientUsdFuturesApiSubAccount(this);
-            ExchangeData = new BitMartRestClientUsdFuturesApiExchangeData(logger, this);
-            Trading = new BitMartRestClientUsdFuturesApiTrading(logger, this);
+            ExchangeData = new BitMartRestClientUsdFuturesApiExchangeData(_logger, this);
+            Trading = new BitMartRestClientUsdFuturesApiTrading(_logger, this);
 
             _baseClient = baseClient;
         }
@@ -69,38 +69,32 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         protected override BitMartAuthenticationProvider CreateAuthenticationProvider(BitMartCredentials credentials)
             => new BitMartAuthenticationProvider(credentials);
 
-        internal Task<WebCallResult> SendAsync(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)
-            => SendToAddressAsync(BaseAddress, definition, parameters, cancellationToken, weight);
-
-        internal async Task<WebCallResult> SendToAddressAsync(string baseAddress, RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)
+        internal async Task<HttpResult> SendAsync(RequestDefinition definition, Parameters? parameters, CancellationToken cancellationToken, int? weight = null)
         {
-            var result = await base.SendAsync<BitMartResponse>(baseAddress, definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
-            if (!result)
-                return result.AsDataless();
+            var result = await base.SendAsync<BitMartResponse>(definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
+            if (!result.Success)
+                return result;
 
             if (result.Data.Code != 1000)
-                return result.AsDatalessError(new ServerError(result.Data.Code, GetErrorInfo(result.Data.Code, result.Data.Message)));
+                return HttpResult.Fail(result, new ServerError(result.Data.Code, GetErrorInfo(result.Data.Code, result.Data.Message)));
 
-            return result.AsDataless();
+            return result;
         }
 
-        internal Task<WebCallResult<T>> SendAsync<T>(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null, Dictionary<string, string>? additionalHeaders = null) where T : class
-            => SendToAddressAsync<T>(BaseAddress, definition, parameters, cancellationToken, weight, additionalHeaders);
-
-        internal async Task<WebCallResult<T>> SendToAddressAsync<T>(string baseAddress, RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null, Dictionary<string, string>? additionalHeaders = null) where T : class
+        internal async Task<HttpResult<T>> SendAsync<T>(RequestDefinition definition, Parameters? parameters, CancellationToken cancellationToken, int? weight = null, Dictionary<string, string>? additionalHeaders = null) where T : class
         {
-            var result = await base.SendAsync<BitMartResponse<T>>(baseAddress, definition, parameters, cancellationToken, additionalHeaders, weight).ConfigureAwait(false);
-            if (!result)
-                return result.As<T>(default);
+            var result = await base.SendAsync<BitMartResponse<T>>(definition, parameters, cancellationToken, additionalHeaders, weight).ConfigureAwait(false);
+            if (!result.Success)
+                return HttpResult.Fail<T>(result);
 
             if (result.Data.Code != 1000)
-                return result.AsError<T>(new ServerError(result.Data.Code, GetErrorInfo(result.Data.Code, result.Data.Message)));
+                return HttpResult.Fail<T>(result, new ServerError(result.Data.Code, GetErrorInfo(result.Data.Code, result.Data.Message)));
 
-            return result.As(result.Data.Data);
+            return HttpResult.Ok(result, result.Data.Data);
         }
 
         /// <inheritdoc />
-        protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
+        protected override Task<HttpResult<DateTime>> GetServerTimestampAsync()
             => _baseClient.SpotApi.ExchangeData.GetServerTimeAsync();
 
         /// <inheritdoc />
