@@ -25,8 +25,8 @@ Primary documentation:
 - Include `using BitMart.Net;` when using `BitMartCredentials` or `BitMartEnvironment`.
 - Include `using BitMart.Net.Enums;` for order sides, order types, futures sides, margin types, position modes and kline intervals.
 - Always check `.Success` before reading `.Data`.
-- REST methods return `WebCallResult<T>` or `WebCallResult`.
-- WebSocket subscriptions return `CallResult<UpdateSubscription>`.
+- REST methods return `HttpResult<T>` or `HttpResult`.
+- WebSocket subscriptions return `WebSocketResult<UpdateSubscription>`.
 - Reuse clients. Do not instantiate a REST or socket client per request in production code.
 - Prefer dependency injection for long-running services.
 - Store WebSocket subscriptions and unsubscribe during shutdown.
@@ -482,9 +482,9 @@ Console.WriteLine(result.Data.LastPrice);
 Retry only transient failures:
 
 ```csharp
-async Task<WebCallResult<T>> WithRetry<T>(Func<Task<WebCallResult<T>>> call)
+async Task<HttpResult<T>> WithRetry<T>(Func<Task<HttpResult<T>>> call)
 {
-    WebCallResult<T> last = default!;
+    HttpResult<T> last = default!;
     for (var attempt = 1; attempt <= 3; attempt++)
     {
         last = await call();

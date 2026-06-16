@@ -30,7 +30,7 @@ Do not use `BTC-USDT`, `BTC/USDT`, or Bitfinex-style `tBTCUSD`.
 
 ## Result pattern
 
-Most REST calls return `WebCallResult<T>`. Always check `.Success` before using `.Data`; use `.Error` for exchange, validation, network and rate-limit failures.
+Most REST calls return `HttpResult<T>`. Always check `.Success` before using `.Data`; use `.Error` for exchange, validation, network and rate-limit failures.
 
 ```csharp
 var result = await client.SpotApi.ExchangeData.GetTickerAsync("BTC_USDT");
@@ -43,7 +43,7 @@ if (!result.Success)
 Console.WriteLine(result.Data.LastPrice);
 ```
 
-Socket subscription calls return `CallResult<UpdateSubscription>`. Keep the concrete socket client so you can unsubscribe:
+Socket subscription calls return `WebSocketResult<UpdateSubscription>`. Keep the concrete socket client so you can unsubscribe:
 
 ```csharp
 var sub = await socketClient.SpotApi.SubscribeToTickerUpdatesAsync("BTC_USDT", update => { });
@@ -57,7 +57,7 @@ if (sub.Success)
 - `02-usd-futures.cs` - USD futures funding, balances, positions and order flow.
 - `03-websocket.cs` - spot and USD futures public WebSocket subscriptions and unsubscribe pattern.
 - `04-multi-exchange.cs` - CryptoExchange.Net shared API usage for exchange-agnostic code.
-- `05-error-handling.cs` - `WebCallResult<T>` handling, transient retry shape and order error categorization.
+- `05-error-handling.cs` - `HttpResult<T>` handling, transient retry shape and order error categorization.
 
 ## Common routing
 
