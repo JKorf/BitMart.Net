@@ -11,7 +11,14 @@ using BitMart.Net.Clients;
 using CryptoExchange.Net.SharedApis;
 
 // BitMart exposes SharedClient on both SpotApi and UsdFuturesApi.
-ISpotTickerRestClient bitMartSpotShared = new BitMartRestClient().SpotApi.SharedClient;
+var bitMartRest = new BitMartRestClient();
+ISpotTickerRestClient bitMartSpotShared = bitMartRest.SpotApi.SharedClient;
+
+var sharedInfo = bitMartRest.SpotApi.SharedClient.Discover();
+var supportedFeatures = sharedInfo.Features
+    .Where(x => x.Supported)
+    .Select(x => x.EndpointName);
+Console.WriteLine($"{sharedInfo.Exchange} {sharedInfo.TypeName}: {string.Join(", ", supportedFeatures)}");
 
 var btcusdt = new SharedSymbol(TradingMode.Spot, "BTC", "USDT");
 
@@ -33,6 +40,7 @@ async Task PrintTicker(ISpotTickerRestClient client, SharedSymbol symbol)
 //   ISpotTickerRestClient, ISpotSymbolRestClient, ISpotOrderRestClient
 //   IFuturesTickerRestClient, IFuturesOrderRestClient, IFuturesSymbolRestClient
 //   IBalanceRestClient, IFeeRestClient, IOrderBookRestClient
+// Call SharedClient.Discover() before routing optional shared features.
 
 // ---- WEBSOCKET EXAMPLE - SHARED SUBSCRIPTION ----
 var bitMartSocket = new BitMartSocketClient();

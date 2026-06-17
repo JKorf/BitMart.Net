@@ -9,6 +9,7 @@ using BitMart.Net.Enums;
 
 var socketClient = new BitMartSocketClient();
 
+// Subscription methods return WebSocketResult<UpdateSubscription>.
 var spotTickerSubscription = await socketClient.SpotApi.SubscribeToTickerUpdatesAsync(
     "BTC_USDT",
     update =>

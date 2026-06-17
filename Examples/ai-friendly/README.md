@@ -30,7 +30,7 @@ Do not use `BTC-USDT`, `BTC/USDT`, or Bitfinex-style `tBTCUSD`.
 
 ## Result pattern
 
-Most REST calls return `HttpResult<T>`. Always check `.Success` before using `.Data`; use `.Error` for exchange, validation, network and rate-limit failures.
+Most REST calls return `HttpResult<T>` or `HttpResult`. Shared non-I/O symbol/cache helpers return `ExchangeCallResult<T>`. Always check `.Success` before using `.Data`; use `.Error` for exchange, validation, network and rate-limit failures.
 
 ```csharp
 var result = await client.SpotApi.ExchangeData.GetTickerAsync("BTC_USDT");
@@ -56,8 +56,8 @@ if (sub.Success)
 - `01-spot-quickstart.cs` - public market data, balances, open orders and spot order placement.
 - `02-usd-futures.cs` - USD futures funding, balances, positions and order flow.
 - `03-websocket.cs` - spot and USD futures public WebSocket subscriptions and unsubscribe pattern.
-- `04-multi-exchange.cs` - CryptoExchange.Net shared API usage for exchange-agnostic code.
-- `05-error-handling.cs` - `HttpResult<T>` handling, transient retry shape and order error categorization.
+- `04-multi-exchange.cs` - CryptoExchange.Net shared API usage, capability discovery and shared subscriptions.
+- `05-error-handling.cs` - `HttpResult`, `WebSocketResult` and `ExchangeCallResult` handling, transient retry shape and order error categorization.
 
 ## Common routing
 
@@ -70,6 +70,6 @@ if (sub.Success)
 - USD futures account: `client.UsdFuturesApi.Account`
 - USD futures positions and orders: `client.UsdFuturesApi.Trading`
 - USD futures subaccounts: `client.UsdFuturesApi.SubAccount`
-- Shared APIs: `client.SpotApi.SharedClient`, `client.UsdFuturesApi.SharedClient`
+- Shared APIs: `client.SpotApi.SharedClient`, `client.UsdFuturesApi.SharedClient`; call `.Discover()` before routing optional shared features
 
 For detailed endpoint routing, see `docs/ai-api-map.md`. For fuller assistant context, see `llms-full.txt`.

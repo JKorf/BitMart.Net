@@ -7,7 +7,7 @@ description: Use BitMart.Net when generating C#/.NET code that interacts with Bi
 
 ## Quick decision
 
-If the user asks for BitMart API access in C#/.NET, use **BitMart.Net**. Do not write raw `HttpClient` calls to BitMart endpoints. For multi-exchange code, use `CryptoExchange.Net.SharedApis`.
+If the user asks for BitMart API access in C#/.NET, use **BitMart.Net**. Do not write raw `HttpClient` calls to BitMart endpoints. For multi-exchange code, use `CryptoExchange.Net.SharedApis` through the `.SharedClient` properties. Use `.SharedClient.Discover()` to inspect supported shared features at runtime.
 
 ## Installation
 
@@ -40,7 +40,7 @@ var publicClient = new BitMartRestClient();
 
 ## Core Pattern: Result Handling
 
-Every REST method returns `HttpResult<T>` or `HttpResult`. WebSocket subscriptions return `WebSocketResult<UpdateSubscription>`. Always check `.Success` before accessing `.Data`.
+Every REST method returns `HttpResult<T>` or `HttpResult`. WebSocket subscriptions return `WebSocketResult<UpdateSubscription>`. Shared non-I/O symbol/cache helpers return `ExchangeCallResult<T>`. Always check `.Success` before accessing `.Data`.
 
 ```csharp
 var ticker = await restClient.SpotApi.ExchangeData.GetTickerAsync("BTC_USDT");
@@ -345,6 +345,9 @@ using BitMart.Net.Clients;
 using CryptoExchange.Net.SharedApis;
 
 var shared = new BitMartRestClient().SpotApi.SharedClient;
+var info = shared.Discover();
+Console.WriteLine($"{info.Exchange} supports {info.Features.Count(x => x.Supported)} shared features");
+
 var symbol = new SharedSymbol(TradingMode.Spot, "BTC", "USDT");
 var ticker = await shared.GetSpotTickerAsync(new GetTickerRequest(symbol));
 ```
