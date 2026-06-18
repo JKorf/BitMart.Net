@@ -793,7 +793,13 @@ namespace BitMart.Net.Clients.SpotApi
 
             return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(result.Data, x => x.ApplyTime, request.StartTime, request.EndTime, direction)
                        .Select(x => 
-                           new SharedWithdrawal(x.Asset.Split(new[] { "-" }, StringSplitOptions.RemoveEmptyEntries)[0], x.Address!, x.ArrivalQuantity, x.Status == DepositWithdrawalStatus.Completed, x.ApplyTime)
+                           new SharedWithdrawal(
+                               x.Asset.Split(new[] { "-" }, StringSplitOptions.RemoveEmptyEntries)[0],
+                               x.Address!,
+                               x.ArrivalQuantity,
+                               x.Status == DepositWithdrawalStatus.Completed,
+                               x.ApplyTime,
+                               GetWithdrawalStatus(x))
                             {
                                 Network = x.Asset.Split('-')[1],
                                 Id = x.WithdrawId!,
@@ -802,6 +808,20 @@ namespace BitMart.Net.Clients.SpotApi
                                 Fee = x.Fee
                             })
                        .ToArray(), nextPageRequest);
+        }
+
+        private SharedTransferStatus GetWithdrawalStatus(BitMartDepositWithdrawal x)
+        {
+            if (x.Status == DepositWithdrawalStatus.Canceled || x.Status == DepositWithdrawalStatus.Failed)
+                return SharedTransferStatus.Failed;
+
+            if (x.Status == DepositWithdrawalStatus.Completed)
+                return SharedTransferStatus.Completed;
+
+            if (x.Status == DepositWithdrawalStatus.Created || x.Status == DepositWithdrawalStatus.Processing || x.Status == DepositWithdrawalStatus.Submitted)
+                return SharedTransferStatus.InProgress;
+
+            return SharedTransferStatus.Unknown;
         }
 
         #endregion
