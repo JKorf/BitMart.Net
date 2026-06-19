@@ -26,7 +26,8 @@ namespace BitMart.Net
                 "https://www.bitmart.com",
                 ["https://developer-pro.bitmart.com/#introduction"],
                 PlatformType.CryptoCurrencyExchange,
-                CentralizationType.Centralized
+                CentralizationType.Centralized,
+                BitMartEnvironment.All
                 );
 
         /// <summary>
