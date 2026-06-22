@@ -93,7 +93,12 @@ namespace BitMart.Net.Clients.SpotApi
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
             var result = await SubscribeToBalanceUpdatesAsync(
-                update => handler(update.ToType(update.Data.Balances.Select(x => new SharedBalance(x.Asset, x.Available, x.Available + x.Frozen)).ToArray())),
+                update => handler(update.ToType(update.Data.Balances.Select(x => 
+                    new SharedBalance(
+                        SupportedTradingModes, 
+                        x.Asset, 
+                        x.Available,
+                        x.Available + x.Frozen)).ToArray())),
                 ct: ct).ConfigureAwait(false);
 
             return result;

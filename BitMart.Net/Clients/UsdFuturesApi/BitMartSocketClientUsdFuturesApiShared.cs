@@ -111,7 +111,12 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
             var result = await SubscribeToBalanceUpdatesAsync(
-                update => handler(update.ToType<SharedBalance[]>(new[] { new SharedBalance(update.Data.Asset, update.Data.Available, update.Data.Available + update.Data.Frozen) })),
+                update => handler(update.ToType<SharedBalance[]>(new[] { 
+                        new SharedBalance(
+                            SupportedTradingModes,
+                            update.Data.Asset, 
+                            update.Data.Available,
+                            update.Data.Available + update.Data.Frozen) })),
                 ct: ct).ConfigureAwait(false);
 
             return result;

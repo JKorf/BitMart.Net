@@ -257,7 +257,12 @@ namespace BitMart.Net.Clients.SpotApi
                 if (!result.Success)
                     return HttpResult.Fail<SharedBalance[]>(result);
 
-                return HttpResult.Ok(result, result.Data.Select(x => new SharedBalance(x.Name, x.Available, x.Available + x.Frozen)).ToArray());
+                return HttpResult.Ok(result, result.Data.Select(x => 
+                    new SharedBalance(
+                        SupportedTradingModes, 
+                        x.Name,
+                        x.Available,
+                        x.Available + x.Frozen)).ToArray());
             }
             else
             {
@@ -265,7 +270,12 @@ namespace BitMart.Net.Clients.SpotApi
                 if (!result.Success)
                     return HttpResult.Fail<SharedBalance[]>(result);
 
-                return HttpResult.Ok(result, result.Data.Select(x => new SharedBalance(x.Id, x.Available, x.Available + x.Frozen)).ToArray());
+                return HttpResult.Ok(result, result.Data.Select(x => 
+                    new SharedBalance(
+                        SupportedTradingModes, 
+                        x.Id, 
+                        x.Available,
+                        x.Available + x.Frozen)).ToArray());
             }
         }
 
