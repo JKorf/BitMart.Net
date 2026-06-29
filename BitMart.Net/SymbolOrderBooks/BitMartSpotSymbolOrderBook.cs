@@ -20,7 +20,6 @@ namespace BitMart.Net.SymbolOrderBooks
     public class BitMartSpotSymbolOrderBook : SymbolOrderBook
     {
         private readonly bool _clientOwner;
-        private readonly IBitMartRestClient _restClient;
         private readonly IBitMartSocketClient _socketClient;
         private readonly TimeSpan _initialDataTimeout;
 
@@ -30,7 +29,7 @@ namespace BitMart.Net.SymbolOrderBooks
         /// <param name="symbol">The symbol the order book is for</param>
         /// <param name="optionsDelegate">Option configuration delegate</param>
         public BitMartSpotSymbolOrderBook(string symbol, Action<BitMartOrderBookOptions>? optionsDelegate = null)
-            : this(symbol, optionsDelegate, null, null, null)
+            : this(symbol, optionsDelegate, null, null)
         {
             _clientOwner = true;
         }
@@ -41,13 +40,11 @@ namespace BitMart.Net.SymbolOrderBooks
         /// <param name="symbol">The symbol the order book is for</param>
         /// <param name="optionsDelegate">Option configuration delegate</param>
         /// <param name="logger">Logger</param>
-        /// <param name="restClient">Rest client instance</param>
         /// <param name="socketClient">Socket client instance</param>
         public BitMartSpotSymbolOrderBook(
             string symbol,
             Action<BitMartOrderBookOptions>? optionsDelegate,
             ILoggerFactory? logger,
-            IBitMartRestClient? restClient,
             IBitMartSocketClient? socketClient) : base(logger, "BitMart", "Spot", symbol)
         {
             var options = BitMartOrderBookOptions.Default.Copy();
@@ -62,33 +59,32 @@ namespace BitMart.Net.SymbolOrderBooks
             _initialDataTimeout = options?.InitialDataTimeout ?? TimeSpan.FromSeconds(30);
             _clientOwner = socketClient == null;
             _socketClient = socketClient ?? new BitMartSocketClient();
-            _restClient = restClient ?? new BitMartRestClient();
         }
 
         /// <inheritdoc />
         protected override async Task<CallResult<UpdateSubscription>> DoStartAsync(CancellationToken ct)
         {
-            CallResult<UpdateSubscription> subResult;
+            WebSocketResult<UpdateSubscription> subResult;
             if (Levels == null)
                 subResult = await _socketClient.SpotApi.SubscribeToOrderBookUpdatesAsync(Symbol, HandleUpdate).ConfigureAwait(false);
             else
                 subResult = await _socketClient.SpotApi.SubscribeToPartialOrderBookUpdatesAsync(Symbol, Levels.Value, HandleUpdate).ConfigureAwait(false);
 
-            if (!subResult)
-                return new CallResult<UpdateSubscription>(subResult.Error!);
+            if (!subResult.Success)
+                return CallResult<UpdateSubscription>.Fail(subResult.Error!);
 
             if (ct.IsCancellationRequested)
             {
                 await subResult.Data.CloseAsync().ConfigureAwait(false);
-                return subResult.AsError<UpdateSubscription>(new CancellationRequestedError());
+                return CallResult.Fail<UpdateSubscription>(new CancellationRequestedError());
             }
 
             Status = OrderBookStatus.Syncing;
             var setResult = await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
-            if (!setResult)
+            if (!setResult.Success)
                 await subResult.Data.CloseAsync().ConfigureAwait(false);
 
-            return setResult ? subResult : new CallResult<UpdateSubscription>(setResult.Error!);
+            return setResult.Success ? CallResult.Ok(subResult.Data) : CallResult.Fail<UpdateSubscription>(setResult.Error!);
         }
 
         private void HandleUpdate(DataEvent<BitMartOrderBookIncrementalUpdate> data)
@@ -110,7 +106,7 @@ namespace BitMart.Net.SymbolOrderBooks
         }
 
         /// <inheritdoc />
-        protected override async Task<CallResult<bool>> DoResyncAsync(CancellationToken ct)
+        protected override async Task<CallResult> DoResyncAsync(CancellationToken ct)
         {
             return await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
         }
@@ -119,10 +115,7 @@ namespace BitMart.Net.SymbolOrderBooks
         protected override void Dispose(bool disposing)
         {
             if (_clientOwner)
-            {
-                _restClient?.Dispose();
                 _socketClient?.Dispose();
-            }
 
             base.Dispose(disposing);
         }

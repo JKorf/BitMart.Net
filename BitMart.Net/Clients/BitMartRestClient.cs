@@ -48,8 +48,8 @@ namespace BitMart.Net.Clients
         {
             Initialize(options.Value);
 
-            UsdFuturesApi = AddApiClient(new BitMartRestClientUsdFuturesApi(_logger, this, httpClient, options.Value));
-            SpotApi = AddApiClient(new BitMartRestClientSpotApi(_logger, httpClient, options.Value));
+            UsdFuturesApi = AddApiClient(new BitMartRestClientUsdFuturesApi(loggerFactory, this, httpClient, options.Value));
+            SpotApi = AddApiClient(new BitMartRestClientSpotApi(loggerFactory, httpClient, options.Value));
         }
 
         #endregion

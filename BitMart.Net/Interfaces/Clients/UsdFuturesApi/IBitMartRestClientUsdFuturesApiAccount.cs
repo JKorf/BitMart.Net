@@ -22,7 +22,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartFuturesBalance[]>> GetBalancesAsync(CancellationToken ct = default);
+        Task<HttpResult<BitMartFuturesBalance[]>> GetBalancesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get account transfer history
@@ -39,7 +39,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="page">["<c>page</c>"] Page number</param>
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartFuturesTransfer[]>> GetTransferHistoryAsync(string? asset = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<BitMartFuturesTransfer[]>> GetTransferHistoryAsync(string? asset = null, DateTime? startTime = null, DateTime? endTime = null, int? page = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Transfer between futures and spot account
@@ -54,7 +54,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="quantity">["<c>amount</c>"] Quantity to transfer</param>
         /// <param name="type">["<c>type</c>"] Transfer direction</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartTransferResult>> TransferAsync(string asset, decimal quantity, FuturesTransferType type, CancellationToken ct = default);
+        Task<HttpResult<BitMartTransferResult>> TransferAsync(string asset, decimal quantity, FuturesTransferType type, CancellationToken ct = default);
 
         /// <summary>
         /// Set leverage
@@ -69,7 +69,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="leverage">["<c>leverage</c>"] Leverage</param>
         /// <param name="marginType">["<c>open_type</c>"] Open type, required at close position</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartLeverage>> SetLeverageAsync(string symbol, decimal leverage, MarginType marginType, CancellationToken ct = default);
+        Task<HttpResult<BitMartLeverage>> SetLeverageAsync(string symbol, decimal leverage, MarginType marginType, CancellationToken ct = default);
 
         /// <summary>
         /// Get symbol trading fee
@@ -83,7 +83,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETHUSDT`</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMartFuturesFeeRate>> GetSymbolTradeFeeAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<BitMartFuturesFeeRate>> GetSymbolTradeFeeAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get transaction history
@@ -101,7 +101,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="limit">["<c>page_size</c>"] Max number of results, max 1000</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMartFuturesTransaction[]>> GetTransactionHistoryAsync(string? symbol = null, FlowType? flowType = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<BitMartFuturesTransaction[]>> GetTransactionHistoryAsync(string? symbol = null, FlowType? flowType = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Set the position mode of the account
@@ -115,7 +115,7 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// <param name="positionMode">["<c>position_mode</c>"] Position mode</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMartPositionMode>> SetPositionModeAsync(PositionMode positionMode, CancellationToken ct = default);
+        Task<HttpResult<BitMartPositionMode>> SetPositionModeAsync(PositionMode positionMode, CancellationToken ct = default);
 
         /// <summary>
         /// Get the current position  mode of the account
@@ -128,6 +128,6 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMartPositionMode>> GetPositionModeAsync(CancellationToken ct = default);
+        Task<HttpResult<BitMartPositionMode>> GetPositionModeAsync(CancellationToken ct = default);
     }
 }

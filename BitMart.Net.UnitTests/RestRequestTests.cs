@@ -86,7 +86,7 @@ namespace BitMart.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.SubAccount.TransferSubAccountToSubAccountAsync("123", 0.1m, "123", "123", "123"), "TransferSubAccountToSubAccount");
             await tester.ValidateAsync(client => client.SpotApi.SubAccount.GetSubAccountTransferHistoryForMainAsync(123), "GetSubAccountTransferHistoryForMain", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.SpotApi.SubAccount.GetSubAccountTransferHistoryAsync(123), "GetSubAccountTransferHistory", nestedJsonProperty: "data");
-            await tester.ValidateAsync(client => client.SpotApi.SubAccount.GetSubAcccountBalanceAsync("123"), "GetSubAcccountBalance", nestedJsonProperty: "data.wallet");
+            await tester.ValidateAsync(client => client.SpotApi.SubAccount.GetSubAccountBalanceAsync("123"), "GetSubAcccountBalance", nestedJsonProperty: "data.wallet");
             await tester.ValidateAsync(client => client.SpotApi.SubAccount.GetSubAccountListAsync(), "GetSubAccountList", nestedJsonProperty: "data.subAccountList");
         }
 
@@ -158,7 +158,7 @@ namespace BitMart.Net.UnitTests
             await tester.ValidateAsync(client => client.UsdFuturesApi.SubAccount.TransferSubToMainForMainAsync("123", 0.1m, "123", "123"), "TransferSubToMainForMain");
             await tester.ValidateAsync(client => client.UsdFuturesApi.SubAccount.TransferMainToSubForMainAsync("123", 0.1m, "123", "123"), "TransferMainToSubForMain");
             await tester.ValidateAsync(client => client.UsdFuturesApi.SubAccount.TransferSubToMainForSubAsync("123", 0.1m, "123"), "TransferSubToMainForSub");
-            await tester.ValidateAsync(client => client.UsdFuturesApi.SubAccount.GetSubAcccountBalanceAsync("123"), "GetSubAcccountBalance", nestedJsonProperty: "data.wallet");
+            await tester.ValidateAsync(client => client.UsdFuturesApi.SubAccount.GetSubAccountBalanceAsync("123"), "GetSubAcccountBalance", nestedJsonProperty: "data.wallet");
             await tester.ValidateAsync(client => client.UsdFuturesApi.SubAccount.GetSubAccountTransferHistoryForMainAsync("123", 123), "GetSubAccountTransferHistoryForMain", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.UsdFuturesApi.SubAccount.GetSubAccountTransferHistoryAsync(123), "GetSubAccountTransferHistory", nestedJsonProperty: "data");
         }
@@ -192,7 +192,7 @@ namespace BitMart.Net.UnitTests
             await tester.ValidateAsync(client => client.UsdFuturesApi.Trading.CancelAllAfterAsync("ETHUSDT", TimeSpan.Zero), "CancelAllAfter", nestedJsonProperty: "data");
         }
 
-        private bool IsAuthenticated(WebCallResult result)
+        private bool IsAuthenticated(IHttpResult result)
         {
             return result.RequestHeaders.Any(x => x.Key == "X-BM-SIGN");
         }

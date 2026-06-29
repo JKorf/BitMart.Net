@@ -1,5 +1,6 @@
 using BitMart.Net.Objects.Internal;
 using BitMart.Net.Objects.Models;
+using CryptoExchange.Net.Objects;
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
@@ -159,12 +160,12 @@ namespace BitMart.Net.Converters
     [JsonSerializable(typeof(BitMartWithdrawalQuota[]))]
     [JsonSerializable(typeof(BitMartWithdrawId[]))]
     [JsonSerializable(typeof(BorrowInfoWrapper[]))]
-    [JsonSerializable(typeof(BorrowInfo[]))]
+    [JsonSerializable(typeof(BitMartBorrowInfo[]))]
     [JsonSerializable(typeof(BorrowInfoAsset[]))]
     [JsonSerializable(typeof(BorrowRecordWrapper[]))]
-    [JsonSerializable(typeof(BorrowRecord[]))]
+    [JsonSerializable(typeof(BitMartBorrowRecord[]))]
     [JsonSerializable(typeof(RepayRecordWrapper[]))]
-    [JsonSerializable(typeof(RepayRecord[]))]
+    [JsonSerializable(typeof(BitMartRepayRecord[]))]
     [JsonSerializable(typeof(SubAccountTransferHistory[]))]
     [JsonSerializable(typeof(BitMartFuturesLoginResponse))]
     [JsonSerializable(typeof(BitMartFuturesSocketOperation))]
@@ -179,6 +180,8 @@ namespace BitMart.Net.Converters
     [JsonSerializable(typeof(decimal))]
     [JsonSerializable(typeof(DateTime))]
     [JsonSerializable(typeof(DateTime?))]
+    [JsonSerializable(typeof(Parameters))]
+    [JsonSerializable(typeof(Parameters[]))]
     internal partial class BitMartSourceGenerationContext : JsonSerializerContext
     {
     }

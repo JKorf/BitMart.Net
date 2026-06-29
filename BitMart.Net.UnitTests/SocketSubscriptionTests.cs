@@ -28,7 +28,7 @@ namespace BitMart.Net.UnitTests
                 OutputOriginalData = true,
             }), logger);
 
-            var tester = new SocketSubscriptionValidator<BitMartSocketClient>(client, "Subscriptions/Spot", "wss://ws-manager-compress.bitmart.com", "data");
+            var tester = new SocketSubscriptionValidator<BitMartSocketClient>(client, "Subscriptions/Spot", "wss://ws-manager-compress.bitmart.com/api?protocol=1.1", "data");
             await tester.ValidateConcurrentAsync<BitMartKlineUpdate[]>(
                 (client, handler) => client.SpotApi.SubscribeToKlineUpdatesAsync("ETH_USDT", KlineStreamInterval.OneDay, handler),
                 (client, handler) => client.SpotApi.SubscribeToKlineUpdatesAsync("ETH_USDT", KlineStreamInterval.OneHour, handler),
@@ -67,7 +67,7 @@ namespace BitMart.Net.UnitTests
                 OutputOriginalData = true
             }), logger);
 
-            var tester = new SocketSubscriptionValidator<BitMartSocketClient>(client, "Subscriptions/Futures", "wss://openapi-ws.bitmart.com", "data");
+            var tester = new SocketSubscriptionValidator<BitMartSocketClient>(client, "Subscriptions/Futures", "wss://openapi-ws-v2.bitmart.com/api?protocol=1.1", "data");
             await tester.ValidateConcurrentAsync<BitMartFuturesKlineUpdate>(
                 (client, handler) => client.UsdFuturesApi.SubscribeToKlineUpdatesAsync("ETHUSDT", FuturesStreamKlineInterval.OneDay, handler),
                 (client, handler) => client.UsdFuturesApi.SubscribeToKlineUpdatesAsync("ETHUSDT", FuturesStreamKlineInterval.OneHour, handler),

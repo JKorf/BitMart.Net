@@ -25,138 +25,156 @@ namespace BitMart.Net.Clients.SpotApi
         #region Get Server Time
 
         /// <inheritdoc />
-        public async Task<WebCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default)
+        public async Task<HttpResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "system/time", BitMartExchange.RateLimiter.BitMart, 1, false, new SingleLimitGuard(10, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding), preventCaching: true);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "system/time", BitMartExchange.RateLimiter.BitMart, 1, false, new SingleLimitGuard(10, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding), preventCaching: true);
             var result = await _baseClient.SendAsync<BitMartTime>(request, null, ct).ConfigureAwait(false);
-            return result.As(result.Data?.Timestamp ?? default);
+            if (!result.Success)
+                return HttpResult.Fail<DateTime>(result);
+
+            return HttpResult.Ok(result, result.Data.Timestamp);
         }
 
         #endregion
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMartAsset[]>> GetAssetsAsync(CancellationToken ct = default)
+        public async Task<HttpResult<BitMartAsset[]>> GetAssetsAsync(CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "spot/v1/currencies", BitMartExchange.RateLimiter.BitMart, 1, false, 
+            var parameters = new Parameters(BitMartExchange._parameterSerializationSettings);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "spot/v1/currencies", BitMartExchange.RateLimiter.BitMart, 1, false, 
                 new SingleLimitGuard(8, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<BitMartAssetWrapper>(request, parameters, ct).ConfigureAwait(false);
-            return result.As<BitMartAsset[]>(result.Data?.Currencies);
+            if (!result.Success)
+                return HttpResult.Fail<BitMartAsset[]>(result);
+
+            return HttpResult.Ok(result, result.Data.Currencies);
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMartSymbol[]>> GetSymbolsAsync(CancellationToken ct = default)
+        public async Task<HttpResult<BitMartSymbol[]>> GetSymbolsAsync(CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(BitMartExchange._parameterSerializationSettings);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/v1/symbols/details", BitMartExchange.RateLimiter.BitMart, 1, false,
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/spot/v1/symbols/details", BitMartExchange.RateLimiter.BitMart, 1, false,
                 new SingleLimitGuard(12, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<BitMartSymbolWrapper>(request, parameters, ct).ConfigureAwait(false);
-            return result.As<BitMartSymbol[]>(result.Data?.Symbols);
+            if (!result.Success)
+                return HttpResult.Fail<BitMartSymbol[]>(result);
+
+            return HttpResult.Ok(result, result.Data.Symbols);
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<string[]>> GetSymbolNamesAsync(CancellationToken ct = default)
+        public async Task<HttpResult<string[]>> GetSymbolNamesAsync(CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(BitMartExchange._parameterSerializationSettings);
 
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/v1/symbols", BitMartExchange.RateLimiter.BitMart, 1, false,
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/spot/v1/symbols", BitMartExchange.RateLimiter.BitMart, 1, false,
                 new SingleLimitGuard(8, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<BitMartSymbolNamesWrapper>(request, parameters, ct).ConfigureAwait(false);
-            return result.As<string[]>(result.Data?.Symbols);
+            if (!result.Success)
+                return HttpResult.Fail<string[]>(result);
+
+            return HttpResult.Ok(result, result.Data.Symbols);
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMartTicker>> GetTickerAsync(string symbol, CancellationToken ct = default)
+        public async Task<HttpResult<BitMartTicker>> GetTickerAsync(string symbol, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(BitMartExchange._parameterSerializationSettings);
             parameters.Add("symbol", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/quotation/v3/ticker", BitMartExchange.RateLimiter.BitMart, 1, false,
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/spot/quotation/v3/ticker", BitMartExchange.RateLimiter.BitMart, 1, false,
                 new SingleLimitGuard(15, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<BitMartTicker>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMartArrayTicker[]>> GetTickersAsync(CancellationToken ct = default)
+        public async Task<HttpResult<BitMartArrayTicker[]>> GetTickersAsync(CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/quotation/v3/tickers", BitMartExchange.RateLimiter.BitMart, 1, false,
+            var parameters = new Parameters(BitMartExchange._parameterSerializationSettings);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/spot/quotation/v3/tickers", BitMartExchange.RateLimiter.BitMart, 1, false,
                 new SingleLimitGuard(10, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<BitMartArrayTicker[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMartAssetDepositWithdrawInfo[]>> GetAssetDepositWithdrawInfoAsync(string? asset = null, CancellationToken ct = default)
+        public async Task<HttpResult<BitMartAssetDepositWithdrawInfo[]>> GetAssetDepositWithdrawInfoAsync(string? asset = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
-            parameters.AddOptional("currencies", asset);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/account/v1/currencies", BitMartExchange.RateLimiter.BitMart, 1, false,
+            var parameters = new Parameters(BitMartExchange._parameterSerializationSettings);
+            parameters.Add("currencies", asset);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/account/v1/currencies", BitMartExchange.RateLimiter.BitMart, 1, false,
                 new SingleLimitGuard(2, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<BitMartAssetDepositWithdrawInfoWrapper>(request, parameters, ct).ConfigureAwait(false);
-            return result.As<BitMartAssetDepositWithdrawInfo[]>(result.Data?.Currencies);
+            if (!result.Success)
+                return HttpResult.Fail<BitMartAssetDepositWithdrawInfo[]>(result);
+
+            return HttpResult.Ok(result, result.Data.Currencies);
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMartStatus[]>> GetServerStatusAsync(CancellationToken ct = default)
+        public async Task<HttpResult<BitMartStatus[]>> GetServerStatusAsync(CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/system/service", BitMartExchange.RateLimiter.BitMart, 1, false,
+            var parameters = new Parameters(BitMartExchange._parameterSerializationSettings);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/system/service", BitMartExchange.RateLimiter.BitMart, 1, false,
                 new SingleLimitGuard(10, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<BitMartStatusWrapper>(request, parameters, ct).ConfigureAwait(false);
-            return result.As<BitMartStatus[]>(result.Data?.Service);
+            if (!result.Success)
+                return HttpResult.Fail<BitMartStatus[]>(result);
+
+            return HttpResult.Ok(result, result.Data.Service);
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMartKline[]>> GetKlinesAsync(string symbol, KlineInterval klineInterval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
+        public async Task<HttpResult<BitMartKline[]>> GetKlinesAsync(string symbol, KlineInterval klineInterval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
-            parameters.AddOptionalSecondsString("after", startTime);
-            parameters.AddOptionalSecondsString("before", endTime);
-            parameters.AddOptional("limit", limit);
+            var parameters = new Parameters(BitMartExchange._parameterSerializationSettings);
+            parameters.Add("after", startTime, DateTimeSerialization.SecondsString);
+            parameters.Add("before", endTime, DateTimeSerialization.SecondsString);
+            parameters.Add("limit", limit);
             parameters.Add("symbol", symbol);
-            parameters.AddEnum("step", klineInterval);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/quotation/v3/lite-klines", BitMartExchange.RateLimiter.BitMart, 1, false,
+            parameters.Add("step", klineInterval);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/spot/quotation/v3/lite-klines", BitMartExchange.RateLimiter.BitMart, 1, false,
                 new SingleLimitGuard(15, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<BitMartKline[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMartKline[]>> GetKlineHistoryAsync(string symbol, KlineInterval klineInterval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
+        public async Task<HttpResult<BitMartKline[]>> GetKlineHistoryAsync(string symbol, KlineInterval klineInterval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
-            parameters.AddOptionalSecondsString("after", startTime);
-            parameters.AddOptionalSecondsString("before", endTime);
-            parameters.AddOptional("limit", limit);
+            var parameters = new Parameters(BitMartExchange._parameterSerializationSettings);
+            parameters.Add("after", startTime, DateTimeSerialization.SecondsString);
+            parameters.Add("before", endTime, DateTimeSerialization.SecondsString);
+            parameters.Add("limit", limit);
             parameters.Add("symbol", symbol);
-            parameters.AddEnum("step", klineInterval);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/quotation/v3/klines", BitMartExchange.RateLimiter.BitMart, 1, false,
+            parameters.Add("step", klineInterval);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/spot/quotation/v3/klines", BitMartExchange.RateLimiter.BitMart, 1, false,
                 new SingleLimitGuard(10, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<BitMartKline[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMartTrade[]>> GetTradesAsync(string symbol, int? limit = null, CancellationToken ct = default)
+        public async Task<HttpResult<BitMartTrade[]>> GetTradesAsync(string symbol, int? limit = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
-            parameters.AddOptional("limit", limit);
+            var parameters = new Parameters(BitMartExchange._parameterSerializationSettings);
+            parameters.Add("limit", limit);
             parameters.Add("symbol", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/quotation/v3/trades", BitMartExchange.RateLimiter.BitMart, 1, false,
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/spot/quotation/v3/trades", BitMartExchange.RateLimiter.BitMart, 1, false,
                 new SingleLimitGuard(15, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<BitMartTrade[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
         /// <inheritdoc />
-        public async Task<WebCallResult<BitMartOrderBook>> GetOrderBookAsync(string symbol, int? limit = null, CancellationToken ct = default)
+        public async Task<HttpResult<BitMartOrderBook>> GetOrderBookAsync(string symbol, int? limit = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
-            parameters.AddOptional("limit", limit);
+            var parameters = new Parameters(BitMartExchange._parameterSerializationSettings);
+            parameters.Add("limit", limit);
             parameters.Add("symbol", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/spot/quotation/v3/books", BitMartExchange.RateLimiter.BitMart, 1, false,
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/spot/quotation/v3/books", BitMartExchange.RateLimiter.BitMart, 1, false,
                 new SingleLimitGuard(15, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<BitMartOrderBook>(request, parameters, ct).ConfigureAwait(false);
             return result;

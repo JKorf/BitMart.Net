@@ -11,14 +11,14 @@ namespace BitMart.Net.Objects.Models
         /// ["<c>symbols</c>"] Symbols
         /// </summary>
         [JsonPropertyName("symbols")]
-        public BorrowInfo[] Symbols { get; set; } = Array.Empty<BorrowInfo>();
+        public BitMartBorrowInfo[] Symbols { get; set; } = Array.Empty<BitMartBorrowInfo>();
     }
 
     /// <summary>
     /// Borrow rate and quantity info
     /// </summary>
     [SerializationModel]
-    public record BorrowInfo
+    public record BitMartBorrowInfo
     {
         /// <summary>
         /// ["<c>symbol</c>"] Symbol

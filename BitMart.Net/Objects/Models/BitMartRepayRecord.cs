@@ -11,14 +11,14 @@ namespace BitMart.Net.Objects.Models
         /// ["<c>records</c>"] Records
         /// </summary>
         [JsonPropertyName("records")]
-        public RepayRecord[] Records { get; set; } = Array.Empty<RepayRecord>();
+        public BitMartRepayRecord[] Records { get; set; } = Array.Empty<BitMartRepayRecord>();
     }
 
     /// <summary>
     /// 
     /// </summary>
     [SerializationModel]
-    public record RepayRecord
+    public record BitMartRepayRecord
     {
         /// <summary>
         /// ["<c>repay_id</c>"] Repay id

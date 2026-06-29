@@ -32,12 +32,11 @@ namespace BitMart.Net.UnitTests
                     return headers["X-BM-SIGN"].ToString();
                 },
                 "1d022acf035f8d7f899dcaad0621fe39d351f7809e30ac8c96939a36548a6502",
-                new Dictionary<string, object>
+                new Parameters(BitMartExchange._parameterSerializationSettings)
                 {
                     { "symbol", "LTCBTC" },
                 },
                 DateTimeConverter.ParseFromDouble(1499827320559),
-                true,
                 false);
         }
 

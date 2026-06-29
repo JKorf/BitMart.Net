@@ -21,7 +21,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// GET /system/service
         /// </para>
         /// </summary>
-        Task<WebCallResult<BitMartStatus[]>> GetServerStatusAsync(CancellationToken ct = default);
+        Task<HttpResult<BitMartStatus[]>> GetServerStatusAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get server time
@@ -34,7 +34,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default);
+        Task<HttpResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get supported assets list
@@ -47,7 +47,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMartAsset[]>> GetAssetsAsync(CancellationToken ct = default);
+        Task<HttpResult<BitMartAsset[]>> GetAssetsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get supported symbols list
@@ -60,7 +60,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMartSymbol[]>> GetSymbolsAsync( CancellationToken ct = default);
+        Task<HttpResult<BitMartSymbol[]>> GetSymbolsAsync( CancellationToken ct = default);
 
         /// <summary>
         /// Get a list of supported symbol names
@@ -73,7 +73,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<string[]>> GetSymbolNamesAsync(CancellationToken ct = default);
+        Task<HttpResult<string[]>> GetSymbolNamesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get price ticker for a symbol
@@ -86,7 +86,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartTicker>> GetTickerAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<BitMartTicker>> GetTickerAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get price tickers for all symbols
@@ -99,7 +99,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMartArrayTicker[]>> GetTickersAsync(CancellationToken ct = default);
+        Task<HttpResult<BitMartArrayTicker[]>> GetTickersAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get deposit and withdrawal info for assets
@@ -112,7 +112,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="asset">["<c>currencies</c>"] Filter by asset. Can specify up to 20 assets comma separated</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartAssetDepositWithdrawInfo[]>> GetAssetDepositWithdrawInfoAsync(string? asset = null, CancellationToken ct = default);
+        Task<HttpResult<BitMartAssetDepositWithdrawInfo[]>> GetAssetDepositWithdrawInfoAsync(string? asset = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get kline/candlesticks
@@ -129,7 +129,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// <param name="endTime">["<c>before</c>"] Filter by end time</param>
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartKline[]>> GetKlinesAsync(string symbol, KlineInterval klineInterval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<BitMartKline[]>> GetKlinesAsync(string symbol, KlineInterval klineInterval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get historical klines
@@ -146,7 +146,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// <param name="endTime">["<c>before</c>"] Filter by end time</param>
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartKline[]>> GetKlineHistoryAsync(string symbol, KlineInterval klineInterval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<BitMartKline[]>> GetKlineHistoryAsync(string symbol, KlineInterval klineInterval, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get recent trades
@@ -160,7 +160,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH_USDT`</param>
         /// <param name="limit">["<c>limit</c>"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartTrade[]>> GetTradesAsync(string symbol, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<BitMartTrade[]>> GetTradesAsync(string symbol, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get the current order book
@@ -175,7 +175,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">["<c>limit</c>"] Max number of rows in the book</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMartOrderBook>> GetOrderBookAsync(string symbol, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<BitMartOrderBook>> GetOrderBookAsync(string symbol, int? limit = null, CancellationToken ct = default);
 
     }
 }

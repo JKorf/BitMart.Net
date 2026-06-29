@@ -19,15 +19,15 @@ namespace BitMart.Net.Objects.Sockets
         }, false, 1)
         {
             _client = client;
-            MessageRouter = MessageRouter.CreateWithoutTopicFilter<BitMartSocketResponse>("login", HandleMessage);
+            MessageRouter = MessageRouter.CreateForQuery<BitMartSocketResponse>("login", HandleMessage);
         }
 
         public CallResult<BitMartSocketResponse> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, BitMartSocketResponse message)
         {
             if (message.ErrorCode != null)
-                return new CallResult<BitMartSocketResponse>(new ServerError(message.ErrorCode.Value, _client.GetErrorInfo(message.ErrorCode.Value, message.ErrorMessage!)));
+                return CallResult<BitMartSocketResponse>.Fail(new ServerError(message.ErrorCode.Value, _client.GetErrorInfo(message.ErrorCode.Value, message.ErrorMessage!)), originalData);
 
-            return new CallResult<BitMartSocketResponse>(message, originalData, null);
+            return CallResult<BitMartSocketResponse>.Ok(message, originalData);
         }
     }
 }

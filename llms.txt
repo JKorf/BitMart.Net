@@ -1,6 +1,6 @@
 # BitMart.Net
 
-BitMart.Net is a .NET client library for BitMart REST and WebSocket APIs, built on CryptoExchange.Net.
+BitMart.Net is a .NET client library for BitMart REST and WebSocket APIs, built on CryptoExchange.Net. REST methods return `HttpResult<T>` / `HttpResult`, WebSocket subscriptions return `WebSocketResult<UpdateSubscription>`, and shared symbol/cache helpers return `ExchangeCallResult<T>`.
 
 ## Install
 
@@ -28,6 +28,7 @@ var socketClient = new BitMartSocketClient();
 - USD futures REST: `restClient.UsdFuturesApi`
 - Spot socket: `socketClient.SpotApi`
 - USD futures socket: `socketClient.UsdFuturesApi`
+- Shared capability discovery: `client.SpotApi.SharedClient.Discover()` / `client.UsdFuturesApi.SharedClient.Discover()`
 
 ## Common calls
 

@@ -24,7 +24,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// <param name="asset">["<c>currency</c>"] Filter on asset, for example `ETH`</param>
         /// <param name="needUsdValuation">["<c>needUsdValuation</c>"] Include USD valuation</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartBalance[]>> GetFundingBalancesAsync(string? asset = null, bool? needUsdValuation = null, CancellationToken ct = default);
+        Task<HttpResult<BitMartBalance[]>> GetFundingBalancesAsync(string? asset = null, bool? needUsdValuation = null, CancellationToken ct = default);
         
         /// <summary>
         /// Get spot account balances
@@ -36,7 +36,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartSpotBalance[]>> GetSpotBalancesAsync(CancellationToken ct = default);
+        Task<HttpResult<BitMartSpotBalance[]>> GetSpotBalancesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get deposit address
@@ -49,7 +49,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="asset">["<c>currency</c>"] The asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartDepositAddress>> GetDepositAddressAsync(string asset, CancellationToken ct = default);
+        Task<HttpResult<BitMartDepositAddress>> GetDepositAddressAsync(string asset, CancellationToken ct = default);
 
         /// <summary>
         /// Get withdrawal quotas
@@ -62,7 +62,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="asset">["<c>currency</c>"] Asset, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartWithdrawalQuota>> GetWithdrawalQuotaAsync(string asset, CancellationToken ct = default);
+        Task<HttpResult<BitMartWithdrawalQuota>> GetWithdrawalQuotaAsync(string asset, CancellationToken ct = default);
 
         /// <summary>
         /// Withdraw funds
@@ -82,7 +82,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// <param name="targetAccount">["<c>value</c>"] Target account</param>
         /// <param name="areaCode">["<c>areaCode</c>"] Area phone code</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartWithdrawId>> WithdrawAsync(string asset, decimal quantity, string? targetAddress = null, string? memo = null, string? remark = null, string? accountDestType = null, string? targetAccount = null, string? areaCode = null, CancellationToken ct = default);
+        Task<HttpResult<BitMartWithdrawId>> WithdrawAsync(string asset, decimal quantity, string? targetAddress = null, string? memo = null, string? remark = null, string? accountDestType = null, string? targetAccount = null, string? areaCode = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get deposit history
@@ -99,7 +99,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">["<c>N</c>"] Max number of results, max 1000</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMartDepositWithdrawal[]>> GetDepositHistoryAsync(string? asset = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<BitMartDepositWithdrawal[]>> GetDepositHistoryAsync(string? asset = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get withdrawal history
@@ -116,7 +116,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// <param name="limit">["<c>N</c>"] Max number of results, max 1000</param>
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
-        Task<WebCallResult<BitMartDepositWithdrawal[]>> GetWithdrawalHistoryAsync(string? asset = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<BitMartDepositWithdrawal[]>> GetWithdrawalHistoryAsync(string? asset = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get a specific withdrawal or deposit
@@ -129,7 +129,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="id">["<c>id</c>"] The deposit or withdrawal id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartDepositWithdrawal>> GetDepositWithdrawalAsync(string id, CancellationToken ct = default);
+        Task<HttpResult<BitMartDepositWithdrawal>> GetDepositWithdrawalAsync(string id, CancellationToken ct = default);
 
         /// <summary>
         /// Get isolated margin account info
@@ -142,7 +142,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] Filter by symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartIsolatedMarginAccount[]>> GetIsolatedMarginAccountsAsync(string? symbol = null, CancellationToken ct = default);
+        Task<HttpResult<BitMartIsolatedMarginAccount[]>> GetIsolatedMarginAccountsAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Transfer asset between Spot and Isolated Margin account
@@ -158,7 +158,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// <param name="quantity">["<c>amount</c>"] Quantity to transfer</param>
         /// <param name="direction">["<c>side</c>"] Direction</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartTransferId>> IsolatedMarginTransferAsync(string symbol, string asset, decimal quantity, TransferDirection direction, CancellationToken ct = default);
+        Task<HttpResult<BitMartTransferId>> IsolatedMarginTransferAsync(string symbol, string asset, decimal quantity, TransferDirection direction, CancellationToken ct = default);
 
         /// <summary>
         /// Get base trading fees
@@ -170,7 +170,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartFeeRate>> GetBaseTradeFeesAsync(CancellationToken ct = default);
+        Task<HttpResult<BitMartFeeRate>> GetBaseTradeFeesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get trading fees for a specific symbol
@@ -183,7 +183,7 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="symbol">["<c>symbol</c>"] The symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartSymbolTradeFee>> GetSymbolTradeFeeAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<BitMartSymbolTradeFee>> GetSymbolTradeFeeAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get withdrawal addresses
@@ -195,6 +195,6 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<BitMartWithdrawalAddress[]>> GetWithdrawalAddressesAsync(CancellationToken ct = default);
+        Task<HttpResult<BitMartWithdrawalAddress[]>> GetWithdrawalAddressesAsync(CancellationToken ct = default);
     }
 }

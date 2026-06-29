@@ -26,7 +26,8 @@ namespace BitMart.Net
                 "https://www.bitmart.com",
                 ["https://developer-pro.bitmart.com/#introduction"],
                 PlatformType.CryptoCurrencyExchange,
-                CentralizationType.Centralized
+                CentralizationType.Centralized,
+                BitMartEnvironment.All
                 );
 
         /// <summary>
@@ -62,6 +63,11 @@ namespace BitMart.Net
         public static ExchangeType Type { get; } = ExchangeType.CEX;
 
         internal static JsonSerializerContext _serializerContext = JsonSerializerContextCache.GetOrCreate<BitMartSourceGenerationContext>();
+        internal static ParameterSerializationSettings _parameterSerializationSettings = new ParameterSerializationSettings
+        {
+            Decimal = DecimalSerialization.String,
+            DateTimes = DateTimeSerialization.MillisecondsNumber
+        };
 
         /// <summary>
         /// Aliases for BitMart assets
@@ -95,7 +101,7 @@ namespace BitMart.Net
         /// <summary>
         /// Rate limiter configuration for the BitMart API
         /// </summary>
-        public static BitMartRateLimiters RateLimiter { get; } = new BitMartRateLimiters();
+        public static BitMartRateLimiters RateLimiter { get; set; } = new BitMartRateLimiters();
     }
 
     /// <summary>
@@ -114,13 +120,19 @@ namespace BitMart.Net
         public event Action<RateLimitUpdateEvent> RateLimitUpdated;
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        internal BitMartRateLimiters()
+        /// <summary>
+        /// ctor
+        /// </summary>
+        public BitMartRateLimiters()
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
             Initialize();
         }
 
-        private void Initialize()
+        /// <summary>
+        /// Initialize the rate limits
+        /// </summary>
+        protected virtual void Initialize()
         {
             BitMart = new RateLimitGate("BitMart IP");
             SocketLimits = new RateLimitGate("Socket limits")

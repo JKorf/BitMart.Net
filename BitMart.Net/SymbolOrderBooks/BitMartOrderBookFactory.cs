@@ -52,14 +52,12 @@ namespace BitMart.Net.SymbolOrderBooks
         public ISymbolOrderBook CreateUsdFutures(string symbol, Action<BitMartOrderBookOptions>? options = null)
             => new BitMartUsdFuturesSymbolOrderBook(symbol, options, 
                                                           _serviceProvider.GetRequiredService<ILoggerFactory>(),
-                                                          _serviceProvider.GetRequiredService<IBitMartRestClient>(),
                                                           _serviceProvider.GetRequiredService<IBitMartSocketClient>());
 
          /// <inheritdoc />
         public ISymbolOrderBook CreateSpot(string symbol, Action<BitMartOrderBookOptions>? options = null)
             => new BitMartSpotSymbolOrderBook(symbol, options, 
                                                           _serviceProvider.GetRequiredService<ILoggerFactory>(),
-                                                          _serviceProvider.GetRequiredService<IBitMartRestClient>(),
                                                           _serviceProvider.GetRequiredService<IBitMartSocketClient>());
 
 
