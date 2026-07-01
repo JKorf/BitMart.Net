@@ -50,6 +50,16 @@ namespace BitMart.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("frozen")]
         public decimal Frozen { get; set; }
+        /// <summary>
+        /// ["<c>fundAvailable</c>"] Fund available
+        /// </summary>
+        [JsonPropertyName("fundAvailable")]
+        public decimal FundAvailable { get; set; }
+        /// <summary>
+        /// ["<c>fundFrozen</c>"] Fund frozen
+        /// </summary>
+        [JsonPropertyName("fundFrozen")]
+        public decimal FundFrozen { get; set; }
     }
 
 
