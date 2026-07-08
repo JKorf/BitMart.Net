@@ -78,9 +78,26 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             var parameters = new Parameters(BitMartExchange._parameterSerializationSettings);
             parameters.Add("symbol", symbol);
             var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/contract/public/funding-rate", BitMartExchange.RateLimiter.BitMart, 1, false,
-                new SingleLimitGuard(2, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+                new SingleLimitGuard(12, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<BitMartFundingRate>(request, parameters, ct).ConfigureAwait(false);
             return result;
+        }
+
+        #endregion
+
+        #region Get Current Funding Rates
+
+        /// <inheritdoc />
+        public async Task<HttpResult<BitMartFundingRate[]>> GetCurrentFundingRatesAsync(CancellationToken ct = default)
+        {
+            var parameters = new Parameters(BitMartExchange._parameterSerializationSettings);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/contract/public/funding-rate-v2", BitMartExchange.RateLimiter.BitMart, 1, false,
+                new SingleLimitGuard(12, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var result = await _baseClient.SendAsync<BitMartFundingRates>(request, parameters, ct).ConfigureAwait(false);
+            if (!result.Success)
+                return HttpResult.Fail<BitMartFundingRate[]>(result);
+
+            return HttpResult.Ok(result, result.Data.FundingRates);
         }
 
         #endregion

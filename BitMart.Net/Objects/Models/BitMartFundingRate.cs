@@ -4,6 +4,12 @@ using System.Text.Json.Serialization;
 
 namespace BitMart.Net.Objects.Models
 {
+    internal record BitMartFundingRates
+    {
+        [JsonPropertyName("list")]
+        public BitMartFundingRate[] FundingRates { get; set; } = Array.Empty<BitMartFundingRate>();
+    }
+
     /// <summary>
     /// Funding rate info
     /// </summary>

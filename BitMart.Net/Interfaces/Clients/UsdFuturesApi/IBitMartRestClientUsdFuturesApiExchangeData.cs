@@ -65,6 +65,18 @@ namespace BitMart.Net.Interfaces.Clients.UsdFuturesApi
         Task<HttpResult<BitMartFundingRate>> GetCurrentFundingRateAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
+        /// Get the current funding rate for all symbols
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://developer-pro.bitmart.com/en/futuresv2/#get-current-funding-rate-v2" /><br />
+        /// Endpoint:<br />
+        /// GET /contract/public/funding-rate-v2
+        /// </para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        Task<HttpResult<BitMartFundingRate[]>> GetCurrentFundingRatesAsync(CancellationToken ct = default);
+
+        /// <summary>
         /// Get kline/candlestick data
         /// <para>
         /// Docs:<br />

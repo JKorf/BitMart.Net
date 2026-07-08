@@ -128,6 +128,7 @@ namespace BitMart.Net.UnitTests
             await RunAndCheckResult(warnings, client => client.UsdFuturesApi.ExchangeData.GetOrderBookAsync("ETHUSDT", default), false, "data");
             await RunAndCheckResult(warnings, client => client.UsdFuturesApi.ExchangeData.GetOpenInterestAsync("ETHUSDT", default), false, "data");
             await RunAndCheckResult(warnings, client => client.UsdFuturesApi.ExchangeData.GetCurrentFundingRateAsync("ETHUSDT", default), false, "data");
+            await RunAndCheckResult(warnings, client => client.UsdFuturesApi.ExchangeData.GetCurrentFundingRatesAsync(default), false, "data");
             await RunAndCheckResult(warnings, client => client.UsdFuturesApi.ExchangeData.GetKlinesAsync("ETHUSDT", Enums.FuturesKlineInterval.OneDay, DateTime.UtcNow.AddDays(-3), DateTime.UtcNow.AddHours(-1), default), false, "data");
             foreach (var warning in warnings)
                 Assert.Warn(warning.Message);

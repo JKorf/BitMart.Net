@@ -7,6 +7,7 @@ using System.Text.Json.Serialization;
 
 namespace BitMart.Net.Converters
 {
+    [JsonSerializable(typeof(BitMartResponse<BitMartFundingRates>))]
     [JsonSerializable(typeof(BitMartResponse<BitMartRecentTrade[]>))]
     [JsonSerializable(typeof(BitMartResponse<BitMartSymbolBrackets>))]
     [JsonSerializable(typeof(BitMartResponse<BitMartPositionMode>))]
