@@ -75,6 +75,20 @@ namespace BitMart.Net.UnitTests
         }
 
         [Test]
+        public async Task ValidateFuturesTickerAlternateIdentifierSubscription()
+        {
+            var logger = new LoggerFactory();
+            logger.AddProvider(new TraceLoggerProvider());
+
+            var client = new BitMartSocketClient(Options.Create(new BitMartSocketOptions
+            {
+                OutputOriginalData = true
+            }), logger);
+            var tester = new SocketSubscriptionValidator<BitMartSocketClient>(client, "Subscriptions/Futures", "wss://openapi-ws.bitmart.com", "data");
+            await tester.ValidateAsync<BitMartFuturesTickerUpdate>((client, handler) => client.UsdFuturesApi.SubscribeToTickerUpdatesAsync("AXONUSDT", handler), "TickerAlternateIdentifier");
+        }
+
+        [Test]
         public async Task ValidateFuturesSubscriptions()
         {
             var logger = new LoggerFactory();
