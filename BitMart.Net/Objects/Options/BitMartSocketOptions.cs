@@ -40,7 +40,7 @@ namespace BitMart.Net.Objects.Options
         {
             targetOptions = base.Set<BitMartSocketOptions>(targetOptions);
             targetOptions.UsdFuturesOptions = UsdFuturesOptions.Set(targetOptions.UsdFuturesOptions);
-            targetOptions.SpotOptions = UsdFuturesOptions.Set(targetOptions.UsdFuturesOptions);
+            targetOptions.SpotOptions = SpotOptions.Set(targetOptions.SpotOptions);
             return targetOptions;
         }
     }
