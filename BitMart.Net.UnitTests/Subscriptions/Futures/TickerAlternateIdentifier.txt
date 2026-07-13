@@ -1,0 +1,18 @@
+> {"action": "subscribe", "args": ["futures/ticker:AXONUSDT"]}
+< {"action":"subscribe","group":"futures/ticker:AXONUSDT","success":true,"request":{"action":"subscribe","args":["futures/ticker:AXONUSDT"]}}
+=
+{
+    "group":"futures/ticker:AXONUSDT@100ms",
+    "data":{
+          "symbol":"AXONUSDT",
+          "volume_24":"246128",
+          "mark_price":"567.02",
+          "index_price":"566.445020726126944",
+          "last_price":"566.92",
+          "range":"-0.0117663465058309",
+          "ask_price":"568.75",
+          "ask_vol":"1",
+          "bid_price":"565.22",
+          "bid_vol":"1"
+        }
+}

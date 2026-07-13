@@ -22,10 +22,16 @@ namespace BitMart.Net.Objects.Models
         public decimal Volume24h { get; set; }
 
         /// <summary>
-        /// ["<c>fair_price</c>"] Fair price
+        /// ["<c>mark_price</c>"] Mark price
         /// </summary>
-        [JsonPropertyName("fair_price")]
-        public decimal FairPrice { get; set; }
+        [JsonPropertyName("mark_price")]
+        public decimal MarkPrice { get; set; }
+
+        /// <summary>
+        /// ["<c>index_price</c>"] Index price
+        /// </summary>
+        [JsonPropertyName("index_price")]
+        public decimal IndexPrice { get; set; }
 
         /// <summary>
         /// ["<c>last_price</c>"] Last trade price

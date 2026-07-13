@@ -38,8 +38,17 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 Fields = [
                     new PropertyFieldReference("group").WithNotEqualConstraint("System"),
                 ],
-                TypeIdentifierCallback = x => $"{x.FieldValue("group")}"
+                TypeIdentifierCallback = x => NormalizeEventIdentifier(x.FieldValue("group")!)
             },
         ];
+
+        private static string NormalizeEventIdentifier(string identifier)
+        {
+            var separatorIndex = identifier.LastIndexOf('@');
+            if (separatorIndex < 0 || !identifier.EndsWith("ms", System.StringComparison.Ordinal))
+                return identifier;
+
+            return identifier.Substring(0, separatorIndex);
+        }
     }
 }
