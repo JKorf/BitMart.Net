@@ -1,14 +1,15 @@
-using BitMart.Net.Interfaces.Clients.SpotApi;
 using BitMart.Net.Enums;
+using BitMart.Net.Interfaces.Clients.SpotApi;
+using BitMart.Net.Objects.Models;
+using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Objects.Errors;
 using CryptoExchange.Net.SharedApis;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using BitMart.Net.Objects.Models;
-using CryptoExchange.Net;
-using CryptoExchange.Net.Objects.Errors;
 
 namespace BitMart.Net.Clients.SpotApi
 {
@@ -91,6 +92,7 @@ namespace BitMart.Net.Clients.SpotApi
         #endregion
 
         #region Spot Symbol client
+        SharedSymbolCatalog? ISpotSymbolRestClient.SpotSymbolCatalog => ExchangeSymbolCache.GetSymbolCatalog(_topicId, EnvironmentName, null);
 
         GetSpotSymbolsOptions ISpotSymbolRestClient.GetSpotSymbolsOptions { get; } = new GetSpotSymbolsOptions(_exchangeName, false);
         async Task<HttpResult<SharedSpotSymbol[]>> ISpotSymbolRestClient.GetSpotSymbolsAsync(GetSymbolsRequest request, CancellationToken ct)
@@ -103,17 +105,50 @@ namespace BitMart.Net.Clients.SpotApi
             if (!result.Success)
                 return HttpResult.Fail<SharedSpotSymbol[]>(result);
 
-            var response = HttpResult.Ok(result, result.Data.Select(s => new SharedSpotSymbol(s.BaseAsset, s.QuoteAsset, s.Symbol, s.TradeStatus == SymbolStatus.Trading)
+            var data = result.Data
+                .Select(x => ParseSymbol(x)!)
+                .Where(x => x != null)
+                .ToArray();
+
+            ExchangeSymbolCache.UpdateSymbolInfo(_topicId, EnvironmentName, null, data);
+            return HttpResult.Ok(result, SharedUtils.ApplySymbolFilter(data, request));
+        }
+
+        private SharedSpotSymbol ParseSymbol(BitMartSymbol s)
+        {
+            var result = new SharedSpotSymbol(s.BaseAsset, s.QuoteAsset, s.Symbol, s.TradeStatus == SymbolStatus.Trading)
             {
                 MinTradeQuantity = s.BaseMinQuantity,
                 QuantityStep = s.BaseMinQuantity,
                 PriceDecimals = s.PriceMaxPrecision,
-                MinNotionalValue = s.MinBuyQuantity == null && s.MinSellQuantity == null ? null : Math.Min(s.MinBuyQuantity ?? decimal.MaxValue, s.MinSellQuantity ?? decimal.MaxValue)
-            }).ToArray());
+                MinNotionalValue = s.MinBuyQuantity == null && s.MinSellQuantity == null ? null : Math.Min(s.MinBuyQuantity ?? decimal.MaxValue, s.MinSellQuantity ?? decimal.MaxValue),
+                QuoteAssetType = SharedAssetType.Crypto,
+                DisplayName = s.Symbol
+            };
 
-            ExchangeSymbolCache.UpdateSymbolInfo(_topicId, EnvironmentName, null, response.Data!);
-            return response;
+            if (LibraryHelpers.IsStableCoin(s.BaseAsset))
+            {
+                result.BaseAssetType = SharedAssetType.Crypto;
+                result.BaseAssetSubType = SharedAssetSubType.StableCoin;
+            }
+            else
+            {
+                result.BaseAssetType = SharedAssetType.Crypto;
+            }
+
+            if (LibraryHelpers.IsStableCoin(s.QuoteAsset))
+            {
+                result.BaseAssetType = SharedAssetType.Crypto;
+                result.BaseAssetSubType = SharedAssetSubType.StableCoin;
+            }
+            else
+            {
+                result.BaseAssetType = SharedAssetType.Crypto;
+            }
+
+            return result;
         }
+
         async Task<ExchangeCallResult<SharedSymbol[]>> ISpotSymbolRestClient.GetSpotSymbolsForBaseAssetAsync(string baseAsset)
         {
             if (!ExchangeSymbolCache.HasCached(_topicId, EnvironmentName, null))

@@ -176,6 +176,43 @@ namespace BitMart.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("funding_time")]
         public DateTime? FundingTime { get; set; }
+        /// <summary>
+        /// ["<c>tradfi_info</c>"] TradFi info
+        /// </summary>
+        [JsonPropertyName("tradfi_info")]
+        public BitMartContractTradFiInfo? TradfiInfo { get; set; }
+    }
+
+    /// <summary>
+    /// TradFi info
+    /// </summary>
+    public record BitMartContractTradFiInfo
+    {
+        /// <summary>
+        /// ["<c>market_group</c>"] market group
+        /// </summary>
+        [JsonPropertyName("market_group")]
+        public TradFiGroup MarketGroup { get; set; }
+        /// <summary>
+        /// ["<c>market_session_status</c>"] Trading session status
+        /// </summary>
+        [JsonPropertyName("market_session_status")]
+        public SessionStatus SessionStatus { get; set; }
+        /// <summary>
+        /// ["<c>next_session_switch_ts</c>"] Next session switch timestamp
+        /// </summary>
+        [JsonPropertyName("next_session_switch_ts")]
+        public DateTime? SessionSwitchTime { get; set; }
+        /// <summary>
+        /// ["<c>next_session_switch_status</c>"] Next session status
+        /// </summary>
+        [JsonPropertyName("next_session_switch_status")]
+        public SessionStatus? NextSessionStatus { get; set; }
+        /// <summary>
+        /// ["<c>reduce_only</c>"] Reduce only
+        /// </summary>
+        [JsonPropertyName("reduce_only")]
+        public bool ReduceOnly { get; set; }
     }
 
 
