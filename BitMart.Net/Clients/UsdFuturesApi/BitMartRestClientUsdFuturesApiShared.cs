@@ -24,9 +24,6 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         public void ResetDefaultExchangeParameters() => ExchangeParameters.ResetStaticParameters();
         public SharedClientInfo Discover() => SharedUtils.GetClientInfo(BitMartExchange.Metadata, this);
 
-        private static HashSet<string> _knownMetals = ["PAXG", "XAUT", "XAU", "XAG", "XPD", "XPT", "XNI", "XCU", "XAL", "Copper", "SLVON"];
-        private static HashSet<string> _knownCommodities = ["NGAS", "BZ", "CL"];
-
         #region Balance client
         GetBalancesOptions IBalanceRestClient.GetBalancesOptions { get; } = new GetBalancesOptions(_exchangeName, AccountTypeFilter.Futures);
 
@@ -209,7 +206,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
             if (s.TradfiInfo == null)
             {
-                if (_knownMetals.Contains(s.BaseAsset) || _knownCommodities.Contains(s.BaseAsset))
+                if (LibraryHelpers.IsCommodity(result.BaseAsset, "SLVON"))
                 {
                     // Some symbols like PAXGUSDT or NGASUSDT aren't considered Tradfi by the API
                     result.BaseAssetType = SharedAssetType.TradFi;
