@@ -223,7 +223,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                     || s.TradfiInfo.MarketGroup == TradFiGroup.HkStock)
                 {
                     result.BaseAssetType = SharedAssetType.TradFi;
-                    result.BaseAssetSubType = SharedAssetSubType.Stock;
+                    result.BaseAssetSubType = SharedAssetSubType.Equity;
                 }
                 else if (s.TradfiInfo.MarketGroup == TradFiGroup.AuIndex
                     || s.TradfiInfo.MarketGroup == TradFiGroup.DeIndex
@@ -234,7 +234,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                     || s.TradfiInfo.MarketGroup == TradFiGroup.UkIndex)
                 {
                     result.BaseAssetType = SharedAssetType.TradFi;
-                    result.BaseAssetSubType = SharedAssetSubType.Index;
+                    result.BaseAssetSubType = SharedAssetSubType.Equity;
                 }
                 else if (s.TradfiInfo.MarketGroup == TradFiGroup.MetalLme
                     || s.TradfiInfo.MarketGroup == TradFiGroup.CommodityCme
