@@ -138,12 +138,12 @@ namespace BitMart.Net.Clients.SpotApi
 
             if (LibraryHelpers.IsStableCoin(s.QuoteAsset))
             {
-                result.BaseAssetType = SharedAssetType.Crypto;
-                result.BaseAssetSubType = SharedAssetSubType.StableCoin;
+                result.QuoteAssetType = SharedAssetType.Crypto;
+                result.QuoteAssetSubType = SharedAssetSubType.StableCoin;
             }
             else
             {
-                result.BaseAssetType = SharedAssetType.Crypto;
+                result.QuoteAssetType = SharedAssetType.Crypto;
             }
 
             return result;
