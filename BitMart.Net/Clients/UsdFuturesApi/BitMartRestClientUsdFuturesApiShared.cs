@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using CryptoExchange.Net;
 using BitMart.Net.Objects.Models;
 using CryptoExchange.Net.Objects.Errors;
+using Microsoft.Extensions.Logging;
 
 namespace BitMart.Net.Clients.UsdFuturesApi
 {
@@ -160,6 +161,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         #endregion
 
         #region Futures Symbol client
+        SharedSymbolCatalog? IFuturesSymbolRestClient.FuturesSymbolCatalog => ExchangeSymbolCache.GetSymbolCatalog(_exchangeName, _topicId, EnvironmentName, null);
 
         GetFuturesSymbolsOptions IFuturesSymbolRestClient.GetFuturesSymbolsOptions { get; } = new GetFuturesSymbolsOptions(_exchangeName, false);
         async Task<HttpResult<SharedFuturesSymbol[]>> IFuturesSymbolRestClient.GetFuturesSymbolsAsync(GetSymbolsRequest request, CancellationToken ct)
@@ -168,15 +170,21 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             if (validationError != null)
                 return HttpResult.Fail<SharedFuturesSymbol[]>(Exchange, validationError);
 
-            var result = await ExchangeData.GetContractsAsync(ct: ct).ConfigureAwait(false);
-            if (!result.Success)
-                return HttpResult.Fail<SharedFuturesSymbol[]>(result);
+            var contracts = await ExchangeData.GetContractsAsync(ct: ct).ConfigureAwait(false);
+            if (!contracts.Success)
+                return HttpResult.Fail<SharedFuturesSymbol[]>(contracts);
 
-            IEnumerable<BitMartContract> data = result.Data;
-            if (request.TradingMode != null)
-                data = data.Where(x => request.TradingMode == TradingMode.PerpetualLinear ? x.ProductType == ContractType.Perpetual : x.ProductType != ContractType.Perpetual);
-            var response = HttpResult.Ok(result, data.Select(s => 
-            new SharedFuturesSymbol(
+            var data = contracts.Data
+                .Select(x => ParseSymbol(x))
+                .ToArray();
+
+            ExchangeSymbolCache.UpdateSymbolInfo(_topicId, EnvironmentName, null, data);
+            return HttpResult.Ok(contracts, SharedUtils.ApplySymbolFilter(data, request));
+        }
+
+        private SharedFuturesSymbol ParseSymbol(BitMartContract s)
+        {
+            var result = new SharedFuturesSymbol(
                 s.ProductType == ContractType.Perpetual ? TradingMode.PerpetualLinear : TradingMode.DeliveryLinear,
                 s.BaseAsset,
                 s.QuoteAsset,
@@ -190,12 +198,64 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 ContractSize = s.ContractQuantity,
                 MaxTradeQuantity = s.MaxQuantity,
                 MaxLongLeverage = s.MaxLeverage,
-                MaxShortLeverage = s.MaxLeverage
-            }).ToArray());
+                MaxShortLeverage = s.MaxLeverage,
+                QuoteAssetType = SharedAssetType.Crypto,
+                QuoteAssetSubType = SharedAssetSubType.StableCoin,
+                DisplayName = s.Symbol
+            };
 
-            ExchangeSymbolCache.UpdateSymbolInfo(_topicId, EnvironmentName, null, response.Data!);
-            return response;
+            if (s.TradfiInfo == null)
+            {
+                if (LibraryHelpers.IsCommodity(result.BaseAsset, "SLVON"))
+                {
+                    // Some symbols like PAXGUSDT or NGASUSDT aren't considered Tradfi by the API
+                    result.BaseAssetType = SharedAssetType.TradFi;
+                    result.BaseAssetSubType = SharedAssetSubType.Commodity;
+                }
+
+                result.BaseAssetType = SharedAssetType.Crypto;
+                if (LibraryHelpers.IsStableCoin(s.BaseAsset))
+                    result.BaseAssetSubType = SharedAssetSubType.StableCoin;
+            }
+            else
+            {
+                if (s.TradfiInfo.MarketGroup == TradFiGroup.UsMarket
+                    || s.TradfiInfo.MarketGroup == TradFiGroup.HkStock)
+                {
+                    result.BaseAssetType = SharedAssetType.TradFi;
+                    result.BaseAssetSubType = SharedAssetSubType.Equity;
+                }
+                else if (s.TradfiInfo.MarketGroup == TradFiGroup.AuIndex
+                    || s.TradfiInfo.MarketGroup == TradFiGroup.DeIndex
+                    || s.TradfiInfo.MarketGroup == TradFiGroup.HkIndex
+                    || s.TradfiInfo.MarketGroup == TradFiGroup.JpIndex
+                    || s.TradfiInfo.MarketGroup == TradFiGroup.KrIndex
+                    || s.TradfiInfo.MarketGroup == TradFiGroup.TwIndex
+                    || s.TradfiInfo.MarketGroup == TradFiGroup.UkIndex)
+                {
+                    result.BaseAssetType = SharedAssetType.TradFi;
+                    result.BaseAssetSubType = SharedAssetSubType.Equity;
+                }
+                else if (s.TradfiInfo.MarketGroup == TradFiGroup.MetalLme
+                    || s.TradfiInfo.MarketGroup == TradFiGroup.CommodityCme
+                    || s.TradfiInfo.MarketGroup == TradFiGroup.CommodityIce)
+                {
+                    result.BaseAssetType = SharedAssetType.TradFi;
+                    result.BaseAssetSubType = SharedAssetSubType.Commodity;
+                }
+                else if (s.TradfiInfo.MarketGroup == TradFiGroup.Forex)
+                {
+                    result.BaseAssetType = SharedAssetType.Fiat;
+                }
+                else if (s.TradfiInfo.MarketGroup == TradFiGroup.PreListing)
+                {
+                    result.BaseAssetType = SharedAssetType.TradFi;
+                }
+            }
+
+            return result;
         }
+
         async Task<ExchangeCallResult<SharedSymbol[]>> IFuturesSymbolRestClient.GetFuturesSymbolsForBaseAssetAsync(string baseAsset)
         {
             if (!ExchangeSymbolCache.HasCached(_topicId, EnvironmentName, null))
