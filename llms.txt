@@ -29,6 +29,7 @@ var socketClient = new BitMartSocketClient();
 - Spot socket: `socketClient.SpotApi`
 - USD futures socket: `socketClient.UsdFuturesApi`
 - Shared capability discovery: `client.SpotApi.SharedClient.Discover()` / `client.UsdFuturesApi.SharedClient.Discover()`
+- Shared symbol catalogs: `client.SpotApi.SharedClient.SpotSymbolCatalog` / `client.UsdFuturesApi.SharedClient.FuturesSymbolCatalog`; shared symbol results include display names and asset type/subtype metadata.
 
 ## Common calls
 

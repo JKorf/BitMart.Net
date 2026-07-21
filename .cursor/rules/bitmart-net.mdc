@@ -116,6 +116,8 @@ var ticker = await shared.GetSpotTickerAsync(
     new GetTickerRequest(new SharedSymbol(TradingMode.Spot, "BTC", "USDT")));
 ```
 
+Shared symbol clients expose `SpotSymbolCatalog` / `FuturesSymbolCatalog`. Their get-symbols calls populate the catalogs and return shared symbols with display names and base/quote asset type/subtype metadata. Futures contract results can also expose nullable `TradfiInfo` containing market group, session status/switch information, and reduce-only state.
+
 Shared socket interfaces do not expose unsubscribe; keep the concrete socket client and call `socketClient.UnsubscribeAsync(sub.Data)`.
 
 ## Dependency injection

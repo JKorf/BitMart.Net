@@ -4,9 +4,9 @@
 
 BitMart.Net is a strongly typed .NET client library for the BitMart REST and WebSocket APIs. It is part of the CryptoExchange.Net ecosystem and uses the same result, shared API, logging, rate limiting, dependency injection, local order book, and socket patterns as the other JKorf exchange libraries.
 
-Current package version in this repository: 3.11.2.
+Current package version in this repository: 4.2.0.
 NuGet package id: `BitMart.Net`.
-CryptoExchange.Net dependency: 11.1.0.
+CryptoExchange.Net dependency: 12.2.0.
 Target frameworks: netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0.
 Native AOT: supported on compatible .NET targets.
 
@@ -457,6 +457,8 @@ var futuresSymbol = new SharedSymbol(TradingMode.PerpetualLinear, "BTC", "USDT")
 
 var ticker = await futuresTickerClient.GetFuturesTickerAsync(new GetTickerRequest(futuresSymbol));
 ```
+
+Shared symbol clients expose catalogs through `ISpotSymbolRestClient.SpotSymbolCatalog` and `IFuturesSymbolRestClient.FuturesSymbolCatalog`. The corresponding get-symbols call updates the catalog. Returned `SharedSpotSymbol` and `SharedFuturesSymbol` values include `DisplayName`, `BaseAssetType`, `BaseAssetSubType`, `QuoteAssetType`, and `QuoteAssetSubType`. Spot assets are crypto with stablecoin subtypes where applicable; futures asset classification also uses `BitMartContract.TradfiInfo` to identify fiat and TradFi equities or commodities.
 
 ## AI-Friendly Examples
 

@@ -104,6 +104,8 @@ FuturesOrderType.Limit
 MarginType.CrossMargin
 OrderMode.GoodTilCancel
 FuturesStreamKlineInterval.OneMinute
+TradFiGroup.UsMarket
+SessionStatus.NormalTradingMode
 ```
 
 ## Core Pattern: Spot Market Data
@@ -230,6 +232,8 @@ var klines = await restClient.UsdFuturesApi.ExchangeData.GetKlinesAsync(
 var trades = await restClient.UsdFuturesApi.ExchangeData.GetRecentTradesAsync(futuresSymbol);
 ```
 
+Contracts can include `TradfiInfo` with the `MarketGroup`, current `SessionStatus`, next session switch time/status, and `ReduceOnly` state. `TradfiInfo` is null for contracts without TradFi metadata.
+
 ## Core Pattern: USD Futures Account and Trading
 
 ```csharp
@@ -353,6 +357,8 @@ var ticker = await shared.GetSpotTickerAsync(new GetTickerRequest(symbol));
 ```
 
 For shared symbols, use `SharedSymbol`; do not pass native `BTC_USDT` or `BTCUSDT` strings into shared requests.
+
+The shared Spot and Futures symbol clients expose `SpotSymbolCatalog` and `FuturesSymbolCatalog`. Calling the corresponding shared get-symbols method populates the catalog and returns symbols with `DisplayName` plus base/quote `SharedAssetType` and `SharedAssetSubType` metadata. BitMart spot assets are classified as crypto (including stablecoin subtypes); futures base assets use BitMart TradFi metadata to distinguish crypto, fiat, equities, commodities, and other TradFi products.
 
 For shared socket subscriptions, keep the concrete socket client so you can call:
 

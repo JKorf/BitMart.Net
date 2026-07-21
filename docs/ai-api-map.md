@@ -204,12 +204,17 @@ Use this file to route common user intents to the correct BitMart.Net client mem
 | Shared spot socket client | `new BitMartSocketClient().SpotApi.SharedClient` |
 | Shared futures socket client | `new BitMartSocketClient().UsdFuturesApi.SharedClient` |
 | Discover shared capabilities | `client.SpotApi.SharedClient.Discover()` / `client.UsdFuturesApi.SharedClient.Discover()` |
+| Spot symbol catalog | `client.SpotApi.SharedClient.SpotSymbolCatalog` |
+| Futures symbol catalog | `client.UsdFuturesApi.SharedClient.FuturesSymbolCatalog` |
+| Shared symbol metadata | `DisplayName`, `BaseAssetType`, `BaseAssetSubType`, `QuoteAssetType`, `QuoteAssetSubType` |
 | Shared spot ticker REST | `ISpotTickerRestClient.GetSpotTickerAsync(new GetTickerRequest(symbol))` |
 | Shared futures ticker REST | `IFuturesTickerRestClient.GetFuturesTickerAsync(new GetTickerRequest(symbol))` |
 | Shared ticker socket | `ITickerSocketClient.SubscribeToTickerUpdatesAsync(...)` |
 | Shared order book socket | `IOrderBookSocketClient.SubscribeToOrderBookUpdatesAsync(...)` |
 
 Shared REST calls return `HttpResult<T>` / `HttpResult`. Shared socket subscriptions return `WebSocketResult<UpdateSubscription>`. Shared non-I/O symbol/cache helpers such as symbol support checks return `ExchangeCallResult<T>`.
+
+Calling the shared Spot or Futures get-symbols method updates its symbol catalog. Spot symbols are classified as crypto with stablecoin subtypes where applicable; futures classification also uses BitMart TradFi metadata to identify fiat and TradFi equities or commodities.
 
 For shared socket subscriptions, keep the concrete socket client and unsubscribe with `await socketClient.UnsubscribeAsync(subscription.Data)`.
 

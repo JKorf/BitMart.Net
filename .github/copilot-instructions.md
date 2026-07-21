@@ -168,6 +168,8 @@ var ticker = await shared.GetSpotTickerAsync(new GetTickerRequest(symbol));
 
 Use `SharedSymbol` for shared APIs. Do not pass exchange-native `BTC_USDT` or `BTCUSDT` strings to shared requests.
 
+Shared symbol clients expose `SpotSymbolCatalog` and `FuturesSymbolCatalog`; get-symbols calls populate these catalogs and return symbols with `DisplayName` and base/quote asset type/subtype metadata. Native futures contract results may include nullable `TradfiInfo` with market group, session status/switch details, and reduce-only state.
+
 ## Dependency injection
 
 ```csharp
