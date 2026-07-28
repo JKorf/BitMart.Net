@@ -74,7 +74,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                     symbol.LastPrice,
                     symbol.HighPrice,
                     symbol.LowPrice,
-                    symbol.Volume24h,
+                    new SharedOrderQuantity(symbol.Volume24h, symbol.Turnover24h),
                     symbol.Change24h * 100)
                 {
                     IndexPrice = symbol.IndexPrice,
@@ -100,7 +100,14 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 data = data.Where(x => request.TradingMode == TradingMode.PerpetualLinear ? x.ProductType == ContractType.Perpetual : x.ProductType == ContractType.Futures);
 
             return HttpResult.Ok(resultTicker, data.Select(x =>
-             new SharedFuturesTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), x.Symbol, x.LastPrice, x.HighPrice, x.LowPrice, x.Volume24h, x.Change24h * 100)
+             new SharedFuturesTicker(
+                 ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol),
+                 x.Symbol,
+                 x.LastPrice,
+                 x.HighPrice,
+                 x.LowPrice,
+                 new SharedOrderQuantity(x.Turnover24h, x.Volume24h), 
+                 x.Change24h * 100)
              {
                  FundingRate = x.FundingRate,
                  IndexPrice = x.IndexPrice
@@ -151,8 +158,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             if (!result.Success)
                 return HttpResult.Fail<SharedTrade[]>(result);
 
-            return HttpResult.Ok(result, result.Data.Select(x => 
-            new SharedTrade(request.Symbol, symbol, x.Quantity, x.Price, x.Timestamp)
+            return HttpResult.Ok(result, result.Data.Select(x =>
+            new SharedTrade(request.Symbol, symbol, new SharedOrderQuantity(x.Quantity), x.Price, x.Timestamp)
             {
                 Side = x.IsBuyerMaker ? SharedOrderSide.Sell : SharedOrderSide.Buy,
             }).ToArray());
@@ -393,7 +400,15 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
             return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(result.Data, x => x.Timestamp!.Value, request.StartTime, request.EndTime, request.Direction ?? DataDirection.Descending)
                     .Select(x =>  
-                            new SharedKline(request.Symbol, symbol, x.Timestamp!.Value, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.Volume))
+                            new SharedKline(
+                                request.Symbol,
+                                symbol,
+                                x.Timestamp!.Value, 
+                                x.ClosePrice, 
+                                x.HighPrice,
+                                x.LowPrice,
+                                x.OpenPrice,
+                                new SharedOrderQuantity(x.Volume)))
                        .ToArray());
         }
 

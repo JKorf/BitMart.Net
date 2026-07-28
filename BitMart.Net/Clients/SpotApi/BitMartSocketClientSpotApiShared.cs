@@ -34,9 +34,16 @@ namespace BitMart.Net.Clients.SpotApi
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
             var symbols = request.Symbols?.Length > 0 ? request.Symbols.Select(x => x.GetSymbol(FormatSymbol)).ToArray() : [request.Symbol!.GetSymbol(FormatSymbol)];
-            var result = await SubscribeToTickerUpdatesAsync(symbols, update => handler(update.ToType(new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.Symbol), update.Data.Symbol, update.Data.LastPrice, update.Data.HighPrice, update.Data.LowPrice, update.Data.Volume24h, update.Data.Change * 100)
+            var result = await SubscribeToTickerUpdatesAsync(symbols, update => handler(update.ToType(
+                new SharedSpotTicker(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.Symbol),
+                    update.Data.Symbol, 
+                    update.Data.LastPrice, 
+                    update.Data.HighPrice, 
+                    update.Data.LowPrice, 
+                    new SharedOrderQuantity(update.Data.Volume24h, update.Data.QuoteVolume24h),
+                    update.Data.Change * 100)
             {
-                QuoteVolume = update.Data.QuoteVolume24h
             })), ct).ConfigureAwait(false);
            
             return result;
@@ -59,7 +66,7 @@ namespace BitMart.Net.Clients.SpotApi
 
             var symbols = request.Symbols?.Length > 0 ? request.Symbols.Select(x => x.GetSymbol(FormatSymbol)).ToArray() : [request.Symbol!.GetSymbol(FormatSymbol)];
             var result = await SubscribeToTradeUpdatesAsync(symbols, update => handler(update.ToType(update.Data.Select(x => 
-            new SharedTrade(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), x.Symbol, x.Quantity, x.Price, x.Timestamp)
+            new SharedTrade(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), x.Symbol, new SharedOrderQuantity(x.Quantity), x.Price, x.Timestamp)
             {
                 Side = x.Side == Enums.OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell
             }).ToArray())), ct).ConfigureAwait(false);
@@ -185,7 +192,18 @@ namespace BitMart.Net.Clients.SpotApi
             var result = await SubscribeToKlineUpdatesAsync(symbols, interval, update =>
             {
                 foreach (var item in update.Data)
-                    handler(update.ToType(new SharedKline(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, item.Symbol), item.Symbol, item.Kline.OpenTime, item.Kline.ClosePrice, item.Kline.HighPrice, item.Kline.LowPrice, item.Kline.OpenPrice, item.Kline.Volume)));
+                {
+                    handler(update.ToType(
+                        new SharedKline(
+                            ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, item.Symbol),
+                            item.Symbol,
+                            item.Kline.OpenTime,
+                            item.Kline.ClosePrice,
+                            item.Kline.HighPrice,
+                            item.Kline.LowPrice,
+                            item.Kline.OpenPrice,
+                            new SharedOrderQuantity(item.Kline.Volume, item.Kline.QuoteVolume))));
+                }
             }, ct).ConfigureAwait(false);
             
             return result;

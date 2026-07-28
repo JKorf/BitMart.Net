@@ -86,15 +86,18 @@ namespace BitMart.Net
 
             IRecentTradeRestClient? sharedRestClient = null;
             ITradeSocketClient sharedSocketClient;
+            TradeQuantityType tradeQuantityType;
             if (symbol.TradingMode == TradingMode.Spot)
             {
                 sharedRestClient = restClient.SpotApi.SharedClient;
                 sharedSocketClient = socketClient.SpotApi.SharedClient;
+                tradeQuantityType = TradeQuantityType.BaseAsset;
             }
             else
             {
                 sharedRestClient = restClient.UsdFuturesApi.SharedClient;
                 sharedSocketClient = socketClient.UsdFuturesApi.SharedClient;
+                tradeQuantityType = TradeQuantityType.Contracts;
             }
 
             return new TradeTracker(
@@ -105,6 +108,7 @@ namespace BitMart.Net
                 symbol,
                 limit,
                 period,
+                tradeQuantityType,
                 exchangeParameters
                 );
         }

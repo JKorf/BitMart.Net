@@ -28,7 +28,15 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             if (validationError != null)
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
-            var result = await SubscribeToTickerUpdatesAsync(update => handler(update.ToType<SharedSpotTicker[]>(new[] { new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.Symbol), update.Data.Symbol, update.Data.LastPrice, null, null, update.Data.Volume24h, Math.Round(update.Data.PriceRange * 100, 2)) })), ct).ConfigureAwait(false);
+            var result = await SubscribeToTickerUpdatesAsync(update => handler(update.ToType<SharedSpotTicker[]>(new[] { 
+                new SharedSpotTicker(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.Symbol), 
+                    update.Data.Symbol,
+                    update.Data.LastPrice, 
+                    null, 
+                    null,
+                    new SharedOrderQuantity(update.Data.Volume24h),
+                    Math.Round(update.Data.PriceRange * 100, 2)) })), ct).ConfigureAwait(false);
 
             return result;
         }
@@ -50,7 +58,15 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             var symbols = request.Symbols?.Length > 0 ? request.Symbols.Select(x => x.GetSymbol(FormatSymbol)).ToArray() : [request.Symbol!.GetSymbol(FormatSymbol)];
             var result = await SubscribeToTickerUpdatesAsync(symbols, update =>
             {
-                handler(update.ToType(new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.Symbol), update.Data.Symbol, update.Data.LastPrice, null, null, update.Data.Volume24h, Math.Round(update.Data.PriceRange * 100, 2))));
+                handler(update.ToType(
+                    new SharedSpotTicker(
+                        ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.Symbol),
+                        update.Data.Symbol, 
+                        update.Data.LastPrice,
+                        null, 
+                        null, 
+                        new SharedOrderQuantity(contractQuantity: update.Data.Volume24h),
+                        Math.Round(update.Data.PriceRange * 100, 2))));
             }, ct).ConfigureAwait(false);            
 
             return result;
@@ -73,7 +89,15 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
             var symbols = request.Symbols?.Length > 0 ? request.Symbols.Select(x => x.GetSymbol(FormatSymbol)).ToArray() : [request.Symbol!.GetSymbol(FormatSymbol)];
             var result = await SubscribeToTradeUpdatesAsync(symbols, update => handler(update.ToType(update.Data.Select(x =>
-                new SharedTrade(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), x.Symbol, x.Quantity, x.Price, x.Timestamp) { Side = x.BuyerIsMaker ? SharedOrderSide.Sell : SharedOrderSide.Buy }).ToArray())), ct).ConfigureAwait(false);
+                new SharedTrade(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol),
+                    x.Symbol,
+                    new SharedOrderQuantity(contractQuantity: x.Quantity), 
+                    x.Price, 
+                    x.Timestamp) 
+                { 
+                    Side = x.BuyerIsMaker ? SharedOrderSide.Sell : SharedOrderSide.Buy 
+                }).ToArray())), ct).ConfigureAwait(false);
             
             return result;
         }
@@ -151,7 +175,18 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             var result = await SubscribeToKlineUpdatesAsync(symbols, interval, update =>
             {
                 foreach (var item in update.Data.Klines)
-                    handler(update.ToType(new SharedKline(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Symbol), update.Symbol!, item.Timestamp!.Value, item.ClosePrice, item.HighPrice, item.LowPrice, item.OpenPrice, item.Volume)));
+                {
+                    handler(update.ToType(
+                        new SharedKline(
+                            ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Symbol), 
+                            update.Symbol!, 
+                            item.Timestamp!.Value,
+                            item.ClosePrice, 
+                            item.HighPrice,
+                            item.LowPrice,
+                            item.OpenPrice,
+                            new SharedOrderQuantity(contractQuantity: item.Volume))));
+                }
             }, ct).ConfigureAwait(false);
             
             return result;
