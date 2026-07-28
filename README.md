@@ -5,6 +5,8 @@
 
 BitMart.Net is a client library for accessing the [BitMart REST and Websocket API](https://developer-pro.bitmart.com/).
 
+# BitMart has announced that it will be shutting down. See https://www.bitmart.com/en-US/support/articles/7922665245339/39162120325403/53544595916059
+
 ## Features
 * Response data is mapped to descriptive models
 * Input parameters and response values are mapped to discriptive enum values where possible
