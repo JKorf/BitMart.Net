@@ -85,7 +85,14 @@ namespace BitMart.Net.Clients.SpotApi
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
             var symbols = request.Symbols?.Length > 0 ? request.Symbols.Select(x => x.GetSymbol(FormatSymbol)).ToArray() : [request.Symbol!.GetSymbol(FormatSymbol)];
-            var result = await SubscribeToBookTickerUpdatesAsync(symbols, update => handler(update.ToType(new SharedBookTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.Symbol), update.Data.Symbol, update.Data.BestAskPrice, update.Data.BestAskQuantity, update.Data.BestBidPrice, update.Data.BestBidQuantity))), ct).ConfigureAwait(false);
+            var result = await SubscribeToBookTickerUpdatesAsync(symbols, update => handler(update.ToType(
+                new SharedBookTicker(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.Symbol),
+                    update.Data.Symbol, 
+                    update.Data.BestAskPrice,
+                    new SharedOrderQuantity(update.Data.BestAskQuantity),
+                    update.Data.BestBidPrice,
+                    new SharedOrderQuantity(update.Data.BestBidQuantity)))), ct).ConfigureAwait(false);
             
             return result;
         }
@@ -140,13 +147,22 @@ namespace BitMart.Net.Clients.SpotApi
                         UpdateTime = update.Data.UpdateTime,
                         OrderPrice = update.Data.Price == 0 ? null : update.Data.Price,
                         FeeAsset = update.Data.FeeAsset,
-                        LastTrade = update.Data.LastTradeId == null ? null : new SharedUserTrade(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.Symbol), update.Data.Symbol, update.Data.OrderId, update.Data.LastTradeId, update.Data.Side == Enums.OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell, update.Data.LastTradeQuantity, update.Data.LastTradePrice, update.Data.LastTradeTime!.Value)
-                        {
-                            ClientOrderId = update.Data.ClientOrderId,
-                            Role = update.Data.LastTradeRole == Enums.TradeRole.Taker ? SharedRole.Taker : SharedRole.Maker,
-                            Fee = update.Data.Fee,
-                            FeeAsset = update.Data.FeeAsset
-                        }
+                        LastTrade = update.Data.LastTradeId == null ? null : 
+                            new SharedUserTrade(
+                                ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.Symbol), 
+                                update.Data.Symbol,
+                                update.Data.OrderId,
+                                update.Data.LastTradeId,
+                                update.Data.Side == Enums.OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                                new SharedOrderQuantity(update.Data.LastTradeQuantity), 
+                                update.Data.LastTradePrice,
+                                update.Data.LastTradeTime!.Value)
+                            {
+                                ClientOrderId = update.Data.ClientOrderId,
+                                Role = update.Data.LastTradeRole == Enums.TradeRole.Taker ? SharedRole.Taker : SharedRole.Maker,
+                                Fee = update.Data.Fee,
+                                FeeAsset = update.Data.FeeAsset
+                            }
                     }
                 })),
                 ct: ct).ConfigureAwait(false);
@@ -223,7 +239,9 @@ namespace BitMart.Net.Clients.SpotApi
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
             var symbols = request.Symbols?.Length > 0 ? request.Symbols.Select(x => x.GetSymbol(FormatSymbol)).ToArray() : [request.Symbol!.GetSymbol(FormatSymbol)];
-            var result = await SubscribeToPartialOrderBookUpdatesAsync(symbols, request.Limit ?? 20, update => handler(update.ToType(new SharedOrderBook(update.Data.Asks, update.Data.Bids))), ct).ConfigureAwait(false);
+            var result = await SubscribeToPartialOrderBookUpdatesAsync(symbols, request.Limit ?? 20, update => handler(
+                update.ToType(
+                    new SharedOrderBook(SharedQuantityType.BaseAsset, update.Data.Asks, update.Data.Bids))), ct).ConfigureAwait(false);
             
             return result;
         }

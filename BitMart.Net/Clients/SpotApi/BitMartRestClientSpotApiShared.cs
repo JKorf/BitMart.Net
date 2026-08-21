@@ -267,9 +267,9 @@ namespace BitMart.Net.Clients.SpotApi
                 ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, resultTicker.Data.Symbol),
                 resultTicker.Data.Symbol,
                 resultTicker.Data.Asks[0].Price,
-                resultTicker.Data.Asks[0].Quantity,
+                new SharedOrderQuantity(resultTicker.Data.Asks[0].Quantity),
                 resultTicker.Data.Bids[0].Price,
-                resultTicker.Data.Bids[0].Quantity));
+                new SharedOrderQuantity(resultTicker.Data.Bids[0].Quantity)));
         }
 
         #endregion
@@ -505,7 +505,7 @@ namespace BitMart.Net.Clients.SpotApi
                 x.OrderId,
                 x.TradeId,
                 x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                x.Quantity,
+                new SharedOrderQuantity(x.Quantity),
                 x.Price,
                 x.CreateTime)
             {
@@ -552,7 +552,7 @@ namespace BitMart.Net.Clients.SpotApi
                                 x.OrderId,
                                 x.TradeId,
                                 x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                                x.Quantity,
+                                new SharedOrderQuantity(x.Quantity),
                                 x.Price,
                                 x.CreateTime)
                             {
@@ -821,7 +821,7 @@ namespace BitMart.Net.Clients.SpotApi
             if (!result.Success)
                 return HttpResult.Fail<SharedOrderBook>(result);
 
-            return HttpResult.Ok(result, new SharedOrderBook(result.Data.Asks, result.Data.Bids));
+            return HttpResult.Ok(result, new SharedOrderBook(SharedQuantityType.BaseAsset, result.Data.Asks, result.Data.Bids));
         }
 
         #endregion

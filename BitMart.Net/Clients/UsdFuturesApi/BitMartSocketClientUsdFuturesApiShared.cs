@@ -119,7 +119,14 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             var symbols = request.Symbols?.Length > 0 ? request.Symbols.Select(x => x.GetSymbol(FormatSymbol)).ToArray() : [request.Symbol!.GetSymbol(FormatSymbol)];
             var result = await SubscribeToBookTickerUpdatesAsync(symbols, update =>
             {
-                handler(update.ToType(new SharedBookTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.Symbol), update.Data.Symbol, update.Data.BestAskPrice, update.Data.BestAskQuantity, update.Data.BestBidPrice, update.Data.BestBidQuantity)));
+                handler(update.ToType(
+                    new SharedBookTicker(
+                        ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.Symbol),
+                        update.Data.Symbol, 
+                        update.Data.BestAskPrice,
+                        new SharedOrderQuantity(update.Data.BestAskQuantity),
+                        update.Data.BestBidPrice,
+                        new SharedOrderQuantity(update.Data.BestBidQuantity))));
             }, ct).ConfigureAwait(false);
             
             return result;
@@ -223,12 +230,20 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                         TriggerPrice = x.Order.TriggerPrice,
                         IsTriggerOrder = x.Order.TriggerPrice > 0,
                         PositionSide = (x.Order.Side == Enums.FuturesSide.SellCloseLong || x.Order.Side == Enums.FuturesSide.BuyOpenLong) ? SharedPositionSide.Long : SharedPositionSide.Short,
-                        LastTrade = x.Order.LastTrade == null ? null : new SharedUserTrade(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Order.Symbol), x.Order.Symbol, x.Order.OrderId, x.Order.LastTrade.TradeId.ToString(), (x.Order.Side == Enums.FuturesSide.BuyCloseShort || x.Order.Side == Enums.FuturesSide.BuyOpenLong) ? SharedOrderSide.Buy : SharedOrderSide.Sell, x.Order.LastTrade.Quantity, x.Order.LastTrade.Price, x.Order.UpdateTime!.Value)
-                        {
-                            Fee = x.Order.LastTrade.Fee,
-                            FeeAsset = x.Order.LastTrade.FeeAsset,
-                            ClientOrderId = x.Order.ClientOrderId
-                        }
+                        LastTrade = x.Order.LastTrade == null ? null :
+                            new SharedUserTrade(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Order.Symbol), 
+                            x.Order.Symbol, 
+                            x.Order.OrderId,
+                            x.Order.LastTrade.TradeId.ToString(), 
+                            (x.Order.Side == Enums.FuturesSide.BuyCloseShort || x.Order.Side == Enums.FuturesSide.BuyOpenLong) ? SharedOrderSide.Buy : SharedOrderSide.Sell,
+                            new SharedOrderQuantity(x.Order.LastTrade.Quantity),
+                            x.Order.LastTrade.Price,
+                            x.Order.UpdateTime!.Value)
+                            {
+                                Fee = x.Order.LastTrade.Fee,
+                                FeeAsset = x.Order.LastTrade.FeeAsset,
+                                ClientOrderId = x.Order.ClientOrderId
+                            }
                     }
                 ).ToArray())),
                 ct: ct).ConfigureAwait(false);
@@ -264,7 +279,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
             var result = await SubscribeToPositionUpdatesAsync(
-                update => handler(update.ToType(update.Data.Select(x => new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), x.Symbol, x.PositionSize, x.UpdateTime)
+                update => handler(update.ToType(update.Data.Select(x => new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), x.Symbol, new SharedOrderQuantity(x.PositionSize), x.UpdateTime)
                 {
                     AverageOpenPrice = x.AverageOpenPrice,
                     PositionMode = SharedPositionMode.HedgeMode,
@@ -291,7 +306,9 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
             var symbols = request.Symbols?.Length > 0 ? request.Symbols.Select(x => x.GetSymbol(FormatSymbol)).ToArray() : [request.Symbol!.GetSymbol(FormatSymbol)];
-            var result = await SubscribeToOrderBookSnapshotUpdatesAsync(symbols, request.Limit ?? 20, update => handler(update.ToType(new SharedOrderBook(update.Data.Asks, update.Data.Bids))), ct).ConfigureAwait(false);
+            var result = await SubscribeToOrderBookSnapshotUpdatesAsync(symbols, request.Limit ?? 20, update => handler(
+                update.ToType(
+                    new SharedOrderBook(SharedQuantityType.BaseAsset, update.Data.Asks, update.Data.Bids))), ct).ConfigureAwait(false);
             
             return result;
         }

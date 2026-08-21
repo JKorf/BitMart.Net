@@ -74,7 +74,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                     symbol.LastPrice,
                     symbol.HighPrice,
                     symbol.LowPrice,
-                    new SharedOrderQuantity(symbol.Volume24h, symbol.Turnover24h),
+                    new SharedOrderQuantity(null, symbol.Turnover24h, symbol.Volume24h),
                     symbol.Change24h * 100)
                 {
                     IndexPrice = symbol.IndexPrice,
@@ -106,7 +106,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                  x.LastPrice,
                  x.HighPrice,
                  x.LowPrice,
-                 new SharedOrderQuantity(x.Turnover24h, x.Volume24h), 
+                 new SharedOrderQuantity(null, x.Turnover24h, x.Volume24h), 
                  x.Change24h * 100)
              {
                  FundingRate = x.FundingRate,
@@ -134,9 +134,9 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, resultTicker.Data.Symbol),
                 resultTicker.Data.Symbol,
                 resultTicker.Data.Asks[0].Price,
-                resultTicker.Data.Asks[0].Quantity,
+                new SharedOrderQuantity(contractQuantity: resultTicker.Data.Asks[0].Quantity),
                 resultTicker.Data.Bids[0].Price,
-                resultTicker.Data.Bids[0].Quantity));
+                new SharedOrderQuantity(contractQuantity: resultTicker.Data.Bids[0].Quantity)));
         }
 
         #endregion
@@ -408,7 +408,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                                 x.HighPrice,
                                 x.LowPrice,
                                 x.OpenPrice,
-                                new SharedOrderQuantity(x.Volume)))
+                                new SharedOrderQuantity(contractQuantity: x.Volume)))
                        .ToArray());
         }
 
@@ -474,7 +474,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             if (!result.Success)
                 return HttpResult.Fail<SharedOrderBook>(result);
 
-            return HttpResult.Ok(result, new SharedOrderBook(result.Data.Asks, result.Data.Bids));
+            return HttpResult.Ok(result, new SharedOrderBook(SharedQuantityType.Contracts, result.Data.Asks, result.Data.Bids));
         }
 
         #endregion
@@ -492,7 +492,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             if (!result.Success)
                 return HttpResult.Fail<SharedOpenInterest>(result);
 
-            return HttpResult.Ok(result, new SharedOpenInterest(result.Data.OpenInterest));
+            return HttpResult.Ok(result, new SharedOpenInterest(new SharedOrderQuantity(contractQuantity: result.Data.OpenInterest)));
         }
 
         #endregion
@@ -694,7 +694,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 x.OrderId.ToString(),
                 x.TradeId,
                 (x.Side == FuturesSide.BuyCloseShort || x.Side == FuturesSide.BuyOpenLong) ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                x.Quantity,
+                new SharedOrderQuantity(contractQuantity: x.Quantity),
                 x.Price,
                 x.CreateTime)
             {
@@ -740,12 +740,11 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                                 x.OrderId.ToString(),
                                 x.TradeId.ToString(),
                                 (x.Side == FuturesSide.BuyCloseShort || x.Side == FuturesSide.BuyOpenLong) ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                                x.Quantity,
+                                new SharedOrderQuantity(contractQuantity: x.Quantity),
                                 x.Price,
                                 x.CreateTime)
                             {
                                 Price = x.Price,
-                                Quantity = x.Quantity,
                                 Fee = x.Fee,
                                 Role = x.Role == TradeRole.Maker ? SharedRole.Maker : SharedRole.Taker
                             })
@@ -777,14 +776,19 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             if (!result.Success)
                 return HttpResult.Fail<SharedPosition[]>(result);
 
-            return HttpResult.Ok(result, result.Data.Select(x => new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), x.Symbol, x.CurrentQuantity ?? 0, x.Timestamp)
-            {
-                UnrealizedPnl = x.UnrealizedPnl,
-                AverageOpenPrice = x.OpenAveragePrice,
-                PositionMode = SharedPositionMode.HedgeMode,
-                PositionSide = x.PositionSide == PositionSide.Short ? SharedPositionSide.Short : SharedPositionSide.Long,
-                Leverage = x.Leverage
-            }).ToArray());
+            return HttpResult.Ok(result, result.Data.Select(x => 
+                new SharedPosition(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol),
+                    x.Symbol,
+                    new SharedOrderQuantity(contractQuantity: x.CurrentQuantity ?? 0),
+                    x.Timestamp)
+                {
+                    UnrealizedPnl = x.UnrealizedPnl,
+                    AverageOpenPrice = x.OpenAveragePrice,
+                    PositionMode = SharedPositionMode.HedgeMode,
+                    PositionSide = x.PositionSide == PositionSide.Short ? SharedPositionSide.Short : SharedPositionSide.Long,
+                    Leverage = x.Leverage
+                }).ToArray());
         }
 
         ClosePositionOptions IFuturesOrderRestClient.ClosePositionOptions { get; } = new ClosePositionOptions(_exchangeName, true)
@@ -1075,12 +1079,6 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             return HttpResult.Ok(result, new SharedPositionModeResult(request.PositionMode));
         }
         #endregion
-
-        public static DateTime RoundDown(DateTime dt, TimeSpan d)
-        {
-            var delta = dt.Ticks % d.Ticks;
-            return new DateTime(dt.Ticks - delta, dt.Kind);
-        }
 
     }
 }
