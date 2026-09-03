@@ -1,0 +1,75 @@
+using BitMart.Net.Enums;
+using BitMart.Net.Interfaces.Clients.SpotApi;
+using BitMart.Net.Objects.Models;
+using CryptoExchange.Net;
+using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Objects.Errors;
+using CryptoExchange.Net.SharedApis;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace BitMart.Net.Clients.SpotApi
+{
+    internal partial class BitMartRestClientSpotSharedApi
+    {
+        #region Ticker client
+
+        public GetSpotTickerOptions GetSpotTickerOptions { get; } = new GetSpotTickerOptions(_exchangeName);
+        public async Task<HttpResult<SharedSpotTicker>> GetSpotTickerAsync(GetTickerRequest request, CancellationToken ct)
+        {
+            var validationError = GetSpotTickerOptions.ValidateRequest(request, this);
+            if (validationError != null)
+                return HttpResult.Fail<SharedSpotTicker>(Exchange, validationError);
+
+            var result = await _api.ExchangeData.GetTickerAsync(request.Symbol!.GetSymbol(FormatSymbol), ct).ConfigureAwait(false);
+            if (!result.Success)
+                return HttpResult.Fail<SharedSpotTicker>(result);
+
+            return HttpResult.Ok(result, 
+                new SharedSpotTicker(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, _api.EnvironmentName, null, result.Data.Symbol), 
+                    result.Data.Symbol,
+                    result.Data.LastPrice,
+                    result.Data.HighPrice, 
+                    result.Data.LowPrice, 
+                    new SharedOrderQuantity(result.Data.Volume24h, result.Data.QuoteVolume24h), 
+                    result.Data.Change * 100)
+            {
+            });
+        }
+
+        Task<HttpResult<SharedSpotTicker[]>> ISpotTickerRestClient.GetSpotTickersAsync(GetTickersRequest request, CancellationToken ct)
+            => GetAllSpotTickersAsync(request, ct);
+        GetAllSpotTickersOptions ISpotTickerRestClient.GetSpotTickersOptions => GetAllSpotTickersOptions;
+
+        public GetAllSpotTickersOptions GetAllSpotTickersOptions { get; } = new GetAllSpotTickersOptions(_exchangeName);
+        public async Task<HttpResult<SharedSpotTicker[]>> GetAllSpotTickersAsync(GetTickersRequest request, CancellationToken ct)
+        {
+            var validationError = GetAllSpotTickersOptions.ValidateRequest(request, this);
+            if (validationError != null)
+                return HttpResult.Fail<SharedSpotTicker[]>(Exchange, validationError);
+
+            var result = await _api.ExchangeData.GetTickersAsync(ct: ct).ConfigureAwait(false);
+            if (!result.Success)
+                return HttpResult.Fail<SharedSpotTicker[]>(result);
+
+            return HttpResult.Ok(result, result.Data.Select(x => 
+            new SharedSpotTicker(
+                ExchangeSymbolCache.ParseSymbol(_topicId, _api.EnvironmentName, null, x.Symbol),
+                x.Symbol,
+                x.LastPrice,
+                x.HighPrice,
+                x.LowPrice,
+                new SharedOrderQuantity(x.Volume24h, x.QuoteVolume24h),
+                x.Change * 100)
+            {
+
+            }).ToArray());
+        }
+
+        #endregion
+    }
+}

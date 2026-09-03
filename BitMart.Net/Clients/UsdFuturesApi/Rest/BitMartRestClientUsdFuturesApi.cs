@@ -27,6 +27,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
     internal partial class BitMartRestClientUsdFuturesApi : RestApiClient<BitMartEnvironment, BitMartAuthenticationProvider, BitMartCredentials>, IBitMartRestClientUsdFuturesApi
     {
         #region fields 
+        private readonly BitMartRestClientUsdFuturesSharedApi _sharedApi;
         private readonly IBitMartRestClient _baseClient;
 
         public new BitMartRestOptions ClientOptions => (BitMartRestOptions)base.ClientOptions;
@@ -56,6 +57,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             ExchangeData = new BitMartRestClientUsdFuturesApiExchangeData(_logger, this);
             Trading = new BitMartRestClientUsdFuturesApiTrading(_logger, this);
 
+            _sharedApi = new BitMartRestClientUsdFuturesSharedApi(this);
+
             _baseClient = baseClient;
         }
         #endregion
@@ -63,7 +66,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         /// <inheritdoc />
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(BitMartExchange._serializerContext));
 
-        public IBitMartRestClientUsdFuturesApiShared SharedClient => this;
+        public IBitMartRestClientUsdFuturesApiShared SharedClient => _sharedApi;
+        public IBitMartRestClientUsdFuturesSharedApi SharedApi => _sharedApi;
 
         /// <inheritdoc />
         protected override BitMartAuthenticationProvider CreateAuthenticationProvider(BitMartCredentials credentials)
