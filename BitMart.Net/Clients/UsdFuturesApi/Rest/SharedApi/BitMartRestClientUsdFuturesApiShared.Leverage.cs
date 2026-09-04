@@ -16,10 +16,14 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 {
     internal partial class BitMartRestClientUsdFuturesSharedApi
     {
-        #region Leverage client
+        #region Get Leverage
+
         public SharedLeverageSettingMode LeverageSettingType => SharedLeverageSettingMode.PerSymbol;
 
         public GetLeverageOptions GetLeverageOptions { get; } = new GetLeverageOptions(_exchangeName, true);
+        async Task<ICallResult<SharedLeverage>> IGetLeverage.GetLeverageAsync(GetLeverageRequest request, CancellationToken ct)
+            => await GetLeverageAsync(request, ct).ConfigureAwait(false);
+
         public async Task<HttpResult<SharedLeverage>> GetLeverageAsync(GetLeverageRequest request, CancellationToken ct)
         {
             var validationError = GetLeverageOptions.ValidateRequest(request, this);
@@ -40,7 +44,14 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             });
         }
 
+        #endregion
+
+        #region Set Leverage
+
         public SetLeverageOptions SetLeverageOptions { get; } = new SetLeverageOptions(_exchangeName);
+        async Task<ICallResult<SharedLeverage>> ISetLeverage.SetLeverageAsync(SetLeverageRequest request, CancellationToken ct)
+            => await SetLeverageAsync(request, ct).ConfigureAwait(false);
+
         public async Task<HttpResult<SharedLeverage>> SetLeverageAsync(SetLeverageRequest request, CancellationToken ct)
         {
             var validationError = SetLeverageOptions.ValidateRequest(request, this);
@@ -60,6 +71,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 MarginMode = result.Data.MarginType == MarginType.CrossMargin ? SharedMarginMode.Cross : SharedMarginMode.Isolated
             });
         }
+
         #endregion
     }
 }

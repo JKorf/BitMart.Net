@@ -13,7 +13,7 @@ namespace BitMart.Net.Clients.SpotApi
 {
     internal partial class BitMartSocketClientSpotSharedApi
     {
-        #region Book Ticker client
+        #region Subscribe To Book Ticker Updates
 
         public SubscribeBookTickerOptions SubscribeBookTickerOptions { get; } = new SubscribeBookTickerOptions(_exchangeName, false);
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToBookTickerUpdatesAsync(SubscribeBookTickerRequest request, Action<DataEvent<SharedBookTicker>> handler, CancellationToken ct)
@@ -34,6 +34,7 @@ namespace BitMart.Net.Clients.SpotApi
             
             return result;
         }
+
         #endregion
     }
 }

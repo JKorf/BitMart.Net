@@ -15,8 +15,12 @@ namespace BitMart.Net.Clients.SpotApi
 {
     internal partial class BitMartRestClientSpotSharedApi
     {
-        #region Asset client
+        #region Get Asset
+
         public GetAssetOptions GetAssetOptions { get; } = new GetAssetOptions(_exchangeName, false);
+        async Task<ICallResult<SharedAsset>> IGetAsset.GetAssetAsync(GetAssetRequest request, CancellationToken ct)
+            => await GetAssetAsync(request, ct).ConfigureAwait(false);
+
         public async Task<HttpResult<SharedAsset>> GetAssetAsync(GetAssetRequest request, CancellationToken ct)
         {
             var validationError = GetAssetOptions.ValidateRequest(request, this);
@@ -44,11 +48,18 @@ namespace BitMart.Net.Clients.SpotApi
             });
         }
 
+        #endregion
+
+        #region Get All Assets
+
         Task<HttpResult<SharedAsset[]>> IAssetsRestClient.GetAssetsAsync(GetAssetsRequest request, CancellationToken ct)
             => GetAllAssetsAsync(request, ct);
         GetAllAssetsOptions IAssetsRestClient.GetAssetsOptions => GetAllAssetsOptions;
 
         public GetAllAssetsOptions GetAllAssetsOptions { get; } = new GetAllAssetsOptions(_exchangeName, false);
+
+        async Task<ICallResult<SharedAsset[]>> IGetAllAssets.GetAllAssetsAsync(GetAssetsRequest request, CancellationToken ct)
+            => await GetAllAssetsAsync(request, ct).ConfigureAwait(false);
 
         public async Task<HttpResult<SharedAsset[]>> GetAllAssetsAsync(GetAssetsRequest request, CancellationToken ct)
         {
@@ -74,5 +85,6 @@ namespace BitMart.Net.Clients.SpotApi
         }
 
         #endregion
+
     }
 }

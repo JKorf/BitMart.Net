@@ -13,7 +13,7 @@ namespace BitMart.Net.Clients.SpotApi
 {
     internal partial class BitMartSocketClientSpotSharedApi
     {
-        #region Spot Order client
+        #region Subscribe To Spot Order Updates
 
         async Task<WebSocketResult<UpdateSubscription>> ISpotOrderSocketClient.SubscribeToSpotOrderUpdatesAsync(SubscribeSpotOrderRequest request, Action<DataEvent<SharedSpotOrder[]>> handler, CancellationToken ct)
             => await SubscribeToSpotOrderUpdatesAsync(request, x => handler(x.ToType<SharedSpotOrder[]>(x.Data)), ct).ConfigureAwait(false);
@@ -68,6 +68,8 @@ namespace BitMart.Net.Clients.SpotApi
             return result;
         }
 
+        #endregion
+
         private SharedOrderStatus ParseOrderStatus(OrderStatus status)
         {
             if (status == OrderStatus.PartiallyFilled || status == OrderStatus.New) return SharedOrderStatus.Open;
@@ -76,6 +78,5 @@ namespace BitMart.Net.Clients.SpotApi
 
             return SharedOrderStatus.Unknown;
         }
-        #endregion
     }
 }

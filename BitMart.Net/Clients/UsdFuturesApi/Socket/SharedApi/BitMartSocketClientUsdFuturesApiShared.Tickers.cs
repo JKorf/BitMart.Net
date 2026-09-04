@@ -12,7 +12,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 {
     internal partial class BitMartSocketClientUsdFuturesSharedApi
     {
-        #region Tickers client
+        #region Subscribe To All Tickers Updates
+
         async Task<WebSocketResult<UpdateSubscription>> ISubscribeAllTickersSocket.SubscribeToAllTickersUpdatesAsync(SubscribeAllTickersRequest request, Action<DataEvent<SharedTicker[]>> handler, CancellationToken ct)
             => await SubscribeToAllTickersUpdatesAsync(request, x => handler(x.ToType<SharedTicker[]>(x.Data)), ct).ConfigureAwait(false);
 
@@ -38,7 +39,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
         #endregion
 
-        #region Ticker client
+        #region Subscribe To Ticker Updates
+
         async Task<WebSocketResult<UpdateSubscription>> ISubscribeTickerSocket.SubscribeToTickerUpdatesAsync(SubscribeTickerRequest request, Action<DataEvent<SharedTicker>> handler, CancellationToken ct)
             => await SubscribeToTickerUpdatesAsync(request, x => handler(x.ToType<SharedTicker>(x.Data)), ct).ConfigureAwait(false);
 
@@ -71,5 +73,6 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         }
 
         #endregion
+
     }
 }

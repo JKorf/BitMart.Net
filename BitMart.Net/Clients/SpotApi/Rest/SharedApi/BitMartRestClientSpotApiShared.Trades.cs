@@ -15,8 +15,12 @@ namespace BitMart.Net.Clients.SpotApi
 {
     internal partial class BitMartRestClientSpotSharedApi
     {
-        #region Recent Trade client
+        #region Get Recent Trades
+
         public GetRecentTradesOptions GetRecentTradesOptions { get; } = new GetRecentTradesOptions(_exchangeName, 50, false);
+
+        async Task<ICallResult<SharedTrade[]>> IGetRecentTrades.GetRecentTradesAsync(GetRecentTradesRequest request, CancellationToken ct)
+            => await GetRecentTradesAsync(request, ct).ConfigureAwait(false);
 
         public async Task<HttpResult<SharedTrade[]>> GetRecentTradesAsync(GetRecentTradesRequest request, CancellationToken ct)
         {
@@ -40,5 +44,6 @@ namespace BitMart.Net.Clients.SpotApi
         }
 
         #endregion
+
     }
 }

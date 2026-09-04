@@ -119,6 +119,13 @@ namespace Microsoft.Extensions.DependencyInjection
                 x.GetRequiredService<IOptions<BitMartRestOptions>>(),
                 x.GetRequiredService<IOptions<BitMartSocketOptions>>()));
 
+            services.AddTransient<IBitMartSharedApiClient, BitMartSharedApiClient>();
+
+            services.RegisterSharedApi(x => x.GetRequiredService<IBitMartRestClient>().SpotApi.SharedApi);
+            services.RegisterSharedApi(x => x.GetRequiredService<IBitMartSocketClient>().SpotApi.SharedApi);
+            services.RegisterSharedApi(x => x.GetRequiredService<IBitMartRestClient>().UsdFuturesApi.SharedApi);
+            services.RegisterSharedApi(x => x.GetRequiredService<IBitMartSocketClient>().UsdFuturesApi.SharedApi);
+
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IBitMartRestClient>().SpotApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IBitMartSocketClient>().SpotApi.SharedClient);
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IBitMartRestClient>().UsdFuturesApi.SharedClient);

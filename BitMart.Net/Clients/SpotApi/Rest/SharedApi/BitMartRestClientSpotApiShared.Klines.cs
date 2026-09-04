@@ -15,7 +15,7 @@ namespace BitMart.Net.Clients.SpotApi
 {
     internal partial class BitMartRestClientSpotSharedApi
     {
-        #region Kline client
+        #region Get Klines
 
         public GetKlinesOptions GetKlinesOptions { get; } = new GetKlinesOptions(_exchangeName, true, false, true, 200, false,
             SharedKlineInterval.OneMinute,
@@ -28,6 +28,9 @@ namespace BitMart.Net.Clients.SpotApi
             SharedKlineInterval.FourHours,
             SharedKlineInterval.OneWeek,
             SharedKlineInterval.OneMonth);
+
+        async Task<ICallResult<SharedKline[]>> IGetKlines.GetKlinesAsync(GetKlinesRequest request, PageRequest? pageRequest, CancellationToken ct)
+            => await GetKlinesAsync(request, pageRequest, ct).ConfigureAwait(false);
 
         public async Task<HttpResult<SharedKline[]>> GetKlinesAsync(GetKlinesRequest request, PageRequest? pageRequest, CancellationToken ct)
         {
@@ -90,5 +93,6 @@ namespace BitMart.Net.Clients.SpotApi
         }
 
         #endregion
+
     }
 }

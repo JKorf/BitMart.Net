@@ -13,7 +13,7 @@ namespace BitMart.Net.Clients.SpotApi
 {
     internal partial class BitMartSocketClientSpotSharedApi
     {
-        #region Trade client
+        #region Subscribe To Trade Updates
 
         public SubscribeTradeOptions SubscribeTradeOptions { get; } = new SubscribeTradeOptions(_exchangeName, false)
         {
@@ -35,6 +35,7 @@ namespace BitMart.Net.Clients.SpotApi
             
             return result;
         }
+
         #endregion
     }
 }

@@ -12,7 +12,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 {
     internal partial class BitMartSocketClientUsdFuturesSharedApi
     {
-        #region Kline client
+        #region Subscribe To Kline Updates
+
         public SubscribeKlineOptions SubscribeKlineOptions { get; } = new SubscribeKlineOptions(_exchangeName, false,
             SharedKlineInterval.OneMinute,
             SharedKlineInterval.ThreeMinutes,
@@ -55,6 +56,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             
             return result;
         }
+
         #endregion
     }
 }

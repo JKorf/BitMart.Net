@@ -16,7 +16,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 {
     internal partial class BitMartRestClientUsdFuturesSharedApi
     {
-        #region Klines client
+        #region Get Klines
 
         public GetKlinesOptions GetKlinesOptions { get; } = new GetKlinesOptions(_exchangeName, true, true, true, 500, false,
             SharedKlineInterval.OneMinute,
@@ -33,6 +33,9 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         {
             MaxTotalDataPoints = 500
         };
+
+        async Task<ICallResult<SharedKline[]>> IGetKlines.GetKlinesAsync(GetKlinesRequest request, PageRequest? pageRequest, CancellationToken ct)
+            => await GetKlinesAsync(request, pageRequest, ct).ConfigureAwait(false);
 
         public async Task<HttpResult<SharedKline[]>> GetKlinesAsync(GetKlinesRequest request, PageRequest? pageRequest, CancellationToken ct)
         {
@@ -68,5 +71,6 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         }
 
         #endregion
+
     }
 }

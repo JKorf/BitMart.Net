@@ -12,7 +12,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 {
     internal partial class BitMartSocketClientUsdFuturesSharedApi
     {
-        #region Book Ticker client
+        #region Subscribe To Book Ticker Updates
 
         public SubscribeBookTickerOptions SubscribeBookTickerOptions { get; } = new SubscribeBookTickerOptions(_exchangeName, false)
         {
@@ -40,6 +40,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             
             return result;
         }
+
         #endregion
     }
 }

@@ -12,7 +12,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 {
     internal partial class BitMartSocketClientUsdFuturesSharedApi
     {
-        #region Trade client
+        #region Subscribe To Trade Updates
 
         public SubscribeTradeOptions SubscribeTradeOptions { get; } = new SubscribeTradeOptions(_exchangeName, false)
         {
@@ -39,6 +39,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             
             return result;
         }
+
         #endregion
     }
 }

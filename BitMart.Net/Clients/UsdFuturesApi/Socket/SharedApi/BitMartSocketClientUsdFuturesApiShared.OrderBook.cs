@@ -12,7 +12,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 {
     internal partial class BitMartSocketClientUsdFuturesSharedApi
     {
-        #region Order Book client
+        #region Subscribe To Order Book Updates
+
         public SubscribeOrderBookOptions SubscribeOrderBookOptions { get; } = new SubscribeOrderBookOptions(_exchangeName, false, new[] { 5, 20, 50 })
         {
             SupportsMultipleSymbols = true,
@@ -31,6 +32,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             
             return result;
         }
+
         #endregion
     }
 }

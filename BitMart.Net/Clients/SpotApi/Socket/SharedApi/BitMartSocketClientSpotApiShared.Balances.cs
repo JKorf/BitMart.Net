@@ -13,7 +13,8 @@ namespace BitMart.Net.Clients.SpotApi
 {
     internal partial class BitMartSocketClientSpotSharedApi
     {
-        #region Balance client
+        #region Subscribe To Balance Updates
+
         public SubscribeBalanceOptions SubscribeBalanceOptions { get; } = new SubscribeBalanceOptions(_exchangeName, false);
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(SubscribeBalancesRequest request, Action<DataEvent<SharedBalance[]>> handler, CancellationToken ct)
         {
@@ -34,5 +35,6 @@ namespace BitMart.Net.Clients.SpotApi
         }
 
         #endregion
+
     }
 }

@@ -13,7 +13,8 @@ namespace BitMart.Net.Clients.SpotApi
 {
     internal partial class BitMartSocketClientSpotSharedApi
     {
-        #region Kline client
+        #region Subscribe To Kline Updates
+
         public SubscribeKlineOptions SubscribeKlineOptions { get; } = new SubscribeKlineOptions(_exchangeName, false,
             SharedKlineInterval.OneMinute,
             SharedKlineInterval.ThreeMinutes,
@@ -57,6 +58,7 @@ namespace BitMart.Net.Clients.SpotApi
             
             return result;
         }
+
         #endregion
     }
 }

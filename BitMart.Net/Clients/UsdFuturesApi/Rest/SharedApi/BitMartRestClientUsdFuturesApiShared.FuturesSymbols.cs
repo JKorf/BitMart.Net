@@ -16,10 +16,14 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 {
     internal partial class BitMartRestClientUsdFuturesSharedApi
     {
-        #region Futures Symbol client
+        #region Get Futures Symbols
+
         public SharedSymbolCatalog? FuturesSymbolCatalog => ExchangeSymbolCache.GetSymbolCatalog(_exchangeName, _topicId, _api.EnvironmentName, null);
 
         public GetFuturesSymbolsOptions GetFuturesSymbolsOptions { get; } = new GetFuturesSymbolsOptions(_exchangeName, false);
+        async Task<ICallResult<SharedFuturesSymbol[]>> IGetFuturesSymbols.GetFuturesSymbolsAsync(GetSymbolsRequest request, CancellationToken ct)
+            => await GetFuturesSymbolsAsync(request, ct).ConfigureAwait(false);
+
         public async Task<HttpResult<SharedFuturesSymbol[]>> GetFuturesSymbolsAsync(GetSymbolsRequest request, CancellationToken ct)
         {
             var validationError = GetFuturesSymbolsOptions.ValidateRequest(request, this);
@@ -37,6 +41,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             ExchangeSymbolCache.UpdateSymbolInfo(_topicId, _api.EnvironmentName, null, data);
             return HttpResult.Ok(contracts, SharedUtils.ApplySymbolFilter(data, request));
         }
+
+        #endregion
 
         private SharedFuturesSymbol ParseSymbol(BitMartContract s)
         {
@@ -150,6 +156,5 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
             return ExchangeCallResult<bool>.Ok(Exchange, ExchangeSymbolCache.SupportsSymbol(_topicId, _api.EnvironmentName, null, symbolName));
         }
-        #endregion
     }
 }

@@ -12,7 +12,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 {
     internal partial class BitMartSocketClientUsdFuturesSharedApi
     {
-        #region Futures Order client
+        #region Subscribe To Futures Order Updates
+
         async Task<WebSocketResult<UpdateSubscription>> IFuturesOrderSocketClient.SubscribeToFuturesOrderUpdatesAsync(SubscribeFuturesOrderRequest request, Action<DataEvent<SharedFuturesOrder[]>> handler, CancellationToken ct)
             => await SubscribeToFuturesOrderUpdatesAsync(request, x => handler(x.ToType<SharedFuturesOrder[]>(x.Data)), ct).ConfigureAwait(false);
 
@@ -65,6 +66,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             return result;
         }
 
+        #endregion
+
         private SharedOrderStatus ParseOrderStatus(Enums.FuturesOrderStatus status, decimal remainingQuantity)
         {
             if (status == Enums.FuturesOrderStatus.Approval || status == Enums.FuturesOrderStatus.Check) return SharedOrderStatus.Open;
@@ -82,6 +85,5 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             if (type == Enums.FuturesOrderType.PlanOrder) return orderPrice > 0 ? SharedOrderType.Limit : SharedOrderType.Market;
             return SharedOrderType.Other;
         }
-        #endregion
     }
 }

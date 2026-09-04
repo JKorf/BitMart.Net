@@ -16,7 +16,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 {
     internal partial class BitMartRestClientUsdFuturesSharedApi
     {
-        #region Tp/SL Client
+        #region Set Futures Tp Sl
+
         public SetFuturesTpSlOptions SetFuturesTpSlOptions { get; } = new SetFuturesTpSlOptions(_exchangeName, true)
         {
             RequiredRequestParameters = new List<ParameterDescription>
@@ -24,6 +25,9 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 new ParameterDescription(nameof(PlaceFuturesTriggerOrderRequest.PositionMode), typeof(SharedPositionMode), "PositionMode the account is in", SharedPositionMode.OneWay)
             }
         };
+
+        async Task<ICallResult<SharedId>> ISetFuturesTpSl.SetFuturesTpSlAsync(SetTpSlRequest request, CancellationToken ct)
+            => await SetFuturesTpSlAsync(request, ct).ConfigureAwait(false);
 
         public async Task<HttpResult<SharedId>> SetFuturesTpSlAsync(SetTpSlRequest request, CancellationToken ct)
         {
@@ -49,6 +53,10 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             return HttpResult.Ok(result, new SharedId(result.Data.OrderId.ToString()));
         }
 
+        #endregion
+
+        #region Cancel Futures Tp Sl
+
         public CancelFuturesTpSlOptions CancelFuturesTpSlOptions { get; } = new CancelFuturesTpSlOptions(_exchangeName, true)
         {
             RequiredRequestParameters = new List<ParameterDescription>
@@ -56,6 +64,9 @@ namespace BitMart.Net.Clients.UsdFuturesApi
                 new ParameterDescription(nameof(CancelTpSlRequest.OrderId), typeof(string), "Id of the tp/sl order", "123123")
             }
         };
+
+        async Task<ICallResult<bool>> ICancelFuturesTpSl.CancelFuturesTpSlAsync(CancelTpSlRequest request, CancellationToken ct)
+            => await CancelFuturesTpSlAsync(request, ct).ConfigureAwait(false);
 
         public async Task<HttpResult<bool>> CancelFuturesTpSlAsync(CancelTpSlRequest request, CancellationToken ct)
         {
@@ -75,5 +86,6 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         }
 
         #endregion
+
     }
 }
