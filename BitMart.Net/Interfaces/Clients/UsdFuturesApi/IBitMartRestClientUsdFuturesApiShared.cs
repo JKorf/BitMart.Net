@@ -31,8 +31,8 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
     /// </summary>
     public interface IBitMartRestClientUsdFuturesSharedApi :
         IGetBalancesRest,
-        IGetFuturesTickerRest,
-        IGetAllFuturesTickersRest,
+        IGetTickerRest,
+        IGetAllTickersRest,
         IGetKlinesRest,
         IGetFuturesSymbolsRest,
         IGetRecentTradesRest,
@@ -48,7 +48,6 @@ namespace BitMart.Net.Interfaces.Clients.SpotApi
         IGetFuturesUserTradeHistoryRest,
         ICancelFuturesOrderRest,
         IGetPositionsRest,
-        IClosePositionRest,
         IGetFeesRest,
         IGetFuturesOrderByClientOrderIdRest,
         ICancelFuturesOrderByClientOrderIdRest,

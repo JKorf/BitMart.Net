@@ -101,10 +101,9 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
         public PlaceFuturesOrderOptions PlaceFuturesOrderOptions { get; } = new PlaceFuturesOrderOptions(_exchangeName, true)
         {
-            RequiredRequestParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription(nameof(PlaceFuturesOrderRequest.PositionSide), typeof(SharedPositionSide), "Position side for the order", SharedPositionSide.Long)
-            }
+            ParameterRuleOverwrites = [
+                RequestParameterRuleOverride<PlaceFuturesOrderRequest>.Required(x => x.PositionSide)
+            ]
         };
         async Task<ICallResult<SharedId>> IPlaceFuturesOrder.PlaceFuturesOrderAsync(PlaceFuturesOrderRequest request, CancellationToken ct)
             => await PlaceFuturesOrderAsync(request, ct).ConfigureAwait(false);
@@ -441,13 +440,10 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
         public ClosePositionOptions ClosePositionOptions { get; } = new ClosePositionOptions(_exchangeName, true)
         {
-            RequiredRequestParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription(nameof(ClosePositionRequest.Quantity), typeof(decimal), "Quantity of position to close", 1m)
-            }
+            ParameterRuleOverwrites = [
+                RequestParameterRuleOverride<ClosePositionRequest>.Required(x => x.Quantity)
+            ]
         };
-        async Task<ICallResult<SharedId>> IClosePosition.ClosePositionAsync(ClosePositionRequest request, CancellationToken ct)
-            => await ClosePositionAsync(request, ct).ConfigureAwait(false);
 
         public async Task<HttpResult<SharedId>> ClosePositionAsync(ClosePositionRequest request, CancellationToken ct)
         {

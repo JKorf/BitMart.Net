@@ -20,10 +20,9 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
         public SetFuturesTpSlOptions SetFuturesTpSlOptions { get; } = new SetFuturesTpSlOptions(_exchangeName, true)
         {
-            RequiredRequestParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription(nameof(PlaceFuturesTriggerOrderRequest.PositionMode), typeof(SharedPositionMode), "PositionMode the account is in", SharedPositionMode.OneWay)
-            }
+            ParameterRuleOverwrites = [
+                RequestParameterRuleOverride<SetTpSlRequest>.Required(x => x.PositionMode)
+            ]
         };
 
         async Task<ICallResult<SharedId>> ISetFuturesTpSl.SetFuturesTpSlAsync(SetTpSlRequest request, CancellationToken ct)
@@ -59,10 +58,9 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
         public CancelFuturesTpSlOptions CancelFuturesTpSlOptions { get; } = new CancelFuturesTpSlOptions(_exchangeName, true)
         {
-            RequiredRequestParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription(nameof(CancelTpSlRequest.OrderId), typeof(string), "Id of the tp/sl order", "123123")
-            }
+            ParameterRuleOverwrites = [
+                RequestParameterRuleOverride<CancelTpSlRequest>.Required(x => x.OrderId)
+            ]
         };
 
         async Task<ICallResult<bool>> ICancelFuturesTpSl.CancelFuturesTpSlAsync(CancelTpSlRequest request, CancellationToken ct)

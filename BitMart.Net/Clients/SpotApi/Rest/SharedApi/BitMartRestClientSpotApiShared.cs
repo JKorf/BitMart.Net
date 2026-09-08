@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace BitMart.Net.Clients.SpotApi
 {
-    internal partial class BitMartRestClientSpotSharedApi : 
+    internal partial class BitMartRestClientSpotSharedApi :
         SharedApiBase,
         IBitMartRestClientSpotApiShared,
         IBitMartRestClientSpotSharedApi
@@ -38,8 +38,8 @@ namespace BitMart.Net.Clients.SpotApi
             SetCapabilities(
                 GetKlinesOptions,
                 GetSpotSymbolsOptions,
-                GetSpotTickerOptions,
-                GetAllSpotTickersOptions,
+                GetTickerOptions,
+                GetAllTickersOptions,
                 GetBookTickerOptions,
                 GetRecentTradesOptions,
                 GetBalancesOptions,

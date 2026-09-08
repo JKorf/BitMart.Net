@@ -14,7 +14,7 @@ using Microsoft.Extensions.Logging;
 
 namespace BitMart.Net.Clients.UsdFuturesApi
 {
-    internal partial class BitMartRestClientUsdFuturesSharedApi : 
+    internal partial class BitMartRestClientUsdFuturesSharedApi :
         SharedApiBase,
         IBitMartRestClientUsdFuturesApiShared,
         IBitMartRestClientUsdFuturesSharedApi
@@ -36,6 +36,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             _api = api;
 
             SetCapabilities(
+                GetTickerOptions,
+                GetAllTickersOptions
                 );
         }
     }
