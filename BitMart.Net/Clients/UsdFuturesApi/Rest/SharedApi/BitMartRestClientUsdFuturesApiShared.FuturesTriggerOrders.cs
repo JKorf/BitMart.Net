@@ -20,6 +20,9 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
         public PlaceFuturesTriggerOrderOptions PlaceFuturesTriggerOrderOptions { get; } = new PlaceFuturesTriggerOrderOptions(_exchangeName, false)
         {
+            ParameterRuleOverwrites = [
+                RequestParameterRuleOverride<PlaceFuturesTriggerOrderRequest>.NotSupported(x => x.ReduceOnly),
+                ]
         };
 
         async Task<ICallResult<SharedId>> IPlaceFuturesTriggerOrder.PlaceFuturesTriggerOrderAsync(PlaceFuturesTriggerOrderRequest request, CancellationToken ct)

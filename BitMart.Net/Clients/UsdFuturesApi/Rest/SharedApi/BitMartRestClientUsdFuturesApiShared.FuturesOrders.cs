@@ -102,7 +102,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         public PlaceFuturesOrderOptions PlaceFuturesOrderOptions { get; } = new PlaceFuturesOrderOptions(_exchangeName, true)
         {
             ParameterRuleOverwrites = [
-                RequestParameterRuleOverride<PlaceFuturesOrderRequest>.Required(x => x.PositionSide)
+                RequestParameterRuleOverride<PlaceFuturesOrderRequest>.Required(x => x.PositionSide),
+                RequestParameterRuleOverride<PlaceFuturesOrderRequest>.NotSupported(x => x.ReduceOnly),
             ]
         };
         async Task<ICallResult<SharedId>> IPlaceFuturesOrder.PlaceFuturesOrderAsync(PlaceFuturesOrderRequest request, CancellationToken ct)
