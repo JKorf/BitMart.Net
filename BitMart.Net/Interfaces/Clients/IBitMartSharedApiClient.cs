@@ -1,12 +1,13 @@
 using BitMart.Net.Interfaces.Clients.SpotApi;
 using BitMart.Net.Interfaces.Clients.UsdFuturesApi;
+using CryptoExchange.Net.SharedApis;
 
 namespace BitMart.Net.Interfaces.Clients
 {
     /// <summary>
     /// Client for the shared REST and WebSocket API implementations of BitMart
     /// </summary>
-    public interface IBitMartSharedApiClient
+    public interface IBitMartSharedApiClient : ISharedApiClientBase
     {
         /// <summary>
         /// Spot REST shared API implementations
