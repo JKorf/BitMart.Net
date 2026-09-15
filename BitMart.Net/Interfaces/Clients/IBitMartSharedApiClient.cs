@@ -17,7 +17,7 @@ namespace BitMart.Net.Interfaces.Clients
         /// <summary>
         /// Futures REST shared API implementations
         /// </summary>
-        IBitMartRestClientUsdFuturesSharedApi FuturesRest { get; }
+        IBitMartRestClientUsdFuturesSharedApi UsdFuturesRest { get; }
 
         /// <summary>
         /// Spot WebSocket shared API implementations
@@ -27,6 +27,6 @@ namespace BitMart.Net.Interfaces.Clients
         /// <summary>
         /// Futures WebSocket shared API implementations
         /// </summary>
-        IBitMartSocketClientUsdFuturesSharedApi FuturesSocket { get; }
+        IBitMartSocketClientUsdFuturesSharedApi UsdFuturesSocket { get; }
     }
 }

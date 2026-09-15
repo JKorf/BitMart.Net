@@ -1,18 +1,19 @@
-using CryptoExchange.Net.Clients;
-using CryptoExchange.Net.Interfaces;
-using System;
-using System.Net.Http;
+using BitMart.Net;
 using BitMart.Net.Clients;
 using BitMart.Net.Interfaces;
 using BitMart.Net.Interfaces.Clients;
 using BitMart.Net.Objects.Options;
 using BitMart.Net.SymbolOrderBooks;
 using CryptoExchange.Net;
-using BitMart.Net;
+using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.Interfaces;
+using CryptoExchange.Net.Interfaces.Clients;
+using CryptoExchange.Net.SharedApis;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Configuration;
-using CryptoExchange.Net.Interfaces.Clients;
+using System;
+using System.Net.Http;
 using System.Threading;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -121,20 +122,20 @@ namespace Microsoft.Extensions.DependencyInjection
                 x.GetRequiredService<IOptions<BitMartRestOptions>>(),
                 x.GetRequiredService<IOptions<BitMartSocketOptions>>()));
 
-            services.AddTransient<IBitMartSharedApiClient, BitMartSharedApiClient>();
-
-            services.RegisterSharedApi(x => x.GetRequiredService<IBitMartRestClient>().SpotApi.SharedApi);
-            services.RegisterSharedApi(x => x.GetRequiredService<IBitMartSocketClient>().SpotApi.SharedApi);
-            services.RegisterSharedApi(x => x.GetRequiredService<IBitMartRestClient>().UsdFuturesApi.SharedApi);
-            services.RegisterSharedApi(x => x.GetRequiredService<IBitMartSocketClient>().UsdFuturesApi.SharedApi);
-
-            services.RegisterSharedApiClientCapabilities<IBitMartSharedApiClient>();
-
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IBitMartRestClient>().SpotApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IBitMartSocketClient>().SpotApi.SharedClient);
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<IBitMartRestClient>().UsdFuturesApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<IBitMartSocketClient>().UsdFuturesApi.SharedClient);
-            
+
+            services.RegisterSharedApiClient<
+                IBitMartSharedApiClient,
+                BitMartSharedApiClient>(sharedApis => sharedApis
+                    .Add(client => client.SpotRest)
+                    .Add(client => client.SpotSocket)
+                    .Add(client => client.UsdFuturesRest)
+                    .Add(client => client.UsdFuturesSocket)
+                    );
+
             return services;
         }
     }

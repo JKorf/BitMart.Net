@@ -13,11 +13,11 @@ namespace BitMart.Net.Clients
         /// <inheritdoc />
         public IBitMartRestClientSpotSharedApi SpotRest { get; }
         /// <inheritdoc />
-        public IBitMartRestClientUsdFuturesSharedApi FuturesRest { get; }
+        public IBitMartRestClientUsdFuturesSharedApi UsdFuturesRest { get; }
         /// <inheritdoc />
         public IBitMartSocketClientSpotSharedApi SpotSocket { get; }
         /// <inheritdoc />
-        public IBitMartSocketClientUsdFuturesSharedApi FuturesSocket { get; }
+        public IBitMartSocketClientUsdFuturesSharedApi UsdFuturesSocket { get; }
 
         /// <summary>
         /// ctor
@@ -33,9 +33,9 @@ namespace BitMart.Net.Clients
                 socketClient.UsdFuturesApi.SharedApi)
         {
             SpotRest = restClient.SpotApi.SharedApi;
-            FuturesRest = restClient.UsdFuturesApi.SharedApi;
+            UsdFuturesRest = restClient.UsdFuturesApi.SharedApi;
             SpotSocket = socketClient.SpotApi.SharedApi;
-            FuturesSocket = socketClient.UsdFuturesApi.SharedApi;
+            UsdFuturesSocket = socketClient.UsdFuturesApi.SharedApi;
         }
     }
 }
