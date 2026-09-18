@@ -26,7 +26,7 @@ namespace BitMart.Net.Clients.SpotApi
         public BitMartSocketClientSpotSharedApi(BitMartSocketClientSpotApi api)
             : base(
                   SharedTransport.Socket,
-                  api.Exchange,
+                  api,
                   new[] { TradingMode.Spot },
                   () => api.Authenticated,
                   api.FormatSymbol)

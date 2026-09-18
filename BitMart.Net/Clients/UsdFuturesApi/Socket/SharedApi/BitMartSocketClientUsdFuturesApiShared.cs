@@ -25,7 +25,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         public BitMartSocketClientUsdFuturesSharedApi(BitMartSocketClientUsdFuturesApi api)
         : base(
                   SharedTransport.Socket,
-                  api.Exchange,
+                  api,
                   new[] { TradingMode.PerpetualLinear, TradingMode.DeliveryLinear },
                   () => api.Authenticated,
                   api.FormatSymbol)

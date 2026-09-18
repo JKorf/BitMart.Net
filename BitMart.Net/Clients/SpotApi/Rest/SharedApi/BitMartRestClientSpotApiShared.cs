@@ -28,7 +28,7 @@ namespace BitMart.Net.Clients.SpotApi
         public BitMartRestClientSpotSharedApi(BitMartRestClientSpotApi api)
             : base(
                   SharedTransport.Rest,
-                  api.Exchange,
+                  api,
                   new[] { TradingMode.Spot },
                   () => api.Authenticated,
                   api.FormatSymbol)

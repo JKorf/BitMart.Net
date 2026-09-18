@@ -28,7 +28,7 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         public BitMartRestClientUsdFuturesSharedApi(BitMartRestClientUsdFuturesApi api)
             : base(
                   SharedTransport.Rest,
-                  api.Exchange,
+                  api,
                   new[] { TradingMode.PerpetualLinear, TradingMode.DeliveryLinear },
                   () => api.Authenticated,
                   api.FormatSymbol)
