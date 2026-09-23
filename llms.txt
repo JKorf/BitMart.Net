@@ -28,8 +28,8 @@ var socketClient = new BitMartSocketClient();
 - USD futures REST: `restClient.UsdFuturesApi`
 - Spot socket: `socketClient.SpotApi`
 - USD futures socket: `socketClient.UsdFuturesApi`
-- Shared capability discovery: `client.SpotApi.SharedClient.Discover()` / `client.UsdFuturesApi.SharedClient.Discover()`
-- Shared symbol catalogs: `client.SpotApi.SharedClient.SpotSymbolCatalog` / `client.UsdFuturesApi.SharedClient.FuturesSymbolCatalog`; shared symbol results include display names and asset type/subtype metadata.
+- Use the exchange-level `IBitMartSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
+- Shared symbol catalogs: `client.SpotApi.SharedApi.SpotSymbolCatalog` / `client.UsdFuturesApi.SharedApi.FuturesSymbolCatalog`; shared symbol results include display names and asset type/subtype metadata.
 
 ## Common calls
 

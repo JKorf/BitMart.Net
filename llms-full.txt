@@ -36,7 +36,7 @@ Primary documentation:
 - Use `SpotApi` for spot and margin endpoints.
 - Use `UsdFuturesApi` for USD futures endpoints.
 - Spot symbols use underscores (`BTC_USDT`); USD futures symbols do not (`BTCUSDT`).
-- For multi-exchange code, use `CryptoExchange.Net.SharedApis` interfaces from each exchange's `.SharedClient` and call `.Discover()` to inspect supported shared features.
+- Use the exchange-level `IBitMartSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 
 ## Installation
 
@@ -146,13 +146,13 @@ BitMartRestClient
     .Trading
     .Margin
     .SubAccount
-    .SharedClient
+    .SharedApi
   .UsdFuturesApi
     .ExchangeData
     .Account
     .Trading
     .SubAccount
-    .SharedClient
+    .SharedApi
 ```
 
 WebSocket:
@@ -160,7 +160,7 @@ WebSocket:
 ```text
 BitMartSocketClient
   .SpotApi
-    .SharedClient
+    .SharedApi
     SubscribeToTickerUpdatesAsync(...)
     SubscribeToKlineUpdatesAsync(...)
     SubscribeToPartialOrderBookUpdatesAsync(...)
@@ -170,7 +170,7 @@ BitMartSocketClient
     SubscribeToOrderUpdatesAsync(...)
     SubscribeToBalanceUpdatesAsync(...)
   .UsdFuturesApi
-    .SharedClient
+    .SharedApi
     SubscribeToTickerUpdatesAsync(...)
     SubscribeToTradeUpdatesAsync(...)
     SubscribeToFundingRateUpdatesAsync(...)
@@ -435,30 +435,28 @@ await socketClient.UnsubscribeAsync(subscription.Data);
 Spot:
 
 ```csharp
-ISpotTickerRestClient tickerClient = new BitMartRestClient().SpotApi.SharedClient;
-var info = tickerClient.Discover();
-var supported = info.Features.Where(x => x.Supported).Select(x => x.EndpointName);
-Console.WriteLine($"{info.Exchange} {info.TypeName}: {string.Join(", ", supported)}");
+IGetTickerRest tickerClient = new BitMartRestClient().SpotApi.SharedApi;
+// Use the exchange-level `IBitMartSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 
 var symbol = new SharedSymbol(TradingMode.Spot, "BTC", "USDT");
 
-var ticker = await tickerClient.GetSpotTickerAsync(new GetTickerRequest(symbol));
+var ticker = await tickerClient.GetTickerAsync(new GetTickerRequest(symbol));
 ```
 
 USD futures:
 
 ```csharp
-IFuturesTickerRestClient futuresTickerClient = new BitMartRestClient().UsdFuturesApi.SharedClient;
-var futuresInfo = futuresTickerClient.Discover();
+IGetTickerRest futuresTickerClient = new BitMartRestClient().UsdFuturesApi.SharedApi;
+// Use the exchange-level `IBitMartSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 var futuresSupported = futuresInfo.Features.Where(x => x.Supported).Select(x => x.EndpointName);
 Console.WriteLine($"{futuresInfo.Exchange} {futuresInfo.TypeName}: {string.Join(", ", futuresSupported)}");
 
 var futuresSymbol = new SharedSymbol(TradingMode.PerpetualLinear, "BTC", "USDT");
 
-var ticker = await futuresTickerClient.GetFuturesTickerAsync(new GetTickerRequest(futuresSymbol));
+var ticker = await futuresTickerClient.GetTickerAsync(new GetTickerRequest(futuresSymbol));
 ```
 
-Shared symbol clients expose catalogs through `ISpotSymbolRestClient.SpotSymbolCatalog` and `IFuturesSymbolRestClient.FuturesSymbolCatalog`. The corresponding get-symbols call updates the catalog. Returned `SharedSpotSymbol` and `SharedFuturesSymbol` values include `DisplayName`, `BaseAssetType`, `BaseAssetSubType`, `QuoteAssetType`, and `QuoteAssetSubType`. Spot assets are crypto with stablecoin subtypes where applicable; futures asset classification also uses `BitMartContract.TradfiInfo` to identify fiat and TradFi equities or commodities.
+Shared symbol clients expose catalogs through `IGetSpotSymbolsRest.SpotSymbolCatalog` and `IGetFuturesSymbolsRest.FuturesSymbolCatalog`. The corresponding get-symbols call updates the catalog. Returned `SharedSpotSymbol` and `SharedFuturesSymbol` values include `DisplayName`, `BaseAssetType`, `BaseAssetSubType`, `QuoteAssetType`, and `QuoteAssetSubType`. Spot assets are crypto with stablecoin subtypes where applicable; futures asset classification also uses `BitMartContract.TradfiInfo` to identify fiat and TradFi equities or commodities.
 
 ## AI-Friendly Examples
 

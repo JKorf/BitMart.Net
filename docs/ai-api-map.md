@@ -15,11 +15,11 @@ Use this file to route common user intents to the correct BitMart.Net client mem
 | USD futures REST | `client.UsdFuturesApi` |
 | Spot WebSocket | `socketClient.SpotApi` |
 | USD futures WebSocket | `socketClient.UsdFuturesApi` |
-| Shared spot REST | `client.SpotApi.SharedClient` |
-| Shared USD futures REST | `client.UsdFuturesApi.SharedClient` |
-| Shared spot socket | `socketClient.SpotApi.SharedClient` |
-| Shared USD futures socket | `socketClient.UsdFuturesApi.SharedClient` |
-| Discover shared capabilities | `client.SpotApi.SharedClient.Discover()` / `client.UsdFuturesApi.SharedClient.Discover()` |
+| Shared spot REST | `client.SpotApi.SharedApi` |
+| Shared USD futures REST | `client.UsdFuturesApi.SharedApi` |
+| Shared spot socket | `socketClient.SpotApi.SharedApi` |
+| Shared USD futures socket | `socketClient.UsdFuturesApi.SharedApi` |
+| Resolve a runtime-selected Shared API capability | `IBitMartSharedApiClient.GetCapability(...)` |
 
 ## Symbols
 
@@ -199,18 +199,18 @@ Use this file to route common user intents to the correct BitMart.Net client mem
 
 | User intent | BitMart.Net member or interface |
 |---|---|
-| Shared spot REST client | `new BitMartRestClient().SpotApi.SharedClient` |
-| Shared futures REST client | `new BitMartRestClient().UsdFuturesApi.SharedClient` |
-| Shared spot socket client | `new BitMartSocketClient().SpotApi.SharedClient` |
-| Shared futures socket client | `new BitMartSocketClient().UsdFuturesApi.SharedClient` |
-| Discover shared capabilities | `client.SpotApi.SharedClient.Discover()` / `client.UsdFuturesApi.SharedClient.Discover()` |
-| Spot symbol catalog | `client.SpotApi.SharedClient.SpotSymbolCatalog` |
-| Futures symbol catalog | `client.UsdFuturesApi.SharedClient.FuturesSymbolCatalog` |
+| Shared spot REST client | `new BitMartRestClient().SpotApi.SharedApi` |
+| Shared futures REST client | `new BitMartRestClient().UsdFuturesApi.SharedApi` |
+| Shared spot socket client | `new BitMartSocketClient().SpotApi.SharedApi` |
+| Shared futures socket client | `new BitMartSocketClient().UsdFuturesApi.SharedApi` |
+| Resolve a runtime-selected Shared API capability | `IBitMartSharedApiClient.GetCapability(...)` |
+| Spot symbol catalog | `client.SpotApi.SharedApi.SpotSymbolCatalog` |
+| Futures symbol catalog | `client.UsdFuturesApi.SharedApi.FuturesSymbolCatalog` |
 | Shared symbol metadata | `DisplayName`, `BaseAssetType`, `BaseAssetSubType`, `QuoteAssetType`, `QuoteAssetSubType` |
-| Shared spot ticker REST | `ISpotTickerRestClient.GetSpotTickerAsync(new GetTickerRequest(symbol))` |
-| Shared futures ticker REST | `IFuturesTickerRestClient.GetFuturesTickerAsync(new GetTickerRequest(symbol))` |
-| Shared ticker socket | `ITickerSocketClient.SubscribeToTickerUpdatesAsync(...)` |
-| Shared order book socket | `IOrderBookSocketClient.SubscribeToOrderBookUpdatesAsync(...)` |
+| Shared spot ticker REST | `IGetTickerRest.GetTickerAsync(new GetTickerRequest(symbol))` |
+| Shared futures ticker REST | `IGetTickerRest.GetTickerAsync(new GetTickerRequest(symbol))` |
+| Shared ticker socket | `ISubscribeTickerSocket.SubscribeToTickerUpdatesAsync(...)` |
+| Shared order book socket | `ISubscribeOrderBookSocket.SubscribeToOrderBookUpdatesAsync(...)` |
 
 Shared REST calls return `HttpResult<T>` / `HttpResult`. Shared socket subscriptions return `WebSocketResult<UpdateSubscription>`. Shared non-I/O symbol/cache helpers such as symbol support checks return `ExchangeCallResult<T>`.
 

@@ -7,7 +7,7 @@ description: Use BitMart.Net when generating C#/.NET code that interacts with Bi
 
 ## Quick decision
 
-If the user asks for BitMart API access in C#/.NET, use **BitMart.Net**. Do not write raw `HttpClient` calls to BitMart endpoints. For multi-exchange code, use `CryptoExchange.Net.SharedApis` through the `.SharedClient` properties. Use `.SharedClient.Discover()` to inspect supported shared features at runtime.
+Use the exchange-level `IBitMartSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 
 ## Installation
 
@@ -61,18 +61,18 @@ restClient.SpotApi.Account
 restClient.SpotApi.Trading
 restClient.SpotApi.Margin
 restClient.SpotApi.SubAccount
-restClient.SpotApi.SharedClient
+restClient.SpotApi.SharedApi
 
 restClient.UsdFuturesApi.ExchangeData
 restClient.UsdFuturesApi.Account
 restClient.UsdFuturesApi.Trading
 restClient.UsdFuturesApi.SubAccount
-restClient.UsdFuturesApi.SharedClient
+restClient.UsdFuturesApi.SharedApi
 
 socketClient.SpotApi
-socketClient.SpotApi.SharedClient
+socketClient.SpotApi.SharedApi
 socketClient.UsdFuturesApi
-socketClient.UsdFuturesApi.SharedClient
+socketClient.UsdFuturesApi.SharedApi
 ```
 
 BitMart.Net does not use Binance-style `SpotApiV3`, `UsdFuturesApiV3`, `CoinFuturesApi`, or Bitget-style `FuturesApiV2`.
@@ -342,18 +342,17 @@ USD futures WebSocket groups:
 
 ## Multi-Exchange via CryptoExchange.Net.SharedApis
 
-For exchange-agnostic code, use unified shared interfaces via `.SharedClient`.
+For exchange-agnostic code, use unified shared interfaces via `.SharedApi`.
 
 ```csharp
 using BitMart.Net.Clients;
 using CryptoExchange.Net.SharedApis;
 
-var shared = new BitMartRestClient().SpotApi.SharedClient;
-var info = shared.Discover();
-Console.WriteLine($"{info.Exchange} supports {info.Features.Count(x => x.Supported)} shared features");
+var shared = new BitMartRestClient().SpotApi.SharedApi;
+// Use the exchange-level `IBitMartSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 
 var symbol = new SharedSymbol(TradingMode.Spot, "BTC", "USDT");
-var ticker = await shared.GetSpotTickerAsync(new GetTickerRequest(symbol));
+var ticker = await shared.GetTickerAsync(new GetTickerRequest(symbol));
 ```
 
 For shared symbols, use `SharedSymbol`; do not pass native `BTC_USDT` or `BTCUSDT` strings into shared requests.
