@@ -155,15 +155,15 @@ var sub = await socketClient.UsdFuturesApi.SubscribeToTickerUpdatesAsync(
 
 ## Cross-exchange
 
-For code that needs to work across multiple exchanges, use `CryptoExchange.Net.SharedApis` interfaces accessed via `.SharedClient` properties.
+For code that needs to work across multiple exchanges, use `CryptoExchange.Net.SharedApis` interfaces accessed via `.SharedApi` properties.
 
 ```csharp
 using BitMart.Net.Clients;
 using CryptoExchange.Net.SharedApis;
 
-var shared = new BitMartRestClient().SpotApi.SharedClient;
+var shared = new BitMartRestClient().SpotApi.SharedApi;
 var symbol = new SharedSymbol(TradingMode.Spot, "BTC", "USDT");
-var ticker = await shared.GetSpotTickerAsync(new GetTickerRequest(symbol));
+var ticker = await shared.GetTickerAsync(new GetTickerRequest(symbol));
 ```
 
 Use `SharedSymbol` for shared APIs. Do not pass exchange-native `BTC_USDT` or `BTCUSDT` strings to shared requests.

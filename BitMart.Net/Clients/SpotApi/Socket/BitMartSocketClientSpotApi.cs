@@ -35,6 +35,8 @@ namespace BitMart.Net.Clients.SpotApi
     internal partial class BitMartSocketClientSpotApi : SocketApiClient<BitMartEnvironment, BitMartAuthenticationProvider, BitMartCredentials>, IBitMartSocketClientSpotApi
     {
         #region fields
+        private readonly BitMartSocketClientSpotSharedApi _sharedApi;
+
         protected override ErrorMapping ErrorMapping => BitMartErrors.SpotSocketErrors;
         #endregion
 
@@ -48,6 +50,8 @@ namespace BitMart.Net.Clients.SpotApi
         {
             KeepAliveInterval = TimeSpan.Zero;
             MaxIndividualSubscriptionsPerConnection = 115;
+
+            _sharedApi = new BitMartSocketClientSpotSharedApi(this);
 
             RegisterPeriodicQuery(
                 "ping",
@@ -70,7 +74,8 @@ namespace BitMart.Net.Clients.SpotApi
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(BitMartExchange._serializerContext));
         public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new BitMartSocketSpotMessageConverter();
 
-        public IBitMartSocketClientSpotApiShared SharedClient => this;
+        public IBitMartSocketClientSpotApiShared SharedClient => _sharedApi;
+        public IBitMartSocketClientSpotSharedApi SharedApi => _sharedApi;
 
         /// <inheritdoc />
         protected override BitMartAuthenticationProvider CreateAuthenticationProvider(BitMartCredentials credentials)

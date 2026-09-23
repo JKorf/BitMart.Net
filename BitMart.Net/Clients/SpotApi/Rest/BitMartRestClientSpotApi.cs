@@ -26,7 +26,9 @@ namespace BitMart.Net.Clients.SpotApi
     internal partial class BitMartRestClientSpotApi : RestApiClient<BitMartEnvironment, BitMartAuthenticationProvider, BitMartCredentials>, IBitMartRestClientSpotApi
     {
         #region fields 
-        
+
+        private readonly BitMartRestClientSpotSharedApi _sharedApi;
+
         public new BitMartRestOptions ClientOptions => (BitMartRestOptions)base.ClientOptions;
 
         protected override ErrorMapping ErrorMapping => BitMartErrors.SpotRestErrors;
@@ -58,6 +60,8 @@ namespace BitMart.Net.Clients.SpotApi
             Margin = new BitMartRestClientSpotApiMargin(this);
             SubAccount = new BitMartRestClientSpotApiSubAccount(this);
             Trading = new BitMartRestClientSpotApiTrading(_logger, this);
+
+            _sharedApi = new BitMartRestClientSpotSharedApi(this);
         }
         #endregion
 
@@ -115,6 +119,8 @@ namespace BitMart.Net.Clients.SpotApi
                 => BitMartExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverTime);
 
         /// <inheritdoc />
-        public IBitMartRestClientSpotApiShared SharedClient => this;
+        public IBitMartRestClientSpotApiShared SharedClient => _sharedApi;
+        /// <inheritdoc />
+        public IBitMartRestClientSpotSharedApi SharedApi => _sharedApi;
     }
 }

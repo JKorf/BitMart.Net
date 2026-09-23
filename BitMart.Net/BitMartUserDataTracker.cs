@@ -19,11 +19,15 @@ namespace BitMart.Net
             string? userIdentifier,
             SpotUserDataTrackerConfig? config) : base(
                 logger,
-                restClient.SpotApi.SharedClient,
-                restClient.SpotApi.SharedClient,
-                socketClient.SpotApi.SharedClient,
-                restClient.SpotApi.SharedClient,
-                socketClient.SpotApi.SharedClient,
+                restClient.SpotApi.SharedApi,
+                restClient.SpotApi.SharedApi,
+                socketClient.SpotApi.SharedApi,
+
+                restClient.SpotApi.SharedApi,
+                restClient.SpotApi.SharedApi,
+                socketClient.SpotApi.SharedApi,
+
+                restClient.SpotApi.SharedApi,
                 null,
                 userIdentifier,
                 config ?? new SpotUserDataTrackerConfig())
@@ -46,13 +50,19 @@ namespace BitMart.Net
             IBitMartSocketClient socketClient,
             string? userIdentifier,
             FuturesUserDataTrackerConfig? config) : base(logger,
-                restClient.UsdFuturesApi.SharedClient,
-                restClient.UsdFuturesApi.SharedClient,
-                socketClient.UsdFuturesApi.SharedClient,
-                restClient.UsdFuturesApi.SharedClient,
-                socketClient.UsdFuturesApi.SharedClient,
+                restClient.UsdFuturesApi.SharedApi,
+                restClient.UsdFuturesApi.SharedApi,
+                socketClient.UsdFuturesApi.SharedApi,
+
+                restClient.UsdFuturesApi.SharedApi,
+                restClient.UsdFuturesApi.SharedApi,
+                socketClient.UsdFuturesApi.SharedApi,
+
+                restClient.UsdFuturesApi.SharedApi,
                 null,
-                socketClient.UsdFuturesApi.SharedClient,
+
+                restClient.UsdFuturesApi.SharedApi,
+                null,
                 userIdentifier,
                 config ?? new FuturesUserDataTrackerConfig())
         {

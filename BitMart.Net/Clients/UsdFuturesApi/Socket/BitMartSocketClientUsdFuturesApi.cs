@@ -33,6 +33,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
     /// </summary>
     internal partial class BitMartSocketClientUsdFuturesApi : SocketApiClient<BitMartEnvironment, BitMartAuthenticationProvider, BitMartCredentials>, IBitMartSocketClientUsdFuturesApi
     {
+        private readonly BitMartSocketClientUsdFuturesSharedApi _sharedApi;
+
         #region constructor/destructor
 
         /// <summary>
@@ -44,6 +46,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
             KeepAliveInterval = TimeSpan.Zero;
 
             MessageSendSizeLimit = 2048;
+
+            _sharedApi = new BitMartSocketClientUsdFuturesSharedApi(this);
 
             RegisterPeriodicQuery(
                 "ping",
@@ -64,7 +68,8 @@ namespace BitMart.Net.Clients.UsdFuturesApi
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(BitMartExchange._serializerContext));
         public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new BitMartSocketUsdFuturesMessageConverter();
 
-        public IBitMartSocketClientUsdFuturesApiShared SharedClient => this;
+        public IBitMartSocketClientUsdFuturesApiShared SharedClient => _sharedApi;
+        public IBitMartSocketClientUsdFuturesSharedApi SharedApi => _sharedApi;
 
         /// <inheritdoc />
         protected override BitMartAuthenticationProvider CreateAuthenticationProvider(BitMartCredentials credentials)
