@@ -37,7 +37,32 @@ namespace BitMart.Net.Clients.UsdFuturesApi
 
             SetCapabilities(
                 GetTickerOptions,
-                GetAllTickersOptions
+                GetAllTickersOptions,
+                GetOrderBookOptions,
+                GetBalancesOptions,
+                GetBookTickerOptions,
+                GetFeeOptions,
+                GetFuturesSymbolsOptions,
+                GetKlinesOptions,
+                GetLeverageOptions,
+                SetLeverageOptions,
+                GetOpenInterestOptions,
+                GetPositionModeOptions,
+                SetPositionModeOptions,
+                GetRecentTradesOptions,
+                PlaceFuturesOrderOptions,
+                GetFuturesOrderOptions,
+                GetOpenFuturesOrdersOptions,
+                GetClosedFuturesOrdersOptions,
+                GetFuturesOrderTradesOptions,
+                GetFuturesUserTradeHistoryOptions,
+                CancelFuturesOrderOptions,
+                GetPositionsOptions,
+                GetFuturesOrderByClientOrderIdOptions,
+                CancelFuturesOrderByClientOrderIdOptions,
+                PlaceFuturesTriggerOrderOptions,
+                GetFuturesTriggerOrderOptions,
+                CancelFuturesTriggerOrderOptions
                 );
         }
     }
